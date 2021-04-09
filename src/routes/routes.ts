@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import helloWorld from '../domain/Test'
+import helloWorld from '../models/Test'
 
 const routes = Router()
 
