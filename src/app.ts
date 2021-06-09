@@ -4,13 +4,13 @@ import routes from './routes/routes'
 import hello2 from './routes/routes2'
 
 class App {
-  public server;
+  public server
 
   constructor() {
     this.server = express()
 
     this.middlewares()
-    
+
     this.routes()
   }
 
@@ -19,7 +19,7 @@ class App {
   }
 
   routes() {
-    this.server.use([routes,hello2])
+    this.server.use([routes, hello2])
   }
 }
 
