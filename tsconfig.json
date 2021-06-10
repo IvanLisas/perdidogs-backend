@@ -7,6 +7,7 @@
     "display": "Node 14",
 
     "compilerOptions": {
+      "experimentalDecorators": true,
       "lib": ["es2020"],
       "module": "commonjs",
       "target": "es2020",
@@ -18,7 +19,8 @@
       "sourceMap": true,
       "moduleResolution": "node", 
       "watch": true, //Este hace que cada vez que se guarda, ts transpile automaticamente a js
-      "composite": true
+      "composite": true,
+      "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
     },
 
     "include": ["src/**/*"],
