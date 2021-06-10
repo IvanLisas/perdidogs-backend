@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -14,7 +14,7 @@ export class Comment {
   @Column()
   text!: string;
 
-  @Column()
+  @CreateDateColumn()
   creation!: Date;
 
 }

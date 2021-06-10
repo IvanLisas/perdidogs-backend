@@ -41,7 +41,7 @@ export class User {
     @CreateDateColumn()
   creationDate!: Date
 
-    validar() {
+    validate() {
         if (!this.name || !this.surname || !this.email || !this.password || !this.birthdate) {
             throw "Usuario inválido"
         }
