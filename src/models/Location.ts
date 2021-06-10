@@ -1,12 +1,20 @@
-import { Entity, PrimaryGeneratedColumn } from "typeorm";
+import {  Column, Entity, PrimaryGeneratedColumn, CreateDateColumn}from "typeorm";
 
-@Entity()
-export class Location {
+@Entity() export class Location {
 
-  @PrimaryGeneratedColumn()
-  locationId!: number;
+  constructor(init?: Partial<Location > ) {
+    Object.assign(this, init)
+  }
 
+  @PrimaryGeneratedColumn() locationId!: number;
 
+  @Column() x!: string;
 
+  @Column() y!: string;
 
+  @CreateDateColumn() creationDate!: Date;
+
+  static fromJson(LocationJson: string) {
+    return Object.assign(new Location(), LocationJson)
+  }
 }
