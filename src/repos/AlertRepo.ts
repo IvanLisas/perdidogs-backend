@@ -1,10 +1,10 @@
 import { EntityRepository, Repository } from 'typeorm'
-import { Post } from '../models/Post'
+import { Alert } from '../models/Alert'
 
-@EntityRepository(Post)
-export class RepoPost extends Repository<Post> {
+@EntityRepository(Alert)
+export class RepoAlert extends Repository<Alert> {
 
-  async allPosts() {
+  async allAlerts() {
     try {
       return await this.find()
     } catch (e) {
@@ -16,7 +16,7 @@ export class RepoPost extends Repository<Post> {
     return await this.findOneOrFail(id)
   }
 
-  async anyPosts() {
+  async anyAlerts() {
     try {
       return (await this.count()) == 0
     } catch (e) {
@@ -24,12 +24,12 @@ export class RepoPost extends Repository<Post> {
     }
   }
 
-  async savePost(post: Post) {
+  async saveAlert(alert: Alert) {
     try {
-      await this.save(post)
+      await this.save(alert)
     } catch (e) {
       console.log(e)
     }
   }
-  
+
 }

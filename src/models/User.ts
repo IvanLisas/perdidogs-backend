@@ -1,53 +1,53 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
-import { Rol } from "./Rol"
-import { Alert } from "./Alert"
-import { Post } from "./Post"
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Rol } from './Rol'
+import { Alert } from './Alert'
+import { Post } from './Post'
 
 @Entity()
 export class User {
+  constructor(init?: Partial<User>) {
+    Object.assign(this, init)
+  }
 
-    constructor(init?: Partial<User>) {
-        Object.assign(this, init)
-    }
-
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   userId!: number
 
-    @Column()
+  @Column()
   name!: string
 
-    @Column()
+  @Column()
   surname!: string
 
-    @Column()
+  @Column()
   email!: string
 
-    @Column()
+  @Column()
   birthdate!: Date
 
-    @Column({ default: 'Active' })
-  status!: string
+  @Column({ default: true })
+  isActive!: Boolean
 
-    @Column()
+  @Column()
   password!: string
 
-    @Column()
+  @Column()
   rol!: Rol
 
-    alerts = [Alert]
+  alerts = [Alert]
 
-    posts = [Post]
+  posts = [Post]
 
-    @CreateDateColumn()
+  @CreateDateColumn()
   creationDate!: Date
 
-    validate() {
-        if (!this.name || !this.surname || !this.email || !this.password || !this.birthdate) {
-            throw "Usuario inválido"
-        }
+  validate() {
+    if (!this.name || !this.surname || !this.email || !this.password || !this.birthdate) {
+      throw 'Usuario inválido'
     }
+  }
 
-    static fromJson(UserJson: string) {
-        return Object.assign(new User(), UserJson)
-    }
+  static fromJson(UserJson: string) {
+    return Object.assign(new User(), UserJson)
+  }
+  
 }

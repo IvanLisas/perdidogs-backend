@@ -1,5 +1,4 @@
 import express from 'express'
-
 import routes from './routes/routes'
 import hello2 from './routes/routes2'
 

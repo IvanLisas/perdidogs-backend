@@ -1,18 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
- 
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Color {
+  constructor(init?: Partial<Color>) {
+    Object.assign(this, init)
+  }
 
-    constructor(init?: Partial<Color>) {
-        Object.assign(this, init)
-    }
+  @PrimaryGeneratedColumn()
+  furColorId!: number
 
-    @PrimaryGeneratedColumn()
-    furColorId!: number;
-  
-      @Column()
-    description!: string;
-
-
+  @Column()
+  description!: string
 }

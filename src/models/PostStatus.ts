@@ -1,8 +1,4 @@
-import {
-  Column, Entity, PrimaryGeneratedColumn
-}
-from "typeorm";
-
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity() export class PostStatus {
 
@@ -15,7 +11,6 @@ from "typeorm";
   @Column() description!: string;
 
   @Column() creation!: Date;
-
 
   @Column() EndDate!: Date;
 

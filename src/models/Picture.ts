@@ -1,19 +1,16 @@
-import {
-  Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn
-}
-from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
-@Entity() export class Picture {
-
-  constructor(init?: Partial<Picture > ) {
+@Entity()
+export class Picture {
+  constructor(init?: Partial<Picture>) {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() pictureId!: number;
+  @PrimaryGeneratedColumn() pictureId!: number
 
-  @Column() url!: string;
+  @Column() url!: string
 
-  @CreateDateColumn() creationDate!: Date;
+  @CreateDateColumn() creationDate!: Date
 
   static fromJson(PictureJson: string) {
     return Object.assign(new Picture(), PictureJson)

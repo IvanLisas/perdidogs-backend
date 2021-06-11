@@ -14,6 +14,4 @@ export class Size {
   @Column()
   description!: string;
 
-   
-
 }

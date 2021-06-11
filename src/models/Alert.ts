@@ -1,35 +1,37 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
-import { Pet } from "./Pet"
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Pet } from './Pet'
 
 @Entity()
 export class Alert {
+  constructor(init?: Partial<Alert>) {
+    Object.assign(this, init)
+  }
 
-    constructor(init?: Partial<Alert>) {
-        Object.assign(this, init)
-    }
-
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   alertId!: number
 
-    @Column()
+  @Column()
   pet!: Pet
 
-    @Column()
+  @Column()
   x1!: number
-    
-    @Column()
+
+  @Column()
   x2!: number
-    
-    @Column()
+
+  @Column()
   y1!: number
-    
-    @Column()
+
+  @Column()
   y2!: number
 
-    @CreateDateColumn()
+  @Column({ default: true })
+  isActive!: Boolean
+
+  @CreateDateColumn()
   creationDate!: Date
 
-    static fromJson(AlertJson: string) {
-        return Object.assign(new Alert(), AlertJson)
-    }
+  static fromJson(AlertJson: string) {
+    return Object.assign(new Alert(), AlertJson)
+  }
 }

@@ -1,19 +1,18 @@
-import { Column, Entity,  PrimaryGeneratedColumn, } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class UserStatus {
+  constructor(init?: Partial<UserStatus>) {
+    Object.assign(this, init)
+  }
 
-    constructor(init?: Partial<UserStatus>) {
-        Object.assign(this, init)
-    }
+  @PrimaryGeneratedColumn()
+  userStatusId!: number
 
-    @PrimaryGeneratedColumn()
-  userStatusId!: number;
+  @Column()
+  description!: string
 
-    @Column()
-  description!: string;
-
-    static fromJson(UserStatusJson: string) {
-        return Object.assign(new UserStatus(), UserStatusJson)
-}
+  static fromJson(UserStatusJson: string) {
+    return Object.assign(new UserStatus(), UserStatusJson)
+  }
 }
