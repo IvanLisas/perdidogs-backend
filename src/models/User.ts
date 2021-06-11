@@ -25,7 +25,7 @@ export class User {
   birthdate!: Date
 
   @Column({ default: true })
-  isActive!: Boolean
+  isActive!: boolean
 
   @Column()
   password!: string
@@ -46,7 +46,7 @@ export class User {
     }
   }
 
-  static fromJson(UserJson: string) {
+  static fromJson(UserJson: string):User {
     return Object.assign(new User(), UserJson)
   }
   

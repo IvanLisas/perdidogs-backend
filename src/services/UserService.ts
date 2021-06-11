@@ -5,10 +5,17 @@ import { User } from '../models/User'
 
 export class UserService {
     
-    userRepo = getRepository(UserRepo)  
+    userRepo = getRepository(User)  
 
-    async login(email: String, password: String) {
-        await this.userRepo.login(email, password)
+    async login(anEmail: string, aPassword: string) : Promise<User>{
+        try {
+            return await this.userRepo.findOneOrFail({ email: anEmail, password:aPassword })
+          } catch (error) {
+            throw 'Credenciales incorrectas'
+          }
     }
 
 }
+
+
+
