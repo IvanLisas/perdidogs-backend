@@ -15,6 +15,15 @@ export class UserService {
           }
     }
 
+    
+    async newUser(user:User) : Promise<User>{
+        try {
+            return await this.userRepo.save(user)
+          } catch (error) {
+            throw 'Error al generar el nuevo usuario'
+          }
+    }
+
 }
 
 
