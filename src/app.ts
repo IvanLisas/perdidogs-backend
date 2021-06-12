@@ -1,6 +1,7 @@
 import express from 'express'
 import routes from './routes/routes'
-import hello2 from './routes/routes2'
+import "reflect-metadata";
+import { createConnection } from "typeorm";
 
 class App {
   public server
@@ -11,14 +12,17 @@ class App {
     this.middlewares()
 
     this.routes()
+
+    createConnection();
   }
 
+  
   middlewares() {
     this.server.use(express.json())
   }
 
   routes() {
-    this.server.use([routes, hello2])
+    this.server.use([routes])
   }
 }
 

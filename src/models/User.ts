@@ -3,7 +3,7 @@ import { Rol } from './Rol'
 import { Alert } from './Alert'
 import { Post } from './Post'
 
-@Entity()
+@Entity("USER")
 export class User {
   constructor(init?: Partial<User>) {
     Object.assign(this, init)
@@ -12,16 +12,16 @@ export class User {
   @PrimaryGeneratedColumn()
   userId!: number
 
-  @Column()
+  @Column("first_name")
   name!: string
 
-  @Column()
+  @Column("last_name")
   surname!: string
 
-  @Column()
+  @Column("email")
   email!: string
 
-  @Column()
+  @Column("birthdate")
   birthdate!: Date
 
   @Column({ default: true })

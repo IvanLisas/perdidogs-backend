@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import helloWorld from '../models/Test'
+//import {holaMundo} from '../controllers/TestController'
 
 const routes = Router()
 
 routes.get('/', (req, res) => {
-  return res.json(helloWorld())
+  return res.json()
 })
+routes.get('/hola', ()=>{
+  return "hola"
+});
 
 export default routes
