@@ -15,22 +15,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "moduleResolution": "node", 
+    "moduleResolution": "node",
     "watch": true, //Este hace que cada vez que se guarda, ts transpile automaticamente a js
     "composite": true,
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   },
-<<<<<<< HEAD
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
-}
-=======
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
->>>>>>> 5a45046b0141fdddd7e3a32f18fa7619d18ea3dd
