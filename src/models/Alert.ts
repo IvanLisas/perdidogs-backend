@@ -25,13 +25,16 @@ export class Alert {
   @Column()
   y2!: number
 
-  @Column({ default: true })
-  isActive!: Boolean
 
   @CreateDateColumn()
   creationDate!: Date
 
-  static fromJson(AlertJson: string) {
+  static fromJson(AlertJson: string): Alert {
     return Object.assign(new Alert(), AlertJson)
   }
-}
+
+  validate() {
+    if (!this.x1 || !this.x2 || !this.y1 || !this.y2) {
+      throw 'Coordenadas inválidas'
+    }
+  }}

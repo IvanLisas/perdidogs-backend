@@ -1,6 +1,5 @@
 import express from 'express'
-import routes from './routes/routes'
-import "reflect-metadata";
+import chatRoutes from './routes/chat.routes'
 import { createConnection } from "typeorm";
 
 class App {
@@ -22,7 +21,7 @@ class App {
   }
 
   routes() {
-    this.server.use([routes])
+    this.server.use([chatRoutes])
   }
 }
 

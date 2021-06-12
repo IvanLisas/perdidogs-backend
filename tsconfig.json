@@ -5,9 +5,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Node 14",
   "compilerOptions": {
-    "lib": [
-      "es2020"
-    ],
+    "experimentalDecorators": true,
+    "lib": ["es2020"],
     "module": "commonjs",
     "target": "es2020",
     "outDir": "dist",
@@ -16,13 +15,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node", 
     "watch": true, //Este hace que cada vez que se guarda, ts transpile automaticamente a js
     "composite": true,
-    /* Experimental Options */
-    "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   },
+<<<<<<< HEAD
   "include": [
     "src/**/*"
   ],
@@ -31,3 +29,8 @@
     "**/*.spec.ts"
   ]
 }
+=======
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
+>>>>>>> 5a45046b0141fdddd7e3a32f18fa7619d18ea3dd
