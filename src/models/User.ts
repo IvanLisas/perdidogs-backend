@@ -46,7 +46,7 @@ export class User {
     }
   }
 
-  static fromJson(UserJson: string):User {
+  static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
   }
   
