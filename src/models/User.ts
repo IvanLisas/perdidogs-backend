@@ -33,10 +33,6 @@ export class User {
   @Column()
   rol!: Rol
 
-  alerts = [Alert]
-
-  posts = [Post]
-
   @CreateDateColumn()
   creationDate!: Date
 

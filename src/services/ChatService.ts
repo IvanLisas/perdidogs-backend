@@ -2,9 +2,9 @@ import chatRepo from '../repos/ChatRepo'
 import { Chat } from '../models/Chat'
 
 export class ChatService {
-  async getAllChats(): Promise<Chat[]> {
+  async getAllChats(id: number): Promise<Chat[] | undefined> {
     try {
-      return await chatRepo.find()
+      return await chatRepo.find({ user1: { userId: id } })
     } catch (error) {
       throw 'Error al recuperar el mensaje'
     }
@@ -18,3 +18,7 @@ export class ChatService {
     }
   }
 }
+
+const chatService = new ChatService()
+
+export default chatService

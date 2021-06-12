@@ -20,7 +20,7 @@ export class UserService {
 
   async saveUser(user: User): Promise<User> {
     try {
-      return await userRepo.findOneOrFail(user)
+      return await userRepo.save(user)
     } catch (error) {
       throw 'Credenciales incorrectas'
     }

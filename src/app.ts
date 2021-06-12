@@ -1,6 +1,5 @@
 import express from 'express'
-import routes from './routes/routes'
-import hello2 from './routes/routes2'
+import chatRoutes from './routes/chat.routes'
 
 class App {
   public server
@@ -18,7 +17,7 @@ class App {
   }
 
   routes() {
-    this.server.use([routes, hello2])
+    this.server.use([chatRoutes])
   }
 }
 
