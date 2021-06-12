@@ -4,6 +4,7 @@ import { PostStatus } from './PostStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
+import { User } from './User'
 
 @Entity()
 export class Post {
@@ -16,6 +17,8 @@ export class Post {
   @Column() description!: string
 
   @CreateDateColumn() creationDate!: Date
+
+  @Column() ownePost!: User
 
   @Column() endDate!: Date
 
@@ -30,16 +33,7 @@ export class Post {
   @ManyToOne((type) => Pet) @JoinColumn({ name: 'pet_id' }) pet!: Pet
 
   validate() {
-    if (
-      !this.description ||
-      !this.status ||
-      !this.picture ||
-      !this.creationDate ||
-      !this.endDate ||
-      !this.location ||
-      !this.pet ||
-      !this.comment
-    ) {
+    if (!this.description || !this.status || !this.picture || !this.creationDate || !this.endDate || !this.location || !this.pet || !this.comment) {
       throw 'Publicacion inválida'
     }
   }

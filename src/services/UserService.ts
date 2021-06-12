@@ -21,18 +21,26 @@ export class UserService {
 
   async deleteUser(user: User): Promise<User> {
     try {
-        user.isActive=false
-        return await userRepo.save(user)
+      user.isActive = false
+      return await userRepo.save(user)
     } catch (error) {
-        throw 'Credenciales incorrectas'
+      throw 'Credenciales incorrectas'
     }
   }
 
   async updateUser(user: User): Promise<User> {
     try {
-        return await userRepo.save(user)
+      return await userRepo.save(user)
     } catch (error) {
-        throw 'Credenciales incorrectas'
+      throw 'Credenciales incorrectas'
+    }
+  }
+
+  async getUserById(id_user: number): Promise<User> {
+    try {
+      return await userRepo.findOneOrFail(id_user)
+    } catch (error) {
+      throw 'Usuario no encontrado'
     }
   }
 }

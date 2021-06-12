@@ -33,10 +33,6 @@ export class User {
   @Column()
   rol!: Rol
 
-  alerts = [Alert]
-
-  posts = [Post]
-
   @CreateDateColumn()
   creationDate!: Date
 
@@ -46,8 +42,7 @@ export class User {
     }
   }
 
-  static fromJson(UserJson: string):User {
+  static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
   }
-  
 }
