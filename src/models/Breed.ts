@@ -7,7 +7,7 @@ export class Breed {
   }
 
   @PrimaryGeneratedColumn()
-  breedId!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   description!: string

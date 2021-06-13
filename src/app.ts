@@ -1,7 +1,17 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
 import { Alert } from './models/Alert'
+import { Breed } from './models/Breed'
+import { Fur } from './models/Fur'
+import { Color } from './models/FurColor'
+import { Length } from './models/Length'
+import { Location } from './models/Location'
+import { Pet } from './models/Pet'
+import { Picture } from './models/Picture'
+import { Post } from './models/Post'
+import { PostStatus } from './models/PostStatus'
 import { Rol } from './models/Rol'
+import { Size } from './models/Size'
 import { User } from './models/User'
 import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
@@ -34,7 +44,7 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User, Alert, Rol,UserStatus],
+        entities: [User, Alert, Rol,UserStatus,Fur, Color, Length, Pet,Size,Breed, PostStatus, Picture, Post,Location],
         synchronize: true,
         logging: false
       })

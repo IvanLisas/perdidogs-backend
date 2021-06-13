@@ -4,7 +4,7 @@ import { Chat } from '../models/Chat'
 export class ChatService {
   async getAllChats(id: number): Promise<Chat[] | undefined> {
     try {
-      return await chatRepo.find({ user1: { userId: id } })
+      return await chatRepo.find({ user1: { Id: id } })
     } catch (error) {
       throw 'Error al recuperar el mensaje'
     }
