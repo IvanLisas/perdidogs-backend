@@ -18,7 +18,7 @@ export class Post {
 
   @CreateDateColumn() creationDate!: Date
 
-  @Column() ownePost!: User
+  @Column() ownerPost!: User
 
   @Column() endDate!: Date
 
