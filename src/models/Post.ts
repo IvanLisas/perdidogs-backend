@@ -22,6 +22,8 @@ export class Post {
 
   @Column() ownerPost!: User
 
+  @Column() isActive!: boolean
+
   @Column() endDate!: Date
 
   @Column() breed!: Breed
