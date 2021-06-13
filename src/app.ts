@@ -18,13 +18,9 @@ class Server {
 
   /* If we didn't configure the port into the environment
   variables it takes the default port 3000 */
-  public configuration() {
+  public async configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
-  }
-
-  //Method to configure the routes
-  public async routes() {
     try {
       await createConnection({
         type: 'mysql',
@@ -37,6 +33,7 @@ class Server {
         synchronize: true,
         logging: false
       })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then((connection) => {
           // here you can start to work with your entities
         })
@@ -44,12 +41,17 @@ class Server {
     } catch (error) {
       console.log(error.message)
     }
+  }
+
+  //Method to configure the routes
+  public routes() {
     this.app.use(function (req, res, next) {
       res.header('Access-Control-Allow-Origin', '*')
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE') // allow these verbs
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
       res.header('Access-Control-Allow-Headers', '*')
       next()
     })
+    //Routes
     this.app.use('/user', userRoutes)
     this.app.use('/chat', chatRoutes)
     this.app.get('/', (req: Request, res: Response) => {
