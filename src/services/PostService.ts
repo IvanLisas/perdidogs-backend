@@ -4,7 +4,7 @@ import postRepo from '../repos/PostRepo'
 import userService  from './UserService'
 
 @Entity()
-export class PostService {
+class PostService {
   async getAllPosts(idPost: number): Promise<Post[] | undefined> {
     try {
       return await postRepo.find({ postId: idPost })
@@ -15,7 +15,7 @@ export class PostService {
   async getMyPost(userId: number): Promise<Post[] | undefined> {
     try {
       const user= userService.getUser(userId)
-      return await postRepo.find({ owner:user })
+      return await postRepo.find({ owner: user })
     } catch (e) {
       console.log(e)
     }

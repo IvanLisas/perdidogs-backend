@@ -1,7 +1,7 @@
 import userRepo from '../repos/UserRepo'
 import { User } from '../models/User'
 
-export class UserService {
+ class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       return await userRepo.findOneOrFail({ email: anEmail, password: aPassword })
@@ -20,9 +20,25 @@ export class UserService {
 
   async saveUser(user: User): Promise<User> {
     try {
-      return await userRepo.save(user)
+      if (!user.name || !user.surname || !user.email || !user.password || !user.birthdate) throw 'Usuario inválido'
+      else return await userRepo.save(user)
+    } catch (error) {
+      throw 'Credenciales incorrectas'
+    }
+  }
+
+  async deleteUser(user: User): Promise<User> {
+    try {
+      user.isActive = false
+      if (!userRepo.find(user)) throw 'Usuario inválido'
+      else return await userRepo.save(user)
     } catch (error) {
       throw 'Credenciales incorrectas'
     }
   }
 }
+
+const userService = new UserService()
+
+export default userService
+

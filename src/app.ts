@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
-
-//ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234'
+import chatRoutes from './routes/chat.routes'
 //Tirar este query del ojete en el sql
+//ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234'
 class Server {
   private app: express.Application
 
@@ -12,30 +12,23 @@ class Server {
     this.routes()
   }
 
-  /**
-   * Method to configure the server,
-   * If we didn't configure the port into the environment
-   * variables it takes the default port 3000
-   */
+  /* If we didn't configure the port into the environment
+  variables it takes the default port 3000 */
   public configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
   }
 
-  /**
-   * Method to configure the routes
-   */
+  //Method to configure the routes
   public async routes() {
     await createConnection()
-
+    this.app.use('/chat', chatRoutes)
     this.app.get('/', (req: Request, res: Response) => {
-      res.send('Hello world!')
+      res.send('Aplicacion Perdidogs')
     })
   }
 
-  /**
-   * Used to start the server
-   */
+  //Used to start the server
   public start() {
     this.app.listen(this.app.get('port'), () => {
       console.log(`Server is listening ${this.app.get('port')} port.`)
