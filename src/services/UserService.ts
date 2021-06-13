@@ -1,6 +1,6 @@
-import userRepo from '../repos/UserRepo'
+import userRepo, { UserRepo } from '../repos/UserRepo'
 import { User } from '../models/User'
-import { getRepository } from 'typeorm'
+import { getCustomRepository, getRepository } from 'typeorm'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
@@ -20,12 +20,8 @@ class UserService {
   }
 
   async saveUser(user: User): Promise<User> {
-    try {
-      if (!user.name || !user.surname || !user.email || !user.password || !user.birthdate) throw 'Usuario inválido'
-      return await getRepository(User).save(user)
-    } catch (error) {
-      throw error.message
-    }
+    /*   if (!user.name || !user.surname || !user.email || !user.password || !user.birthdate) throw 'Usuario inválido' */
+    return await getRepository(User).save(user)
   }
 
   async deleteUser(user: User): Promise<User> {

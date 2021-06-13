@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
+import { User } from './models/User'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
 //Tirar este query del ojete en el sql
@@ -22,7 +23,25 @@ class Server {
 
   //Method to configure the routes
   public async routes() {
-    await createConnection()
+    try {
+      await createConnection({
+        type: 'mysql',
+        host: 'localhost',
+        port: 3306,
+        username: 'root',
+        password: '1234',
+        database: 'perdidogs',
+        entities: [User],
+        synchronize: true,
+        logging: false
+      })
+        .then((connection) => {
+          // here you can start to work with your entities
+        })
+        .catch((error) => console.log(error))
+    } catch (error) {
+      console.log(error.message)
+    }
     this.app.use('/user', userRoutes)
     this.app.use('/chat', chatRoutes)
     this.app.get('/', (req: Request, res: Response) => {

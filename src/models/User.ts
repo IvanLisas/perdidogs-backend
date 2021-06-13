@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Rol } from './Rol'
 
-@Entity('USER')
+@Entity()
 export class User {
   constructor(init?: Partial<User>) {
     Object.assign(this, init)
@@ -28,8 +28,8 @@ export class User {
   @Column()
   password!: string
 
-  @Column()
-  rol!: Rol
+  /*   @Column()
+  rol!: Rol */
 
   @CreateDateColumn()
   creationDate!: Date
