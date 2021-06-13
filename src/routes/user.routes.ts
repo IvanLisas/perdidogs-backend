@@ -1,33 +1,41 @@
 import { Router } from 'express'
 import userService from '../services/UserService'
-import { User } from '../models/User'
-import { getRepository } from 'typeorm'
 
 const userRoutes = Router()
-userRoutes.get('/getUser/:userId', (req, res) => {
+
+userRoutes.put('/login', async (req, res) => {
+  try {
+    res.json(await userService.login(req.body.email, req.body.password))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+userRoutes.get('/:userId', async (req, res) => {
   const id = parseInt(req.params.userId)
-  return res.json(userService.getUser(id))
+  try {
+    res.json(await userService.get(id))
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 userRoutes.post('/', async (req, res) => {
   try {
-    const user = await getRepository(User).save(req.body)
+    return res.json(await userService.save(req.body))
   } catch (error) {
-    console.log('pepe')
+    res.send(error.message)
   }
-  /* return res.json(user) */
-  return res.json(await userService.saveUser(req.body))
-  res.json(getRepository(User).save(req.body))
 })
 
-userRoutes.delete('/deleteUser', (req, res) => {
-  return res.json(userService.saveUser(req.body))
-})
-
-//Cosa de prueba-- Borrar desp
-userRoutes.get('/', (req, res) => {
-  const user = new User({ userId: 1, firstName: 'USUARIO1' })
-  return res.json(user)
+userRoutes.delete('/:userId', async (req, res) => {
+  try {
+    const id = parseInt(req.params.userId)
+    const user = await userService.get(id)
+    return res.json(userService.delete(user))
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 export default userRoutes
