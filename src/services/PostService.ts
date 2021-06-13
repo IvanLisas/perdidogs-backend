@@ -1,43 +1,54 @@
 import { Entity, getRepository } from 'typeorm'
-import { Post } from "../models/Post";
- 
-import postRepo from "../repos/PostRepo";
+import { Post } from '../models/Post'
+import postRepo from '../repos/PostRepo'
+
 
 @Entity()
 export class PostService {
-
-   async allPost(): Promise<Post[]> {
+ 
+  async getAllPosts( idPost: number): Promise<Post[] | undefined> {
     try {
+      return await postRepo.find({ postId: idPost })
 
-        
-        return await postRepo.find()
     } catch (e) {
-        console.log(e)
+      console.log(e)
     }
-}
+  }
 
-  async getPost(id_post: number):Promise<Post> {
-
+  async getAPostById(idPost: number): Promise<Post> {
     try {
-      return await postRepo.findOneOrFail({postId:id_post})
+      return await postRepo.findOneOrFail({postId: idPost})
     } catch (error) {
       throw 'No se encontró la publicación'
     }
   }
-
-
-  
-  async savePost(id_post: number):Promise<Post> {
-
+  //function (location,r)
+  //x > location.x -r && x < location.x + r
+  //y > location.y - r && y <location.y +r
+  async createPost(post: Post): Promise<Post> {
     try {
-      return await postRepo.save({postId:id_post})
+      
+      return await postRepo.save(post)
     } catch (error) {
-      throw 'No se encontró la publicación'
+      throw 'No se pudo crear la publicacion '
     }
   }
+  async deletePost(post: Post): Promise<Post> {
+    try {
 
-
-
+      return await postRepo.save(post)
+    } catch (error) {
+      throw 'No se pudo borrar la publicacion '
+    }
+  }
+  async updatePost(post: Post): Promise<Post> {
+    try {
+      return await postRepo.save(post)
+    } catch (error) {
+      throw 'No se pudo actualizar la publicacion '
+    }
+  }
 }
+const postService = new PostService()
 
-
+export default postService

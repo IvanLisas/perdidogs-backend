@@ -1,25 +1,29 @@
 {
-  //Configuracion recomendada instalada dentro de node_modules
-  //Es la misma escrita aca, por lo que no hace falta tenerlo
-  /* "extends": "@tsconfig/recommended/tsconfig.json", */
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node 14",
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "lib": ["es2020"],
-    "module": "commonjs",
-    "target": "es2020",
-    "outDir": "dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "watch": true, //Este hace que cada vez que se guarda, ts transpile automaticamente a js
-    "composite": true,
-    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
-}
+    //Configuracion recomendada instalada dentro de node_modules
+    //Es la misma escrita aca, por lo que no hace falta tenerlo
+    /* "extends": "@tsconfig/recommended/tsconfig.json", */
+
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node 14",
+
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "lib": ["es2020"],
+      "module": "commonjs",
+      "target": "es2020",
+      "outDir": "dist",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "sourceMap": true,
+      "moduleResolution": "node", 
+      "watch": true, //Este hace que cada vez que se guarda, ts transpile automaticamente a js
+      "composite": true,
+      "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
+    },
+
+    "include": ["src/**/*"],
+
+    "exclude": ["node_modules", "**/*.spec.ts"]
+  }

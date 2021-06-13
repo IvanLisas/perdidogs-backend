@@ -1,7 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { Rol } from './Rol'
-import { Alert } from './Alert'
-import { Post } from './Post'
 
 @Entity("USER")
 export class User {
@@ -36,14 +34,8 @@ export class User {
   @CreateDateColumn()
   creationDate!: Date
 
-  validate() {
-    if (!this.name || !this.surname || !this.email || !this.password || !this.birthdate) {
-      throw 'Usuario inválido'
-    }
-  }
 
   static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
   }
-  
 }
