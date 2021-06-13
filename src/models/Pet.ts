@@ -9,9 +9,9 @@ export class Pet {
   }
 
   @PrimaryGeneratedColumn() petId!: number
-  @Column() name!: string
-  @Column() sex!: string
-  @Column() hasCollar!: boolean
+  @Column({ type: 'varchar'}) name!: string
+  @Column({ type: 'char'}) sex!: string
+  @Column({ type: 'boolean'}) hasCollar!: boolean
 
   @ManyToOne((type) => Fur) @JoinColumn({ name: 'fur_id' }) fur!: Fur
 

@@ -13,6 +13,7 @@ class UserService {
 
   async getUser(id: number): Promise<User> {
     try {
+      console.log(userRepo.findOneOrFail({ userId: id }))
       return await userRepo.findOneOrFail({ userId: id })
     } catch (error) {
       throw 'No existe el usuario'

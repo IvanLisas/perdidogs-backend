@@ -8,7 +8,7 @@ export class Picture {
 
   @PrimaryGeneratedColumn() pictureId!: number
 
-  @Column() url!: string
+  @Column({ type: 'varchar'}) url!: string
 
   @CreateDateColumn() creationDate!: Date
 

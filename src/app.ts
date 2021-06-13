@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
+import { Alert } from './models/Alert'
+import { Rol } from './models/Rol'
 import { User } from './models/User'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
@@ -31,7 +33,7 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User],
+        entities: [User, Alert, Rol],
         synchronize: true,
         logging: false
       })

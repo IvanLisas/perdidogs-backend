@@ -26,7 +26,7 @@ userRoutes.delete('/deleteUser', (req, res) => {
 
 //Cosa de prueba-- Borrar desp
 userRoutes.get('/', (req, res) => {
-  const user = new User({ userId: 1, name: 'USUARIO1' })
+  const user = new User({ userId: 1, firstName: 'USUARIO1' })
   return res.json(user)
 })
 

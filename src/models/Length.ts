@@ -8,5 +8,5 @@ export class Length {
 
   @PrimaryGeneratedColumn() lengthColorId!: number
 
-  @Column() description!: string
+  @Column({ type: 'varchar'}) description!: string
 }

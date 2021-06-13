@@ -8,9 +8,9 @@ export class Location {
 
   @PrimaryGeneratedColumn() locationId!: number
 
-  @Column() x!: string
+  @Column({ type: 'varchar'}) x!: string
 
-  @Column() y!: string
+  @Column({ type: 'varchar'}) y!: string
 
   @CreateDateColumn() creationDate!: Date
 

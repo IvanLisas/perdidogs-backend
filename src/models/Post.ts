@@ -16,13 +16,13 @@ export class Post {
 
   @PrimaryGeneratedColumn() postId!: number
 
-  @Column() description!: string
+  @Column({ type: 'varchar'}) description!: string
 
   @CreateDateColumn() creationDate!: Date
 
-  @Column() ownerPost!: User
+  @Column() owner!: User
 
-  @Column() endDate!: Date
+  @CreateDateColumn() endDate!: Date
 
   @Column() breed!: Breed
 

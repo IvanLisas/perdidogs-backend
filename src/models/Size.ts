@@ -11,7 +11,7 @@ export class Size {
   @PrimaryGeneratedColumn()
   sizeId!: number;
 
-  @Column()
+  @Column({ type: 'varchar'})
   description!: string;
 
 }

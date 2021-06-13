@@ -9,7 +9,7 @@ export class Comment {
   @PrimaryGeneratedColumn()
   commentId!: number
 
-  @Column()
+  @Column({ type: 'varchar'})
   text!: string
 
   @CreateDateColumn()
