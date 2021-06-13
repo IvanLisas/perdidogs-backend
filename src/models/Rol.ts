@@ -7,9 +7,9 @@ export class Rol {
   }
 
   @PrimaryGeneratedColumn()
-  rolId!: number
+  Id!: number
 
-  @Column()
+  @Column({ type: 'varchar'})
   description!: string
 
   static fromJson(RolJson: string) {

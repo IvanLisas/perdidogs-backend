@@ -7,7 +7,7 @@ export class UserStatus {
   }
 
   @PrimaryGeneratedColumn()
-  userStatusId!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   description!: string
