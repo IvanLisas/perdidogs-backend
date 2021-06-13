@@ -1,7 +1,5 @@
 import { User } from '../models/User'
 import { getRepository } from 'typeorm'
-import { throws } from 'node:assert'
-
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
