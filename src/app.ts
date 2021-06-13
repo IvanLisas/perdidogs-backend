@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
 import chatRoutes from './routes/chat.routes'
+import userRoutes from './routes/user.routes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234'
 class Server {
@@ -22,6 +23,7 @@ class Server {
   //Method to configure the routes
   public async routes() {
     await createConnection()
+    this.app.use('/user', userRoutes)
     this.app.use('/chat', chatRoutes)
     this.app.get('/', (req: Request, res: Response) => {
       res.send('Aplicacion Perdidogs')

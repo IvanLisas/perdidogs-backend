@@ -1,8 +1,8 @@
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Breed } from './Breed'
 import { Fur } from './Fur'
 import { Size } from './Size'
-
+@Entity()
 export class Pet {
   constructor(init?: Partial<Pet>) {
     Object.assign(this, init)

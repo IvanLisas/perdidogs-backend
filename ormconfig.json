@@ -5,6 +5,7 @@
   "username": "root",
   "password": "1234",
   "database": "perdidogs",
-  "entities": ["dist/models/**/*.js"],
-  "syncronize": true
+  "entities": ["src/models/*.ts"],
+  "syncronize": true,
+  "dropSchema ": true
 }

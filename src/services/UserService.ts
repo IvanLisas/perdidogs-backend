@@ -1,7 +1,8 @@
 import userRepo from '../repos/UserRepo'
 import { User } from '../models/User'
+import { getRepository } from 'typeorm'
 
- class UserService {
+class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       return await userRepo.findOneOrFail({ email: anEmail, password: aPassword })
@@ -21,9 +22,9 @@ import { User } from '../models/User'
   async saveUser(user: User): Promise<User> {
     try {
       if (!user.name || !user.surname || !user.email || !user.password || !user.birthdate) throw 'Usuario inválido'
-      else return await userRepo.save(user)
+      return await getRepository(User).save(user)
     } catch (error) {
-      throw 'Credenciales incorrectas'
+      throw error.message
     }
   }
 
@@ -41,4 +42,3 @@ import { User } from '../models/User'
 const userService = new UserService()
 
 export default userService
-

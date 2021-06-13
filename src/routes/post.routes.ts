@@ -1,4 +1,3 @@
-import express = require('express')
 import { Router } from 'express'
 import chatService from '../services/ChatService'
 import postService, { PostService } from '../services/PostService'
