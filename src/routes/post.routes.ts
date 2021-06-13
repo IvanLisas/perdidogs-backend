@@ -14,8 +14,8 @@ module.exports = function (app: express.Application) {
   })
 
   postRoutes.get('/getAllPosts/:PostId', (req, res) => {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.getAllPosts(post))
+    const postId = parseInt(req.params.postId)
+    return res.json(postService.getAllPosts(postId))
   })
 
   postRoutes.post('/createPost', (req, res) => {
@@ -24,16 +24,22 @@ module.exports = function (app: express.Application) {
    
 
   postRoutes.get('/getAPost/:PostId', (req, res) => {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.getAPostById(req.body))
+    const postId = parseInt(req.params.postId)
+    return res.json(postService.getAPostById(postId))
   }) 
 
   postRoutes.get('/updateAPost/:PostId', (req, res) => {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.getAPostById(req.body))
+    const postId = parseInt(req.params.postId)
+    return res.json(postService.getAPostById(postId))
   }) 
+
+  postRoutes.get('/deletePost/:PostId', (req, res) => {
+    const postId = parseInt(req.params.postId)
+    return res.json(postService.getAPostById(postId))
+  }) 
+
 }
-}
+
 
 
 
