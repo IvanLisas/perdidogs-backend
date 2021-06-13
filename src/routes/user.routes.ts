@@ -2,6 +2,15 @@ import { Router } from 'express'
 import userService from '../services/UserService'
 
 const userRoutes = Router()
+
+userRoutes.put('/login', async (req, res) => {
+  try {
+    res.json(await userService.login(req.body.email, req.body.password))
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
+})
+
 userRoutes.get('/:userId', async (req, res) => {
   const id = parseInt(req.params.userId)
   try {

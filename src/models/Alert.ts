@@ -10,8 +10,8 @@ export class Alert {
   @PrimaryGeneratedColumn()
   alertId!: number
 
-  @Column()
-  pet!: Pet
+ /* @Column()
+  pet!: Pet*/
 
   @Column()
   x1!: number

@@ -8,19 +8,29 @@ export class Pet {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() petId!: number
-  @Column() name!: string
-  @Column() sex!: string
-  @Column() hasCollar!: boolean
+  @PrimaryGeneratedColumn() 
+  Id!: number
+  
+  @Column({ type: 'varchar'}) 
+  name!: string
+  
+  @Column({ type: 'varchar'}) 
+  sex!: string
+  
+  @Column({ type: 'boolean'}) 
+  hasCollar!: boolean
 
-  @ManyToOne((type) => Fur) @JoinColumn({ name: 'fur_id' }) fur!: Fur
+  @ManyToOne(()=>Fur, fur=>fur.Id) 
+  fur!: Fur
 
-  @ManyToOne((type) => Breed) @JoinColumn({ name: 'breed_id' }) breed!: Breed
+  @ManyToOne(()=>Breed, breed=>breed.Id)
+  breed!: Breed
 
-  @ManyToOne((type) => Size) @JoinColumn({ name: 'size_id' }) size!: Size
+  @ManyToOne(()=>Size, size=>size.Id) 
+  size!: Size
 
   validate() {
-    if (!this.petId || !this.name || !this.sex || !this.hasCollar) {
+    if (!this.Id || !this.name || !this.sex || !this.hasCollar) {
       throw 'Mascota inválida'
     }
   }

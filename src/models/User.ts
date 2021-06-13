@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 import { Rol } from './Rol'
+import { UserStatus } from './UserStatus'
 
 @Entity()
 export class User {
@@ -8,13 +9,13 @@ export class User {
   }
 
   @PrimaryGeneratedColumn()
-  userId!: number
+  Id!: number
+
+  @Column({ type: 'varchar'})
+  firstName!: string | null
 
   @Column({ type: 'varchar' })
-  name!: string | null
-
-  @Column({ type: 'varchar' })
-  surname!: string
+  lastName!: string
 
   @Column({ type: 'varchar' })
   email!: string
@@ -22,14 +23,17 @@ export class User {
   @Column({ type: 'varchar' })
   birthdate!: Date
 
-  @Column({ default: true })
+  @Column({ type:'boolean',default: true })
   isActive!: boolean
 
-  @Column()
+  @Column({ type: 'varchar'})
   password!: string
 
-  /*   @Column()
-  rol!: Rol */
+  @ManyToOne(()=>Rol, rol=>rol.Id)
+  rol!: Rol 
+
+  @ManyToOne(()=>UserStatus, userStatus=>userStatus.Id)
+  userStatus!: UserStatus 
 
   @CreateDateColumn()
   creationDate!: Date

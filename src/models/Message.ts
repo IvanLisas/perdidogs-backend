@@ -16,7 +16,7 @@ export class Message {
   @Column()
   adressee!: User
 
-  @Column()
+  @Column({ type: 'varchar'})
   body!: string
 
   @Column()

@@ -1,6 +1,19 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
+import { Alert } from './models/Alert'
+import { Breed } from './models/Breed'
+import { Fur } from './models/Fur'
+import { Color } from './models/FurColor'
+import { Length } from './models/Length'
+import { Location } from './models/Location'
+import { Pet } from './models/Pet'
+import { Picture } from './models/Picture'
+import { Post } from './models/Post'
+import { PostStatus } from './models/PostStatus'
+import { Rol } from './models/Rol'
+import { Size } from './models/Size'
 import { User } from './models/User'
+import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
 //Tirar este query del ojete en el sql
@@ -16,13 +29,9 @@ class Server {
 
   /* If we didn't configure the port into the environment
   variables it takes the default port 3000 */
-  public configuration() {
+  public async configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
-  }
-
-  //Method to configure the routes
-  public async routes() {
     try {
       await createConnection({
         type: 'mysql',
@@ -31,10 +40,11 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User],
+        entities: [User, Alert, Rol,UserStatus,Fur, Color, Length, Pet,Size,Breed, PostStatus, Picture, Post,Location],
         synchronize: true,
         logging: false
       })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then((connection) => {
           // here you can start to work with your entities
         })
@@ -42,6 +52,17 @@ class Server {
     } catch (error) {
       console.log(error.message)
     }
+  }
+
+  //Method to configure the routes
+  public routes() {
+    this.app.use(function (req, res, next) {
+      res.header('Access-Control-Allow-Origin', '*')
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+      res.header('Access-Control-Allow-Headers', '*')
+      next()
+    })
+    //Routes
     this.app.use('/user', userRoutes)
     this.app.use('/chat', chatRoutes)
     this.app.get('/', (req: Request, res: Response) => {

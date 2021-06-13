@@ -7,9 +7,9 @@ export class UserStatus {
   }
 
   @PrimaryGeneratedColumn()
-  userStatusId!: number
+  Id!: number
 
-  @Column()
+  @Column({ type: 'varchar'})
   description!: string
 
   static fromJson(UserStatusJson: string) {

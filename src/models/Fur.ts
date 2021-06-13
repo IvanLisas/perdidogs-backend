@@ -8,11 +8,12 @@ export class Fur {
     Object.assign(this, init)
   }
 
-  @ManyToOne((type) => Color)
-  @JoinColumn({ name: 'id_FurColor' })
-  furcolor!: Color
+  @PrimaryGeneratedColumn()
+  Id!: number
 
-  @ManyToOne((type) => Length)
-  @JoinColumn({ name: 'id_FurLength' })
-  furLength!: Length
+  @ManyToOne(()=>Color, color=>color.Id)
+  color!: Color
+
+  @ManyToOne(()=>Length, length=>length.Id)
+  length!: Length
 }

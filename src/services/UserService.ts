@@ -1,12 +1,11 @@
 import { User } from '../models/User'
 import { getRepository } from 'typeorm'
-
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       return await getRepository(User).findOneOrFail({ email: anEmail, password: aPassword })
     } catch (error) {
-      throw 'Credenciales incorrectas'
+      throw new Error('Usuario o contaseña incorrectos')
     }
   }
 

@@ -1,4 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Post } from './Post'
+import { User } from './User'
 
 @Entity()
 export class Picture {
@@ -6,11 +8,13 @@ export class Picture {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() pictureId!: number
+  @PrimaryGeneratedColumn() Id!: number
 
-  @Column() url!: string
+  @Column({ type: 'varchar'}) url!: string
 
   @CreateDateColumn() creationDate!: Date
+
+  @ManyToOne(()=>Post, post=>post.Id)  post!:Post
 
   static fromJson(PictureJson: string) {
     return Object.assign(new Picture(), PictureJson)

@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm";
 
 @Entity() export class PostStatus {
 
@@ -6,12 +6,12 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() postStatusId!: number;
+  @PrimaryGeneratedColumn() Id!: number;
 
-  @Column() description!: string;
+  @Column({ type: 'varchar'}) description!: string;
 
-  @Column() creation!: Date;
+  @CreateDateColumn() creation!: Date;
 
-  @Column() EndDate!: Date;
+  @CreateDateColumn() EndDate!: Date;
 
 }
