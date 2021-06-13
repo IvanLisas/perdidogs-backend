@@ -7,7 +7,7 @@ userRoutes.put('/login', async (req, res) => {
   try {
     res.json(await userService.login(req.body.email, req.body.password))
   } catch (error) {
-    res.send(error.message)
+    res.status(403).send(error.message)
   }
 })
 
