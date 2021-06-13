@@ -10,6 +10,7 @@ import { Size } from './Size'
 
 @Entity()
 export class Post {
+  user: User[]
   constructor(init?: Partial<Post>) {
     Object.assign(this, init)
   }

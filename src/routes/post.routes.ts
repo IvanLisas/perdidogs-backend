@@ -1,7 +1,33 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
-
+import { Post } from '../models/Post'
 const postRoutes = Router()
+
+
+postRoutes.post ('/', async (req,res) => {
+
+ try{
+
+  const post = new Post()
+  post.description = req.body.description
+  post.breed = req.body.breed
+  post.size = req.body.size
+  post.color = req.body.color
+  post.picture = req.body.picture
+  post.location = req.body.location
+  post.creationDate = req.body.creationDate
+  post.pet = req.body.pet
+
+  return await postService.create(post)
+ 
+ }catch (error) {
+    res.status(400).send({ message: 'No se pudo crear la publicacion' })
+  }
+ 
+  
+})
+
+
 
 postRoutes.get('/getAll/:PostId', (req, res) => {
   try {
@@ -12,13 +38,13 @@ postRoutes.get('/getAll/:PostId', (req, res) => {
   }
 })
 
-postRoutes.post('/', (req, res) => {
-  try {
-    return res.json(postService.createPost(req.body))
-  } catch (error) {
-    res.status(400).send({ message: 'No se pudo crear la publicacion' })
-  }
-})
+// postRoutes.post('/', (req, res) => {
+//   try {
+//     return res.json(postService.createPost(req.body))
+//   } catch (error) {
+//     res.status(400).send({ message: 'No se pudo crear la publicacion' })
+//   }
+// })
 
 postRoutes.get('getMy/:PostId', (req, res) => {
   try {
