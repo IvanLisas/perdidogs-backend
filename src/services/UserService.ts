@@ -11,18 +11,8 @@ class UserService {
     }
   }
 
-<<<<<<< HEAD
-  async getUser(id: number): Promise<User> {
-    try {
-      console.log(userRepo.findOneOrFail({ userId: id }))
-      return await userRepo.findOneOrFail({ userId: id })
-    } catch (error) {
-      throw 'No existe el usuario'
-    }
-=======
   async get(id: number): Promise<User> {
     return await getRepository(User).findOneOrFail(id)
->>>>>>> dbf8d8699aa969feddc2d039fb9cacae8fc497a8
   }
 
   async save(user: User): Promise<User> {
