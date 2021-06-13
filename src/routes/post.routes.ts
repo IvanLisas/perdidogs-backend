@@ -23,7 +23,7 @@ postRoutes.post('/', (req, res) => {
 postRoutes.get('getMy/:PostId', (req, res) => {
   try {
     const post = parseInt(req.params.postId)
-    return res.json(postService.getAPostById(post))
+    return res.json(postService.get(post))
   } catch (error) {
     res.status(400).send({ message: 'No se encontró la publicación' })
   }
@@ -31,8 +31,9 @@ postRoutes.get('getMy/:PostId', (req, res) => {
 
 postRoutes.post('/:PostId', (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.updatePost(post))
+    const postId = parseInt(req.params.postId)
+    const userId = parseInt(req.params.userId)
+    return res.json(postService.updatePost(postId, userId))
   } catch (error) {
     res.status(400).send({ message: 'No se pudo actualizar la publicacion' })
   }

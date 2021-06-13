@@ -1,4 +1,4 @@
-import { Entity } from 'typeorm'
+import { Entity, getRepository } from 'typeorm'
 import { Post } from '../models/Post'
 import postRepo from '../repos/PostRepo'
 import userService from './UserService'
@@ -8,16 +8,12 @@ class PostService {
   async getAllPosts(idPost: number): Promise<Post[] | undefined> {
     return await postRepo.find({ postId: idPost })
   }
-  async getMyPost(idPost: number, idUser: number): Promise<Post[] | undefined> {
-    //const user = userService.getUser(userId)
-    // const posts = user.pos
-    // return await postRepo.find({ post.postOwner: user})
-
-    return await postRepo.find({ idPost })
+  async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
+    return await getRepository(Post).find({ ownerPost: {userId: idUser} })
   }
 
-  async getAPostById(idPost: number): Promise<Post> {
-    return await postRepo.findOneOrFail({ postId: idPost })
+  async get(idPost: number): Promise<Post> {
+    return await getRepository(Post).findOneOrFail({ postId: idPost })
   }
   //function (location,r)
   //x > location.x -r && x < location.x + r
@@ -26,13 +22,13 @@ class PostService {
     return await postRepo.save(post)
   }
   async deletePost(idPost: number): Promise<Post | undefined> {
-    const post = await this.getAPostById(idPost)
+    const post = await this.get(idPost)
     post.isActive = false
-    return await postRepo.save({ postId: idPost })
+    return await getRepository(Post).save(post)
   }
   async updatePost(postId: number, idUser: number): Promise<Post | undefined> {
-    const post = await this.getAPostById(postId)
-    const user = await userService.getUser(idUser)
+    const post = await this.get(postId)
+    const user = await userService.get(idUser)
 
     if (user.userId == idUser) {
       return await postRepo.save(post)
