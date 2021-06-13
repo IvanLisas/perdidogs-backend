@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 import { Rol } from './Rol'
+import { UserStatus } from './UserStatus'
 
 @Entity()
 export class User {
@@ -28,8 +29,11 @@ export class User {
   @Column({ type: 'varchar'})
   password!: string
 
-  @ManyToOne(()=>Rol, rol=>rol.rolId)
+  @ManyToOne(()=>Rol, rol=>rol.Id)
   rol!: Rol 
+
+  @ManyToOne(()=>UserStatus, userStatus=>userStatus.Id)
+  userStatus!: UserStatus 
 
   @CreateDateColumn()
   creationDate!: Date

@@ -3,6 +3,7 @@ import { createConnection } from 'typeorm'
 import { Alert } from './models/Alert'
 import { Rol } from './models/Rol'
 import { User } from './models/User'
+import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
 //Tirar este query del ojete en el sql
@@ -29,7 +30,7 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User, Alert, Rol],
+        entities: [User, Alert, Rol,UserStatus],
         synchronize: true,
         logging: false
       })
