@@ -6,7 +6,7 @@ export class Length {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() lengthColorId!: number
+  @PrimaryGeneratedColumn() Id!: number
 
   @Column({ type: 'varchar'}) description!: string
 }

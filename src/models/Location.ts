@@ -6,7 +6,7 @@ export class Location {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() locationId!: number
+  @PrimaryGeneratedColumn() Id!: number
 
   @Column({ type: 'varchar'}) x!: string
 

@@ -9,7 +9,7 @@ export class Size {
   }
 
   @PrimaryGeneratedColumn()
-  sizeId!: number;
+  Id!: number;
 
   @Column({ type: 'varchar'})
   description!: string;

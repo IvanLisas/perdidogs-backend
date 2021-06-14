@@ -9,7 +9,7 @@ export class User {
   }
 
   @PrimaryGeneratedColumn()
-  userId!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   firstName!: string | null

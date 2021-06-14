@@ -6,7 +6,7 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() postStatusId!: number;
+  @PrimaryGeneratedColumn() Id!: number;
 
   @Column({ type: 'varchar'}) description!: string;
 
