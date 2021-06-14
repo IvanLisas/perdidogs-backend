@@ -1,21 +1,15 @@
 import { Entity, getRepository } from 'typeorm'
 import { Post } from '../models/Post'
-import { User } from '../models/User'
 import postRepo from '../repos/PostRepo'
-import userRepo from '../repos/UserRepo'
 import userService from './UserService'
-import axios from 'axios'
- 
- 
+
 @Entity()
 class PostService {
-
-  async create(idUser: number, post: Post): Promise<Post >{
-     
-        const foundUser = await userService.get(idUser)    
-        post.owner =foundUser 
-        return await postRepo.save(post)
-      
+  async create(idUser: number, post: Post): Promise<Post> {
+    const foundUser = await userService.get(idUser)
+    console.log(post)
+    post.owner = foundUser
+    return await getRepository(Post).save(post)
   }
 
   // async uploadPhoto(base: string): Promise<string> {
@@ -30,7 +24,7 @@ class PostService {
   //     })
   //     return data.data.data.link;
   //   } catch (error) {
-  //     throw  'Can`t upload image' 
+  //     throw  'Can`t upload image'
   //   }
   // }
 
@@ -38,19 +32,24 @@ class PostService {
     return await postRepo.find({ Id: idPost })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
-    return await getRepository(Post).find({ owner: {Id: idUser} })
+    return await getRepository(Post).find({ owner: { Id: idUser } })
   }
 
   async get(idPost: number): Promise<Post> {
-    return await getRepository(Post).findOneOrFail({ Id: idPost })
+    return await getRepository(Post).findOneOrFail({
+      relations: ['owner'],
+      where: {
+        Id: idPost
+      }
+    })
   }
   //function (location,r)
   //x > location.x -r && x < location.x + r
   //y > location.y - r && y <location.y +r
- 
+
   async deletePost(idPost: number): Promise<Post | undefined> {
     const post = await this.get(idPost)
-    //TODO   post.status = false 
+    //TODO   post.status = false
     return await getRepository(Post).save(post)
   }
   async updatePost(postId: number, idUser: number): Promise<Post | undefined> {
