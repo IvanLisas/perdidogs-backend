@@ -11,8 +11,8 @@ userRoutes.put('/login', async (req, res) => {
   }
 })
 
-userRoutes.get('/:userId', async (req, res) => {
-  const id = parseInt(req.params.userId)
+userRoutes.get('/:userid', async (req, res) => {
+  const id = parseInt(req.params.userid)
   try {
     res.json(await userService.get(id))
   } catch (error) {
@@ -36,9 +36,9 @@ userRoutes.put('/update', async (req, res) => {
   }
 })
 
-userRoutes.delete('/:userId', async (req, res) => {
+userRoutes.delete('/:userid', async (req, res) => {
   try {
-    const id = parseInt(req.params.userId)
+    const id = parseInt(req.params.userid)
     const user = await userService.get(id)
     return res.json(userService.delete(user))
   } catch (error) {

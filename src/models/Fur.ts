@@ -9,11 +9,11 @@ export class Fur {
   }
 
   @PrimaryGeneratedColumn()
-  Id!: number
+  id!: number
 
-  @ManyToOne(()=>Color, color=>color.Id)
+  @ManyToOne(()=>Color, color=>color.id)
   color!: Color
 
-  @ManyToOne(()=>Length, length=>length.Id)
+  @ManyToOne(()=>Length, length=>length.id)
   length!: Length
 }

@@ -7,7 +7,7 @@ export class Rol {
   }
 
   @PrimaryGeneratedColumn()
-  Id!: number
+  id!: number
 
   @Column({ type: 'varchar'})
   description!: string

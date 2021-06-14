@@ -6,11 +6,11 @@ export class Location {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() Id!: number
+  @PrimaryGeneratedColumn() id!: number
 
-  @Column({ type: 'varchar'}) x!: string
+  @Column({ type: 'varchar' }) x!: string
 
-  @Column({ type: 'varchar'}) y!: string
+  @Column({ type: 'varchar' }) y!: string
 
   @CreateDateColumn() creationDate!: Date
 

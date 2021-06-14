@@ -9,7 +9,7 @@ export class Chat {
   }
 
   @PrimaryGeneratedColumn()
-  chatId!: number
+  id!: number
 
   @Column()
   owner!: User 

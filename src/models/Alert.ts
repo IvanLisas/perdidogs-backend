@@ -8,7 +8,7 @@ export class Alert {
   }
 
   @PrimaryGeneratedColumn()
-  alertId!: number
+  id!: number
 
  /* @Column()
   pet!: Pet*/

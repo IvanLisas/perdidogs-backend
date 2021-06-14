@@ -9,7 +9,7 @@ export class User {
   }
 
   @PrimaryGeneratedColumn()
-  Id!: number
+  id!: number
 
   @Column({ type: 'varchar'})
   firstName!: string | null
@@ -29,10 +29,10 @@ export class User {
   @Column({ type: 'varchar'})
   password!: string
 
-  @ManyToOne(()=>Rol, rol=>rol.Id)
+  @ManyToOne(()=>Rol, rol=>rol.id)
   rol!: Rol 
 
-  @ManyToOne(()=>UserStatus, userStatus=>userStatus.Id)
+  @ManyToOne(()=>UserStatus, userStatus=>userStatus.id)
   userStatus!: UserStatus 
 
   @CreateDateColumn()

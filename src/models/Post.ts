@@ -15,7 +15,7 @@ export class Post {
   }
 
   @PrimaryGeneratedColumn() 
-  Id!: number
+  id!: number
 
   @Column({ type: 'varchar'}) 
   description!: string
@@ -23,22 +23,22 @@ export class Post {
   @CreateDateColumn() 
   creationDate!: Date
 
-  @ManyToOne(()=>User, user=>user.Id)
+  @ManyToOne(()=>User, user=>user.id)
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(()=>PostStatus, PostStatus=>PostStatus.Id)
+  @ManyToOne(()=>PostStatus, PostStatus=>PostStatus.id)
   status!: PostStatus
 
   @OneToMany(()=>Picture, picture=>picture.post)
   pictures!: Picture[]
 
-  @OneToOne(()=>Location, location=>location.Id)
+  @OneToOne(()=>Location, location=>location.id)
   location!: Location
 
-  @OneToOne(()=>Pet, pet=>pet.Id)
+  @OneToOne(()=>Pet, pet=>pet.id)
   pet!: Pet
 
   validate() {

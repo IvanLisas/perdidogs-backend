@@ -6,7 +6,7 @@ export class Length {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() Id!: number
+  @PrimaryGeneratedColumn() id!: number
 
-  @Column({ type: 'varchar'}) description!: string
+  @Column({ type: 'varchar' }) description!: string
 }

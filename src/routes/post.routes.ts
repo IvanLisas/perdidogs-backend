@@ -3,48 +3,49 @@ import postService from '../services/PostService'
 
 const postRoutes = Router()
 
-postRoutes.get('/getAll/:PostId', (req, res) => {
+postRoutes.get('/getAll/:Postid', (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.getAllPosts(post))
+    const post = parseInt(req.params.postid)
+    return res.json(postService.getAll(post))
   } catch (error) {
     res.status(400).send({ message: 'No se encontraron publicaciones' })
   }
 })
 
-postRoutes.post('/', (req, res) => {
+postRoutes.post('/', async (req, res) => {
   try {
-    return res.json(postService.createPost(req.body))
+    return res.json(postService.create(req.body))
   } catch (error) {
     res.status(400).send({ message: 'No se pudo crear la publicacion' })
   }
 })
 
-postRoutes.get('getMy/:PostId', (req, res) => {
+postRoutes.get('getMy/:Postid', async (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.getAPostById(post))
+    const post = parseInt(req.params.postid)
+    return res.json(postService.get(post))
   } catch (error) {
     res.status(400).send({ message: 'No se encontró la publicación' })
   }
 })
 
-postRoutes.post('/:PostId', (req, res) => {
+postRoutes.post('/:postid/:userId', async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
-    return res.json(postService.updatePost(post))
+    const user = parseInt(req.params.userId)
+    return res.json(postService.update(post, user))
   } catch (error) {
     res.status(400).send({ message: 'No se pudo actualizar la publicacion' })
   }
 })
 
-postRoutes.delete('/:PostId', (req, res) => {
-  try {
-    const post = parseInt(req.params.postId)
-    return res.json(postService.deletePost(post))
-  } catch (error) {
-    res.send({ message: 'No se pudo borrar la publicacion' })
-  }
-})
+// postRoutes.delete('/:Postid', (req, res) => {
+//   try {
+//     const post = parseInt(req.params.postid)
+//     return res.json(postService.delete(post))
+//   } catch (error) {
+//     res.send({ message: 'No se pudo borrar la publicacion' })
+//   }
+// })
 
 export default postRoutes

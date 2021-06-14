@@ -17,7 +17,7 @@ import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
 //Tirar este query del ojete en el sql
-//ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234'
+//ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 class Server {
   private app: express.Application
 

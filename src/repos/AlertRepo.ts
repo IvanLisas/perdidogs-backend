@@ -12,7 +12,7 @@ export class RepoAlert extends Repository<Alert> {
     }
   }
 
-  async searchById(id: number) {
+  async searchByid(id: number) {
     return await this.findOneOrFail(id)
   }
 

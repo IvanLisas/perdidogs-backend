@@ -3,7 +3,7 @@ import chatService from '../services/ChatService'
 
 const chatRoutes = Router()
 
-chatRoutes.get('/', (req, res) => {
+chatRoutes.get('/', async (req, res) => {
   try {
     return res.send('Estos son los chats')
   } catch (error) {
@@ -11,16 +11,16 @@ chatRoutes.get('/', (req, res) => {
   }
 })
 
-chatRoutes.get('/getMyChats/:userId', (req, res) => {
+chatRoutes.get('/getMyChats/:userid', async (req, res) => {
   try {
-    const id = parseInt(req.params.userId)
+    const id = parseInt(req.params.userid)
     return res.json(chatService.getAll(id))
   } catch (error) {
     res.status(403).send(error.message)
   }
 })
 
-chatRoutes.post('/', (req, res) => {
+chatRoutes.post('/', async (req, res) => {
   try {
     return res.json(chatService.save(req.body))
   } catch (error) {

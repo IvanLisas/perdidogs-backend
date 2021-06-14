@@ -7,7 +7,7 @@ export class Comment {
   }
 
   @PrimaryGeneratedColumn()
-  commentId!: number
+  id!: number
 
   @Column({ type: 'varchar'})
   text!: string

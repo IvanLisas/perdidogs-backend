@@ -9,7 +9,7 @@ export class Pet {
   }
 
   @PrimaryGeneratedColumn() 
-  Id!: number
+  id!: number
   
   @Column({ type: 'varchar'}) 
   name!: string
@@ -20,17 +20,17 @@ export class Pet {
   @Column({ type: 'boolean'}) 
   hasCollar!: boolean
 
-  @ManyToOne(()=>Fur, fur=>fur.Id) 
+  @ManyToOne(()=>Fur, fur=>fur.id) 
   fur!: Fur
 
-  @ManyToOne(()=>Breed, breed=>breed.Id)
+  @ManyToOne(()=>Breed, breed=>breed.id)
   breed!: Breed
 
-  @ManyToOne(()=>Size, size=>size.Id) 
+  @ManyToOne(()=>Size, size=>size.id) 
   size!: Size
 
   validate() {
-    if (!this.Id || !this.name || !this.sex || !this.hasCollar) {
+    if (!this.id || !this.name || !this.sex || !this.hasCollar) {
       throw 'Mascota inválida'
     }
   }

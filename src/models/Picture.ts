@@ -8,13 +8,13 @@ export class Picture {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() Id!: number
+  @PrimaryGeneratedColumn() id!: number
 
   @Column({ type: 'varchar'}) url!: string
 
   @CreateDateColumn() creationDate!: Date
 
-  @ManyToOne(()=>Post, post=>post.Id)  post!:Post
+  @ManyToOne(()=>Post, post=>post.id)  post!:Post
 
   static fromJson(PictureJson: string) {
     return Object.assign(new Picture(), PictureJson)

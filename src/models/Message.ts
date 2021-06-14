@@ -8,7 +8,7 @@ export class Message {
   }
 
   @PrimaryGeneratedColumn()
-  messageId!: number
+  id!: number
 
   @Column()
   sender!: User
@@ -16,7 +16,7 @@ export class Message {
   @Column()
   adressee!: User
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   body!: string
 
   @Column()

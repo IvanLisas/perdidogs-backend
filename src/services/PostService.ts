@@ -5,36 +5,29 @@ import userService from './UserService'
 
 @Entity()
 class PostService {
-  async getAllPosts(idPost: number): Promise<Post[] | undefined> {
-    return await postRepo.find({ postId: idPost })
+  async getAll(postId: number): Promise<Post[] | undefined> {
+    return await postRepo.find({ id: postId })
   }
-  async getMyPost(idPost: number, idUser: number): Promise<Post[] | undefined> {
-    //const user = userService.getUser(userId)
-    // const posts = user.pos
-    // return await postRepo.find({ post.postOwner: user})
-
-    return await postRepo.find({ idPost })
+  async getMyPost(postId: number): Promise<Post[] | undefined> {
+    return await postRepo.find({ id: postId })
   }
 
-  async getAPostById(idPost: number): Promise<Post> {
-    return await postRepo.findOneOrFail({ postId: idPost })
+  async get(postId: number): Promise<Post> {
+    return await postRepo.findOneOrFail({ id: postId })
   }
-  //function (location,r)
-  //x > location.x -r && x < location.x + r
-  //y > location.y - r && y <location.y +r
-  async createPost(post: Post): Promise<Post | undefined> {
+
+  async create(post: Post): Promise<Post | undefined> {
     return await postRepo.save(post)
   }
-  async deletePost(idPost: number): Promise<Post | undefined> {
-    const post = await this.getAPostById(idPost)
-    post.isActive = false
-    return await postRepo.save({ postId: idPost })
-  }
-  async updatePost(postId: number, idUser: number): Promise<Post | undefined> {
-    const post = await this.getAPostById(postId)
-    const user = await userService.getUser(idUser)
-
-    if (user.userId == idUser) {
+  // async delete(postId: number): Promise<Post | undefined> {
+  //   const post = await this.get(postId)
+  //   post.status = 1
+  //   return await postRepo.save({ id: postId })
+  // }
+  async update(postId: number, userId: number): Promise<Post | undefined> {
+    const post = await this.get(postId)
+    const user = await userService.get(userId)
+    if (user.id == userId) {
       return await postRepo.save(post)
     } else throw 'No se encontró la publicación'
   }
