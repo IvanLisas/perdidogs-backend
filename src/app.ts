@@ -3,7 +3,7 @@ import { createConnection } from 'typeorm'
 import { Alert } from './models/Alert'
 import { Breed } from './models/Breed'
 import { Fur } from './models/Fur'
-import { Color } from './models/FurColor'
+import { Color } from './models/Color'
 import { Length } from './models/Length'
 import { Location } from './models/Location'
 import { Pet } from './models/Pet'
@@ -16,6 +16,7 @@ import { User } from './models/User'
 import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
+import postRoutes from './routes/post.routes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 class Server {
@@ -40,7 +41,7 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User, Alert, Rol,UserStatus,Fur, Color, Length, Pet,Size,Breed, PostStatus, Picture, Post,Location],
+        entities: [User, Alert, Rol, UserStatus, Fur, Color, Length, Pet, Size, Breed, PostStatus, Picture, Post, Location],
         synchronize: true,
         logging: false
       })
@@ -65,6 +66,7 @@ class Server {
     //Routes
     this.app.use('/user', userRoutes)
     this.app.use('/chat', chatRoutes)
+    this.app.use('/post', postRoutes)
     this.app.get('/', (req: Request, res: Response) => {
       res.send('Aplicacion Perdidogs')
     })

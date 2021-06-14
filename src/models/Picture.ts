@@ -4,6 +4,7 @@ import { User } from './User'
 
 @Entity()
 export class Picture {
+ 
   constructor(init?: Partial<Picture>) {
     Object.assign(this, init)
   }
@@ -16,7 +17,7 @@ export class Picture {
 
   @ManyToOne(()=>Post, post=>post.id)  post!:Post
 
-  static fromJson(PictureJson: string) {
+  static fromJson(PictureJson: string): Picture{
     return Object.assign(new Picture(), PictureJson)
   }
 }
