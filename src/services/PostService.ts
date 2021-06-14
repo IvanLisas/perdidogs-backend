@@ -1,4 +1,5 @@
 import { Entity, getRepository } from 'typeorm'
+import { Picture } from '../models/Picture'
 import { Post } from '../models/Post'
 import { User } from '../models/User'
 import postRepo from '../repos/PostRepo'
@@ -60,7 +61,23 @@ class PostService {
       return await postRepo.save(post)
     } else throw 'No se encontró la publicación'
   }
-}
-const postService = new PostService()
 
+  async deletePhotoById (photoId: number): Promise <Picture| undefined> {
+    
+        const photo = await this.getPhotoById(photoId);
+        await Post.update ({ deleteFlag: true }, { where: { photoId } });
+        return photo;
+  
+  }
+
+  async getPhotoById(photoId:number): Promise <Picture| undefined> {
+
+  }
+}
+
+
+
+
+
+const postService = new PostService()
 export default postService

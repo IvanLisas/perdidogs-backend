@@ -29,14 +29,6 @@ postRoutes.get('/getAll/:PostId', async(req, res) => {
   }
 })
 
-// postRoutes.post('/', (req, res) => {
-//   try {
-//     return res.json(postService.createPost(req.body))
-//   } catch (error) {
-//     res.status(400).send({ message: 'No se pudo crear la publicacion' })
-//   }
-// })
-
 postRoutes.get('getMy/:PostId', async(req, res) => {
   try {
     const post = parseInt(req.params.postId)
