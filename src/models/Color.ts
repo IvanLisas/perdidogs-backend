@@ -7,8 +7,12 @@ export class Color {
   }
 
   @PrimaryGeneratedColumn()
-  colorId!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   description!: string
+
+  static fromJson(ColorJson: string): Color {
+    return Object.assign(new Color(), ColorJson)
+  }
 }
