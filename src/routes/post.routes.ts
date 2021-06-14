@@ -20,7 +20,7 @@ postRoutes.post ('/:userId', async (req,res) => {
 
 
 
-postRoutes.get('/getAll/:PostId', (req, res) => {
+postRoutes.get('/getAll/:PostId', async(req, res) => {
   try {
     const post = parseInt(req.params.postId)
     return res.json(postService.getAllPosts(post))
@@ -37,7 +37,7 @@ postRoutes.get('/getAll/:PostId', (req, res) => {
 //   }
 // })
 
-postRoutes.get('getMy/:PostId', (req, res) => {
+postRoutes.get('getMy/:PostId', async(req, res) => {
   try {
     const post = parseInt(req.params.postId)
     return res.json(postService.get(post))
@@ -46,7 +46,7 @@ postRoutes.get('getMy/:PostId', (req, res) => {
   }
 })
 
-postRoutes.post('/:PostId', (req, res) => {
+postRoutes.post('/:PostId',async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
     const userId = parseInt(req.params.userId)
@@ -56,7 +56,7 @@ postRoutes.post('/:PostId', (req, res) => {
   }
 })
 
-postRoutes.delete('/:PostId', (req, res) => {
+postRoutes.delete('/:PostId',async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
     return res.json(postService.deletePost(post))
