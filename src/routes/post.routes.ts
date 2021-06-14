@@ -48,12 +48,12 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 }) */
 
-postRoutes.delete('/:PostId', (req, res) => {
+postRoutes.delete('/:postId', async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
-    return res.json(postService.deletePost(post))
+    return res.json(await postService.deletePost(post))
   } catch (error) {
-    res.send({ message: 'No se pudo borrar la publicacion' })
+    res.send(error.message)
   }
 })
 
