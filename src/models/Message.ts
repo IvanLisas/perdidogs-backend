@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Chat } from './Chat'
 import { User } from './User'
 
 @Entity()
@@ -19,17 +20,11 @@ export class Message {
   @Column({ type: 'varchar' })
   body!: string
 
-  @Column()
-  isActive!: boolean
-
   @CreateDateColumn()
   creationDate!: Date
 
-  validate() {
-    if (!this.sender || !this.adressee || !this.body) {
-      throw 'Mensaje vacío'
-    }
-  }
+  @Column()
+  chat!: Chat
 
   static fromJson(MessageJson: string): Message {
     return Object.assign(new Message(), MessageJson)

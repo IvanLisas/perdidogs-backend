@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
 import { User } from './User'
 import { Message } from './Message'
 
@@ -14,10 +14,7 @@ export class Chat {
   @Column()
   owner!: User 
 
-  @Column()
-  contact!: User 
-
-  @Column()
+  @OneToMany(()=>Message, message=>message.id)
   messageList!: Message[]
   
   @CreateDateColumn()
