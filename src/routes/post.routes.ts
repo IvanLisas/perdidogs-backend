@@ -13,12 +13,12 @@ postRoutes.post('/:userId', async (req, res) => {
   }
 })
 
-postRoutes.get('/getAll/:PostId', (req, res) => {
+postRoutes.get('/getAll/:postId',async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
-    return res.json(postService.getAllPosts(post))
+    return res.json(await postService.getAllPosts(post))
   } catch (error) {
-    res.status(400).send({ message: 'No se encontraron publicaciones' })
+    res.status(400).send(error.message)
   }
 })
 
@@ -48,12 +48,12 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 }) */
 
-postRoutes.delete('/:PostId', async (req, res) => {
+postRoutes.delete('/:postId', async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
-    return res.json(postService.deletePost(post))
+    return res.json(await postService.deletePost(post))
   } catch (error) {
-    res.send({ message: 'No se pudo borrar la publicacion' })
+    res.send(error.message)
   }
 })
 

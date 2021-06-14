@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { User } from '../models/User'
 import userService from '../services/UserService'
 
 const userRoutes = Router()
@@ -35,6 +36,16 @@ userRoutes.delete('/:userId', async (req, res) => {
     return res.json(userService.delete(user))
   } catch (error) {
     res.send(error.message)
+  }
+})
+
+userRoutes.post('/registration', async (req, res) => {
+  try {
+    const user = User.fromJson(req.body)
+
+    res.json(await userService.registrateUser(user))
+  } catch (error) {
+    res.status(400).send(error.message)
   }
 })
 

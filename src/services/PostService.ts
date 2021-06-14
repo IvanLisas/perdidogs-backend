@@ -1,4 +1,5 @@
 import { Entity, getRepository } from 'typeorm'
+import { Location } from '../models/Location'
 import { Picture } from '../models/Picture'
 import { Post } from '../models/Post'
 import postRepo from '../repos/PostRepo'
@@ -11,23 +12,7 @@ class PostService {
     post.owner = foundUser
     return await getRepository(Post).save(post)
   }
-
-  // async uploadPhoto(base: string): Promise<string> {
-  //   try {
-  //     const data = await axios(`https://api.imgur.com/3/upload`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Client-ID 7084d3c72f8fab9`,
-  //       },
-  //       data: { image: base }
-  //     })
-  //     return data.data.data.link;
-  //   } catch (error) {
-  //     throw  'Can`t upload image'
-  //   }
-  // }
-
+ 
   async getAllPosts(idPost: number): Promise<Post[] | undefined> {
     return await postRepo.find({ Id: idPost })
   }
@@ -43,9 +28,7 @@ class PostService {
       }
     })
   }
-  //function (location,r)
-  //x > location.x -r && x < location.x + r
-  //y > location.y - r && y <location.y +r
+
 
   async deletePost(idPost: number): Promise<Post | undefined> {
     const post = await this.get(idPost)
@@ -58,33 +41,18 @@ class PostService {
 
     if (user.Id == idUser) {
       return await postRepo.save(post)
-    } else throw 'No se encontró la publicación'
+    } else throw 'No tienes los permisos suficientes para actualizar la publicación'
   }
+   //function (location,r)
+  //x > location.x -r && x < location.x + r
+  //y > location.y - r && y <location.y +r
 
-  async deletePhotoById(photoId: number): Promise<Picture | undefined> {
-    const photo = await this.getPhotoById(photoId)
-    await Post.update({ deleteFlag: true }, { where: { photoId } })
-    return photo
+  async getLocation(url: string):Promise <string> {
+    return this.getLocation(url)
   }
-
-  async getPhotoById(photoId: number): Promise<Picture | undefined> {
-    const photo = await PhotoModel.findOne({
-      where: {
-        id,
-        deleteFlag: false
-      },
-      include: [
-        {
-          model: PhotoTypeModel,
-          as: constants.db.associationAlias.PHOTO_TYPE,
-          where: {
-            deleteFlag: false
-          }
-        }
-      ]
-    })
-  }
+ 
 }
+   
 
 const postService = new PostService()
 export default postService
