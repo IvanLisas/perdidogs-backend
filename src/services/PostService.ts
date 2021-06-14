@@ -4,7 +4,6 @@ import { User } from '../models/User'
 import postRepo from '../repos/PostRepo'
 import userRepo from '../repos/UserRepo'
 import userService from './UserService'
-import axios from 'axios'
  
  
 @Entity()

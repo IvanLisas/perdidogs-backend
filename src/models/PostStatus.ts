@@ -11,7 +11,7 @@ export class PostStatus {
 
   @PrimaryGeneratedColumn() Id!: number
 
-  @Column({ type: 'varchar' }) description!: string
+  @Column({ type: 'varchar' }) description!: Status
 
   @CreateDateColumn() creation!: Date
 
@@ -22,3 +22,10 @@ export class PostStatus {
   }
 }
 
+enum Status {
+  Activa,
+  Pendiente,
+  Cancelada,
+  Finalizada,
+  Resuelto
+}
