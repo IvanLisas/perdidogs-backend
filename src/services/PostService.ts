@@ -71,7 +71,22 @@ class PostService {
   }
 
   async getPhotoById(photoId:number): Promise <Picture| undefined> {
-
+    
+      const photo = await PhotoModel.findOne({
+          where: {
+              id,
+              deleteFlag: false
+          },
+          include: [
+              {   
+                  model: PhotoTypeModel,
+                  as: constants.db.associationAlias.PHOTO_TYPE,
+                  where: {
+                      deleteFlag: false
+                  }
+              },
+          ]
+      });
   }
 }
 
