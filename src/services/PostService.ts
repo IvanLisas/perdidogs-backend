@@ -12,35 +12,27 @@ class PostService {
 
   async create(idUser: number, post: Post): Promise<Post >{
      
-        const foundUser = await getRepository(User).find({userId: idUser});
-        if (!foundUser) {
-          throw 'User not found.'
-        }
-       
-        this.create.img = await this.uploadPhoto(this.create.picture);
-    
-        const post: any = this.postsRepository.create(createPost);
-        post.ownerPost = foundUser;
-    
+        const foundUser = await userService.get(idUser)    
+        post.owner =foundUser 
         return await postRepo.save(post)
       
   }
 
-  async uploadPhoto(base: string): Promise<string> {
-    try {
-      const data = await axios(`https://api.imgur.com/3/upload`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Client-ID 7084d3c72f8fab9`,
-        },
-        data: { image: base }
-      })
-      return data.data.data.link;
-    } catch (error) {
-      throw  'Can`t upload image' 
-    }
-  }
+  // async uploadPhoto(base: string): Promise<string> {
+  //   try {
+  //     const data = await axios(`https://api.imgur.com/3/upload`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Client-ID 7084d3c72f8fab9`,
+  //       },
+  //       data: { image: base }
+  //     })
+  //     return data.data.data.link;
+  //   } catch (error) {
+  //     throw  'Can`t upload image' 
+  //   }
+  // }
 
   async getAllPosts(idPost: number): Promise<Post[] | undefined> {
     return await postRepo.find({ postId: idPost })

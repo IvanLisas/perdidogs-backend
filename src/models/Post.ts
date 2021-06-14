@@ -10,7 +10,7 @@ import { Size } from './Size'
 
 @Entity()
 export class Post {
-  user: User[]
+  
   constructor(init?: Partial<Post>) {
     Object.assign(this, init)
   }
@@ -48,7 +48,18 @@ export class Post {
     }
   }
 
-  static fromJson(postJson: string) {
-    return Object.assign(new Post(), postJson)
-  }
+  static fromJson(postJson: string): Post {
+    return Object.assign(new Post(), postJson)}
+
+  // static fromJson(postJson: any) {
+  //   return Object.assign(new Post(), postJson, {
+  //   pet: postJson.pet ? Pet.fromJson(postJson.pet) : null,
+  //   location: postJson.location ? Location.fromJson(postJson.location) : null,
+  //   pictures: postJson.pictures ? postJson.pictures.map(pictures => pictures.fromJson(pictures)) :null,
+  //   user: postJson.user ? User.fromJson(postJson.user) : null,
+  //   status: postJson.status ? PostStatus.fromJson(postJson.status) : null,
+  // })}
+
+
+
 }

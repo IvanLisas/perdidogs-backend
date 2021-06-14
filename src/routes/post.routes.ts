@@ -4,21 +4,12 @@ import { Post } from '../models/Post'
 const postRoutes = Router()
 
 
-postRoutes.post ('/', async (req,res) => {
+postRoutes.post ('/:userId', async (req,res) => {
 
  try{
-
-  const post = new Post()
-  post.description = req.body.description
-  post.breed = req.body.breed
-  post.size = req.body.size
-  post.color = req.body.color
-  post.picture = req.body.picture
-  post.location = req.body.location
-  post.creationDate = req.body.creationDate
-  post.pet = req.body.pet
-
-  return await postService.create(post)
+  const userId = parseInt(req.params.userId)
+  const post = Post.fromJson(req.body)
+  return await postService.create(userId, post)
  
  }catch (error) {
     res.status(400).send({ message: 'No se pudo crear la publicacion' })
