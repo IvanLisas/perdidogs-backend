@@ -21,3 +21,4 @@ export class PostStatus {
     return Object.assign(new PostStatus(), PostStatusJson)
   }
 }
+

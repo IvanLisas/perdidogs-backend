@@ -35,14 +35,14 @@ class PostService {
   // }
 
   async getAllPosts(idPost: number): Promise<Post[] | undefined> {
-    return await postRepo.find({ postId: idPost })
+    return await postRepo.find({ Id: idPost })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
-    return await getRepository(Post).find({ ownerPost: {userId: idUser} })
+    return await getRepository(Post).find({ owner: {Id: idUser} })
   }
 
   async get(idPost: number): Promise<Post> {
-    return await getRepository(Post).findOneOrFail({ postId: idPost })
+    return await getRepository(Post).findOneOrFail({ Id: idPost })
   }
   //function (location,r)
   //x > location.x -r && x < location.x + r
@@ -50,14 +50,14 @@ class PostService {
  
   async deletePost(idPost: number): Promise<Post | undefined> {
     const post = await this.get(idPost)
-    post.isActive = false
+    //TODO   post.status = false 
     return await getRepository(Post).save(post)
   }
   async updatePost(postId: number, idUser: number): Promise<Post | undefined> {
     const post = await this.get(postId)
     const user = await userService.get(idUser)
 
-    if (user.userId == idUser) {
+    if (user.Id == idUser) {
       return await postRepo.save(post)
     } else throw 'No se encontró la publicación'
   }

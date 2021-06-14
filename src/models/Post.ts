@@ -41,6 +41,7 @@ export class Post {
 
   @OneToOne(()=>Pet, pet=>pet.Id)
   pet!: Pet
+  
 
   validate() {
     if (!this.description || !this.status || !this.pictures || !this.creationDate || !this.endDate || !this.location || !this.pet) {
