@@ -4,17 +4,28 @@ import chatService from '../services/ChatService'
 const chatRoutes = Router()
 
 chatRoutes.get('/', (req, res) => {
-  return res.send('Estos son los chats')
+  try {
+    return res.send('Estos son los chats')
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
 })
 
 chatRoutes.get('/getMyChats/:userId', (req, res) => {
-  const id = parseInt(req.params.userId)
-  return res.json(chatService.getAllChats(id))
+  try {
+    const id = parseInt(req.params.userId)
+    return res.json(chatService.getAll(id))
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
 })
 
-chatRoutes.put('/sendMessage', (req, res) => {
-  console.log(req, res)
-  return res.json(chatService.saveChat(req.body))
+chatRoutes.post('/', (req, res) => {
+  try {
+    return res.json(chatService.save(req.body))
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
 })
 
 export default chatRoutes

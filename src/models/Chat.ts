@@ -12,10 +12,10 @@ export class Chat {
   chatId!: number
 
   @Column()
-  user1!: User 
+  owner!: User 
 
   @Column()
-  user2!: User 
+  contact!: User 
 
   @Column()
   messageList!: Message[]
