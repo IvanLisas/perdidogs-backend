@@ -9,6 +9,7 @@ import {Status, PostStatus} from '../models/PostStatus'
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
+    
    // console.log(post)
     post.owner = foundUser
      

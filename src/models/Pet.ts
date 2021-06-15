@@ -17,10 +17,10 @@ export class Pet {
   @Column({ type: 'varchar'}) 
   sex!: string
   
-  @Column({ type: 'boolean'}) 
-  hasCollar?: boolean
+  @Column({ type: 'boolean', default:false}) 
+  hasCollar!: boolean
 
-  @ManyToOne(()=>Fur, fur=>fur.Id) 
+  @ManyToOne(()=>Fur, fur=>fur.Id,{cascade: true})
   fur!: Fur
 
   @ManyToOne(()=>Breed, breed=>breed.Id)

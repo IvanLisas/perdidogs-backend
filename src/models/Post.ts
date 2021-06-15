@@ -32,19 +32,20 @@ export class Post {
   @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   status!:PostStatus
 
-  @OneToMany(() => Picture, (picture) => picture.post)
-  pictures!: Picture[]
+  @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
+  pictures?: Picture[]
 
-  @OneToOne(()=>Location, location=>location.Id, {nullable: false})
+  @OneToOne(()=>Location, location=>location.Id, {nullable: true, cascade:true})
+  location?: Location
 
-  location!: Location
 
   @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false, cascade: true})
   pet!: Pet
   
 
+
   validate() {
-    if (!this.description || !this.status || !this.pictures || !this.creationDate || !this.endDate || !this.location || !this.pet) {
+    if (!this.description || !this.status || !this.creationDate || !this.endDate  || !this.pet) {
       throw 'Publicacion inválida'
     }
   }
