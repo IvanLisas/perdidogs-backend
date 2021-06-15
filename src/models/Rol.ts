@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn,} from 'typeorm'
 
 @Entity()
 export class Rol {
@@ -7,7 +7,7 @@ export class Rol {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   description!: string

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 import { Post } from './Post'
 import { User } from './User'
 
@@ -8,13 +8,13 @@ export class Picture {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() id!: number
+  @PrimaryGeneratedColumn() Id!: number
 
   @Column({ type: 'varchar' }) url!: string
 
   @CreateDateColumn() creationDate!: Date
 
-  @ManyToOne(() => Post, (post) => post.id) post!: Post
+  @ManyToOne(() => Post, (post) => post.Id) post!: Post
 
   static fromJson(PictureJson: string): Picture {
     return Object.assign(new Picture(), PictureJson)

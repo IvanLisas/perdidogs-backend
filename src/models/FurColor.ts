@@ -7,7 +7,7 @@ export class Color {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @Column({ type: 'varchar' })
   description!: string

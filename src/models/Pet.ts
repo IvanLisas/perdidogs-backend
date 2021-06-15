@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Breed } from './Breed'
 import { Fur } from './Fur'
 import { Size } from './Size'
@@ -9,18 +9,18 @@ export class Pet {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @Column({ type: 'varchar' })
   name!: string
 
   @Column({ type: 'varchar' })
   sex!: string
-
-  @Column({ type: 'boolean' })
+  
+  @Column({ type: 'boolean', default:false}) 
   hasCollar!: boolean
 
-  @ManyToOne(() => Fur, (fur) => fur.id)
+  @ManyToOne(()=>Fur, fur=>fur.Id,{cascade: true})
   fur!: Fur
 
   @ManyToOne(() => Breed, (breed) => breed.Id)
@@ -30,7 +30,7 @@ export class Pet {
   size!: Size
 
   validate() {
-    if (!this.id || !this.name || !this.sex || !this.hasCollar) {
+    if (!this.Id || !this.name || !this.sex || !this.hasCollar) {
       throw 'Mascota inválida'
     }
   }

@@ -22,6 +22,16 @@ class UserService {
     user.isActive = false
     return await getRepository(User).save(user)
   }
+
+  async registrateUser(user: User): Promise<User> {
+    const userMail = await getRepository(User).findOne({email: user.email})
+    console.log(userMail)
+    if (!userMail) {
+      return await this.save(user)
+    }
+
+    throw new Error('Este mail ya está en uso')
+  }
 }
 
 const userService = new UserService()

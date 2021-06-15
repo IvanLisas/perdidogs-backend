@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Color } from './Color'
 import { Length } from './Length'
 
@@ -9,12 +9,12 @@ export class Fur {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
-  @ManyToOne(() => Color, (color) => color.id)
+  @ManyToOne(() => Color, (color) => color.Id)
   color!: Color
 
-  @ManyToOne(() => Length, (length) => length.id)
+  @ManyToOne(() => Length, (length) => length.Id)
   length!: Length
 
   static fromJson(FurJson: string): Fur {
