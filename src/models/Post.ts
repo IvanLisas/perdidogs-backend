@@ -39,7 +39,7 @@ export class Post {
   @OneToOne(()=>Location, location=>location.Id)
   location!: Location
 
-  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false})
+  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false, cascade: true})
   pet!: Pet
   
 
