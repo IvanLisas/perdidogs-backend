@@ -23,9 +23,6 @@ export class Message {
   @CreateDateColumn()
   creationDate!: Date
 
-  @Column()
-  chat!: Chat
-
   static fromJson(MessageJson: string): Message {
     return Object.assign(new Message(), MessageJson)
   }

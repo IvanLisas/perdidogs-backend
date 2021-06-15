@@ -29,7 +29,7 @@ export class EmailService {
     const mailOptions = {
       from: `"Perdidogs" <${this.emailPerdidogs}>`,
       to: receiverEmail,
-      subject: 'Nuevo mensaje de ' + sender.name + ' ' + sender.surname,
+      subject: 'Nuevo mensaje de ' + sender.firstName + ' ' + sender.lastName,
       text: message
     }
 

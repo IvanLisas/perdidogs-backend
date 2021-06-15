@@ -1,12 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, OneToOne, OneToMany } from 'typeorm'
-import { Comment } from './Comment'
 import { PostStatus } from './PostStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
 import { User } from './User'
-import { Breed } from './Breed'
-import { Size } from './Size'
 
 @Entity()
 export class Post {
@@ -41,13 +38,6 @@ export class Post {
 
   @OneToOne(()=>Pet, pet=>pet.id)
   pet!: Pet
-  
-
-  validate() {
-    if (!this.description || !this.status || !this.pictures || !this.creationDate || !this.endDate || !this.location || !this.pet) {
-      throw 'Publicacion inválida'
-    }
-  }
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)}

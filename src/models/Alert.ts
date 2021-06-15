@@ -10,9 +10,6 @@ export class Alert {
   @PrimaryGeneratedColumn()
   id!: number
 
- /* @Column()
-  pet!: Pet*/
-
   @Column()
   x1!: number
 
