@@ -30,13 +30,13 @@ export class User {
   @Column({ type: 'varchar' })
   password!: string
 
-  @ManyToOne(() => Rol, (rol) => rol.id)
+  @ManyToOne(() => Rol, (rol) => rol.Id)
   rol!: Rol
 
-  @OneToMany(() => Chat, (chat) => chat.id)
+  @OneToMany(() => Chat, (chat) => chat.Id)
   chat!: Chat[]
 
-  @ManyToOne(() => UserStatus, (userStatus) => userStatus.id)
+  @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   userStatus!: UserStatus
 
   @CreateDateColumn()

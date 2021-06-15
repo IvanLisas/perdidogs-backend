@@ -4,7 +4,7 @@ import { getRepository } from 'typeorm'
 export class ChatService {
   async getAll(id: number): Promise<Chat[] | undefined> {
     try {
-      return await getRepository(Chat).find({ owner: { id: id } })
+      return await getRepository(Chat).find({ owner: { Id: id } })
     } catch (error) {
       throw error.message
     }

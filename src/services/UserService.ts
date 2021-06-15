@@ -8,6 +8,9 @@ class UserService {
   async get(id: number): Promise<User> {
     return await getRepository(User).findOneOrFail(id)
   }
+  async save(user: User): Promise<User> {
+    return await getRepository(User).save(user)
+  }
 
   async create(user: User): Promise<User> {
     if (!getRepository(User).find({ email: user.email })) return await getRepository(User).save(user)
