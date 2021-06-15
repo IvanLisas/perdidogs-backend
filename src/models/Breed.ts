@@ -11,4 +11,8 @@ export class Breed {
 
   @Column({ type: 'varchar'})
   description!: string
+
+  static fromJson(BreedJson: string): Breed {
+    return Object.assign(new Breed(), BreedJson)
+  }
 }

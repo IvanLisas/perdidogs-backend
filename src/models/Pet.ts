@@ -34,7 +34,7 @@ export class Pet {
       throw 'Mascota inválida'
     }
   }
-  static fromJson(petJson: string) {
+  static fromJson(petJson: string): Pet {
     return Object.assign(new Pet(), petJson)
   }
 }

@@ -1,5 +1,5 @@
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Color } from './FurColor'
+import { Color } from './Color'
 import { Length } from './Length'
 
 @Entity()
@@ -16,4 +16,8 @@ export class Fur {
 
   @ManyToOne(()=>Length, length=>length.Id)
   length!: Length
+
+  static fromJson(FurJson: string): Fur {
+    return Object.assign(new Fur(), FurJson)
+  }
 }
