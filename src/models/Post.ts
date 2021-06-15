@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
 import { Comment } from './Comment'
 import { PostStatus } from './PostStatus'
 import { Location } from './Location'
@@ -32,22 +32,21 @@ export class Post {
   @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   status!:PostStatus
 
-  @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
-  pictures?: Picture[]
+  // @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
+  // pictures?: Picture[]
 
   @OneToOne(()=>Location, location=>location.Id, {nullable: true, cascade:true})
+  @JoinColumn()
   location?: Location
 
-
-  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false, cascade: true})
+ @OneToOne(()=>Pet, pet=>pet.Id, {nullable: true, cascade: true})
+ @JoinColumn()
   pet!: Pet
   
-
-
   validate() {
     if (!this.description || !this.status || !this.creationDate || !this.endDate  || !this.pet) {
       throw 'Publicacion inválida'
-    }
+     }
   }
 
   static fromJson(postJson: string): Post {

@@ -1,6 +1,5 @@
 import { Entity, getRepository } from 'typeorm'
-import { Location } from '../models/Location'
-import { Picture } from '../models/Picture'
+ 
 import { Post } from '../models/Post'
 import postRepo from '../repos/PostRepo'
 import userService from './UserService'
@@ -9,10 +8,8 @@ import {Status, PostStatus} from '../models/PostStatus'
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
-    
    // console.log(post)
     post.owner = foundUser
-     
     post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
    // console.log(post)
     console.log(await getRepository(Post).save(post))
