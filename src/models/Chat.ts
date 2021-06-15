@@ -9,12 +9,12 @@ export class Chat {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.Id)
   owner!: User
 
-  @OneToMany(() => Message, (message) => message.id)
+  @OneToMany(() => Message, (message) => message.Id)
   messageList!: Message[]
 
   @CreateDateColumn()

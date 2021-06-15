@@ -20,19 +20,19 @@ export class Post {
   @CreateDateColumn()
   creationDate!: Date
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.Id)
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(() => PostStatus, (PostStatus) => PostStatus.id)
+  @ManyToOne(() => PostStatus, (PostStatus) => PostStatus.Id)
   status!: PostStatus
 
   @OneToMany(() => Picture, (picture) => picture.post)
   pictures!: Picture[]
 
-  @OneToOne(() => Location, (location) => location.id)
+  @OneToOne(() => Location, (location) => location.Id)
   location!: Location
 
   @OneToOne(() => Pet, (pet) => pet.id)

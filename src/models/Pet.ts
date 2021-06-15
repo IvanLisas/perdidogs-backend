@@ -23,10 +23,10 @@ export class Pet {
   @ManyToOne(() => Fur, (fur) => fur.id)
   fur!: Fur
 
-  @ManyToOne(() => Breed, (breed) => breed.id)
+  @ManyToOne(() => Breed, (breed) => breed.Id)
   breed!: Breed
 
-  @ManyToOne(() => Size, (size) => size.id)
+  @ManyToOne(() => Size, (size) => size.Id)
   size!: Size
 
   validate() {
