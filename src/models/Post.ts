@@ -10,40 +10,37 @@ import { Size } from './Size'
 
 @Entity()
 export class Post {
-  
   constructor(init?: Partial<Post>) {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() 
+  @PrimaryGeneratedColumn()
   Id!: number
 
-  @Column({ type: 'varchar'}) 
+  @Column({ type: 'varchar' })
   description!: string
 
-  @CreateDateColumn() 
+  @CreateDateColumn()
   creationDate!: Date
 
-  @ManyToOne(()=>User, user=>user.Id)
+  @ManyToOne(() => User, (user) => user.Id,{nullable: false})
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(()=>PostStatus, PostStatus=>PostStatus.Id)
-  status!: PostStatus
+  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
+  status!:PostStatus
 
-  @OneToMany(()=>Picture, picture=>picture.post)
+  @OneToMany(() => Picture, (picture) => picture.post)
   pictures!: Picture[]
 
-  @OneToOne(()=>Location, location=>location.Id)
+  @OneToOne(()=>Location, location=>location.Id, {nullable: false})
+
   location!: Location
 
-  @OneToOne(()=>Pet, pet=>pet.Id)
-  pet!: Pet
-  
-
-  
+  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false})
+  pet!: Pet  
 
   validate() {
     if (!this.description || !this.status || !this.pictures || !this.creationDate || !this.endDate || !this.location || !this.pet) {
@@ -52,7 +49,8 @@ export class Post {
   }
 
   static fromJson(postJson: string): Post {
-    return Object.assign(new Post(), postJson)}
+    return Object.assign(new Post(), postJson)
+  }
 
   // static fromJson(postJson: any) {
   //   return Object.assign(new Post(), postJson, {
@@ -62,7 +60,4 @@ export class Post {
   //   user: postJson.user ? User.fromJson(postJson.user) : null,
   //   status: postJson.status ? PostStatus.fromJson(postJson.status) : null,
   // })}
-
-
-
 }

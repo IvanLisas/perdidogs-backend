@@ -7,7 +7,9 @@ postRoutes.post('/:userId', async (req, res) => {
   try {
     const userId = parseInt(req.params.userId)
     const post = Post.fromJson(req.body)
+    console.log(post)
     return res.json(await postService.create(userId, post))
+    
   } catch (error) {
     res.status(400).send(error.message)
   }
@@ -21,15 +23,6 @@ postRoutes.get('/getAll/:postId',async (req, res) => {
     res.status(400).send(error.message)
   }
 })
-
-// postRoutes.post('/', (req, res) => {
-//   try {
-//     return res.json(postService.createPost(req.body))
-//   } catch (error) {
-//     res.status(400).send({ message: 'No se pudo crear la publicacion' })
-//   }
-// })
-
 postRoutes.get('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
@@ -39,14 +32,6 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })
 
-/* postRoutes.post('/:UserId', async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId)
-    return res.json(postService.updatePost(userId, userId))
-  } catch (error) {
-    res.status(400).send({ message: 'No se pudo actualizar la publicacion' })
-  }
-}) */
 
 postRoutes.delete('/:postId', async (req, res) => {
   try {

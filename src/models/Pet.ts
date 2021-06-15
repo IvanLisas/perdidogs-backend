@@ -18,7 +18,7 @@ export class Pet {
   sex!: string
   
   @Column({ type: 'boolean'}) 
-  hasCollar!: boolean
+  hasCollar?: boolean
 
   @ManyToOne(()=>Fur, fur=>fur.Id) 
   fur!: Fur
