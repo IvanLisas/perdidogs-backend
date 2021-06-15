@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, OneToOne, OneToMany } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany } from 'typeorm'
 import { Comment } from './Comment'
 import { PostStatus } from './PostStatus'
 import { Location } from './Location'
@@ -39,8 +39,9 @@ export class Post {
 
   location!: Location
 
-  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false})
-  pet!: Pet  
+  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: false, cascade: true})
+  pet!: Pet
+  
 
   validate() {
     if (!this.description || !this.status || !this.pictures || !this.creationDate || !this.endDate || !this.location || !this.pet) {

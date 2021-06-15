@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { Pet } from './Pet'
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 
 @Entity()
 export class Alert {
