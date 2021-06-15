@@ -8,25 +8,25 @@ export class Pet {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() 
+  @PrimaryGeneratedColumn()
   id!: number
-  
-  @Column({ type: 'varchar'}) 
+
+  @Column({ type: 'varchar' })
   name!: string
-  
-  @Column({ type: 'varchar'}) 
+
+  @Column({ type: 'varchar' })
   sex!: string
-  
-  @Column({ type: 'boolean'}) 
+
+  @Column({ type: 'boolean' })
   hasCollar!: boolean
 
-  @ManyToOne(()=>Fur, fur=>fur.id) 
+  @ManyToOne(() => Fur, (fur) => fur.id)
   fur!: Fur
 
-  @ManyToOne(()=>Breed, breed=>breed.id)
+  @ManyToOne(() => Breed, (breed) => breed.id)
   breed!: Breed
 
-  @ManyToOne(()=>Size, size=>size.id) 
+  @ManyToOne(() => Size, (size) => size.id)
   size!: Size
 
   validate() {

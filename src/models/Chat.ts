@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, ManyToOne } from 'typeorm'
 import { User } from './User'
 import { Message } from './Message'
 
@@ -11,12 +11,12 @@ export class Chat {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column()
-  owner!: User 
+  @ManyToOne(() => User, (user) => user.id)
+  owner!: User
 
-  @OneToMany(()=>Message, message=>message.id)
+  @OneToMany(() => Message, (message) => message.id)
   messageList!: Message[]
-  
+
   @CreateDateColumn()
   creationDate!: Date
 

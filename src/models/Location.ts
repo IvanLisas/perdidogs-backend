@@ -14,7 +14,7 @@ export class Location {
 
   @CreateDateColumn() creationDate!: Date
 
-  static fromJson(LocationJson: string):Location {
+  static fromJson(LocationJson: string): Location {
     return Object.assign(new Location(), LocationJson)
   }
 }

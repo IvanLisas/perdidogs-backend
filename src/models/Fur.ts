@@ -11,10 +11,10 @@ export class Fur {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @ManyToOne(()=>Color, color=>color.id)
+  @ManyToOne(() => Color, (color) => color.id)
   color!: Color
 
-  @ManyToOne(()=>Length, length=>length.id)
+  @ManyToOne(() => Length, (length) => length.id)
   length!: Length
 
   static fromJson(FurJson: string): Fur {

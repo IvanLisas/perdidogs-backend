@@ -17,6 +17,8 @@ import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/chat.routes'
 import userRoutes from './routes/user.routes'
 import postRoutes from './routes/post.routes'
+import { Chat } from './models/Chat'
+import { Message } from './models/Message'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 class Server {
@@ -41,7 +43,7 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User, Alert, Rol, UserStatus, Fur, Color, Length, Pet, Size, Breed, PostStatus, Picture, Post, Location],
+        entities: [User, Alert, Chat, Rol, UserStatus, Message, Fur, Color, Length, Pet, Size, Breed, PostStatus, Picture, Post, Location],
         synchronize: true,
         logging: false
       })

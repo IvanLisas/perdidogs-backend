@@ -11,10 +11,10 @@ export class Message {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column()
+  @ManyToOne(() => User, (user) => user.id)
   sender!: User
 
-  @Column()
+  @ManyToOne(() => User, (user) => user.id)
   adressee!: User
 
   @Column({ type: 'varchar' })

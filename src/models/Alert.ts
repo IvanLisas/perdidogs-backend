@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { Pet } from './Pet'
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 
 @Entity()
 export class Alert {
@@ -22,7 +21,6 @@ export class Alert {
   @Column()
   y2!: number
 
-
   @CreateDateColumn()
   creationDate!: Date
 
@@ -34,4 +32,5 @@ export class Alert {
     if (!this.x1 || !this.x2 || !this.y1 || !this.y2) {
       throw 'Coordenadas inválidas'
     }
-  }}
+  }
+}

@@ -7,40 +7,40 @@ import { User } from './User'
 
 @Entity()
 export class Post {
-  
   constructor(init?: Partial<Post>) {
     Object.assign(this, init)
   }
 
-  @PrimaryGeneratedColumn() 
+  @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ type: 'varchar'}) 
+  @Column({ type: 'varchar' })
   description!: string
 
-  @CreateDateColumn() 
+  @CreateDateColumn()
   creationDate!: Date
 
-  @ManyToOne(()=>User, user=>user.id)
+  @ManyToOne(() => User, (user) => user.id)
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(()=>PostStatus, PostStatus=>PostStatus.id)
+  @ManyToOne(() => PostStatus, (PostStatus) => PostStatus.id)
   status!: PostStatus
 
-  @OneToMany(()=>Picture, picture=>picture.post)
+  @OneToMany(() => Picture, (picture) => picture.post)
   pictures!: Picture[]
 
-  @OneToOne(()=>Location, location=>location.id)
+  @OneToOne(() => Location, (location) => location.id)
   location!: Location
 
-  @OneToOne(()=>Pet, pet=>pet.id)
+  @OneToOne(() => Pet, (pet) => pet.id)
   pet!: Pet
 
   static fromJson(postJson: string): Post {
-    return Object.assign(new Post(), postJson)}
+    return Object.assign(new Post(), postJson)
+  }
 
   // static fromJson(postJson: any) {
   //   return Object.assign(new Post(), postJson, {
@@ -50,7 +50,4 @@ export class Post {
   //   user: postJson.user ? User.fromJson(postJson.user) : null,
   //   status: postJson.status ? PostStatus.fromJson(postJson.status) : null,
   // })}
-
-
-
 }

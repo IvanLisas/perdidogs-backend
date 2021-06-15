@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Color {
@@ -9,7 +9,7 @@ export class Color {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   description!: string
 
   static fromJson(ColorJson: string): Color {

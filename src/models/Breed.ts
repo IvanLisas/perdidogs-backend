@@ -9,7 +9,7 @@ export class Breed {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   description!: string
 
   static fromJson(BreedJson: string): Breed {

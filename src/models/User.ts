@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm'
+import { Chat } from './Chat'
 import { Rol } from './Rol'
 import { UserStatus } from './UserStatus'
 
@@ -11,7 +12,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   firstName!: string | null
 
   @Column({ type: 'varchar' })
@@ -23,17 +24,20 @@ export class User {
   @Column({ type: 'varchar' })
   birthdate!: Date
 
-  @Column({ type:'boolean',default: true })
+  @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   password!: string
 
-  @ManyToOne(()=>Rol, rol=>rol.id)
-  rol!: Rol 
+  @ManyToOne(() => Rol, (rol) => rol.id)
+  rol!: Rol
 
-  @ManyToOne(()=>UserStatus, userStatus=>userStatus.id)
-  userStatus!: UserStatus 
+  @OneToMany(() => Chat, (chat) => chat.id)
+  chat!: Chat[]
+
+  @ManyToOne(() => UserStatus, (userStatus) => userStatus.id)
+  userStatus!: UserStatus
 
   @CreateDateColumn()
   creationDate!: Date
