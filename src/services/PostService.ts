@@ -11,7 +11,9 @@ class PostService {
    // console.log(post)
     post.owner = foundUser
     post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
-   // console.log(post)
+   
+   
+    console.log(post)
     console.log(await getRepository(Post).save(post))
     return await getRepository(Post).save(post)
   }

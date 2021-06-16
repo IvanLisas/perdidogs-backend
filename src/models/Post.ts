@@ -32,13 +32,14 @@ export class Post {
   @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   status!:PostStatus
 
-  // @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
-  // pictures?: Picture[]
+  @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
+  pictures?: Picture[]
 
   @OneToOne(()=>Location, location=>location.Id, {nullable: true, cascade:true})
   @JoinColumn()
   location?: Location
 
+  //TODO: SE PUEDE CREAR UN POST SIN MASCOTA.
  @OneToOne(()=>Pet, pet=>pet.Id, {nullable: true, cascade: true})
  @JoinColumn()
   pet!: Pet
