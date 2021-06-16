@@ -10,7 +10,14 @@ class UserService {
   }
 
   async get(id: number): Promise<User> {
-    return await getRepository(User).findOneOrFail(id)
+
+    return await getRepository(User).findOneOrFail({
+      relations: ['post','post.pet', 'post.location', 'post.pictures'],
+      where: {
+       Id: id
+      }
+    
+    })
   }
 
   async save(user: User): Promise<User> {

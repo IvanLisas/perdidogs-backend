@@ -1,22 +1,22 @@
 import express, { Request, Response } from 'express'
 import { createConnection } from 'typeorm'
-import { Alert } from './models/Alert'
-import { Breed } from './models/Breed'
-import { Fur } from './models/Fur'
-import { Color } from './models/Color'
-import { Length } from './models/Length'
-import { Location } from './models/Location'
-import { Pet } from './models/Pet'
-import { Picture } from './models/Picture'
-import { Post } from './models/Post'
-import { PostStatus } from './models/PostStatus'
-import { Rol } from './models/Rol'
-import { Size } from './models/Size'
-import { User } from './models/User'
-import { UserStatus } from './models/UserStatus'
-import chatRoutes from './routes/chat.routes'
-import userRoutes from './routes/user.routes'
-import postRoutes from './routes/post.routes'
+import { Alert } from '../models/Alert'
+import { Breed } from '../models/Breed'
+import { Fur } from '../models/Fur'
+import { Color } from '../models/Color'
+import { Length } from '../models/Length'
+import { Location } from '../models/Location'
+import { Pet } from '../models/Pet'
+import { Picture } from '../models/Picture'
+import { Post } from '../models/Post'
+import { PostStatus } from '../models/PostStatus'
+import { Rol } from '../models/Rol'
+import { Size } from '../models/Size'
+import { User } from '../models/User'
+import { UserStatus } from '../models/UserStatus'
+import chatRoutes from '../routes/chat.routes'
+import userRoutes from '../routes/user.routes'
+import postRoutes from '../routes/post.routes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234'
 class Server {
@@ -33,6 +33,8 @@ class Server {
   public async configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
+
+ 
     try {
       await createConnection({
         type: 'mysql',
@@ -76,6 +78,8 @@ class Server {
   public start() {
     this.app.listen(this.app.get('port'), () => {
       console.log(`Server is listening ${this.app.get('port')} port.`)
+
+
     })
   }
 }

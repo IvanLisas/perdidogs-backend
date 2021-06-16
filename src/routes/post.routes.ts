@@ -7,7 +7,7 @@ postRoutes.post('/:userId', async (req, res) => {
   try {
     const userId = parseInt(req.params.userId)
     const post = Post.fromJson(req.body)
-    console.log(post, "")
+    //console.log(post, "")
     return res.json(await postService.create(userId, post))
     
   } catch (error) {

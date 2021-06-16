@@ -24,6 +24,7 @@ export class Post {
   creationDate!: Date
 
   @ManyToOne(() => User, (user) => user.Id,{nullable: false})
+  @JoinColumn()
   owner!: User
 
   @CreateDateColumn()
