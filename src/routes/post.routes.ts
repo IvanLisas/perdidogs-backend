@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
+import { Location } from '../models/Location'
 const postRoutes = Router()
 
 postRoutes.get('/getAll/:id', async (req, res) => {
@@ -51,5 +52,17 @@ postRoutes.delete('/:postId', async (req, res) => {
 //     res.send({ message: 'No se pudo borrar la publicacion' })
 //   }
 // })
- 
+
+
+postRoutes.get('/by-location/:x/:y/:radio', async (req, res) => {
+  try {
+    const location = Location.createNewLocation (parseFloat(req.params.x), parseFloat(req.params.y))
+
+    return res.json(await postService.getByLocation(location, parseFloat(req.params.radio)))
+    
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 export default postRoutes

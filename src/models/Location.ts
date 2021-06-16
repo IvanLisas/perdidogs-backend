@@ -2,15 +2,27 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 
 @Entity()
 export class Location {
+  /*constructor(x: number, y: number) {
+    this.x= x
+    this.y= y
+  }*/
+
   constructor(init?: Partial<Location>) {
     Object.assign(this, init)
   }
 
+  static createNewLocation(x:number, y:number):Location{
+    const location= new Location()
+    location.x= x
+    location.y= y
+    return location
+  }
+
   @PrimaryGeneratedColumn() Id!: number
 
-  @Column({ type: 'varchar' }) x!: string
+  @Column({ type: 'float' }) x!: number
 
-  @Column({ type: 'varchar' }) y!: string
+  @Column({ type: 'float' }) y!: number
 
   @CreateDateColumn() creationDate!: Date
 

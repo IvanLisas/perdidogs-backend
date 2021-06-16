@@ -1,8 +1,9 @@
-import { Entity, getRepository } from 'typeorm'
+import { Between, Entity, getRepository, In } from 'typeorm'
  
 import { Post } from '../models/Post'
 import userService from './UserService'
 import {Status, PostStatus} from '../models/PostStatus'
+import { Location } from '../models/Location'
 @Entity()
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
@@ -42,6 +43,24 @@ class PostService {
 
   async getLocation(url: string):Promise <string> {
     return this.getLocation(url)
+  }
+
+  async getByLocation(loc: Location, radio: number): Promise<Post[]|undefined> {
+    const extremeX= this.calculateExtreme(loc.x, radio)
+    const extremeY= this.calculateExtreme(loc.y, radio)
+    const locations= await getRepository(Location).find({x: Between (extremeX[0], extremeX[1]),y: Between (extremeY[0], extremeY[1]) })
+    if(locations!=null){
+      return await getRepository(Post).find({location: In(locations)})
+    }
+  }
+
+  getLocationId(loc:Location):number{
+    return loc.Id
+  }
+  
+  calculateExtreme(n:number, radio:number):Array<number>{
+    const realRadio= radio/111
+    return [n-realRadio, n+realRadio]
   }
  
 }
