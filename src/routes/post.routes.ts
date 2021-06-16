@@ -7,7 +7,8 @@ postRoutes.get('/getAll/:id', async (req, res) => {
   try {
     const userId = parseInt(req.params.userId)
     const post = Post.fromJson(req.body)
-     return res.json(await postService.create(userId, post))
+    console.log(post, "")
+    return res.json(await postService.create(userId, post))
     
   } catch (error) {
     res.status(400).send(error.message)
@@ -50,5 +51,5 @@ postRoutes.delete('/:postId', async (req, res) => {
 //     res.send({ message: 'No se pudo borrar la publicacion' })
 //   }
 // })
-
+ 
 export default postRoutes
