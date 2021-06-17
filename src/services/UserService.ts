@@ -27,9 +27,11 @@ class UserService {
   }
 
   async registrateUser(user: User): Promise<User> {
-    const userMail = await getRepository(User).findOne({email: user.email})
-    console.log(userMail)
+    console.log(user)
+    const userMail = await getRepository(User).findOne({ email: user.email })
+
     if (!userMail) {
+      console.log(userMail)
       return await this.save(user)
     }
 

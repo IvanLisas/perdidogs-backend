@@ -20,9 +20,9 @@ export class User {
 
   @Column({ type: 'varchar' })
   email!: string
-
-  @Column({ type: 'varchar' })
-  birthdate!: Date
+  //TODO
+  /*   @Column({ type: 'varchar' })
+  birthdate!: Date */
 
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
