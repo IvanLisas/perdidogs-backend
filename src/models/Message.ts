@@ -17,8 +17,8 @@ export class Message {
   @ManyToOne(() => User, (user) => user.Id)
   adressee!: User
 
-  @ManyToOne(() => Chat, (chat) => chat.Id)
-  chat!: User
+  @ManyToOne(() => Chat, (chat) => chat.messageList)
+  chat!: Chat
 
   @Column({ type: 'varchar' })
   body!: string
