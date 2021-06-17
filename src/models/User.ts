@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinColumn } from 'typeorm'
 import { Chat } from './Chat'
+import { Post } from './Post'
 import { Rol } from './Rol'
 import { UserStatus } from './UserStatus'
 
@@ -17,6 +18,10 @@ export class User {
 
   @Column({ type: 'varchar' })
   lastName!: string
+
+  @OneToMany(() => Post, (post) => post.owner, {nullable: false})
+  @JoinColumn()
+  post!: Post[]
 
   @Column({ type: 'varchar' })
   email!: string

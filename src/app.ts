@@ -35,6 +35,8 @@ class Server {
   public async configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
+
+ 
     try {
       await createConnection({
         type: 'mysql',
@@ -78,6 +80,8 @@ class Server {
   public start() {
     this.app.listen(this.app.get('port'), () => {
       console.log(`Server is listening ${this.app.get('port')} port.`)
+
+
     })
   }
 }
