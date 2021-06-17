@@ -6,7 +6,7 @@ const postRoutes = Router()
 
 postRoutes.get('/getAll/:id', async (req, res) => {
   try {
-    const userId = parseInt(req.params.userId)
+    const userId = parseInt(req.params.id)
     const post = Post.fromJson(req.body)
     console.log(post, '')
     return res.json(await postService.create(userId, post))
@@ -25,7 +25,7 @@ postRoutes.get('/getAll/:postId', async (req, res) => {
 })
 postRoutes.get('/:postId', async (req, res) => {
   try {
-    const post = parseInt(req.params.id)
+    const post = parseInt(req.params.postId)
     return res.json(postService.get(post))
   } catch (error) {
     res.status(404).send(error.message)
