@@ -1,8 +1,8 @@
 import { Chat } from '../models/Chat'
 import { getRepository } from 'typeorm'
-import { MessageDTO } from '../routes/ChatRoutes'
 import userService from './UserService'
 import { Message } from '../models/Message'
+import { MessageDTO } from '../routes/Chat.routes'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[] | undefined> {
