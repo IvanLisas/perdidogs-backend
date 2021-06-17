@@ -1,4 +1,4 @@
-import { createConnection, getCustomRepository, getRepository, Repository } from 'typeorm'
+import { getRepository } from 'typeorm'
 import { Breed } from '../models/Breed'
 import { Color } from '../models/Color'
 import { Fur } from '../models/Fur'
