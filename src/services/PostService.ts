@@ -13,8 +13,8 @@ class PostService {
     post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
    
    
-    console.log(post)
-    console.log(await getRepository(Post).save(post))
+    //console.log(post)
+    //console.log(await getRepository(Post).save(post))
     return await getRepository(Post).save(post)
   }
  
@@ -25,8 +25,14 @@ class PostService {
     return await getRepository(Post).find({ owner: { Id: idUser } })
   }
 
-  async get(postId: number): Promise<Post> {
-    return await getRepository(Post).findOneOrFail({ Id: postId })
+  async get(idPost: number): Promise<Post> {
+   
+    return await getRepository(Post).findOneOrFail({
+      relations: ['owner'],
+      where: {
+        Id: idPost
+      }
+    })
   }
 
   async update(postId: number, idUser: number): Promise<Post | undefined> {
