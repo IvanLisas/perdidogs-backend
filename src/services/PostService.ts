@@ -55,8 +55,16 @@ class PostService {
     const extremeX= this.calculateExtreme(loc.x, radio)
     const extremeY= this.calculateExtreme(loc.y, radio)
     const locations= await getRepository(Location).find({x: Between (extremeX[0], extremeX[1]),y: Between (extremeY[0], extremeY[1]) })
-    if(locations!=null){
-      return await getRepository(Post).find({location: In(locations)})
+    console.log("Size de locations", locations.length)
+    if(locations.length>0){
+      const ids = locations.map(this.getLocationId)
+      console.log("ids:", ids)
+      return await getRepository(Post).find({
+        relations:['pet','pictures','owner', 'location', 'pet.fur','pet.breed','pet.size'],
+        where:{
+          location: {Id:In(ids)}
+        }
+      })
     }
   }
 
@@ -65,7 +73,12 @@ class PostService {
   }
   
   calculateExtreme(n:number, radio:number):Array<number>{
-    const realRadio= radio/111
+    let realRadio=0
+    if(radio>0){
+      realRadio= 5*radio/111
+    }else{
+      realRadio= 5/radio/111
+    }
     return [n-realRadio, n+realRadio]
   }
  
