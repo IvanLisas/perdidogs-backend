@@ -21,7 +21,7 @@ export class ChatService {
     }
   }
 
-  async create(message: MessageDTO) {
+  async create(message: MessageDTO): Promise<Chat | undefined> {
     const user1 = await userService.get(message.sender)
     const user2 = await userService.get(message.adressee)
     if (message.chat == 0) {
@@ -37,7 +37,7 @@ export class ChatService {
       await getRepository(Message).save(mesagge)
       chat.messageList.push(mesagge)
 
-      await getRepository(Chat).save(chat)
+      return await getRepository(Chat).save(chat)
     }
   }
 }

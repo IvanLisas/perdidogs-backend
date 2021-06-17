@@ -17,7 +17,7 @@ chatRoutes.post('/', async (req, res) => {
   try {
     const message = new MessageDTO(req.body.chat, req.body.sender, req.body.adressee, req.body.messageBody, req.body.read)
     console.log(message)
-    return res.json(chatService.create(message))
+    return res.json(await chatService.create(message))
   } catch (error) {
     res.status(403).send(error.message)
   }
