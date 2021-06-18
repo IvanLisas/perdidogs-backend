@@ -44,7 +44,6 @@ postRoutes.get('/:postId', async (req, res) => {
 postRoutes.get('/by-location/:x/:y/:radio', async (req, res) => {
   try {
     const location = Location.createNewLocation(parseFloat(req.params.x), parseFloat(req.params.y))
-
     return res.json(await postService.getByLocation(location, parseFloat(req.params.radio)))
   } catch (error) {
     res.status(400).send(error.message)

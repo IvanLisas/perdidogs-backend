@@ -17,11 +17,6 @@ class UserService {
     return await getRepository(User).save(user)
   }
 
-  async create(user: User): Promise<User> {
-    if (!(await getRepository(User).findOne({ email: user.email }))) return await getRepository(User).save(user)
-    else throw 'El email ya existe'
-  }
-
   async update(user: User): Promise<User> {
     return await getRepository(User).save(user)
   }
