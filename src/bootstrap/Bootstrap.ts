@@ -179,7 +179,7 @@ export class Bootstrap {
     this.color2 = new Color({ description: 'Negro' })
     this.color3 = new Color({ description: 'Beige' })
     this.color4 = new Color({ description: 'Gris' })
-    this.color5 = new Color({ description: 'gris' })
+    this.color5 = new Color({ description: 'Marrón' })
 
     await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5])
   }
@@ -210,18 +210,18 @@ export class Bootstrap {
 
   async createSizes(): Promise <void> {
     console.log("******************************creando tamaños******************************")
-  this.size1 = new Size ({description: "pequeño"})
-  this.size2 = new Size ({description:"mediano"})
-  this.size3 = new Size ({ description: "grande"})
+  this.size1 = new Size ({description: "Pequeño"})
+  this.size2 = new Size ({description:"Mediano"})
+  this.size3 = new Size ({ description: "Grande"})
   await getRepository(Size).save([this.size1, this.size2,this.size3])
  }
 
 
   async createLengths(): Promise<void> {
     console.log('******************************Creando Largos de pelos******************************')
-    this.largo1 = new Length({ description: 'corto' })
-    this.largo2 = new Length({ description: 'largo' })
-    this.largo3 = new Length({ description: 'no tiene' })
+    this.largo1 = new Length({ description: 'Corto' })
+    this.largo2 = new Length({ description: 'Largo' })
+    this.largo3 = new Length({ description: 'No tiene' })
     await getRepository(Length).save([this.largo1, this.largo2, this.largo3])
   }
 
