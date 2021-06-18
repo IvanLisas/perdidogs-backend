@@ -4,6 +4,7 @@ import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
+import { Bounderies, LatLng } from '../models/LatLang'
 @Entity()
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
@@ -49,9 +50,11 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(loc: Location, radio: number): Promise<Post[] | undefined> {
-    const extremeX = this.calculateExtreme(loc.lat, radio)
-    const extremeY = this.calculateExtreme(loc.long, radio)
+  async getByLocation(bounderies: Bounderies, radio: number): Promise<Post[] | undefined> {
+    const southWest = bounderies.southWest
+    const northEast= bounderies.northEast
+    const extremeX = [southWest.latitude, northEast.latitude]
+    const extremeY =  [southWest.longitude, northEast.longitude]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     console.log('Size de locations', locations.length)
     if (locations.length > 0) {
@@ -70,16 +73,10 @@ class PostService {
     return loc.Id
   }
 
-  calculateExtreme(n: number, radio: number): Array<number> {
-    let realRadio = 0
-    if (radio > 0) {
-      realRadio = (5 * radio) / 111
-    } else {
-      realRadio = 5 / radio / 111
-    }
-    return [n - realRadio, n + realRadio]
-  }
 }
+
+
+
 
 const postService = new PostService()
 export default postService
