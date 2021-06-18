@@ -6,7 +6,7 @@ import { MessageDTO } from '../routes/Chat.routes'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
-    console.log(await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: { ownerId: { Id: id } } || { owner2: { Id: id } } }))
+    console.log(await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: { owner: { Id: id } } || { owner2: { Id: id } } }))
     return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: { owner: { Id: id } } || { owner2: { Id: id } } })
   }
 
