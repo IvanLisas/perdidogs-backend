@@ -1,6 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
-import { Comment } from './Comment'
-import { PostStatus } from './PostStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
@@ -21,33 +19,33 @@ export class Post {
   @CreateDateColumn()
   creationDate!: Date
 
-  @ManyToOne(() => User, (user) => user.Id,{nullable: false})
+  @ManyToOne(() => User, (user) => user.Id, { nullable: false })
   @JoinColumn()
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
-  status!:PostStatus
+  // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
+  // status!:PostStatus
 
-  @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
+  @OneToMany(() => Picture, (picture) => picture.post, { nullable: true })
   pictures?: Picture[]
 
-  @OneToOne(()=>Location, location=>location.Id, {nullable: true, cascade:true})
+  @OneToOne(() => Location, (location) => location.Id, { nullable: true, cascade: true })
   @JoinColumn()
   location?: Location
 
   //TODO: SE PUEDE CREAR UN POST SIN MASCOTA.
- @OneToOne(()=>Pet, pet=>pet.Id, {nullable: true, cascade: true})
- @JoinColumn()
+  @OneToOne(() => Pet, (pet) => pet.Id, { nullable: true, cascade: true })
+  @JoinColumn()
   pet!: Pet
-  
+/* 
   validate() {
-    if (!this.description || !this.status || !this.creationDate || !this.endDate  || !this.pet) {
+    if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
       throw 'Publicacion inválida'
-     }
-  }
+    } */
+  //}
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)
