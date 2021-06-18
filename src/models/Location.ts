@@ -2,11 +2,6 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 
 @Entity()
 export class Location {
-  /*constructor(x: number, y: number) {
-    this.x= x
-    this.y= y
-  }*/
-
   constructor(init?: Partial<Location>) {
     Object.assign(this, init)
   }
