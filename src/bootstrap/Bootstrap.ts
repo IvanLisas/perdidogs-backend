@@ -13,7 +13,6 @@ import { Rol } from '../models/Rol'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
 
-
 export class Bootstrap {
   // activo!: PostStatus
   // pendiente!: PostStatus
@@ -155,7 +154,7 @@ export class Bootstrap {
   post0024!: Post
   pelaje1!: Fur
   pelaje2!: Fur
-  pelaje3!:Fur
+  pelaje3!: Fur
   // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
@@ -165,7 +164,7 @@ export class Bootstrap {
     await this.createSizes()
     await this.createLengths()
     await this.createFurs()
-    //await this.createUserStatus()
+    await this.createBreed()
     await this.createUsers()
     await this.createDogs()
     await this.createLocations()
@@ -175,19 +174,14 @@ export class Bootstrap {
 
   //Colors
   async createColors(): Promise<void> {
-    console.log("******************************creando colores******************************")
-    this.color1 = new Color ({description: "blanco"})
-    this.color2= new Color ({description: "blanco y negro"})
-    this.color3= new Color ({description: "negro"})
-    this.color4= new Color ({description: "blanco y beige"})
-    this.color5= new Color ({description: "gris"})
-    this.color5= new Color ({description: "gris y blanco"})
-    this.color6= new Color ({description: "beige negro y blanco"})
-    this.color7= new Color ({description: "negro y beige"})
-    this.color8= new Color ({description: "beige"})
-    this.color9= new Color ({description: "marron cobrizo"})
-    this.color10= new Color ({description: "gris y beige"})
-    await getRepository(Color).save([this.color1, this.color2, this.color3,this.color4, this.color5, this.color6, this.color7, this.color8, this.color9, this.color10])
+    console.log('******************************Creando colores******************************')
+    this.color1 = new Color({ description: 'Blanco' })
+    this.color2 = new Color({ description: 'Negro' })
+    this.color3 = new Color({ description: 'Beige' })
+    this.color4 = new Color({ description: 'Gris' })
+    this.color5 = new Color({ description: 'gris' })
+
+    await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5])
   }
 
   async createBreed(): Promise <void> {
@@ -223,13 +217,13 @@ export class Bootstrap {
  }
 
 
- async createLengths(): Promise <void>  {
-  console.log("******************************creando Largos de pelos******************************")
-  this.largo1 = new Length ({description: "corto"})
-  this.largo2 = new Length ({description:"largo"})
-  this.largo3 = new Length ({ description: "no tiene"})
-  await getRepository(Length).save([this.largo1, this.largo2,this.largo3])
- }
+  async createLengths(): Promise<void> {
+    console.log('******************************Creando Largos de pelos******************************')
+    this.largo1 = new Length({ description: 'corto' })
+    this.largo2 = new Length({ description: 'largo' })
+    this.largo3 = new Length({ description: 'no tiene' })
+    await getRepository(Length).save([this.largo1, this.largo2, this.largo3])
+  }
 
  async createFurs(): Promise <void>  {
   console.log("******************************pelo******************************")
@@ -240,16 +234,16 @@ export class Bootstrap {
  }
   //mascotas
   async createDogs(): Promise<void> {
-    console.log("******************************creando perritos******************************")
+    console.log('******************************Creando perritos******************************')
     //este metodo es para buscar en la BD.
-   // const color9 = await getRepository(Color)
+    // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
 
     this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.dalmata, size: this.size3 })
     this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size2 })
-    this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur:this.pelaje3, breed: this.sinRaza, size: this.size1 })
+    this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
     this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.corgie, size: this.size1 })
-    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur:this.pelaje2, breed: this.overjeroAleman, size: this.size3 })
+    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.overjeroAleman, size: this.size3 })
     this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.chihuahua, size: this.size1 })
     this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.galgo, size: this.size3 })
     this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
@@ -257,12 +251,12 @@ export class Bootstrap {
     this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.ovejeroBelga, size: this.size3 })
     this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.HuskySiberia, size: this.size3 })
     this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.size3 })
-    this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur:this.pelaje1, breed: this.sinRaza, size: this.size3 })
+    this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.caniche, size: this.size1 })
     this.perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
     this.perro16 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
-    this.perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur:this.pelaje3, breed: this.galgo, size: this.size3 })
+    this.perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.size3 })
     this.perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.bulldogIngles, size: this.size2 })
     await getRepository(Pet).save([
@@ -300,16 +294,16 @@ export class Bootstrap {
   // }
   //users
   async createUsers(): Promise<void> {
-    console.log("******************************creando user******************************")
-    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com'   , password: '1234', isActive: true })
-    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com' , password: '1234', isActive: true })
-    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com' , password: '1234', isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com' , password: '1234', isActive: true })
+    console.log('******************************Creando user******************************')
+    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com', password: '1234', isActive: true })
+    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: '1234', isActive: true })
+    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com', password: '1234', isActive: true })
+    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: '1234', isActive: true })
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
   }
   //location
   async createLocations(): Promise<void> {
-    console.log("******************************creando Localizaciones******************************")
+    console.log('******************************Creando Localizaciones******************************')
     this.location_0001 = new Location({ x: -34.600585579493, y: -58.5127015868307 })
     this.location_0002 = new Location({ x: -34.6275450762093, y: -58.4095720793038 })
     this.location_0003 = new Location({ x: -34.5656755865268, y: -58.4701920657306 })
@@ -355,7 +349,7 @@ export class Bootstrap {
   }
   //pictures
   async createPictures(): Promise<void> {
-    console.log("******************************creando pictures******************************")
+    console.log('******************************Creando pictures******************************')
     this.picture_0001 = new Picture({ url: 'im001.png' })
     this.picture_0002 = new Picture({ url: 'im002.png' })
     this.picture_0003 = new Picture({ url: 'im002.png' })
