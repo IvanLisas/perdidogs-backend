@@ -50,9 +50,9 @@ class PostService {
   }
 
   async getByLocation(loc: Location, radio: number): Promise<Post[] | undefined> {
-    const extremeX = this.calculateExtreme(loc.x, radio)
-    const extremeY = this.calculateExtreme(loc.y, radio)
-    const locations = await getRepository(Location).find({ x: Between(extremeX[0], extremeX[1]), y: Between(extremeY[0], extremeY[1]) })
+    const extremeX = this.calculateExtreme(loc.lat, radio)
+    const extremeY = this.calculateExtreme(loc.long, radio)
+    const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     console.log('Size de locations', locations.length)
     if (locations.length > 0) {
       const ids = locations.map(this.getLocationId)
