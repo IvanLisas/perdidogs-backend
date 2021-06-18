@@ -426,13 +426,13 @@ export class Bootstrap {
       owner: this.gabriel
      
     })
-    // this.post0004 = new Post({
-    //   description: 'encontrado en ..',
-    //   location: this.location_0003,
-    //   pet: this.perro4,
-    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
-    //   owner: this.estefania,
-    // })
+    this.post0004 = new Post({
+      description: 'encontrado en ..',
+      location: this.location_0003,
+      pet: this.perro4,
+      pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
+      owner: this.mariano
+    })
     // this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
     // this.post0006 = new Post({
     //   description: 'Dos perritos perdidos sobre avenida crovara...',
@@ -528,7 +528,7 @@ export class Bootstrap {
       this.post0001,
       this.post0002,
       this.post0003,
-      // this.post0004,
+      this.post0004
       // this.post0005,
       // this.post0006,
       // this.post0007,
