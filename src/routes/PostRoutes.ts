@@ -2,6 +2,7 @@ import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
 import { Location } from '../models/Location'
+import { Bounderies } from '../models/LatLang'
 const postRoutes = Router()
 
 postRoutes.post('/', async (req, res) => {
@@ -40,10 +41,10 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })*/
 
-postRoutes.get('/by-location/:lat/:long/:radio', async (req, res) => {
+postRoutes.put('/by-location', async (req, res) => {
   try {
-    const location = Location.createNewLocation(parseFloat(req.params.lat), parseFloat(req.params.long))
-    return res.json(await postService.getByLocation(location, parseFloat(req.params.radio)))
+    const Bounderies = req.body as Bounderies
+    return res.json(await postService.getByLocation(bounderies)
   } catch (error) {
     res.status(400).send(error.message)
   }
