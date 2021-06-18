@@ -9,17 +9,14 @@ import { Bounderies, LatLng } from '../models/LatLang'
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
-    // console.log(post)
     post.owner = foundUser
-    //post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
-
-    //console.log(post)
-    //console.log(await getRepository(Post).save(post))
     return await getRepository(Post).save(post)
   }
 
-  async getAllPosts(idPost: number): Promise<Post[] | undefined> {
-    return await getRepository(Post).find({ Id: idPost })
+  async getAllPosts(): Promise<Post[] | undefined> {
+    return await getRepository(Post).find({
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size']
+    })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
     return await getRepository(Post).find({ owner: { Id: idUser } })
@@ -52,11 +49,10 @@ class PostService {
 
   async getByLocation(bounderies: Bounderies): Promise<Post[] | undefined> {
     const southWest = bounderies.southWest
-    const northEast= bounderies.northEast
+    const northEast = bounderies.northEast
     const extremeX = [southWest.latitude, northEast.latitude]
-    const extremeY =  [southWest.longitude, northEast.longitude]
+    const extremeY = [southWest.longitude, northEast.longitude]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
-    console.log('Size de locations', locations.length)
     if (locations.length > 0) {
       const ids = locations.map(this.getLocationId)
       console.log('ids:', ids)
@@ -72,11 +68,7 @@ class PostService {
   getLocationId(loc: Location): number {
     return loc.Id
   }
-
 }
-
-
-
 
 const postService = new PostService()
 export default postService

@@ -365,35 +365,35 @@ export class Bootstrap {
   //pictures
   async createPictures(): Promise<void> {
     console.log('******************************Creando Pictures**************************************')
-    this.picture_0001 = new Picture({ url: 'im001.png' })
-    this.picture_0002 = new Picture({ url: 'im002.png' })
-    this.picture_0003 = new Picture({ url: 'im002.png' })
-    this.picture_0004 = new Picture({ url: 'im003.png' })
-    this.picture_0005 = new Picture({ url: 'im004.png' })
-    this.picture_0006 = new Picture({ url: 'im004.png' })
-    this.picture_0007 = new Picture({ url: 'im001.png' })
-    this.picture_0008 = new Picture({ url: 'im002.png' })
-    this.picture_0009 = new Picture({ url: 'im002.png' })
-    this.picture_0010 = new Picture({ url: 'im003.png' })
-    this.picture_0011 = new Picture({ url: 'im004.png' })
-    this.picture_0012 = new Picture({ url: 'im004.png' })
-    this.picture_0013 = new Picture({ url: 'im001.png' })
-    this.picture_0014 = new Picture({ url: 'im002.png' })
-    this.picture_0015 = new Picture({ url: 'im002.png' })
-    this.picture_0016 = new Picture({ url: 'im003.png' })
-    this.picture_0017 = new Picture({ url: 'im004.png' })
-    this.picture_0018 = new Picture({ url: 'im034.png' })
-    this.picture_0019 = new Picture({ url: 'im0341.png' })
-    this.picture_0020 = new Picture({ url: 'im122.png' })
-    this.picture_0021 = new Picture({ url: 'im112.png' })
-    this.picture_0022 = new Picture({ url: 'im018.png' })
-    this.picture_0023 = new Picture({ url: 'im019.png' })
-    this.picture_0024 = new Picture({ url: 'im020.png' })
-    this.picture_0025 = new Picture({ url: 'im021.png' })
-    this.picture_0026 = new Picture({ url: 'im022.png' })
-    this.picture_0027 = new Picture({ url: 'im023.png' })
-    this.picture_0028 = new Picture({ url: 'im012.png' })
-    this.picture_0029 = new Picture({ url: 'im006.png' })
+    this.picture_0001 = new Picture({ url: 'https://aws.traveler.es/prod/designs/v1/assets/745x628/202931.jpg' })
+    this.picture_0002 = new Picture({ url: 'https://www.ecestaticos.com/image/clipping/4eb2fe1b771826cf037b432e11352dea/la-curiosa-historia-del-perro-que-ayudo-a-una-mujer-enferma-a-volver-a-mover-el-brazo.jpg' })
+    this.picture_0003 = new Picture({ url: 'https://www.anipedia.net/imagenes/que-comen-los-perros.jpg' })
+    this.picture_0004 = new Picture({ url: 'http://publicaciones.adicae.net/publicaciones/fototeca/perro.jpg' })
+    this.picture_0005 = new Picture({ url: 'https://www.anipedia.net/imagenes/nombres-de-perros.jpg' })
+    this.picture_0006 = new Picture({ url: 'https://cdn-0.somosmamas.com.ar/wp-content/uploads/2019/05/nombres-para-perros.jpg' })
+    this.picture_0007 = new Picture({ url: 'https://elclubmascotas.com/sites/default/files/Perros-grandes-perros-pequen%CC%83os.jpg' })
+    this.picture_0008 = new Picture({ url: 'https://s03.s3c.es/imag/_v0/770x420/2/4/c/600x400_Perro-de-cachorro-iStock.jpg' })
+    this.picture_0009 = new Picture({ url: 'https://es.calcuworld.com/wp-content/uploads/sites/2/2018/03/genes-perros.jpg' })
+    this.picture_0010 = new Picture({ url: '../../assets/images/imagen10.png' })
+    this.picture_0011 = new Picture({ url: '../../assets/images/imagen11.png' })
+    this.picture_0012 = new Picture({ url: '../../assets/images/imagen12.png' })
+    this.picture_0013 = new Picture({ url: '../../assets/images/imagen13.png' })
+    this.picture_0014 = new Picture({ url: '../../assets/images/imagen14.png' })
+    this.picture_0015 = new Picture({ url: '../../assets/images/imagen15.png' })
+    this.picture_0016 = new Picture({ url: '../../assets/images/imagen16.png' })
+    this.picture_0017 = new Picture({ url: '../../assets/images/imagen17.png' })
+    this.picture_0018 = new Picture({ url: '../../assets/images/imagen18.png' })
+    this.picture_0019 = new Picture({ url: '../../assets/images/imagen19.png' })
+    this.picture_0020 = new Picture({ url: '../../assets/images/imagen20.png' })
+    this.picture_0021 = new Picture({ url: '../../assets/images/imagen21.png' })
+    this.picture_0022 = new Picture({ url: '../../assets/images/imagen22.png' })
+    this.picture_0023 = new Picture({ url: '../../assets/images/imagen23.png' })
+    this.picture_0024 = new Picture({ url: '../../assets/images/imagen24.png' })
+    this.picture_0025 = new Picture({ url: '../../assets/images/imagen25.png' })
+    this.picture_0026 = new Picture({ url: '../../assets/images/imagen26.png' })
+    this.picture_0027 = new Picture({ url: '../../assets/images/imagen27.png' })
+    this.picture_0028 = new Picture({ url: '../../assets/images/imagen28.png' })
+    this.picture_0029 = new Picture({ url: '../../assets/images/imagen20.png' })
 
     await getRepository(Picture).save([
       this.picture_0001,
@@ -422,24 +422,24 @@ export class Bootstrap {
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
     this.post0001 = new Post({
-      description: 'Perro encontrado en la calle artigas al 80..',
+      description: 'Perro encontrado en la calle artigas al 80',
       location: this.location_0001,
       pet: this.perro1,
       owner: this.estefania,
       pictures: [this.picture_0001, this.picture_0002]
     })
     this.post0002 = new Post({
-      description: 'encontrado en Berazategui, está lastimado...',
+      description: 'Encontrado en Berazategui, está lastimado',
       location: this.location_0002,
       pet: this.perro2,
       owner: this.ivan,
-      pictures: [this.picture_0004]
+      pictures: [this.picture_0004, this.picture_0008]
     })
     this.post0003 = new Post({
-      description: 'La concha de tu madre..',
+      description: 'La concha de tu madre',
       location: this.location_0003,
       pet: this.perro3,
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006],
+      pictures: [this.picture_0005, this.picture_0006, this.picture_0007],
       owner: this.gabriel
     })
     // this.post0004 = new Post({

@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
-import { Location } from '../models/Location'
 import { Bounderies } from '../models/LatLang'
+
 const postRoutes = Router()
 
+//POST a post
 postRoutes.post('/', async (req, res) => {
   try {
     const userId = parseInt(req.body.owner)
@@ -15,14 +16,16 @@ postRoutes.post('/', async (req, res) => {
   }
 })
 
-postRoutes.get('/getAll/:postId', async (req, res) => {
+//GET ALL post
+postRoutes.get('/getAll', async (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(await postService.getAllPosts(post))
+    return res.json(await postService.getAllPosts())
   } catch (error) {
     res.status(400).send(error.message)
   }
 })
+
+//GET ONE post
 postRoutes.get('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
@@ -32,6 +35,17 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })
 
+//GET a post BY LOCATION
+postRoutes.put('/by-location', async (req, res) => {
+  try {
+    const bounderies = req.body as Bounderies
+    return res.json(await postService.getByLocation(bounderies))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
+//DELETE a post
 /*postRoutes.delete('/:postId', async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
@@ -40,14 +54,5 @@ postRoutes.get('/:postId', async (req, res) => {
     res.send(error.message)
   }
 })*/
-
-postRoutes.put('/by-location', async (req, res) => {
-  try {
-    const bounderies = req.body as Bounderies
-    return res.json(await postService.getByLocation(bounderies))
-  }catch (error) {
-    res.status(400).send(error.message)
-  }
-})
 
 export default postRoutes
