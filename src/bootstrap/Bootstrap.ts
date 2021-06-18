@@ -164,7 +164,7 @@ export class Bootstrap {
     await this.createSizes()
     await this.createLengths()
     await this.createFurs()
-    //await this.createUserStatus()
+    await this.createBreed()
     await this.createUsers()
     await this.createDogs()
     await this.createLocations()
@@ -175,42 +175,63 @@ export class Bootstrap {
   //Colors
   async createColors(): Promise<void> {
     console.log('******************************Creando colores******************************')
-    this.color1 = new Color({ description: 'blanco' })
-    this.color2 = new Color({ description: 'blanco y negro' })
-    this.color3 = new Color({ description: 'negro' })
-    this.color4 = new Color({ description: 'blanco y beige' })
-    this.color5 = new Color({ description: 'gris' })
-    this.color5 = new Color({ description: 'gris y blanco' })
-    this.color6 = new Color({ description: 'beige negro y blanco' })
-    this.color7 = new Color({ description: 'negro y beige' })
-    this.color8 = new Color({ description: 'beige' })
-    this.color9 = new Color({ description: 'marron cobrizo' })
-    this.color10 = new Color({ description: 'gris y beige' })
-    await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5, this.color6, this.color7, this.color8, this.color9, this.color10])
+    this.color1 = new Color({ description: 'Blanco' })
+    this.color2 = new Color({ description: 'Negro' })
+    this.color3 = new Color({ description: 'Beige' })
+    this.color4 = new Color({ description: 'Gris' })
+    this.color5 = new Color({ description: 'Marrón' })
+
+    await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5])
   }
 
-  async createSizes(): Promise<void> {
-    console.log('******************************Creando tamaños******************************')
-    this.size1 = new Size({ description: 'pequeño' })
-    this.size2 = new Size({ description: 'mediano' })
-    this.size3 = new Size({ description: 'grande' })
-    await getRepository(Size).save([this.size1, this.size2, this.size3])
-  }
+  async createBreed(): Promise <void> {
+    console.log("******************************creando razas******************************")
+  this.sinRaza = new Breed ({description: "sinRaza"})
+  this.borderCollie = new Breed ({description:"borderCollie"})
+  this.overjeroAleman = new Breed ({ description: "overjeroAleman"})
+  this.caniche = new Breed ({description: "pequeño"})
+  this.pastorIngles = new Breed ({description:"mediano"})
+  this.chihuahua = new Breed ({ description: "grande"})
+  this.bulldogFrances = new Breed ({description: "pequeño"})
+  this.bulldogIngles = new Breed ({description:"mediano"})
+  this.HuskySiberia = new Breed ({ description: "grande"})
+  this.coker = new Breed ({description: "pequeño"})
+  this.canicheToy = new Breed ({description:"mediano"})
+  this.barbincho = new Breed ({ description: "grande"})
+  this.ovejeroBelga = new Breed ({ description: "grande"})
+  this.galgo = new Breed ({description: "pequeño"})
+  this.yorkshire = new Breed ({description:"mediano"})
+  this.corgie = new Breed ({ description: "grande"})
+  this.dalmata = new Breed ({ description: "grande"})
+  await getRepository(Breed).save([this.sinRaza, this.borderCollie,this.overjeroAleman, this.caniche, this.pastorIngles,this.chihuahua, this.bulldogFrances, this.bulldogIngles,
+  this.HuskySiberia,this.coker,this.canicheToy, this.barbincho,this.ovejeroBelga, this.galgo,this.yorkshire,this.corgie,this.dalmata])
+ }
+
+
+  async createSizes(): Promise <void> {
+    console.log("******************************creando tamaños******************************")
+  this.size1 = new Size ({description: "Pequeño"})
+  this.size2 = new Size ({description:"Mediano"})
+  this.size3 = new Size ({ description: "Grande"})
+  await getRepository(Size).save([this.size1, this.size2,this.size3])
+ }
+
 
   async createLengths(): Promise<void> {
     console.log('******************************Creando Largos de pelos******************************')
-    this.largo1 = new Length({ description: 'corto' })
-    this.largo2 = new Length({ description: 'largo' })
-    this.largo3 = new Length({ description: 'no tiene' })
+    this.largo1 = new Length({ description: 'Corto' })
+    this.largo2 = new Length({ description: 'Largo' })
+    this.largo3 = new Length({ description: 'No tiene' })
     await getRepository(Length).save([this.largo1, this.largo2, this.largo3])
   }
 
-  async createFurs(): Promise<void> {
-    this.pelaje1 = new Fur({ color: this.color1, length: this.largo1 })
-    this.pelaje2 = new Fur({ color: this.color2, length: this.largo2 })
-    this.pelaje3 = new Fur({ color: this.color3, length: this.largo3 })
-    await getRepository(Fur).save([this.pelaje1, this.pelaje2, this.pelaje3])
-  }
+ async createFurs(): Promise <void>  {
+  console.log("******************************pelo******************************")
+  this.pelaje1 = new Fur ({color: this.color1, length: this.largo1})
+  this.pelaje2 = new Fur ({ color: this.color2, length: this.largo2})
+  this.pelaje3 = new Fur ({ color: this.color3, length: this.largo3})
+  await getRepository(Fur).save([this.pelaje1, this.pelaje2,this.pelaje3])
+ }
   //mascotas
   async createDogs(): Promise<void> {
     console.log('******************************Creando perritos******************************')
@@ -384,153 +405,151 @@ export class Bootstrap {
   }
   //posts
   async createPosts(): Promise<void> {
-    console.log('******************************Creando publicaciones******************************')
-    this.post0001 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
+    console.log("******************************creando publicaciones******************************")
+    this.post0001 = new Post({ 
+      description: 'Perro encontrado en la calle artigas al 80..',
+      location: this.location_0001, 
+      pet: this.perro1,
+      owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
     this.post0002 = new Post({
       description: 'encontrado en Berazategui, está lastimado...',
       location: this.location_0002,
-      owner: this.estefania,
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+      pet: this.perro2,
+      owner: this.ivan,
+      pictures: [this.picture_0004]
     })
     this.post0003 = new Post({
-      description: 'encontrado en Berazategui, está lastimado...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+      description: 'La concha de tu madre..',
+      location:this.location_0003,
+      pet: this.perro3,
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0006],
+      owner: this.gabriel
+     
     })
-    this.post0004 = new Post({
-      description: 'encontrado en Berazategui, está lastimado...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
-    this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
-    this.post0006 = new Post({
-      description: 'Dos perritos perdidos sobre avenida crovara...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    })
-    this.post0007 = new Post({
-      description: 'Alguien lo conoce? está en la puerta de mi casa...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    })
-    this.post0008 = new Post({
-      description: 'encontrado: tiene chapita y un celu que nadie contesta...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
-    this.post0009 = new Post({ description: 'galgos sueltos en av san martin..', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
-    this.post0010 = new Post({
-      description: 'san martin 3400, perro macho con collar corriendo..',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    })
-    this.post0011 = new Post({
-      description: 'Está muy asustada, por favor compartamos así localizamos a sus dueños...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    })
-    this.post0012 = new Post({
-      description: 'Perra hembra embarazada, está muy gordita...',
-      location: this.location_0009,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
-    this.post0013 = new Post({ description: 'Lola perdida. Me ayudan a encontrarla..', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
-    this.post0014 = new Post({
-      description: 'perro perdido hace semanas....',
-      location: this.location_0011,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    })
-    this.post0015 = new Post({ description: 'encontrado en San Andres ...', location: this.location_0002, owner: this.estefania, pictures: [this.picture_0004, this.picture_0005, this.picture_0006] })
-    this.post0016 = new Post({
-      description: 'se llama richard y está perdido..',
-      location: this.location_0010,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
-    this.post0017 = new Post({ description: 'manada de perros encontrados en la calle.', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
-    this.post0018 = new Post({
-      description: 'caniche muy descuidado rondando por...',
-      location: this.location_0012,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    })
-    this.post0019 = new Post({
-      description: 'Bulldog llorando en la puerta de...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    })
-    this.post0020 = new Post({
-      description: 'encontramos unos perritos recien nacidos...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
-    this.post0021 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania, pictures: [this.picture_0001, this.picture_0002] })
-    this.post0022 = new Post({ description: 'encontramos un husky ...', location: this.location_0002, owner: this.estefania, pictures: [this.picture_0004, this.picture_0005, this.picture_0007] })
-    this.post0023 = new Post({
-      description: 'lo retuvimos: perro perdido..',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    })
-    this.post0024 = new Post({
-      description: 'encontrado en san martín, está rengo...',
-      location: this.location_0002,
-      owner: this.estefania,
-
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    })
+    // this.post0004 = new Post({
+    //   description: 'encontrado en ..',
+    //   location: this.location_0003,
+    //   pet: this.perro4,
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
+    //   owner: this.estefania,
+    // })
+    // this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
+    // this.post0006 = new Post({
+    //   description: 'Dos perritos perdidos sobre avenida crovara...',
+    //   location: this.location_0004,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    // })
+    // this.post0007 = new Post({
+    //   description: 'Alguien lo conoce? está en la puerta de mi casa...',
+    //   location: this.location_0005,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    // })
+    // this.post0008 = new Post({
+    //   description: 'encontrado: tiene chapita y un celu que nadie contesta...',
+    //   location: this.location_0006,
+    //   owner: this.estefania, 
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    // })
+    // this.post0009 = new Post({ description: 'galgos sueltos en av san martin..', location: this.location_0001, owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
+    // this.post0010 = new Post({
+    //   description: 'san martin 3400, perro macho con collar corriendo..',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    // })
+    // this.post0011 = new Post({
+    //   description: 'Está muy asustada, por favor compartamos así localizamos a sus dueños...',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    // })
+    // this.post0012 = new Post({
+    //   description: 'Perra hembra embarazada, está muy gordita...',
+    //   location: this.location_0009,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    // })
+    // this.post0013 = new Post({ description: 'Lola perdida. Me ayudan a encontrarla..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
+    // this.post0014 = new Post({
+    //   description: 'perro perdido hace semanas....',
+    //   location: this.location_0011,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    // })
+    // this.post0015 = new Post({ description: 'encontrado en San Andres ...', location: this.location_0002, owner: this.estefania , pictures: [this.picture_0004, this.picture_0005, this.picture_0006] })
+    // this.post0016 = new Post({
+    //   description: 'se llama richard y está perdido..',
+    //   location: this.location_0010,
+    //   owner: this.estefania,
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    // })
+    // this.post0017 = new Post({ description: 'manada de perros encontrados en la calle.', location: this.location_0001, owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
+    // this.post0018 = new Post({
+    //   description: 'caniche muy descuidado rondando por...',
+    //   location: this.location_0012,
+    //   owner: this.estefania,
+ 
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    // })
+    // this.post0019 = new Post({
+    //   description: 'Bulldog llorando en la puerta de...',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+  
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    // })
+    // this.post0020 = new Post({
+    //   description: 'encontramos unos perritos recien nacidos...',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+ 
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    // })
+    // this.post0021 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
+    // this.post0022 = new Post({ description: 'encontramos un husky ...', location: this.location_0002, owner: this.estefania,  pictures: [this.picture_0004, this.picture_0005, this.picture_0007] })
+    // this.post0023 = new Post({
+    //   description: 'lo retuvimos: perro perdido..',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+ 
+    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    // })
+    // this.post0024 = new Post({
+    //   description: 'encontrado en san martín, está rengo...',
+    //   location: this.location_0002,
+    //   owner: this.estefania,
+ 
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    // })
 
     await getRepository(Post).save([
       this.post0001,
       this.post0002,
       this.post0003,
-      this.post0004,
-      this.post0005,
-      this.post0006,
-      this.post0007,
-      this.post0008,
-      this.post0009,
-      this.post0010,
-      this.post0011,
-      this.post0012,
-      this.post0013,
-      this.post0014,
-      this.post0015,
-      this.post0016,
-      this.post0017,
-      this.post0018,
-      this.post0019,
-      this.post0020,
-      this.post0021,
-      this.post0021,
-      this.post0022,
-      this.post0023,
-      this.post0024
+      // this.post0004,
+      // this.post0005,
+      // this.post0006,
+      // this.post0007,
+      // this.post0008,
+      // this.post0009,
+      // this.post0010,
+      // this.post0011,
+      // this.post0012,
+      // this.post0013,
+      // this.post0014,
+      // this.post0015,
+      // this.post0016,
+      // this.post0017,
+      // this.post0018,
+      // this.post0019,
+      // this.post0020,
+      // this.post0021,
+      // this.post0021,
+      // this.post0022,
+      // this.post0023,
+      // this.post0024
     ])
   }
 }
