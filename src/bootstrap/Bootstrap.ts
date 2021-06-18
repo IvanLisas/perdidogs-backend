@@ -409,27 +409,29 @@ export class Bootstrap {
     this.post0001 = new Post({ 
       description: 'Perro encontrado en la calle artigas al 80..',
       location: this.location_0001, 
+      pet: this.perro1,
       owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
     this.post0002 = new Post({
       description: 'encontrado en Berazategui, está lastimado...',
       location: this.location_0002,
+      pet: this.perro2,
       owner: this.ivan,
       pictures: [this.picture_0004]
     })
     this.post0003 = new Post({
       description: 'La concha de tu madre..',
       location:this.location_0003,
+      pet: this.perro3,
       pictures: [this.picture_0004, this.picture_0005, this.picture_0006],
-      pet: this.perro2,
       owner: this.gabriel
      
     })
     // this.post0004 = new Post({
     //   description: 'encontrado en ..',
     //   location: this.location_0003,
+    //   pet: this.perro4,
+    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
     //   owner: this.estefania,
-    
-    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
     // })
     // this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
     // this.post0006 = new Post({
@@ -523,10 +525,10 @@ export class Bootstrap {
     // })
 
     await getRepository(Post).save([
-      this.post0004,
+      this.post0001,
       this.post0002,
       this.post0003,
-      this.post0001,
+      // this.post0004,
       // this.post0005,
       // this.post0006,
       // this.post0007,
