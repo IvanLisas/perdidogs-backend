@@ -50,7 +50,7 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(bounderies: Bounderies, radio: number): Promise<Post[] | undefined> {
+  async getByLocation(bounderies: Bounderies): Promise<Post[] | undefined> {
     const southWest = bounderies.southWest
     const northEast= bounderies.northEast
     const extremeX = [southWest.latitude, northEast.latitude]
