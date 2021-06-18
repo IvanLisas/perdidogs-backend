@@ -15,7 +15,7 @@ postRoutes.post('/:userId', async (req, res) => {
   }
 })
 
-postRoutes.get('/getAll/:postId', async (req, res) => {
+postRoutes.get('/all/:postId', async (req, res) => {
   try {
     const post = parseInt(req.params.postId)
     return res.json(await postService.getAllPosts(post))
