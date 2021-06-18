@@ -2,7 +2,7 @@ import { Between, Entity, getRepository, In } from 'typeorm'
  
 import { Post } from '../models/Post'
 import userService from './UserService'
-import {Status, PostStatus} from '../models/PostStatus'
+ 
 import { Location } from '../models/Location'
 @Entity()
 class PostService {
@@ -10,7 +10,7 @@ class PostService {
     const foundUser = await userService.get(idUser)
    // console.log(post)
     post.owner = foundUser
-    post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
+    //post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
    
    
     //console.log(post)

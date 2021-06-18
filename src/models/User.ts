@@ -2,7 +2,6 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, On
 import { Chat } from './Chat'
 import { Post } from './Post'
 import { Rol } from './Rol'
-import { UserStatus } from './UserStatus'
 
 @Entity()
 export class User {
@@ -41,8 +40,8 @@ export class User {
   @OneToMany(() => Chat, (chat) => chat.Id)
   chat!: Chat[]
 
-  @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
-  userStatus!: UserStatus
+  // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
+  // userStatus!: UserStatus
 
   @CreateDateColumn()
   creationDate!: Date

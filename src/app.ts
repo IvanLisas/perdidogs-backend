@@ -9,16 +9,16 @@ import { Location } from './models/Location'
 import { Pet } from './models/Pet'
 import { Picture } from './models/Picture'
 import { Post } from './models/Post'
-import { PostStatus } from './models/PostStatus'
 import { Rol } from './models/Rol'
 import { Size } from './models/Size'
 import { User } from './models/User'
-import { UserStatus } from './models/UserStatus'
 import chatRoutes from './routes/ChatRoutes'
 import userRoutes from './routes/UserRoutes'
 import postRoutes from './routes/PostRoutes'
 import { Chat } from './models/Chat'
 import { Message } from './models/Message'
+import { runInContext } from 'vm'
+import bootstrap from './bootstrap/Bootstrap'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 class Server {
@@ -45,13 +45,15 @@ class Server {
         username: 'root',
         password: '1234',
         database: 'perdidogs',
-        entities: [User, Alert, Chat, Rol, UserStatus, Message, Fur, Color, Length, Pet, Size, Breed, PostStatus, Picture, Post, Location],
+        entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location],
         synchronize: true,
         logging: false
       })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then((connection) => {
           // here you can start to work with your entities
+          //aca habria que poner el run, ver lp del await.
+          bootstrap.run()
         })
         .catch((error) => console.log(error))
     } catch (error) {

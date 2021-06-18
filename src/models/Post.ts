@@ -1,6 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
-import { Comment } from './Comment'
-import { PostStatus } from './PostStatus'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm' 
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
@@ -28,8 +26,8 @@ export class Post {
   @CreateDateColumn()
   endDate!: Date
 
-  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
-  status!:PostStatus
+  // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
+  // status!:PostStatus
 
   @OneToMany(() => Picture, (picture) => picture.post, {nullable: true})
   pictures?: Picture[]
@@ -44,7 +42,7 @@ export class Post {
   pet!: Pet
   
   validate() {
-    if (!this.description || !this.status || !this.creationDate || !this.endDate  || !this.pet) {
+    if (!this.description  || !this.creationDate || !this.endDate  || !this.pet) {
       throw 'Publicacion inválida'
      }
   }
