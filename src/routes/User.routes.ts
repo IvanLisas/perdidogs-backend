@@ -23,9 +23,10 @@ userRoutes.get('/:userid', async (req, res) => {
 
 userRoutes.post('/', async (req, res) => {
   try {
-    return res.json(await userService.create(req.body))
+    const user = User.fromJson(req.body)
+    return res.json(await userService.create(user))
   } catch (error) {
-    res.send(error.message)
+    res.status(400).send(error.message)
   }
 })
 
@@ -44,16 +45,6 @@ userRoutes.delete('/:userid', async (req, res) => {
     return res.json(userService.delete(user))
   } catch (error) {
     res.send(error.message)
-  }
-})
-
-userRoutes.post('/registration', async (req, res) => {
-  try {
-    const user = User.fromJson(req.body)
-    console.log(req.body)
-    res.json(await userService.registrateUser(user))
-  } catch (error) {
-    res.status(400).send(error.message)
   }
 })
 

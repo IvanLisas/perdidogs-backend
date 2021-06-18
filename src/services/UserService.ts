@@ -6,13 +6,11 @@ class UserService {
   }
 
   async get(id: number): Promise<User> {
-
     return await getRepository(User).findOneOrFail({
-      relations: ['post','post.pet', 'post.location', 'post.pictures'],
+      relations: ['post', 'post.pet', 'post.location', 'post.pictures'],
       where: {
-       Id: id
+        Id: id
       }
-    
     })
   }
   async save(user: User): Promise<User> {
@@ -20,7 +18,7 @@ class UserService {
   }
 
   async create(user: User): Promise<User> {
-    if (!getRepository(User).find({ email: user.email })) return await getRepository(User).save(user)
+    if (!(await getRepository(User).findOne({ email: user.email }))) return await getRepository(User).save(user)
     else throw 'El email ya existe'
   }
 
@@ -31,18 +29,6 @@ class UserService {
   async delete(user: User): Promise<User> {
     user.isActive = false
     return await getRepository(User).save(user)
-  }
-
-  async registrateUser(user: User): Promise<User> {
-    console.log(user)
-    const userMail = await getRepository(User).findOne({ email: user.email })
-
-    if (!userMail) {
-      console.log(userMail)
-      return await this.save(user)
-    }
-
-    throw new Error('Este mail ya está en uso')
   }
 }
 
