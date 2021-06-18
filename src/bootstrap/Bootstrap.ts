@@ -233,7 +233,7 @@ export class Bootstrap {
   }
 
   async createLengths(): Promise<void> {
-    console.log('******************************Creando Largos de pelos*****************************')
+    console.log('******************************Creando Largos de pelos*******************************')
     this.largo1 = new Length({ description: 'Corto' })
     this.largo2 = new Length({ description: 'Largo' })
     this.largo3 = new Length({ description: 'No tiene' })
@@ -241,7 +241,7 @@ export class Bootstrap {
   }
 
   async createFurs(): Promise<void> {
-    console.log('******************************Creando Pelos*******************************************')
+    console.log('******************************Creando Pelos*****************************************')
     this.pelaje1 = new Fur({ color: this.color1, length: this.largo1 })
     this.pelaje2 = new Fur({ color: this.color2, length: this.largo2 })
     this.pelaje3 = new Fur({ color: this.color3, length: this.largo3 })
@@ -318,7 +318,7 @@ export class Bootstrap {
   }
   //location
   async createLocations(): Promise<void> {
-    console.log('******************************Creando Localizaciones******************************')
+    console.log('******************************Creando Localizaciones********************************')
     this.location_0001 = new Location({ lat: -34.600585579493, long: -58.5127015868307 })
     this.location_0002 = new Location({ lat: -34.6275450762093, long: -58.4095720793038 })
     this.location_0003 = new Location({ lat: -34.5656755865268, long: -58.4701920657306 })
