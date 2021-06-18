@@ -40,11 +40,11 @@ export class Post {
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: true, cascade: true })
   @JoinColumn()
   pet!: Pet
-
+/* 
   validate() {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
       throw 'Publicacion inválida'
-    }
+    } */
   }
 
   static fromJson(postJson: string): Post {
