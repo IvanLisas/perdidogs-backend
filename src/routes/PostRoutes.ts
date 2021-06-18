@@ -4,9 +4,9 @@ import { Post } from '../models/Post'
 import { Location } from '../models/Location'
 const postRoutes = Router()
 
-postRoutes.post('/:userId', async (req, res) => {
+postRoutes.post('/', async (req, res) => {
   try {
-    const userId = parseInt(req.params.userId)
+    const userId = parseInt(req.body.owner)
     const post = Post.fromJson(req.body)
     return res.json(await postService.create(userId, post))
   } catch (error) {
