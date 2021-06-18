@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+/* import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class UserStatus {
@@ -16,3 +16,4 @@ export class UserStatus {
     return Object.assign(new UserStatus(), UserStatusJson)
   }
 }
+ */

@@ -21,14 +21,6 @@ userRoutes.get('/:userid', async (req, res) => {
   }
 })
 
-userRoutes.post('/', async (req, res) => {
-  try {
-    return res.json(await userService.create(req.body))
-  } catch (error) {
-    res.send(error.message)
-  }
-})
-
 userRoutes.put('/update', async (req, res) => {
   try {
     return res.json(await userService.update(req.body))

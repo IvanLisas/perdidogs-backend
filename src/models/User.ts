@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, On
 import { Chat } from './Chat'
 import { Post } from './Post'
 import { Rol } from './Rol'
-import { UserStatus } from './UserStatus'
+/* import { UserStatus } from './UserStatus' */
 
 @Entity()
 export class User {
@@ -19,7 +19,7 @@ export class User {
   @Column({ type: 'varchar' })
   lastName!: string
 
-  @OneToMany(() => Post, (post) => post.owner, {nullable: false})
+  @OneToMany(() => Post, (post) => post.owner, { nullable: false })
   @JoinColumn()
   post!: Post[]
 
@@ -41,8 +41,8 @@ export class User {
   @OneToMany(() => Chat, (chat) => chat.Id)
   chat!: Chat[]
 
-  @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
-  userStatus!: UserStatus
+  /*   @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
+  userStatus!: UserStatus */
 
   @CreateDateColumn()
   creationDate!: Date
