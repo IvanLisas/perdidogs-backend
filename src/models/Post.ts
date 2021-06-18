@@ -45,7 +45,7 @@ export class Post {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
       throw 'Publicacion inválida'
     } */
-  }
+  //}
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)

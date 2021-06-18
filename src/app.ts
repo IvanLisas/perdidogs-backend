@@ -14,7 +14,7 @@ console.log('Creando tablas...')
 createConnection()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {
-    console.log('Conexion establesida, creando datos del bootstrap...')
+    console.log('Conexion establecida, creando datos del bootstrap...')
     await bootstrap.run()
     app.use(function (req, res, next) {
       res.header('Access-Control-Allow-Origin', '*')

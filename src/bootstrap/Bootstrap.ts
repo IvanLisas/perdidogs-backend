@@ -175,6 +175,7 @@ export class Bootstrap {
 
   //Colors
   async createColors(): Promise<void> {
+    console.log("******************************creando colores******************************")
     this.color1 = new Color ({description: "blanco"})
     this.color2= new Color ({description: "blanco y negro"})
     this.color3= new Color ({description: "negro"})
@@ -190,6 +191,7 @@ export class Bootstrap {
   }
 
   async createSizes(): Promise <void> {
+    console.log("******************************creando tamaños******************************")
   this.size1 = new Size ({description: "pequeño"})
   this.size2 = new Size ({description:"mediano"})
   this.size3 = new Size ({ description: "grande"})
@@ -198,20 +200,22 @@ export class Bootstrap {
 
 
  async createLengths(): Promise <void>  {
-  this.largo1 = new Size ({description: "pequeño"})
-  this.largo2 = new Size ({description:"mediano"})
-  this.largo3 = new Size ({ description: "grande"})
-  await getRepository(Size).save([this.largo1, this.largo2,this.largo3])
+  console.log("******************************creando Largos de pelos******************************")
+  this.largo1 = new Length ({description: "corto"})
+  this.largo2 = new Length ({description:"largo"})
+  this.largo3 = new Length ({ description: "no tiene"})
+  await getRepository(Length).save([this.largo1, this.largo2,this.largo3])
  }
 
  async createFurs(): Promise <void>  {
   this.pelaje1 = new Fur ({color: this.color1, length: this.largo1})
   this.pelaje2 = new Fur ({ color: this.color2, length: this.largo2})
   this.pelaje3 = new Fur ({ color: this.color3, length: this.largo3})
-  await getRepository(Size).save([this.pelaje1, this.pelaje2,this.pelaje3])
+  await getRepository(Fur).save([this.pelaje1, this.pelaje2,this.pelaje3])
  }
   //mascotas
   async createDogs(): Promise<void> {
+    console.log("******************************creando perritos******************************")
     //este metodo es para buscar en la BD.
    // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
@@ -271,6 +275,7 @@ export class Bootstrap {
   // }
   //users
   async createUsers(): Promise<void> {
+    console.log("******************************creando user******************************")
     this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com'   , password: '1234', isActive: true })
     this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com' , password: '1234', isActive: true })
     this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com' , password: '1234', isActive: true })
@@ -279,6 +284,7 @@ export class Bootstrap {
   }
   //location
   async createLocations(): Promise<void> {
+    console.log("******************************creando Localizaciones******************************")
     this.location_0001 = new Location({ x: -34.600585579493, y: -58.5127015868307 })
     this.location_0002 = new Location({ x: -34.6275450762093, y: -58.4095720793038 })
     this.location_0003 = new Location({ x: -34.5656755865268, y: -58.4701920657306 })
@@ -324,6 +330,7 @@ export class Bootstrap {
   }
   //pictures
   async createPictures(): Promise<void> {
+    console.log("******************************creando pictures******************************")
     this.picture_0001 = new Picture({ url: 'im001.png' })
     this.picture_0002 = new Picture({ url: 'im002.png' })
     this.picture_0003 = new Picture({ url: 'im002.png' })
@@ -379,6 +386,7 @@ export class Bootstrap {
   }
   //posts
   async createPosts(): Promise<void> {
+    console.log("******************************creando publicaciones******************************")
     this.post0001 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
     this.post0002 = new Post({
       description: 'encontrado en Berazategui, está lastimado...',
