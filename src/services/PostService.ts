@@ -63,7 +63,7 @@ class PostService {
           location: { Id: In(ids) }
         }
       })
-    }
+    } else return []
   }
 
   getLocationId(loc: Location): number {
