@@ -11,13 +11,13 @@ export class Message {
   @PrimaryGeneratedColumn()
   Id!: number
 
-  @ManyToOne(() => User, (user) => user.Id)
+  @ManyToOne(() => User, (user) => user.Id, {nullable: false})
   sender!: User
 
-  @ManyToOne(() => User, (user) => user.Id)
+  @ManyToOne(() => User, (user) => user.Id, {nullable: false})
   adressee!: User
 
-  @ManyToOne(() => Chat, (chat) => chat.messageList)
+  @ManyToOne(() => Chat, (chat) => chat.messageList, {nullable: false})
   chat!: Chat
 
   @Column({ type: 'varchar' })

@@ -11,13 +11,13 @@ export class Chat {
   @PrimaryGeneratedColumn()
   Id!: number
 
-  @ManyToOne(() => User, (user) => user.Id)
+  @ManyToOne(() => User, (user) => user.Id, {nullable: false})
   owner!: User
 
-  @ManyToOne(() => User, (user) => user.Id)
+  @ManyToOne(() => User, (user) => user.Id, {nullable: false})
   owner2!: User
 
-  @OneToMany(() => Message, (message: Message) => message.chat, { cascade: true })
+  @OneToMany(() => Message, (message: Message) => message.chat, {nullable: true, cascade: true })
   messageList!: Message[]
 
   @CreateDateColumn()
