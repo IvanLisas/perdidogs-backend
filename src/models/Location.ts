@@ -6,18 +6,18 @@ export class Location {
     Object.assign(this, init)
   }
 
-  static createNewLocation(x:number, y:number):Location{
+  static createNewLocation(lat:number, long:number):Location{
     const location= new Location()
-    location.x= x
-    location.y= y
+    location.lat= lat
+    location.long= long
     return location
   }
 
   @PrimaryGeneratedColumn() Id!: number
 
-  @Column({ type: 'float' }) x!: number
+  @Column({ type: 'float' }) lat!: number
 
-  @Column({ type: 'float' }) y!: number
+  @Column({ type: 'float' }) long!: number
 
   @CreateDateColumn() creationDate!: Date
 

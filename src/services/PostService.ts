@@ -4,21 +4,19 @@ import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
+import { Bounderies, LatLng } from '../models/LatLang'
 @Entity()
 class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
-    // console.log(post)
     post.owner = foundUser
-    //post.status = await getRepository(PostStatus).findOneOrFail({description:"activo"})
-
-    //console.log(post)
-    //console.log(await getRepository(Post).save(post))
     return await getRepository(Post).save(post)
   }
 
-  async getAllPosts(idPost: number): Promise<Post[] | undefined> {
-    return await getRepository(Post).find({ Id: idPost })
+  async getAllPosts(): Promise<Post[] | undefined> {
+    return await getRepository(Post).find({
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size']
+    })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
     return await getRepository(Post).find({ owner: { Id: idUser } })
@@ -49,11 +47,12 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(loc: Location, radio: number): Promise<Post[] | undefined> {
-    const extremeX = this.calculateExtreme(loc.x, radio)
-    const extremeY = this.calculateExtreme(loc.y, radio)
-    const locations = await getRepository(Location).find({ x: Between(extremeX[0], extremeX[1]), y: Between(extremeY[0], extremeY[1]) })
-    console.log('Size de locations', locations.length)
+  async getByLocation(bounderies: Bounderies): Promise<Post[] | undefined> {
+    const southWest = bounderies.southWest
+    const northEast = bounderies.northEast
+    const extremeX = [southWest.latitude, northEast.latitude]
+    const extremeY = [southWest.longitude, northEast.longitude]
+    const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map(this.getLocationId)
       console.log('ids:', ids)
@@ -63,21 +62,11 @@ class PostService {
           location: { Id: In(ids) }
         }
       })
-    }
+    } else return []
   }
 
   getLocationId(loc: Location): number {
     return loc.Id
-  }
-
-  calculateExtreme(n: number, radio: number): Array<number> {
-    let realRadio = 0
-    if (radio > 0) {
-      realRadio = (5 * radio) / 111
-    } else {
-      realRadio = 5 / radio / 111
-    }
-    return [n - realRadio, n + realRadio]
   }
 }
 

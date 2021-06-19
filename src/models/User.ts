@@ -43,6 +43,8 @@ export class User {
   // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   // userStatus!: UserStatus
 
+  
+
   @CreateDateColumn()
   creationDate!: Date
 

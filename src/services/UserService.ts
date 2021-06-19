@@ -1,5 +1,7 @@
 import { User } from '../models/User'
 import { getRepository } from 'typeorm'
+import bcrypt from 'bcrypt'
+
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     return await getRepository(User).findOneOrFail({ email: anEmail, password: aPassword })
@@ -37,6 +39,21 @@ class UserService {
 
     throw new Error('Este mail ya está en uso')
   }
+
+
+ 
+  }
+
+ 
+
+	
+
+ 
+ 
+
+
+ 
+
 }
 
 const userService = new UserService()
