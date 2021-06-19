@@ -17,11 +17,11 @@ export class Message {
   @ManyToOne(() => User, (user) => user.Id, {nullable: false})
   adressee!: User
 
-  @ManyToOne(() => Chat, (chat) => chat.messageList, {nullable: false})
+  @ManyToOne(() => Chat, (chat) => chat.messageList)
   chat!: Chat
 
   @Column({ type: 'varchar' })
-  body!: string
+  messageBody!: string
 
   @CreateDateColumn()
   creationDate!: Date

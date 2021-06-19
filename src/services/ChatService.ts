@@ -12,7 +12,7 @@ export class ChatService {
   async create(message: MessageDTO): Promise<Chat | undefined> {
     const user1 = await userService.get(message.sender)
     const user2 = await userService.get(message.adressee)
-    const msg = new Message({ sender: user1, adressee: user2, body: message.messageBody })
+    const msg = new Message({ sender: user1, adressee: user2, messageBody: message.messageBody })
     await getRepository(Message).save(msg)
     if (message.chat == 0) {
       const chat = new Chat({ owner: user1, owner2: user2, messageList: [msg] })

@@ -13,8 +13,11 @@ class UserService {
       }
     })
   }
-  async save(user: User): Promise<User> {
-    return await getRepository(User).save(user)
+
+  async create(user: User): Promise<User> {
+    const userMail = await getRepository(User).findOne({ email: user.email })
+    if (!userMail) return await getRepository(User).save(user)
+    else throw new Error()
   }
 
   async update(user: User): Promise<User> {
