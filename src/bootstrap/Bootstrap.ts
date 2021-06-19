@@ -174,7 +174,7 @@ export class Bootstrap {
 
   //Colors
   async createColors(): Promise<void> {
-    console.log('******************************Creando colores******************************')
+    console.log('******************************Creando Colores***************************************')
     this.color1 = new Color({ description: 'Blanco' })
     this.color2 = new Color({ description: 'Negro' })
     this.color3 = new Color({ description: 'Beige' })
@@ -184,57 +184,72 @@ export class Bootstrap {
     await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5])
   }
 
-  async createBreed(): Promise <void> {
-    console.log("******************************creando razas******************************")
-  this.sinRaza = new Breed ({description: "sinRaza"})
-  this.borderCollie = new Breed ({description:"borderCollie"})
-  this.overjeroAleman = new Breed ({ description: "overjeroAleman"})
-  this.caniche = new Breed ({description: "pequeño"})
-  this.pastorIngles = new Breed ({description:"mediano"})
-  this.chihuahua = new Breed ({ description: "grande"})
-  this.bulldogFrances = new Breed ({description: "pequeño"})
-  this.bulldogIngles = new Breed ({description:"mediano"})
-  this.HuskySiberia = new Breed ({ description: "grande"})
-  this.coker = new Breed ({description: "pequeño"})
-  this.canicheToy = new Breed ({description:"mediano"})
-  this.barbincho = new Breed ({ description: "grande"})
-  this.ovejeroBelga = new Breed ({ description: "grande"})
-  this.galgo = new Breed ({description: "pequeño"})
-  this.yorkshire = new Breed ({description:"mediano"})
-  this.corgie = new Breed ({ description: "grande"})
-  this.dalmata = new Breed ({ description: "grande"})
-  await getRepository(Breed).save([this.sinRaza, this.borderCollie,this.overjeroAleman, this.caniche, this.pastorIngles,this.chihuahua, this.bulldogFrances, this.bulldogIngles,
-  this.HuskySiberia,this.coker,this.canicheToy, this.barbincho,this.ovejeroBelga, this.galgo,this.yorkshire,this.corgie,this.dalmata])
- }
+  async createBreed(): Promise<void> {
+    console.log('******************************Creando Razas*****************************************')
+    this.sinRaza = new Breed({ description: 'sinRaza' })
+    this.borderCollie = new Breed({ description: 'borderCollie' })
+    this.overjeroAleman = new Breed({ description: 'overjeroAleman' })
+    this.caniche = new Breed({ description: 'pequeño' })
+    this.pastorIngles = new Breed({ description: 'mediano' })
+    this.chihuahua = new Breed({ description: 'grande' })
+    this.bulldogFrances = new Breed({ description: 'pequeño' })
+    this.bulldogIngles = new Breed({ description: 'mediano' })
+    this.HuskySiberia = new Breed({ description: 'grande' })
+    this.coker = new Breed({ description: 'pequeño' })
+    this.canicheToy = new Breed({ description: 'mediano' })
+    this.barbincho = new Breed({ description: 'grande' })
+    this.ovejeroBelga = new Breed({ description: 'grande' })
+    this.galgo = new Breed({ description: 'pequeño' })
+    this.yorkshire = new Breed({ description: 'mediano' })
+    this.corgie = new Breed({ description: 'grande' })
+    this.dalmata = new Breed({ description: 'grande' })
+    await getRepository(Breed).save([
+      this.sinRaza,
+      this.borderCollie,
+      this.overjeroAleman,
+      this.caniche,
+      this.pastorIngles,
+      this.chihuahua,
+      this.bulldogFrances,
+      this.bulldogIngles,
+      this.HuskySiberia,
+      this.coker,
+      this.canicheToy,
+      this.barbincho,
+      this.ovejeroBelga,
+      this.galgo,
+      this.yorkshire,
+      this.corgie,
+      this.dalmata
+    ])
+  }
 
-
-  async createSizes(): Promise <void> {
-    console.log("******************************creando tamaños******************************")
-  this.size1 = new Size ({description: "Pequeño"})
-  this.size2 = new Size ({description:"Mediano"})
-  this.size3 = new Size ({ description: "Grande"})
-  await getRepository(Size).save([this.size1, this.size2,this.size3])
- }
-
+  async createSizes(): Promise<void> {
+    console.log('******************************Creando Tamaños***************************************')
+    this.size1 = new Size({ description: 'Pequeño' })
+    this.size2 = new Size({ description: 'Mediano' })
+    this.size3 = new Size({ description: 'Grande' })
+    await getRepository(Size).save([this.size1, this.size2, this.size3])
+  }
 
   async createLengths(): Promise<void> {
-    console.log('******************************Creando Largos de pelos******************************')
+    console.log('******************************Creando Largos de pelos*******************************')
     this.largo1 = new Length({ description: 'Corto' })
     this.largo2 = new Length({ description: 'Largo' })
     this.largo3 = new Length({ description: 'No tiene' })
     await getRepository(Length).save([this.largo1, this.largo2, this.largo3])
   }
 
- async createFurs(): Promise <void>  {
-  console.log("******************************pelo******************************")
-  this.pelaje1 = new Fur ({color: this.color1, length: this.largo1})
-  this.pelaje2 = new Fur ({ color: this.color2, length: this.largo2})
-  this.pelaje3 = new Fur ({ color: this.color3, length: this.largo3})
-  await getRepository(Fur).save([this.pelaje1, this.pelaje2,this.pelaje3])
- }
+  async createFurs(): Promise<void> {
+    console.log('******************************Creando Pelos*****************************************')
+    this.pelaje1 = new Fur({ color: this.color1, length: this.largo1 })
+    this.pelaje2 = new Fur({ color: this.color2, length: this.largo2 })
+    this.pelaje3 = new Fur({ color: this.color3, length: this.largo3 })
+    await getRepository(Fur).save([this.pelaje1, this.pelaje2, this.pelaje3])
+  }
   //mascotas
   async createDogs(): Promise<void> {
-    console.log('******************************Creando perritos******************************')
+    console.log('******************************Creando Perritos**************************************')
     //este metodo es para buscar en la BD.
     // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
@@ -294,7 +309,7 @@ export class Bootstrap {
   // }
   //users
   async createUsers(): Promise<void> {
-    console.log('******************************Creando user******************************')
+    console.log('******************************Creando User******************************************')
     this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com', password: '1234', isActive: true })
     this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: '1234', isActive: true })
     this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com', password: '1234', isActive: true })
@@ -303,7 +318,7 @@ export class Bootstrap {
   }
   //location
   async createLocations(): Promise<void> {
-    console.log('******************************Creando Localizaciones******************************')
+    console.log('******************************Creando Localizaciones********************************')
     this.location_0001 = new Location({ lat: -34.600585579493, long: -58.5127015868307 })
     this.location_0002 = new Location({ lat: -34.6275450762093, long: -58.4095720793038 })
     this.location_0003 = new Location({ lat: -34.5656755865268, long: -58.4701920657306 })
@@ -349,36 +364,36 @@ export class Bootstrap {
   }
   //pictures
   async createPictures(): Promise<void> {
-    console.log('******************************Creando pictures******************************')
-    this.picture_0001 = new Picture({ url: 'im001.png' })
-    this.picture_0002 = new Picture({ url: 'im002.png' })
-    this.picture_0003 = new Picture({ url: 'im002.png' })
-    this.picture_0004 = new Picture({ url: 'im003.png' })
-    this.picture_0005 = new Picture({ url: 'im004.png' })
-    this.picture_0006 = new Picture({ url: 'im004.png' })
-    this.picture_0007 = new Picture({ url: 'im001.png' })
-    this.picture_0008 = new Picture({ url: 'im002.png' })
-    this.picture_0009 = new Picture({ url: 'im002.png' })
-    this.picture_0010 = new Picture({ url: 'im003.png' })
-    this.picture_0011 = new Picture({ url: 'im004.png' })
-    this.picture_0012 = new Picture({ url: 'im004.png' })
-    this.picture_0013 = new Picture({ url: 'im001.png' })
-    this.picture_0014 = new Picture({ url: 'im002.png' })
-    this.picture_0015 = new Picture({ url: 'im002.png' })
-    this.picture_0016 = new Picture({ url: 'im003.png' })
-    this.picture_0017 = new Picture({ url: 'im004.png' })
-    this.picture_0018 = new Picture({ url: 'im034.png' })
-    this.picture_0019 = new Picture({ url: 'im0341.png' })
-    this.picture_0020 = new Picture({ url: 'im122.png' })
-    this.picture_0021 = new Picture({ url: 'im112.png' })
-    this.picture_0022 = new Picture({ url: 'im018.png' })
-    this.picture_0023 = new Picture({ url: 'im019.png' })
-    this.picture_0024 = new Picture({ url: 'im020.png' })
-    this.picture_0025 = new Picture({ url: 'im021.png' })
-    this.picture_0026 = new Picture({ url: 'im022.png' })
-    this.picture_0027 = new Picture({ url: 'im023.png' })
-    this.picture_0028 = new Picture({ url: 'im012.png' })
-    this.picture_0029 = new Picture({ url: 'im006.png' })
+    console.log('******************************Creando Pictures**************************************')
+    this.picture_0001 = new Picture({ url: 'https://aws.traveler.es/prod/designs/v1/assets/745x628/202931.jpg' })
+    this.picture_0002 = new Picture({ url: 'https://www.ecestaticos.com/image/clipping/4eb2fe1b771826cf037b432e11352dea/la-curiosa-historia-del-perro-que-ayudo-a-una-mujer-enferma-a-volver-a-mover-el-brazo.jpg' })
+    this.picture_0003 = new Picture({ url: 'https://www.anipedia.net/imagenes/que-comen-los-perros.jpg' })
+    this.picture_0004 = new Picture({ url: 'http://publicaciones.adicae.net/publicaciones/fototeca/perro.jpg' })
+    this.picture_0005 = new Picture({ url: 'https://www.anipedia.net/imagenes/nombres-de-perros.jpg' })
+    this.picture_0006 = new Picture({ url: 'https://cdn-0.somosmamas.com.ar/wp-content/uploads/2019/05/nombres-para-perros.jpg' })
+    this.picture_0007 = new Picture({ url: 'https://elclubmascotas.com/sites/default/files/Perros-grandes-perros-pequen%CC%83os.jpg' })
+    this.picture_0008 = new Picture({ url: 'https://s03.s3c.es/imag/_v0/770x420/2/4/c/600x400_Perro-de-cachorro-iStock.jpg' })
+    this.picture_0009 = new Picture({ url: 'https://es.calcuworld.com/wp-content/uploads/sites/2/2018/03/genes-perros.jpg' })
+    this.picture_0010 = new Picture({ url: '../../assets/images/imagen10.png' })
+    this.picture_0011 = new Picture({ url: '../../assets/images/imagen11.png' })
+    this.picture_0012 = new Picture({ url: '../../assets/images/imagen12.png' })
+    this.picture_0013 = new Picture({ url: '../../assets/images/imagen13.png' })
+    this.picture_0014 = new Picture({ url: '../../assets/images/imagen14.png' })
+    this.picture_0015 = new Picture({ url: '../../assets/images/imagen15.png' })
+    this.picture_0016 = new Picture({ url: '../../assets/images/imagen16.png' })
+    this.picture_0017 = new Picture({ url: '../../assets/images/imagen17.png' })
+    this.picture_0018 = new Picture({ url: '../../assets/images/imagen18.png' })
+    this.picture_0019 = new Picture({ url: '../../assets/images/imagen19.png' })
+    this.picture_0020 = new Picture({ url: '../../assets/images/imagen20.png' })
+    this.picture_0021 = new Picture({ url: '../../assets/images/imagen21.png' })
+    this.picture_0022 = new Picture({ url: '../../assets/images/imagen22.png' })
+    this.picture_0023 = new Picture({ url: '../../assets/images/imagen23.png' })
+    this.picture_0024 = new Picture({ url: '../../assets/images/imagen24.png' })
+    this.picture_0025 = new Picture({ url: '../../assets/images/imagen25.png' })
+    this.picture_0026 = new Picture({ url: '../../assets/images/imagen26.png' })
+    this.picture_0027 = new Picture({ url: '../../assets/images/imagen27.png' })
+    this.picture_0028 = new Picture({ url: '../../assets/images/imagen28.png' })
+    this.picture_0029 = new Picture({ url: '../../assets/images/imagen20.png' })
 
     await getRepository(Picture).save([
       this.picture_0001,
@@ -405,26 +420,27 @@ export class Bootstrap {
   }
   //posts
   async createPosts(): Promise<void> {
-    console.log("******************************creando publicaciones******************************")
-    this.post0001 = new Post({ 
-      description: 'Perro encontrado en la calle artigas al 80..',
-      location: this.location_0001, 
+    console.log('******************************Creando Publicaciones*********************************')
+    this.post0001 = new Post({
+      description: 'Perro encontrado en la calle artigas al 80',
+      location: this.location_0001,
       pet: this.perro1,
-      owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
+      owner: this.estefania,
+      pictures: [this.picture_0001, this.picture_0002]
+    })
     this.post0002 = new Post({
-      description: 'encontrado en Berazategui, está lastimado...',
+      description: 'Encontrado en Berazategui, está lastimado',
       location: this.location_0002,
       pet: this.perro2,
       owner: this.ivan,
-      pictures: [this.picture_0004]
+      pictures: [this.picture_0004, this.picture_0008]
     })
     this.post0003 = new Post({
-      description: 'La concha de tu madre..',
-      location:this.location_0003,
+      description: 'La concha de tu madre',
+      location: this.location_0003,
       pet: this.perro3,
-      pictures: [this.picture_0004, this.picture_0005, this.picture_0006],
+      pictures: [this.picture_0005, this.picture_0006, this.picture_0007],
       owner: this.gabriel
-     
     })
     // this.post0004 = new Post({
     //   description: 'encontrado en ..',
@@ -449,7 +465,7 @@ export class Bootstrap {
     // this.post0008 = new Post({
     //   description: 'encontrado: tiene chapita y un celu que nadie contesta...',
     //   location: this.location_0006,
-    //   owner: this.estefania, 
+    //   owner: this.estefania,
     //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
     // })
     // this.post0009 = new Post({ description: 'galgos sueltos en av san martin..', location: this.location_0001, owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
@@ -490,21 +506,21 @@ export class Bootstrap {
     //   description: 'caniche muy descuidado rondando por...',
     //   location: this.location_0012,
     //   owner: this.estefania,
- 
+
     //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
     // })
     // this.post0019 = new Post({
     //   description: 'Bulldog llorando en la puerta de...',
     //   location: this.location_0002,
     //   owner: this.estefania,
-  
+
     //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     // })
     // this.post0020 = new Post({
     //   description: 'encontramos unos perritos recien nacidos...',
     //   location: this.location_0002,
     //   owner: this.estefania,
- 
+
     //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
     // })
     // this.post0021 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
@@ -513,21 +529,21 @@ export class Bootstrap {
     //   description: 'lo retuvimos: perro perdido..',
     //   location: this.location_0002,
     //   owner: this.estefania,
- 
+
     //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     // })
     // this.post0024 = new Post({
     //   description: 'encontrado en san martín, está rengo...',
     //   location: this.location_0002,
     //   owner: this.estefania,
- 
+
     //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
     // })
 
     await getRepository(Post).save([
       this.post0001,
       this.post0002,
-      this.post0003,
+      this.post0003
       // this.post0004,
       // this.post0005,
       // this.post0006,

@@ -15,9 +15,10 @@ import { Post } from './models/Post'
 import { Rol } from './models/Rol'
 import { Size } from './models/Size'
 import { User } from './models/User'
-import chatRoutes from './routes/Chat.routes'
-import postRoutes from './routes/Post.routes'
-import userRoutes from './routes/User.routes'
+import chatRoutes from './routes/ChatRoutes'
+import dropDownRoutes from './routes/DropDownRoutes'
+import postRoutes from './routes/PostRoutes'
+import userRoutes from './routes/UserRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -51,6 +52,7 @@ createConnection({
     app.use('/user', userRoutes)
     app.use('/chat', chatRoutes)
     app.use('/post', postRoutes)
+    app.use('/', dropDownRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
     })

@@ -32,15 +32,15 @@ export class Post {
   @OneToMany(() => Picture, (picture) => picture.post, { nullable: true })
   pictures?: Picture[]
 
-  @OneToOne(() => Location, (location) => location.Id, { nullable: true, cascade: true })
+  @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
   @JoinColumn()
   location?: Location
 
   //TODO: SE PUEDE CREAR UN POST SIN MASCOTA.
-  @OneToOne(() => Pet, (pet) => pet.Id, { nullable: true, cascade: true })
+  @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
   @JoinColumn()
   pet!: Pet
-/* 
+  /* 
   validate() {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
       throw 'Publicacion inválida'
