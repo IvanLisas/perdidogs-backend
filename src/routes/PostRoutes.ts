@@ -17,6 +17,16 @@ postRoutes.post('/', async (req, res) => {
   }
 })
 
+//EDITAR un post
+postRoutes.put('/', async (req, res) => {
+  try {
+    const post = Post.fromJson(req.body)
+    return res.json(await postService.update(post))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 //GET ALL post
 postRoutes.get('/getAll', async (req, res) => {
   try {

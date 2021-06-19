@@ -46,13 +46,8 @@ class PostService {
     })
   }
 
-  async update(postId: number, idUser: number): Promise<Post | undefined> {
-    const post = await this.get(postId)
-    const user = await userService.get(idUser)
-
-    if (user.Id == idUser) {
+  async update(post:Post): Promise<Post | undefined> {
       return await getRepository(Post).save(post)
-    } else throw 'No tienes los permisos suficientes para actualizar la publicación'
   }
   //function (location,r)
   //x > location.x -r && x < location.x + r
