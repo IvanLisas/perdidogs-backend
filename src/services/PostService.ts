@@ -1,12 +1,27 @@
-import { Between, Entity, getRepository, In } from 'typeorm'
+import { Between, Entity, getRepository, In, getManager, FindOperator } from 'typeorm'
 
 import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
 import { Bounderies, LatLng } from '../models/LatLang'
+import { Filter } from '../models/Filter'
+import { Pet } from '../models/Pet'
+import { query } from 'express'
+import { Breed } from '../models/Breed'
 @Entity()
 class PostService {
+  
+  async getPostByFilters(f: Filter): Promise<Post[] | undefined>  {
+    const petIds= (await getRepository(Pet).find({where:[{breed:f.breed}, {fur:{color:f.fur?.color}}, {hasCollar:f.hasCollar}, {sex:f.sex}]})).map(this.getPetId)
+    return await getRepository(Post).find({
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+      where: {
+        pet: { Id: In(petIds) }
+      }
+    })
+  }
+
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
@@ -68,6 +83,11 @@ class PostService {
   getLocationId(loc: Location): number {
     return loc.Id
   }
+
+  getPetId(pet: Pet): number {
+    return pet.Id
+  }
+
 }
 
 const postService = new PostService()
