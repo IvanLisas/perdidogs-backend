@@ -24,7 +24,7 @@ export class Post {
   owner!: User
 
   @CreateDateColumn()
-  endDate!: Date
+  endDate?: Date
 
   // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   // status!:PostStatus
