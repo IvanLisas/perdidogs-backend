@@ -48,15 +48,9 @@ class UserService {
 
   async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<User> {
     const user = await getRepository(User).findOneOrFail({ Id: userId })
-    console.log(user)
-
     const salt = 10
-
     if (await bcrypt.compare(oldPassword, user.password)) {
-      console.log(await bcrypt.hash(oldPassword, salt))
-      console.log(user.password)
       user.password = await bcrypt.hash(newPassword, salt)
-
       return await getRepository(User).save(user)
     } else throw new Error('las passwords no son iguales')
   }

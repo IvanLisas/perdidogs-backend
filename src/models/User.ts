@@ -12,11 +12,13 @@ export class User {
   @PrimaryGeneratedColumn()
   Id!: number
 
+
   @Column({ type: 'varchar' })
   firstName!: string | null
 
   @Column({ type: 'varchar' })
   lastName!: string
+
 
   @OneToMany(() => Post, (post) => post.owner, { nullable: false })
   @JoinColumn()
@@ -43,10 +45,12 @@ export class User {
   // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   // userStatus!: UserStatus
 
-  
-
   @CreateDateColumn()
   creationDate!: Date
+
+  
+  @Column({type: 'varchar'})
+  avatar!: string
 
   static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
