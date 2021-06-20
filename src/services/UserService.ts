@@ -1,6 +1,6 @@
 import { User } from '../models/User'
 import { getRepository } from 'typeorm'
-import bcrypt from 'bcrypt'
+import bcrypt, { hash } from 'bcrypt'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
@@ -30,30 +30,34 @@ class UserService {
 
   async registrateUser(user: User): Promise<User> {
     console.log(user)
-    const userMail = await getRepository(User).findOne({ email: user.email })
+    const userWithSameMail= await getRepository(User).findOne({ email: user.email })
 
-    if (!userMail) {
-      console.log(userMail)
+    if (!userWithSameMail) {
+      const salt = 10
+      user.password = await bcrypt.hash(user.password, salt)
+      console.log(user.password)
       return await this.save(user)
     }
 
     throw new Error('Este mail ya está en uso')
   }
 
+  async changePassword(userId:number, oldPassword: string, newPassword: string): Promise<User> {
 
- 
+    const user = await getRepository(User).findOneOrFail({Id:userId})
+    console.log(user)
+    
+    const salt = 10
+    console.log(await bcrypt.hash(oldPassword,salt))
+    console.log(user.password)
+
+    if(user.password ===await bcrypt.hash(oldPassword,salt)){
+    
+    user.password = await bcrypt.hash(newPassword, salt)
+
+    return await getRepository(User).save(user)
+    }else throw new Error ('las passwords no son iguales')
   }
-
- 
-
-	
-
- 
- 
-
-
- 
-
 }
 
 const userService = new UserService()

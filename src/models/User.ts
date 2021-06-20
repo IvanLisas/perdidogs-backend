@@ -31,8 +31,12 @@ export class User {
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar'})
   password!: string
+
+  @Column({ type: 'varchar',default: true })
+  newpassword?: string
+
 
   @ManyToOne(() => Rol, (rol) => rol.Id)
   rol!: Rol

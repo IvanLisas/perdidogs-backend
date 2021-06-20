@@ -29,6 +29,19 @@ userRoutes.put('/update', async (req, res) => {
   }
 })
 
+userRoutes.post('/changePass/:userId',async (req, res) => {
+  try {
+    const idUser = req.body.userId
+    const oldPassword = req.body.oldPassword
+    const newPassWord = req.body.newPassword
+   // console.log(oldPassword, newPassWord)
+
+    res.json(await userService.changePassword(idUser, oldPassword,newPassWord))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 userRoutes.delete('/:userid', async (req, res) => {
   try {
     const id = parseInt(req.params.userid)
