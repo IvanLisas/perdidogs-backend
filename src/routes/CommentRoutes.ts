@@ -12,5 +12,15 @@ commentRoutes.post('/', async (req, res) => {
   }
 })
 
+commentRoutes.get('/:postId', async (req, res) => {
+    try {
+        const postId= req.params.postId as unknown as number;
+        return res.json(await commentService.getByPostId(postId))
+    } catch (error) {
+      res.status(403).send(error.message)
+    }
+  })
+  
+
 export default commentRoutes
 

@@ -6,7 +6,7 @@ import { Message } from '../models/Message'
 import { Comment } from '../models/Comment'
 
 export class CommentService {
-  async getByPostId(postId: number): Promise<Comment[] | undefined> {
+  async getByPostId(postId: number): Promise<Comment[]> {
     try {
       return await getRepository(Comment).find({ post: { Id: postId } })
     } catch (error) {
