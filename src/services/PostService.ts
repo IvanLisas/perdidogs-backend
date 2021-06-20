@@ -1,15 +1,16 @@
 import { Between, Entity, getRepository, In } from 'typeorm'
-
 import { Post } from '../models/Post'
 import userService from './UserService'
-
 import { Location } from '../models/Location'
-import { Bounderies, LatLng } from '../models/LatLang'
+import { Bounderies } from '../models/LatLang'
+import { Picture } from '../models/Picture'
+
 @Entity()
 class PostService {
-  async create(idUser: number, post: Post): Promise<Post> {
+  async create(idUser: number, post: Post, picture: Picture): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
+    post.pictures = [picture]
     return await getRepository(Post).save(post)
   }
 

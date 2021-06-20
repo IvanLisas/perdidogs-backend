@@ -29,10 +29,10 @@ export class Post {
   // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   // status!:PostStatus
 
-  @OneToMany(() => Picture, (picture) => picture.post, { nullable: true })
-  pictures?: Picture[]
+  @OneToMany(() => Picture, (picture) => picture.post, { nullable: false, cascade: true })
+  pictures!: Picture[]
 
-  @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
+  @OneToOne(() => Location, (location) => location.Id, { cascade: true })
   @JoinColumn()
   location?: Location
 
@@ -40,16 +40,22 @@ export class Post {
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
   @JoinColumn()
   pet!: Pet
-  /* 
-  validate() {
-    if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
-      throw 'Publicacion inválida'
-    } */
-  //}
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)
   }
+
+  /*static fromJson(postJson: string, postFiles: string[]): Post {
+    let c = 0
+    const pictures = []
+    while (postFiles.length < c) {
+      pictures.push(postFiles[c])
+      c++
+    }
+    const post = Object.assign(new Post(), postJson)
+    post.pictures = pictures
+    return post
+  }*/
 
   // static fromJson(postJson: any) {
   //   return Object.assign(new Post(), postJson, {

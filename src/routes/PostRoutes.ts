@@ -1,16 +1,38 @@
 import { Router } from 'express'
+import multer from 'multer'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
 import { Bounderies } from '../models/LatLang'
+import { Picture } from '../models/Picture'
 
 const postRoutes = Router()
 
+
+const myStorage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '_' + file.originalname)
+  }
+})
+
+const myFileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') cb(null, true)
+  else cb(null, false) // reject file
+}
+
+const upload = multer({
+  storage: myStorage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: myFileFilter
+}).single('pictures')
+
 //POST a post
-postRoutes.post('/', async (req, res) => {
+postRoutes.post('/', upload, async (req, res) => {
   try {
     const userId = parseInt(req.body.owner)
+    const picture = new Picture({url: req.file?.path}) 
     const post = Post.fromJson(req.body)
-    return res.json(await postService.create(userId, post))
+    return res.json(await postService.create(userId, post, picture))
   } catch (error) {
     res.status(400).send(error.message)
   }

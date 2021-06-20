@@ -14,7 +14,7 @@ export class Picture {
 
   @CreateDateColumn() creationDate!: Date
 
-  @ManyToOne(() => Post, (post) => post.Id) post!: Post
+  @ManyToOne(() => Post, (post) => post.pictures) post!: Post
 
   static fromJson(PictureJson: string): Picture {
     return Object.assign(new Picture(), PictureJson)
