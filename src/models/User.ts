@@ -34,10 +34,6 @@ export class User {
   @Column({ type: 'varchar'})
   password!: string
 
-  @Column({ type: 'varchar',default: true })
-  newpassword?: string
-
-
   @ManyToOne(() => Rol, (rol) => rol.Id)
   rol!: Rol
 

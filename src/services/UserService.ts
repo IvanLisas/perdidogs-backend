@@ -4,7 +4,20 @@ import bcrypt, { hash } from 'bcrypt'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
-    return await getRepository(User).findOneOrFail({ email: anEmail, password: aPassword })
+
+    const salt = 10
+    const user = await getRepository(User).findOneOrFail({email:anEmail})
+    console.log(user)
+    console.log(aPassword)
+    const passWordHashed = await bcrypt.hash(aPassword, salt)  
+    console.log(passWordHashed) 
+    console.log(user.password)
+    if( await bcrypt.compare(passWordHashed,user.password)){
+      return await getRepository(User).findOneOrFail({ email: anEmail, password: aPassword })
+
+    }else throw new Error ('contraseñas no coinciden')
+    
+    
   }
 
   async get(id: number): Promise<User> {
@@ -48,11 +61,11 @@ class UserService {
     console.log(user)
     
     const salt = 10
-    console.log(await bcrypt.hash(oldPassword,salt))
-    console.log(user.password)
-
-    if(user.password ===await bcrypt.hash(oldPassword,salt)){
-    
+   
+     
+    if(await bcrypt.compare(oldPassword,user.password)){
+      console.log(await bcrypt.hash(oldPassword,salt))
+      console.log(user.password)
     user.password = await bcrypt.hash(newPassword, salt)
 
     return await getRepository(User).save(user)
