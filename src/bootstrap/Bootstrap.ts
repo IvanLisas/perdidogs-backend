@@ -319,8 +319,7 @@ export class Bootstrap {
     this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
     this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
     this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
+    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisas', email: 'ivanelisas@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
 
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
   }
