@@ -7,7 +7,6 @@ import { Picture } from '../models/Picture'
 
 const postRoutes = Router()
 
-
 const myStorage = multer.diskStorage({
   destination: './public/uploads/',
   filename: (req, file, cb) => {
@@ -17,7 +16,7 @@ const myStorage = multer.diskStorage({
 
 const myFileFilter = (req: any, file: any, cb: any) => {
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') cb(null, true)
-  else cb(null, false) // reject file
+  else cb(new Error("wrong image type"), false) // reject file
 }
 
 const upload = multer({

@@ -25,6 +25,7 @@ import userRoutes from './routes/UserRoutes'
 const app = express() //Creo la conexion con express
 app.set('port', process.env.PORT || 3001) // Defino el puerto
 app.use(express.json())
+app.use('/public/uploads', express.static('public/uploads'))
 console.log('Creando tablas...')
 createConnection({
   type: 'mysql',
