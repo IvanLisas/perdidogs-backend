@@ -313,14 +313,13 @@ export class Bootstrap {
   async hashPassword(password:string):Promise<string>{
     const salt =10
     return await bcrypt.hash(password, salt)
-
   }
   async createUsers(): Promise<void> {
     console.log('******************************Creando User******************************************')
-    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
-    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
-    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
+    this.estefania = new User({ firstName: 'Estefanía',lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com',  password: await this.hashPassword('12345678'), isActive: true,  avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg' })
+    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi' , email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true ,avatar:'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'})
+    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com',  password: await this.hashPassword('12345678'), isActive: true,  avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg' })
+    this.ivan = new User({ firstName: 'Ivan',lastName: 'Lisas',email: 'ivanelisas@gmail.com',  password: await this.hashPassword('12345678'), isActive: true , avatar:'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'})
     
     
     
@@ -436,6 +435,7 @@ export class Bootstrap {
       description: 'Perro encontrado en la calle artigas al 80',
       location: this.location_0001,
       pet: this.perro1,
+      creationDate: new Date('2021-06-20T04:34:01.456Z'),
       owner: this.estefania,
       pictures: [this.picture_0001, this.picture_0002]
     })
@@ -443,6 +443,7 @@ export class Bootstrap {
       description: 'Encontrado en Berazategui, está lastimado',
       location: this.location_0002,
       pet: this.perro2,
+      creationDate: new Date('2021-01-20T15:55:01.456Z'),
       owner: this.ivan,
       pictures: [this.picture_0004, this.picture_0008]
     })
@@ -450,61 +451,98 @@ export class Bootstrap {
       description: 'La concha de tu madre',
       location: this.location_0003,
       pet: this.perro3,
+      creationDate: new Date('2021-01-20T14:31:01.456Z'),
+
       pictures: [this.picture_0005, this.picture_0006, this.picture_0007],
       owner: this.gabriel
     })
-    // this.post0004 = new Post({
-    //   description: 'encontrado en ..',
-    //   location: this.location_0003,
-    //   pet: this.perro4,
-    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
-    //   owner: this.mariano
-    // })
-    // this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
-    // this.post0006 = new Post({
-    //   description: 'Dos perritos perdidos sobre avenida crovara...',
-    //   location: this.location_0004,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    // })
-    // this.post0007 = new Post({
-    //   description: 'Alguien lo conoce? está en la puerta de mi casa...',
-    //   location: this.location_0005,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    // })
-    // this.post0008 = new Post({
-    //   description: 'encontrado: tiene chapita y un celu que nadie contesta...',
-    //   location: this.location_0006,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    // })
-    // this.post0009 = new Post({ description: 'galgos sueltos en av san martin..', location: this.location_0001, owner: this.estefania,   pictures: [this.picture_0001, this.picture_0002] })
-    // this.post0010 = new Post({
-    //   description: 'san martin 3400, perro macho con collar corriendo..',
-    //   location: this.location_0002,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    // })
-    // this.post0011 = new Post({
-    //   description: 'Está muy asustada, por favor compartamos así localizamos a sus dueños...',
-    //   location: this.location_0002,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
-    // })
-    // this.post0012 = new Post({
-    //   description: 'Perra hembra embarazada, está muy gordita...',
-    //   location: this.location_0009,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
-    // })
-    // this.post0013 = new Post({ description: 'Lola perdida. Me ayudan a encontrarla..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
-    // this.post0014 = new Post({
-    //   description: 'perro perdido hace semanas....',
-    //   location: this.location_0011,
-    //   owner: this.estefania,
-    //   pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
-    // })
+    this.post0004 = new Post({
+      description: 'encontrado en ..',
+      location: this.location_0005,
+      pet: this.perro4,
+      creationDate: new Date('2021-01-20T14:31:01.456Z'),
+      owner: this.mariano,
+      pictures: [this.picture_0001, this.picture_0002] 
+
+    })
+    this.post0005 = new Post({ 
+      description: 'Perro encontrado en la calle artigas al 80..', 
+      location: this.location_0009, 
+      pet: this.perro5,
+      creationDate: new Date('2021-01-20T18:31:01.456Z'),
+      owner: this.estefania,  
+      pictures: [this.picture_0001, this.picture_0002] 
+    })
+    this.post0006 = new Post({
+      description: 'Dos perritos perdidos sobre avenida crovara...',
+      location: this.location_0004,
+      pet:this.perro7,
+      creationDate: new Date('2021-01-20T17:31:01.456Z'),
+      owner: this.estefania,
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    })
+    this.post0007 = new Post({
+      description: 'Alguien lo conoce? está en la puerta de mi casa...',
+      location: this.location_0010,
+      pet: this.perro8,
+      owner: this.estefania,
+      creationDate: new Date('2021-03-20T17:31:01.456Z'),
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    })
+    this.post0008 = new Post({
+      description: 'encontrado: tiene chapita y un celu que nadie contesta...',
+      location: this.location_0006,
+      pet: this.perro9,
+      creationDate: new Date('2020-03-20T17:31:01.456Z'),
+      owner: this.ivan,
+      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    })
+    this.post0009 = new Post({ 
+    description: 'galgos sueltos en av san martin..', 
+    location: this.location_0013,
+    pet: this.perro10,
+    owner: this.mariano,
+    pictures: [this.picture_0001, this.picture_0002] 
+    })
+    this.post0010 = new Post({
+      description: 'san martin 3400, perro macho con collar corriendo..',
+      location: this.location_0014,
+      pet: this.perro11,
+      owner: this.gabriel,
+      creationDate: new Date('2021-05-20T19:31:01.456Z'),
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    })
+    this.post0011 = new Post({
+      description: 'Está muy asustada, por favor compartamos así localizamos a sus dueños...',
+      location: this.location_0015,
+      pet: this.perro12,
+      owner: this.mariano,
+      creationDate: new Date('2020-12-20T23:31:01.456Z'),
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
+    })
+    this.post0012 = new Post({
+      description: 'Perra hembra embarazada, está muy gordita...',
+      location: this.location_0016,
+      pet: this.perro13,
+      owner: this.ivan,
+      creationDate: new Date('2021-06-20T13:31:01.456Z'),
+      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+    })
+    this.post0013 = new Post({
+       description: 'Lola perdida. Me ayudan a encontrarla..',
+        location: this.location_0017, 
+        pet: this.perro14,
+        owner: this.ivan,
+        creationDate: new Date('2021-07-20T17:31:01.456Z'),
+        pictures: [this.picture_0001, this.picture_0002] })
+    this.post0014 = new Post({
+      description: 'perro perdido hace semanas....',
+      location: this.location_0011,
+      pet: this.perro15,
+      owner: this.estefania,
+      creationDate: new Date('2021-07-20T18:31:01.456Z'),
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0007]
+    })
     // this.post0015 = new Post({ description: 'encontrado en San Andres ...', location: this.location_0002, owner: this.estefania , pictures: [this.picture_0004, this.picture_0005, this.picture_0006] })
     // this.post0016 = new Post({
     //   description: 'se llama richard y está perdido..',
@@ -554,18 +592,18 @@ export class Bootstrap {
     await getRepository(Post).save([
       this.post0001,
       this.post0002,
-      this.post0003
-      // this.post0004,
-      // this.post0005,
-      // this.post0006,
-      // this.post0007,
-      // this.post0008,
-      // this.post0009,
-      // this.post0010,
-      // this.post0011,
-      // this.post0012,
-      // this.post0013,
-      // this.post0014,
+      this.post0003,
+      this.post0004,
+      this.post0005,
+      this.post0006,
+      this.post0007,
+      this.post0008,
+      this.post0009,
+      this.post0010,
+      this.post0011,
+      this.post0012,
+      this.post0013,
+      this.post0014
       // this.post0015,
       // this.post0016,
       // this.post0017,
