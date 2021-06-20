@@ -39,7 +39,7 @@ class PostService {
 
   async get(idPost: number): Promise<Post> {
     return await getRepository(Post).findOneOrFail({
-      relations: ['owner'],
+      relations: ['owner', 'pet'],
       where: {
         Id: idPost
       }

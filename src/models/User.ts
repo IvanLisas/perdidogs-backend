@@ -31,7 +31,7 @@ export class User {
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar'})
   password!: string
 
   @ManyToOne(() => Rol, (rol) => rol.Id)
@@ -42,6 +42,8 @@ export class User {
 
   // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   // userStatus!: UserStatus
+
+  
 
   @CreateDateColumn()
   creationDate!: Date

@@ -9,6 +9,8 @@ import { Pet } from '../models/Pet'
 import { Picture } from '../models/Picture'
 import { Post } from '../models/Post'
 //import { PostStatus } from '../models/PostStatus'
+import bcrypt, { hash } from 'bcrypt'
+
 import { Rol } from '../models/Rol'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
@@ -308,12 +310,20 @@ export class Bootstrap {
   //   await getRepository(UserStatus).save([this.activo, this.pendiente, this.inactivo])
   // }
   //users
+  async hashPassword(password:string):Promise<string>{
+    const salt =10
+    return await bcrypt.hash(password, salt)
+
+  }
   async createUsers(): Promise<void> {
     console.log('******************************Creando User******************************************')
-    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com', password: '1234', isActive: true })
-    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: '1234', isActive: true })
-    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com', password: '1234', isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: '1234', isActive: true })
+    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
+    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
+    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
+    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
+    
+    
+    
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
   }
   //location
@@ -421,6 +431,7 @@ export class Bootstrap {
   //posts
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
+    //TODO: CAMBIAR LAS FECHAS PORQUE SALEN TODAS IGUALES
     this.post0001 = new Post({
       description: 'Perro encontrado en la calle artigas al 80',
       location: this.location_0001,
@@ -447,7 +458,7 @@ export class Bootstrap {
     //   location: this.location_0003,
     //   pet: this.perro4,
     //   pictures: [this.picture_0014, this.picture_0015, this.picture_0017],
-    //   owner: this.estefania,
+    //   owner: this.mariano
     // })
     // this.post0005 = new Post({ description: 'Perro encontrado en la calle artigas al 80..', location: this.location_0001, owner: this.estefania,  pictures: [this.picture_0001, this.picture_0002] })
     // this.post0006 = new Post({
