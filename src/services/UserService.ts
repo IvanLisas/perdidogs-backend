@@ -4,20 +4,11 @@ import bcrypt, { hash } from 'bcrypt'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
+    const user = await getRepository(User).findOneOrFail({ email: anEmail })
 
-    const salt = 10
-    const user = await getRepository(User).findOneOrFail({email:anEmail})
-    console.log(user)
-    console.log(aPassword)
-    const passWordHashed = await bcrypt.hash(aPassword, salt)  
-    console.log(passWordHashed) 
-    console.log(user.password)
-    if( await bcrypt.compare(passWordHashed,user.password)){
-      return await getRepository(User).findOneOrFail({ email: anEmail, password: aPassword })
-
-    }else throw new Error ('contraseñas no coinciden')
-    
-    
+    if (await bcrypt.compare(aPassword, user.password)) {
+      return user
+    } else throw new Error('contraseñas no coinciden')
   }
 
   async get(id: number): Promise<User> {
@@ -43,7 +34,7 @@ class UserService {
 
   async registrateUser(user: User): Promise<User> {
     console.log(user)
-    const userWithSameMail= await getRepository(User).findOne({ email: user.email })
+    const userWithSameMail = await getRepository(User).findOne({ email: user.email })
 
     if (!userWithSameMail) {
       const salt = 10
@@ -55,21 +46,19 @@ class UserService {
     throw new Error('Este mail ya está en uso')
   }
 
-  async changePassword(userId:number, oldPassword: string, newPassword: string): Promise<User> {
-
-    const user = await getRepository(User).findOneOrFail({Id:userId})
+  async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<User> {
+    const user = await getRepository(User).findOneOrFail({ Id: userId })
     console.log(user)
-    
-    const salt = 10
-   
-     
-    if(await bcrypt.compare(oldPassword,user.password)){
-      console.log(await bcrypt.hash(oldPassword,salt))
-      console.log(user.password)
-    user.password = await bcrypt.hash(newPassword, salt)
 
-    return await getRepository(User).save(user)
-    }else throw new Error ('las passwords no son iguales')
+    const salt = 10
+
+    if (await bcrypt.compare(oldPassword, user.password)) {
+      console.log(await bcrypt.hash(oldPassword, salt))
+      console.log(user.password)
+      user.password = await bcrypt.hash(newPassword, salt)
+
+      return await getRepository(User).save(user)
+    } else throw new Error('las passwords no son iguales')
   }
 }
 

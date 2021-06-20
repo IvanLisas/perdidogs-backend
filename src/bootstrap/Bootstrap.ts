@@ -310,20 +310,18 @@ export class Bootstrap {
   //   await getRepository(UserStatus).save([this.activo, this.pendiente, this.inactivo])
   // }
   //users
-  async hashPassword(password:string):Promise<string>{
-    const salt =10
+  async hashPassword(password: string): Promise<string> {
+    const salt = 10
     return await bcrypt.hash(password, salt)
-
   }
   async createUsers(): Promise<void> {
     console.log('******************************Creando User******************************************')
-    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
+    this.estefania = new User({ firstName: 'Estefanía', lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
     this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi', email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
-    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
-    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com',  password: await this.hashPassword('12345678'), isActive: true })
-    
-    
-    
+    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
+    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
+    this.ivan = new User({ firstName: 'Ivan', lastName: 'Lisa', email: 'ivanelisas@gmail.com', password: await this.hashPassword('12345678'), isActive: true })
+
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
   }
   //location
