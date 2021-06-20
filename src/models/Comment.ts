@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Post } from './Post'
 
 @Entity()
 export class Comment {
@@ -14,4 +15,11 @@ export class Comment {
 
   @CreateDateColumn()
   creation!: Date
+
+  @ManyToOne(() => Post, (post) => post.Id)
+  post!: Post
+
+  static fromJson(PictureJson: string): Comment {
+    return Object.assign(new Comment(), PictureJson)
+  }
 }

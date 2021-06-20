@@ -19,6 +19,8 @@ import { Rol } from './models/Rol'
 import { Size } from './models/Size'
 import { User } from './models/User'
 import dropDownRoutes from './routes/DropDownRoutes'
+import { Comment } from './models/Comment'
+import commentRoutes from './routes/CommentRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -33,7 +35,7 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location],
+  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location,Comment],
   synchronize: true,
   logging: false,
   dropSchema: true
@@ -52,6 +54,7 @@ createConnection({
     app.use('/user', userRoutes)
     app.use('/chat', chatRoutes)
     app.use('/post', postRoutes)
+    app.use('/comment', commentRoutes)
     app.use('/', dropDownRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
