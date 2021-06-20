@@ -30,7 +30,7 @@ export class ChatService {
   }
 
   async readChat(id: number): Promise<Chat> {
-    const chat = await getRepository(Chat).findOne({Id: id}, { relations: ['messageList']}) as Chat
+    const chat = await getRepository(Chat).findOneOrFail({Id: id}, { relations: ['messageList']}) as Chat
     chat.messageList.every(x => x.read = true)
     return await getRepository(Chat).save(chat)
   }
