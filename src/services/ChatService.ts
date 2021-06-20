@@ -3,10 +3,15 @@ import { getRepository } from 'typeorm'
 import userService from './UserService'
 import { Message } from '../models/Message'
 import { MessageDTO } from '../routes/ChatRoutes'
+import { read } from 'fs'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
     return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: [{ owner: { Id: id } }, { owner2: { Id: id } }] })
+  }
+
+  async getMessage(id: number): Promise<Message | undefined> {
+    return await getRepository(Message).findOne({Id: id})
   }
 
   async create(message: MessageDTO): Promise<Chat | undefined> {
@@ -23,6 +28,13 @@ export class ChatService {
       return await getRepository(Chat).save(chat)
     }
   }
+
+  async readChat(id: number): Promise<Chat> {
+    const chat = await getRepository(Chat).findOne({Id: id}, { relations: ['messageList']}) as Chat
+    chat.messageList.every(x => x.read = true)
+    return await getRepository(Chat).save(chat)
+  }
+
 }
 
 const chatService = new ChatService()

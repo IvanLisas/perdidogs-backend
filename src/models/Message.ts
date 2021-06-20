@@ -20,6 +20,9 @@ export class Message {
   @ManyToOne(() => Chat, (chat) => chat.messageList)
   chat!: Chat
 
+  @Column({ default: false})
+  read?: boolean
+
   @Column({ type: 'varchar' })
   messageBody!: string
 
