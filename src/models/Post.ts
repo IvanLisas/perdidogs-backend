@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
+import { Comment } from './Comment'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
@@ -12,6 +13,9 @@ export class Post {
 
   @PrimaryGeneratedColumn()
   Id!: number
+
+  @Column({ type: 'varchar',nullable:true })
+  title?: string
 
   @Column({ type: 'varchar' })
   description!: string
@@ -32,6 +36,9 @@ export class Post {
   @OneToMany(() => Picture, (picture) => picture.post, { nullable: true })
   pictures?: Picture[]
 
+  @OneToMany(() => Comment, (comment) => comment.post, { nullable: true, cascade:true })
+  comments?: Comment[]
+
   @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
   @JoinColumn()
   location?: Location
@@ -40,6 +47,11 @@ export class Post {
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
   @JoinColumn()
   pet!: Pet
+
+  
+  @Column({ type: 'boolean', default: true })
+  isActive!: boolean
+  
   /* 
   validate() {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {

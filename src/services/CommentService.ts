@@ -3,20 +3,23 @@ import { getRepository } from 'typeorm'
 import { MessageDTO } from '../routes/ChatRoutes'
 import userService from './UserService'
 import { Message } from '../models/Message'
+import { Comment } from '../models/Comment'
 
-export class ChatService {
-  async getAll(id: number): Promise<Chat[]> {
-    return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: [{ owner: { Id: id } }, { owner2: { Id: id } }] })
+export class CommentService {
+  async getByPostId(postId: number): Promise<Comment[]> {
+    try {
+      return await getRepository(Comment).find({ post: { Id: postId } })
+    } catch (error) {
+      throw error.message
+    }
   }
 
-  async getMessage(id: number): Promise<Message | undefined> {
-    return await getRepository(Message).findOne({ Id: id })
-  }
-
-  async readChat(id: number): Promise<Chat> {
-    const chat = (await getRepository(Chat).findOneOrFail({ Id: id }, { relations: ['messageList'] })) as Chat
-    chat.messageList.every((x) => (x.read = true))
-    return await getRepository(Chat).save(chat)
+  async save(comment: Comment): Promise<Comment> {
+    try {
+      return await getRepository(Comment).save(comment)
+    } catch (error) {
+      throw error.message
+    }
   }
 
   async create(message: MessageDTO): Promise<Chat | undefined> {
@@ -40,6 +43,6 @@ export class ChatService {
   }
 }
 
-const chatService = new ChatService()
+const commentService = new CommentService()
 
-export default chatService
+export default commentService

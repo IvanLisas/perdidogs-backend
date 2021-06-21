@@ -2,6 +2,7 @@ import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
 import { Bounderies } from '../models/LatLang'
+import { Filter } from '../models/Filter'
 
 const postRoutes = Router()
 
@@ -16,10 +17,29 @@ postRoutes.post('/', async (req, res) => {
   }
 })
 
+//EDITAR un post
+postRoutes.put('/', async (req, res) => {
+  try {
+    const post = Post.fromJson(req.body)
+    return res.json(await postService.update(post))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 //GET ALL post
 postRoutes.get('/getAll', async (req, res) => {
   try {
     return res.json(await postService.getAllPosts())
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
+//GET BY FILTER post
+postRoutes.get('/by-filter', async (req, res) => {
+  try {
+    return res.json(await postService.getPostByFilters(req.body as Filter))
   } catch (error) {
     res.status(400).send(error.message)
   }

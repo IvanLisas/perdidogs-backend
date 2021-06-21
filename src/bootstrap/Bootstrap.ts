@@ -306,19 +306,45 @@ export class Bootstrap {
   //   await getRepository(UserStatus).save([this.activo, this.pendiente, this.inactivo])
   // }
   //users
-  async hashPassword(password:string):Promise<string>{
-    const salt =10
+  async hashPassword(password: string): Promise<string> {
+    const salt = 10
     return await bcrypt.hash(password, salt)
   }
   async createUsers(): Promise<void> {
     console.log('******************************Creando User******************************************')
-    this.estefania = new User({ firstName: 'Estefanía',lastName: 'Di Pietro', email: 'estefaniadipietro@gmail.com',  password: await this.hashPassword('12345678'), isActive: true,  avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg' })
-    this.mariano = new User({ firstName: 'Mariano', lastName: 'Bottazzi' , email: 'bottazzimariano@gmail.com', password: await this.hashPassword('12345678'), isActive: true ,avatar:'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'})
-    this.gabriel = new User({ firstName: 'Gabriel', lastName: 'Loy', email: 'loygabriel@gmail.com',  password: await this.hashPassword('12345678'), isActive: true,  avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg' })
-    this.ivan = new User({ firstName: 'Ivan',lastName: 'Lisas',email: 'ivanelisas@gmail.com',  password: await this.hashPassword('12345678'), isActive: true , avatar:'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'})
-    
-    
-    
+    this.estefania = new User({
+      firstName: 'Estefanía',
+      lastName: 'Di Pietro',
+      email: 'estefaniadipietro@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
+    })
+    this.mariano = new User({
+      firstName: 'Mariano',
+      lastName: 'Bottazzi',
+      email: 'bottazzimariano@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
+    })
+    this.gabriel = new User({
+      firstName: 'Gabriel',
+      lastName: 'Loy',
+      email: 'loygabriel@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
+    })
+    this.ivan = new User({
+      firstName: 'Ivan',
+      lastName: 'Lisas',
+      email: 'ivanelisas@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
+    })
+
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
   }
   //location
@@ -522,7 +548,7 @@ export class Bootstrap {
     this.post0012 = new Post({
       description: 'Perra hembra embarazada, está muy gordita',
       location: this.location_0012,
-      pet: this.perro13,
+      pet: this.perro14,
       owner: this.ivan,
       creationDate: new Date('2021-06-20T13:31:01.456Z'),
       pictures: [this.picture_0026]
@@ -553,8 +579,8 @@ export class Bootstrap {
       this.post0008,
       this.post0009,
       this.post0010,
-      this.post0011
-      // this.post0013,
+      this.post0011,
+      this.post0012
       // this.post0014
       // this.post0015,
       // this.post0016,
