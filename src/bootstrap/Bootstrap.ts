@@ -400,7 +400,7 @@ export class Bootstrap {
     this.picture_0002 = new Picture({ url: 'https://revista.weepec.com/wp-content/uploads/2017/07/perro-de-la-calle-01.jpg' })
     this.picture_0003 = new Picture({ url: 'https://t2.ea.ltmcdn.com/es/images/7/2/4/img_cuanto_vive_un_perro_callejero_22427_paso_1_600.jpg' })
    
-    this.picture_0004 = new Picture({ url: 'https://media.taringa.net/knn/identity/aHR0cHM6Ly90Mi5rbjMubmV0L3RhcmluZ2EvOS8yLzMvMy80LzgvYnVzY2FjYW4vMkExLmpwZwhttp://3.bp.blogspot.com/-mGSNFHaQvt0/TpuBunVHDVI/AAAAAAAASbI/p8fm2Xhhfco/s1600/BARBITA.JPG' })
+    this.picture_0004 = new Picture({ url: 'http://1.bp.blogspot.com/-fPPi-wskwjg/TiUEi2UqGTI/AAAAAAAAB4k/wjLNydAjDF0/s1600/Barbincho.jpg' })
     this.picture_0005 = new Picture({ url: 'https://c8.alamy.com/compes/t87pa8/el-aspecto-de-un-perro-callejero-triste-solitario-perro-en-la-calle-abrigo-sucio-y-humedo-el-animal-esta-buscando-su-dueno-t87pa8.jpg' })
     this.picture_0006 = new Picture({ url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg' })
     this.picture_0007 = new Picture({ url: 'https://pbs.twimg.com/media/BvfgPU3CcAAGkxu.jpg' })
