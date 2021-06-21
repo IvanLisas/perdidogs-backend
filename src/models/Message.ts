@@ -23,6 +23,9 @@ export class Message {
   @Column({ type: 'varchar' })
   body!: string
 
+  @Column({default: false})
+  read!: boolean
+
   @CreateDateColumn()
   creationDate!: Date
 
