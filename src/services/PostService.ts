@@ -9,18 +9,20 @@ import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 import { query } from 'express'
 import { Breed } from '../models/Breed'
+import { X_OK } from 'constants'
 @Entity()
 class PostService {
   
-  async getPostByFilters(f: Filter): Promise<Post[] | undefined>  {
-    const petIds= (await getRepository(Pet).find({where:[{breed:f.breed}, {fur:{color:f.fur?.color}}, {hasCollar:f.hasCollar}, {sex:f.sex}]})).map(this.getPetId)
+  async getPostByFilters(filter: Filter): Promise<Post[] | undefined>  {
+    const pets= this.getPetIdsByFilters((await getRepository(Pet).find() ),filter)
     return await getRepository(Post).find({
       relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
       where: {
-        pet: { Id: In(petIds) }
+        pet: { Id: In(pets.map(x=>x.Id)) }
       }
     })
   }
+
 
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
@@ -40,7 +42,7 @@ class PostService {
 
   async get(idPost: number): Promise<Post> {
     return await getRepository(Post).findOneOrFail({
-      relations: ['owner', 'pet'],
+      relations: ['owner'],
       where: {
         Id: idPost
       }
@@ -65,7 +67,7 @@ class PostService {
     const extremeY = [southWest.longitude, northEast.longitude]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
-      const ids = locations.map(this.getLocationId)
+      const ids = locations.map(x=>x.Id)
       console.log('ids:', ids)
       return await getRepository(Post).find({
         relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
@@ -84,6 +86,21 @@ class PostService {
     return pet.Id
   }
 
+  getPetIdsByFilters(pets:Pet[], filter: Filter) :Pet[]{
+    if(filter.sex!=null){
+      pets= pets.filter(x=>x.sex==filter.sex)
+    }
+    if(filter.hasCollar!=null){
+      pets=pets.filter(x=>x.hasCollar==filter.hasCollar)
+    }
+    if(filter.fur!=null){
+      pets= pets.filter(x=>x.fur.color==filter.fur?.color&&x.fur.length==filter.fur.length)
+    }
+    if(filter.breed!=null){
+      pets=pets.filter(x=>x.breed==filter.breed)
+    }
+    return pets
+  }
 }
 
 const postService = new PostService()
