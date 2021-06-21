@@ -477,7 +477,7 @@ export class Bootstrap {
       description: 'La concha de tu madre',
       location: this.location_0003,
       pet: this.perro3,
-      creationDate: new Date('2021-01-20T14:31:01.456Z'),
+      creationDate: new Date('2021-07-20T19:31:01.456Z'),
 
       pictures: [this.picture_0005, this.picture_0006, this.picture_0007],
       owner: this.gabriel
@@ -520,7 +520,7 @@ export class Bootstrap {
       pet: this.perro9,
       creationDate: new Date('2020-03-20T17:31:01.456Z'),
       owner: this.ivan,
-      pictures: [this.picture_0014, this.picture_0015, this.picture_0017]
+      pictures: [this.picture_0014, this.picture_0009, this.picture_0008]
     })
     this.post0009 = new Post({
       description: 'galgos sueltos en av san martin..',
