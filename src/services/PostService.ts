@@ -30,7 +30,8 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size']
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+      where:{isActive:true}
     })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
@@ -69,7 +70,7 @@ class PostService {
       return await getRepository(Post).find({
         relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
         where: {
-          location: { Id: In(ids) }
+          location: { Id: In(ids),isActive:true }
         }
       })
     } else return []

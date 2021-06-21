@@ -47,6 +47,11 @@ export class Post {
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
   @JoinColumn()
   pet!: Pet
+
+  
+  @Column({ type: 'boolean', default: true })
+  isActive!: boolean
+  
   /* 
   validate() {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
