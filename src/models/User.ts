@@ -12,11 +12,13 @@ export class User {
   @PrimaryGeneratedColumn()
   Id!: number
 
+
   @Column({ type: 'varchar' })
   firstName!: string | null
 
   @Column({ type: 'varchar' })
   lastName!: string
+
 
   @OneToMany(() => Post, (post) => post.owner, { nullable: false })
   @JoinColumn()
@@ -31,7 +33,7 @@ export class User {
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar'})
   password!: string
 
   @ManyToOne(() => Rol, (rol) => rol.Id)
@@ -45,6 +47,10 @@ export class User {
 
   @CreateDateColumn()
   creationDate!: Date
+
+  
+  @Column({type: 'varchar'})
+  avatar!: string
 
   static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
