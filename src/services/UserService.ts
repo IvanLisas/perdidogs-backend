@@ -14,15 +14,12 @@ class UserService {
 
   async forgotPassword(email: string): Promise<any> {
       const user= await this.findByEmail(email)
+      console.log("USER: ",user)
       const link = 'localhost:19000/recover-password/:'+email
       if(user!=null){
         const emailSender = new EmailService
         emailSender.sendEmail( user,user.email,"Ingrese a este link para recuperar su contraseña "+link)
       }
-  }
-
-  async sendEmail(email:string):Promise<void>{
-    const _email = email
   }
 
   async findByEmail(anEmail:string):Promise<User>{
