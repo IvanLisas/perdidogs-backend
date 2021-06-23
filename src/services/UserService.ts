@@ -11,6 +11,17 @@ class UserService {
     } else throw new Error('contraseñas no coinciden')
   }
 
+  forgotPassword(email: string): any {
+      const user= this.findByEmail(email)
+      if(user!=null){
+        this.sendEmail(email)
+      }
+  }
+
+  async sendEmail(email:string):Promise<void>{
+    const _email = email
+  }
+
   async findByEmail(anEmail:string):Promise<User>{
     return getRepository(User).findOneOrFail({where:{
       email:anEmail
