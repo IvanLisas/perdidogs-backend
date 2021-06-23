@@ -11,6 +11,12 @@ class UserService {
     } else throw new Error('contraseñas no coinciden')
   }
 
+  async findByEmail(anEmail:string):Promise<User>{
+    return getRepository(User).findOneOrFail({where:{
+      email:anEmail
+    }})
+  }
+
   async get(id: number): Promise<User> {
     return await getRepository(User).findOneOrFail({
       relations: ['post', 'post.pet', 'post.location', 'post.pictures'],
