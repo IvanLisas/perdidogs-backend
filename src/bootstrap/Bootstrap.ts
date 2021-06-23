@@ -14,6 +14,7 @@ import bcrypt, { hash } from 'bcrypt'
 import { Rol } from '../models/Rol'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
+import { Comment } from '../models/Comment'
 
 export class Bootstrap {
   // activo!: PostStatus
@@ -153,6 +154,45 @@ export class Bootstrap {
   pelaje1!: Fur
   pelaje2!: Fur
   pelaje3!: Fur
+  comentario1!: Comment
+  comentario2!: Comment
+  comentario3!: Comment
+  comentario4!: Comment
+  comentario5!: Comment
+  comentario6!: Comment
+  comentario7!: Comment
+  comentario8!: Comment
+  comentario9!: Comment
+  comentario10!: Comment
+  comentario11!: Comment
+  comentario12!: Comment
+  comentario13!: Comment
+  comentario14!: Comment
+  comentario15!: Comment
+  comentario16!: Comment
+  comentario17!: Comment
+  comentario18!: Comment
+  comentario19!: Comment
+  comentario20!: Comment
+  comentario21!: Comment
+  comentario22!: Comment
+  comentario23!: Comment
+  comentario24!: Comment
+  comentario25!: Comment
+  comentario26!: Comment
+  comentario27!: Comment
+  comentario28!: Comment
+  comentario29!: Comment
+  comentario30!: Comment
+  comentario31!: Comment
+  comentario32!: Comment
+  comentario33!: Comment
+  comentario34!: Comment
+  comentario35!: Comment
+  comentario36!: Comment
+  comentario37!: Comment
+  comentario38!: Comment
+
   // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
@@ -168,6 +208,7 @@ export class Bootstrap {
     await this.createLocations()
     await this.createPictures()
     await this.createPosts()
+    await this.createComments()
   }
 
   //Colors
@@ -261,7 +302,7 @@ export class Bootstrap {
     this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.caniche, size: this.size3 })
     this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
     this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
-    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza  , size: this.size3 })
+    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
     this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
     this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
@@ -401,7 +442,9 @@ export class Bootstrap {
     this.picture_0003 = new Picture({ url: 'https://t2.ea.ltmcdn.com/es/images/7/2/4/img_cuanto_vive_un_perro_callejero_22427_paso_1_600.jpg' })
     this.picture_0004 = new Picture({ url: 'http://1.bp.blogspot.com/-fPPi-wskwjg/TiUEi2UqGTI/AAAAAAAAB4k/wjLNydAjDF0/s1600/Barbincho.jpg' })
     this.picture_0005 = new Picture({ url: 'https://c8.alamy.com/compes/t87pa8/el-aspecto-de-un-perro-callejero-triste-solitario-perro-en-la-calle-abrigo-sucio-y-humedo-el-animal-esta-buscando-su-dueno-t87pa8.jpg' })
-    this.picture_0006 = new Picture({ url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg' })
+    this.picture_0006 = new Picture({
+      url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg'
+    })
     this.picture_0007 = new Picture({ url: 'https://pbs.twimg.com/media/BvfgPU3CcAAGkxu.jpg' })
     this.picture_0008 = new Picture({ url: 'https://pbs.twimg.com/media/DnLSyPwW0AAELDv.jpg' })
     this.picture_0009 = new Picture({ url: 'https://www.elsiglodetorreon.com.mx/m/i/2020/05/1306610.jpeg' })
@@ -421,8 +464,8 @@ export class Bootstrap {
     this.picture_0023 = new Picture({ url: 'https://www.albergaria.es/media/photos/big-square/canfelin-protectora-grado-y-sus-valles-1529942078-X3Pq5.jpg' })
     this.picture_0024 = new Picture({ url: 'http://4.bp.blogspot.com/-T-596ClMxEs/UjOTzp39_JI/AAAAAAAAdV8/VsP-cuCoKyc/s1600/IMG_4553.JPG' })
     this.picture_0025 = new Picture({ url: 'http://3.bp.blogspot.com/-ldI6gHiByIQ/UjOTy80h2pI/AAAAAAAAdVs/Ce7Usv_HH8Q/s1600/IMG_4551.JPG' })
-    this.picture_0026 = new Picture ({url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg'})
-    
+    this.picture_0026 = new Picture({ url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg' })
+
     await getRepository(Picture).save([
       this.picture_0001,
       this.picture_0002,
@@ -456,7 +499,7 @@ export class Bootstrap {
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
     this.post0001 = new Post({
-      description: 'Perro encontrado en la calle Constitución al 3100, San Cristobal ',
+      description: 'Perra encontrada en la calle Constitución al 3100, San Cristobal ',
       location: this.location_0002,
       pet: this.perro1,
       creationDate: new Date('2021-06-20T04:34:01.456Z'),
@@ -469,7 +512,7 @@ export class Bootstrap {
       pet: this.perro2,
       creationDate: new Date('2021-01-20T15:55:01.456Z'),
       owner: this.gabriel,
-      pictures: [this.picture_0004,this.picture_0005, this.picture_0006]
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     })
     this.post0003 = new Post({
       description: 'Perro negro, tenía collar rojo sin placa y correa. Está siguiendo a cualquier persona que pasa. Lo retuve en casa hasta dar con sus dueños.',
@@ -486,21 +529,20 @@ export class Bootstrap {
       pet: this.perro4,
       creationDate: new Date('2021-01-20T14:31:01.456Z'),
       owner: this.mariano,
-      pictures: [this.picture_0010, this.picture_0011, this.picture_0012] 
-
+      pictures: [this.picture_0010, this.picture_0011, this.picture_0012]
     })
-    this.post0005 = new Post({ 
-      description: 'Galgo atigrado, está en buenas condiciones pero se nota que busca a sus dueños', 
-      location: this.location_0005, 
+    this.post0005 = new Post({
+      description: 'Galgo atigrado, está en buenas condiciones pero se nota que busca a sus dueños',
+      location: this.location_0005,
       pet: this.perro5,
       creationDate: new Date('2021-01-20T18:31:01.456Z'),
-      owner: this.estefania,  
-      pictures: [this.picture_0013, this.picture_0014, this.picture_0015] 
+      owner: this.estefania,
+      pictures: [this.picture_0013, this.picture_0014, this.picture_0015]
     })
     this.post0006 = new Post({
       description: 'Dos perritos perdidos sobre avenida crovara',
       location: this.location_0006,
-      pet:this.perro7,
+      pet: this.perro7,
       creationDate: new Date('2021-01-20T17:31:01.456Z'),
       owner: this.estefania,
       pictures: [this.picture_0016, this.picture_0017, this.picture_0018]
@@ -521,19 +563,19 @@ export class Bootstrap {
       owner: this.ivan,
       pictures: [this.picture_0021, this.picture_0022]
     })
-    this.post0009 = new Post({ 
-    description: 'Cachorros abandonados en la autopista', 
-    location: this.location_0009,
-    pet: this.perro10,
-    owner: this.mariano,
-    pictures: [this.picture_0023, this.picture_0024, this.picture_0025] 
+    this.post0009 = new Post({
+      description: 'Cachorros abandonados en la autopista',
+      location: this.location_0009,
+      pet: this.perro10,
+      owner: this.mariano,
+      pictures: [this.picture_0023, this.picture_0024, this.picture_0025]
     })
     this.post0010 = new Post({
-      description: 'Perros vagando por la cuadra, están muy deteriorados, por favor alguien que le de tránsito',
+      description: 'Perro vagando por la plaza, está muy deteriorado, por favor alguien que le de tránsito',
       location: this.location_0010,
       pet: this.perro12,
       owner: this.gabriel,
-      creationDate: new Date('2021-06-20T13:31:01.456Z'),
+      creationDate: new Date('2021-06-20T11:31:01.456Z'),
       pictures: [this.picture_0002]
     })
     this.post0011 = new Post({
@@ -554,7 +596,7 @@ export class Bootstrap {
     })
     // this.post0013 = new Post({
     //    description: 'Lola perdida. Me ayudan a encontrarla',
-    //     location: this.location_0013, 
+    //     location: this.location_0013,
     //     pet: this.perro14,
     //     owner: this.ivan,
     //     creationDate: new Date('2021-07-20T17:31:01.456Z'),
@@ -592,6 +634,211 @@ export class Bootstrap {
       // this.post0022,
       // this.post0023,
       // this.post0024
+    ])
+  }
+
+  async createComments(): Promise<void> {
+    this.comentario1 = new Comment({
+      text: 'Lo retuviste?',
+      creation: new Date('2021-01-20T17:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario2 = new Comment({
+      text: 'Sí. Lo tengo en mi casa. ',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario3 = new Comment({
+      text: 'Si alguien quiere adoptarlo me avisa?',
+      creation: new Date('2021-01-20T23:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario32 = new Comment({
+      text: 'Te escribo al chat. Estoy interesada en adoptarlo?',
+      creation: new Date('2021-01-20T23:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario4 = new Comment({
+      text: 'Se lleva bien con otros perros?',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario33 = new Comment({
+      text: 'No tengo otros animales. Pero es super buena. Por las dudas vuelvo a recordar que es hembra!',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario5 = new Comment({
+      text: 'Lo quiero adoptar. Como te contacto?',
+      creation: new Date('2021-03-20T11:31:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario6 = new Comment({
+      text: 'Hablame a mi WP 15467676454',
+      creation: new Date('2021-03-20T12:31:01.456Z'), //probar sin horario
+      post: this.post0002
+    })
+
+    this.comentario7 = new Comment({
+      text: 'Es mi tomy! ya mismo te contacto para coordinar',
+      creation: new Date('2021-02-15T15:10:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario8 = new Comment({
+      text: 'Si es tuyo, tenes que contestar algun detalle caracteristico del perro',
+      creation: new Date('2021-02-15T15:31:01.456Z'),
+      post: this.post0002
+    })
+
+    this.comentario9 = new Comment({
+      text: 'Ya la respondo..',
+      creation: new Date('2021-02-15T15:36:01.456Z'),
+      post: this.post0002
+    })
+
+    this.comentario35 = new Comment({
+      text: 'Sigue en adopción.. El que quiera adoptar me avisa! slds!',
+      creation: new Date('2021-02-15T15:36:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario10 = new Comment({
+      text: 'Tiene collar, dice algo la chapita?.',
+      creation: new Date('2021-06-15T12:36:01.456Z'),
+      post: this.post0003
+    })
+    this.comentario11 = new Comment({
+      text: 'Hablame al chat, y hablamos..slds!',
+      creation: new Date('2021-06-15T12:36:01.456Z'),
+      post: this.post0003
+    })
+    this.comentario12 = new Comment({
+      text: 'Lo quiero adoptar.',
+      creation: new Date('2021-01-23T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario13 = new Comment({
+      text: 'Hola, lo tenes? o quiero adoptar.',
+      creation: new Date('2021-01-28T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario14 = new Comment({
+      text: 'Hola, por qué no me contestas.',
+      creation: new Date('2021-01-30T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario14 = new Comment({
+      text: 'Voy a cerrar la publicación, al final me lo quedo. Gracias a todos por el interés.', //publicada o cerrada
+      post: this.post0004
+    })
+    this.comentario15 = new Comment({
+      text: 'Lo quiero.',
+      post: this.post0005
+    })
+
+    this.comentario15 = new Comment({
+      text: 'Me lo regalas?.',
+      post: this.post0005
+    })
+
+    this.comentario16 = new Comment({
+      text: 'Lo quiero adoptar',
+      post: this.post0006
+    })
+
+    this.comentario17 = new Comment({
+      text: 'Soy la dueña! de donde sos? Me lo mandas a mi casa?',
+      post: this.post0006
+    })
+
+    this.comentario18 = new Comment({
+      text: 'Pobrecitos, por favor alguien que los quiera adoptarr',
+      post: this.post0009
+    })
+
+    this.comentario19 = new Comment({
+      text: 'Los que quieran adoptar hablenme al chat por favor',
+      post: this.post0009
+    })
+
+    this.comentario20 = new Comment({
+      text: 'El perro fallecio. cierro la publicación',
+      post: this.post0008
+    })
+    this.comentario21 = new Comment({
+      text: 'Pobrecitoo. Gracias por al menos ocuparte de publicarlo para al menos ubicar a sus dueños',
+      post: this.post0008
+    })
+    this.comentario22 = new Comment({
+      text: 'Para que no pase frío lo entre a mi casa. El que lo reconozca me avisa',
+      post: this.post0007
+    })
+    this.comentario23 = new Comment({
+      text: 'Tiene una mancha negra en la pata?',
+      post: this.post0007
+    })
+    this.comentario24 = new Comment({
+      text: 'No. No tiene una mancha negra. Slds',
+      post: this.post0007
+    })
+    this.comentario25 = new Comment({
+      text: 'Buenas! te puedo contactar? tengo a alguien que quiere adoptarlo',
+      post: this.post0010
+    })
+    this.comentario26 = new Comment({
+      text: 'Escribime al chat..Slds!',
+      post: this.post0011
+    })
+    this.comentario27 = new Comment({
+      text: 'Final feliz! Paco! como lo apodaron, fue adoptado!! Por más publicaciones como estas',
+      post: this.post0012
+    })
+    this.comentario28 = new Comment({
+      text: 'El perro fallecio. cierro la publicación',
+      post: this.post0012
+    })
+    this.comentario29 = new Comment({
+      text: 'Alguien nos da una mano con balanceado para poder alimnentarla? Cuchas, abrigo..todo será bienvenido',
+      post: this.post0013
+    })
+    this.comentario30 = new Comment({
+      text: 'Por favor. Ayudenme a difundirla. Está embarazada',
+      post: this.post0013
+    })
+
+    await getRepository(Comment).save([
+      this.comentario1,
+      this.comentario2,
+      this.comentario3,
+      this.comentario4,
+      this.comentario5,
+      this.comentario6,
+      this.comentario7,
+      this.comentario8,
+      this.comentario9,
+      this.comentario10,
+      this.comentario11,
+      this.comentario12,
+      this.comentario13,
+      this.comentario14,
+      this.comentario15,
+      this.comentario16,
+      this.comentario17,
+      this.comentario18,
+      this.comentario19,
+      this.comentario20,
+      this.comentario21,
+      this.comentario22,
+      this.comentario23,
+      this.comentario24,
+      this.comentario25,
+      this.comentario26,
+      this.comentario27,
+      this.comentario28,
+      this.comentario29,
+      this.comentario30
     ])
   }
 }
