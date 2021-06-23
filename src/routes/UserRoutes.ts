@@ -12,6 +12,19 @@ userRoutes.put('/login', async (req, res) => {
   }
 })
 
+userRoutes.put('/forgot-password', async (req, res) => {
+  try {
+    const email = req.body.email;
+    if(email==null){
+      res.status(403).send('El email que ha ingresado es invalido')
+    }else{
+      res.json(await userService.forgotPassword(email))
+    }
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
+})
+
 userRoutes.get('/:userid', async (req, res) => {
   const id = parseInt(req.params.userid)
   try {

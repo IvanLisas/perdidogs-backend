@@ -1,6 +1,7 @@
 import { User } from '../models/User'
 import { getRepository } from 'typeorm'
 import bcrypt, { hash } from 'bcrypt'
+import { EmailService } from './EmailService'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
@@ -9,6 +10,22 @@ class UserService {
     if (await bcrypt.compare(aPassword, user.password)) {
       return user
     } else throw new Error('contraseñas no coinciden')
+  }
+
+  async forgotPassword(email: string): Promise<any> {
+      const user= await this.findByEmail(email)
+      console.log("USER: ",user)
+      const link = 'localhost:19000/recover-password/:'+email
+      if(user!=null){
+        const emailSender = new EmailService
+        emailSender.sendEmail( user,user.email,"Ingrese a este link para recuperar su contraseña "+link)
+      }
+  }
+
+  async findByEmail(anEmail:string):Promise<User>{
+    return getRepository(User).findOneOrFail({where:{
+      email:anEmail
+    }})
   }
 
   async get(id: number): Promise<User> {

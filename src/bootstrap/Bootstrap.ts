@@ -372,7 +372,7 @@ export class Bootstrap {
     this.gabriel = new User({
       firstName: 'Gabriel',
       lastName: 'Loy',
-      email: 'loygabriel@gmail.com',
+      email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
       avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'

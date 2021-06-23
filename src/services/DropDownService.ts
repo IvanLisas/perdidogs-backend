@@ -5,20 +5,20 @@ import { Length } from '../models/Length';
 import { Breed } from '../models/Breed';
 class DropDownService {
     async getAllColors(): Promise<Color[] | undefined>{
-        return await getRepository(Color).find();
+        return await getRepository(Color).find({order:{description:'ASC'}});
     }
 
-    async getAllSizes(): Promise<Color[] | undefined>{
-        return await getRepository(Size).find();
+    async getAllSizes(): Promise<Size[] | undefined>{
+        return await getRepository(Size).find({order:{description:'DESC'}});
     }
 
-    async getAllLengths(): Promise<Color[] | undefined>{
-        return await getRepository(Length).find();
+    async getAllLengths(): Promise<Length[] | undefined>{
+        return await getRepository(Length).find({order:{description:'DESC'}});
     }
 
     
-    async getAllBreeds(): Promise<Color[] | undefined>{
-        return await getRepository(Breed).find();
+    async getAllBreeds(): Promise<Breed[] | undefined>{
+        return await getRepository(Breed).find({order:{description:'ASC'}});
     }
 }
 

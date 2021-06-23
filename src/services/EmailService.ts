@@ -1,11 +1,12 @@
 import { User } from '../models/User'
 
 export class EmailService {
+
   nodeMailer = require('nodemailer')
 
-  emailPerdidogs: string = process.env.EMAIL_USER || ''
+  emailPerdidogs: string = process.env.EMAIL_USER || 'workgloy@gmail.com'
 
-  pass: string = process.env.EMAIL_PASS || ''
+  pass: string = process.env.EMAIL_PASS || 'g4ston.Fr1'
 
   transporter: any
 
@@ -29,7 +30,7 @@ export class EmailService {
     const mailOptions = {
       from: `"Perdidogs" <${this.emailPerdidogs}>`,
       to: receiverEmail,
-      subject: 'Nuevo mensaje de ' + sender.firstName + ' ' + sender.lastName,
+      subject: 'Recupero de contraseña de Perdidogs',
       text: message
     }
 
