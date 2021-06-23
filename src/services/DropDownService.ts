@@ -8,16 +8,16 @@ class DropDownService {
         return await getRepository(Color).find({order:{description:'ASC'}});
     }
 
-    async getAllSizes(): Promise<Color[] | undefined>{
+    async getAllSizes(): Promise<Size[] | undefined>{
         return await getRepository(Size).find({order:{description:'DESC'}});
     }
 
-    async getAllLengths(): Promise<Color[] | undefined>{
+    async getAllLengths(): Promise<Length[] | undefined>{
         return await getRepository(Length).find({order:{description:'DESC'}});
     }
 
     
-    async getAllBreeds(): Promise<Color[] | undefined>{
+    async getAllBreeds(): Promise<Breed[] | undefined>{
         return await getRepository(Breed).find({order:{description:'ASC'}});
     }
 }
