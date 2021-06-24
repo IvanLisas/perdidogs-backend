@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
-import { Bounderies } from '../models/LatLang'
+import { Geometry } from '../models/LatLang'
 import { Filter } from '../models/Filter'
 
 const postRoutes = Router()
@@ -58,7 +58,7 @@ postRoutes.get('/:postId', async (req, res) => {
 //GET a post BY LOCATION
 postRoutes.put('/by-location', async (req, res) => {
   try {
-    const bounderies = req.body as Bounderies
+    const bounderies = req.body.viewport as Geometry
     return res.json(await postService.getByLocation(bounderies))
   } catch (error) {
     res.status(400).send(error.message)

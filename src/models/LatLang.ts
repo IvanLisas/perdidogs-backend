@@ -1,9 +1,9 @@
-export interface LatLng {
+export interface Point {
   latitude: number
   longitude: number
 }
 
-export interface Bounderies {
-  northEast: LatLng
-  southWest: LatLng
+export interface Geometry {
+  northEast: Point
+  southWest: Point
 }

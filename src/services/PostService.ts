@@ -4,7 +4,7 @@ import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
-import { Bounderies, LatLng } from '../models/LatLang'
+import { Geometry, Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 import { query } from 'express'
@@ -60,7 +60,7 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(bounderies: Bounderies): Promise<Post[] | undefined> {
+  async getByLocation(bounderies: Geometry): Promise<Post[] | undefined> {
     const southWest = bounderies.southWest
     const northEast = bounderies.northEast
     const extremeX = [southWest.latitude, northEast.latitude]
