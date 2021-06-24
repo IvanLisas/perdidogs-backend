@@ -13,27 +13,26 @@ import { X_OK } from 'constants'
 @Entity()
 class PostService {
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
-    if(filter.myLocation!=null){
-      const pets = (await this.getByLocation(filter.myLocation))?.map(x=>x.pet)
-      if(pets!=null){
+    if (filter.myLocation != null && filter.delta != null) {
+      const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
+      if (pets != null) {
         return await getRepository(Post).find({
           relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
           where: {
             pet: { Id: In(pets.map((x) => x.Id)) },
-            isActive:true
+            isActive: true
           }
         })
       }
-    }else{
+    } else {
       return getRepository(Post).find({
         relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
         where: {
           isActive: true
         }
-      });
+      })
     }
   }
-
 
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
@@ -71,13 +70,13 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(point: Point): Promise<Post[] | undefined> {
-    const extremeX = [point.lat-0.02, point.lat+0.02]
-    const extremeY = [point.lng-0.02, point.lng+0.02]
+  async getByLocation(point: Point, delta: Point): Promise<Post[] | undefined> {
+    const extremeX = [point.lat - delta.lat / 2, point.lat + delta.lat / 2]
+    const extremeY = [point.lng - delta.lng / 2, point.lng + delta.lng / 2]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
-      console.log('ids:', ids)
+      /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
         relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
         where: {
@@ -102,11 +101,11 @@ class PostService {
     if (filter.hasCollar != null) {
       pets = pets.filter((x) => x.hasCollar == filter.hasCollar)
     }
-    if (filter.fur!=null) {
-      if(filter.fur.color!=null){
+    if (filter.fur != null) {
+      if (filter.fur.color != null) {
         pets = pets.filter((x) => x.fur.color == filter.fur?.color)
       }
-      if(filter.fur.length!=null){
+      if (filter.fur.length != null) {
         pets = pets.filter((x) => x.fur.length == filter.fur?.length)
       }
     }

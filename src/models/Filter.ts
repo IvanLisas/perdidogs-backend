@@ -1,6 +1,6 @@
-import { Breed } from "./Breed"
-import { Fur } from "./Fur"
-import { Point } from "./LatLang"
+import { Breed } from './Breed'
+import { Fur } from './Fur'
+import { Point } from './LatLang'
 
 export class Filter {
   constructor(init?: Partial<Filter>) {
@@ -9,9 +9,10 @@ export class Filter {
 
   breed?: Breed
   fur?: Fur
-  hasCollar?:boolean
-  sex?:string
-  myLocation?:Point
+  hasCollar?: boolean
+  sex?: string
+  myLocation?: Point
+  delta?: Point
 
   static fromJson(FilterJson: string): Filter {
     return Object.assign(new Filter(), FilterJson)

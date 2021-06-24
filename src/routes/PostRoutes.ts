@@ -61,7 +61,7 @@ postRoutes.put('/by-location', async (req, res) => {
   try {
     /*  console.log(req.body) */
     const bounderies = req.body.viewport as Point
-    return res.json(await postService.getByLocation(bounderies))
+    return res.json(await postService.getByLocation(bounderies, { lat: 0, lng: 0 }))
   } catch (error) {
     console.log(error)
     res.status(400).send(error.message)
