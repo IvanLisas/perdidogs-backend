@@ -55,7 +55,7 @@ createConnection({
     app.use('/chat', chatRoutes)
     app.use('/post', postRoutes)
     app.use('/comment', commentRoutes)
-    app.use('/', dropDownRoutes)
+    app.use('/dropdown', dropDownRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
     })
