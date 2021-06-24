@@ -74,7 +74,6 @@ class PostService {
   async getByLocation(point: Point): Promise<Post[] | undefined> {
     const extremeX = [point.lat-0.02, point.lat+0.02]
     const extremeY = [point.lng-0.02, point.lng+0.02]
-
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
