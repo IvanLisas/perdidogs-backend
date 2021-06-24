@@ -4,6 +4,6 @@ export interface Point {
 }
 
 export interface Geometry {
-  northEast: Point
-  southWest: Point
+  northeast: Point
+  southwest: Point
 }

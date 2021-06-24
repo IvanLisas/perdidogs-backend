@@ -59,10 +59,12 @@ class PostService {
   }
 
   async getByLocation(bounderies: Geometry): Promise<Post[] | undefined> {
-    const southWest = bounderies.southWest
-    const northEast = bounderies.northEast
+    const southWest = bounderies.southwest
+    const northEast = bounderies.northeast
+    console.log(bounderies)
     const extremeX = [southWest.lat, northEast.lat]
     const extremeY = [southWest.lng, northEast.lng]
+
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
