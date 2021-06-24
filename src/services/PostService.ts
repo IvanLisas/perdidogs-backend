@@ -62,8 +62,8 @@ class PostService {
     const southWest = bounderies.southwest
     const northEast = bounderies.northeast
     console.log(bounderies)
-    const extremeX = [southWest.lat, northEast.lat]
-    const extremeY = [southWest.lng, northEast.lng]
+    const extremeX = [southWest.lat - 0.01, northEast.lat + 0.01]
+    const extremeY = [southWest.lng - 0.01, northEast.lng + 0.01]
 
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
