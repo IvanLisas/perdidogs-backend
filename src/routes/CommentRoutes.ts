@@ -6,7 +6,9 @@ const commentRoutes = Router()
 
 commentRoutes.post('/', async (req, res) => {
   try {
-    return await commentService.save(req.body as Comment)
+   
+    return res.json(await commentService.save(req.body as Comment))
+
   } catch (error) {
     res.status(403).send(error.message)
   }
