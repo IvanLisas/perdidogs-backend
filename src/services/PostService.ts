@@ -12,17 +12,15 @@ import { Breed } from '../models/Breed'
 import { X_OK } from 'constants'
 @Entity()
 class PostService {
-  
-  async getPostByFilters(filter: Filter): Promise<Post[] | undefined>  {
-    const pets= this.getPetIdsByFilters((await getRepository(Pet).find() ),filter)
+  async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
+    const pets = this.getPetIdsByFilters(await getRepository(Pet).find(), filter)
     return await getRepository(Post).find({
       relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
       where: {
-        pet: { Id: In(pets.map(x=>x.Id)) }
+        pet: { Id: In(pets.map((x) => x.Id)) }
       }
     })
   }
-
 
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
@@ -33,7 +31,7 @@ class PostService {
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
       relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
-      where:{isActive:true}
+      where: { isActive: true }
     })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
@@ -49,8 +47,8 @@ class PostService {
     })
   }
 
-  async update(post:Post): Promise<Post | undefined> {
-      return await getRepository(Post).save(post)
+  async update(post: Post): Promise<Post | undefined> {
+    return await getRepository(Post).save(post)
   }
   //function (location,r)
   //x > location.x -r && x < location.x + r
@@ -63,16 +61,16 @@ class PostService {
   async getByLocation(bounderies: Geometry): Promise<Post[] | undefined> {
     const southWest = bounderies.southWest
     const northEast = bounderies.northEast
-    const extremeX = [southWest.latitude, northEast.latitude]
-    const extremeY = [southWest.longitude, northEast.longitude]
+    const extremeX = [southWest.lat, northEast.lat]
+    const extremeY = [southWest.lng, northEast.lng]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
-      const ids = locations.map(x=>x.Id)
+      const ids = locations.map((x) => x.Id)
       console.log('ids:', ids)
       return await getRepository(Post).find({
         relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
         where: {
-          location: { Id: In(ids),isActive:true }
+          location: { Id: In(ids), isActive: true }
         }
       })
     } else return []
@@ -86,18 +84,18 @@ class PostService {
     return pet.Id
   }
 
-  getPetIdsByFilters(pets:Pet[], filter: Filter) :Pet[]{
-    if(filter.sex!=null){
-      pets= pets.filter(x=>x.sex==filter.sex)
+  getPetIdsByFilters(pets: Pet[], filter: Filter): Pet[] {
+    if (filter.sex != null) {
+      pets = pets.filter((x) => x.sex == filter.sex)
     }
-    if(filter.hasCollar!=null){
-      pets=pets.filter(x=>x.hasCollar==filter.hasCollar)
+    if (filter.hasCollar != null) {
+      pets = pets.filter((x) => x.hasCollar == filter.hasCollar)
     }
-    if(filter.fur!=null){
-      pets= pets.filter(x=>x.fur.color==filter.fur?.color&&x.fur.length==filter.fur.length)
+    if (filter.fur != null) {
+      pets = pets.filter((x) => x.fur.color == filter.fur?.color && x.fur.length == filter.fur.length)
     }
-    if(filter.breed!=null){
-      pets=pets.filter(x=>x.breed==filter.breed)
+    if (filter.breed != null) {
+      pets = pets.filter((x) => x.breed == filter.breed)
     }
     return pets
   }
