@@ -15,6 +15,8 @@ import { Rol } from '../models/Rol'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
 import { Comment } from '../models/Comment'
+import { Chat } from '../models/Chat'
+import { Message } from '../models/Message'
 
 export class Bootstrap {
   // activo!: PostStatus
@@ -53,6 +55,11 @@ export class Bootstrap {
   gabriel!: User
   ivan!: User
   mariano!: User
+  laura!: User
+  horacio!: User
+  pablo!: User
+  pedro!: User
+  omar!: User
   perro1!: Pet
   perro2!: Pet
   perro3!: Pet
@@ -192,6 +199,36 @@ export class Bootstrap {
   comentario36!: Comment
   comentario37!: Comment
   comentario38!: Comment
+  message1!: Message
+  message2!: Message
+  message3!: Message
+  message4!: Message
+  message5!: Message
+  message6!: Message
+  message7!: Message
+  message8!: Message
+  message9!: Message
+  message10!: Message
+  message11!: Message
+  message12!: Message
+  message13!: Message
+  message14!: Message
+  message15!: Message
+  message16!: Message
+  message17!: Message
+  message18!: Message
+  message19!: Message
+  message20!: Message
+  chat1!: Chat
+  chat2!: Chat
+  chat3!: Chat
+  chat4!: Chat
+  chat5!: Chat
+  chat6!: Chat
+  chat7!: Chat
+  chat8!: Chat
+  chat9!: Chat
+  chat10!: Chat
 
   // activo!: UserStatus
   // pendiente!:UserStatus
@@ -209,6 +246,8 @@ export class Bootstrap {
     await this.createPictures()
     await this.createPosts()
     await this.createComments()
+    await this.createChats()
+    await this.createMessages()
   }
 
   //Colors
@@ -386,7 +425,49 @@ export class Bootstrap {
       avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
     })
 
-    await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
+    this.laura = new User({
+      firstName: 'Laura',
+      lastName: 'Ibañez',
+      email: 'lauritaIbañez1982@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
+    })
+    this.horacio = new User({
+      firstName: 'Horacio',
+      lastName: 'Ramos',
+      email: 'hramos@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
+    })
+    this.pablo = new User({
+      firstName: 'Pablo',
+      lastName: 'Rimolo',
+      email: 'primlo1988@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
+    })
+    this.pedro = new User({
+      firstName: 'Pedro',
+      lastName: 'Paredes',
+      email: 'pedrin12721@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
+    })
+
+    this.omar = new User({
+      firstName: 'Omar',
+      lastName: 'Gili',
+      email: 'giliOmar@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+    })
+
+    await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
   }
   //location
   async createLocations(): Promise<void> {
@@ -733,7 +814,7 @@ export class Bootstrap {
       text: 'Voy a cerrar la publicación, al final me lo quedo. Gracias a todos por el interés.', //publicada o cerrada
       post: this.post0004
     })
-    this.comentario15 = new Comment({
+    this.comentario31 = new Comment({
       text: 'Lo quiero.',
       post: this.post0005
     })
@@ -796,16 +877,16 @@ export class Bootstrap {
       post: this.post0012
     })
     this.comentario28 = new Comment({
-      text: 'El perro fallecio. cierro la publicación',
+      text: 'Necesitamos transito por favor. No la puedo retener pero no la quiero dejar en la calle',
       post: this.post0012
     })
     this.comentario29 = new Comment({
       text: 'Alguien nos da una mano con balanceado para poder alimnentarla? Cuchas, abrigo..todo será bienvenido',
-      post: this.post0013
+      post: this.post0012
     })
     this.comentario30 = new Comment({
       text: 'Por favor. Ayudenme a difundirla. Está embarazada',
-      post: this.post0013
+      post: this.post0012
     })
 
     await getRepository(Comment).save([
@@ -838,7 +919,146 @@ export class Bootstrap {
       this.comentario27,
       this.comentario28,
       this.comentario29,
-      this.comentario30
+      this.comentario30,
+      this.comentario31
+    ])
+  }
+  
+  async createChats(): Promise<void> {
+    this.chat1 = new Chat({
+      owner: this.estefania,
+      owner2: this.pedro,
+      messageList: [this.message1, this.message2, this.message3],
+ 
+    })
+
+    this.chat2 = new Chat({
+      owner: this.estefania,
+      owner2: this.pedro,
+      messageList: [this.message1, this.message2, this.message3],
+    
+    })
+
+    this.chat3 = new Chat({
+      owner: this.ivan,
+      owner2: this.laura,
+      messageList: [this.message4, this.message5],
+   
+    })
+
+    this.chat4 = new Chat({
+      owner: this.mariano,
+      owner2: this.pablo,
+      messageList: [this.message6, this.message7],
+ 
+    })
+
+    this.chat5 = new Chat({
+      owner: this.mariano,
+      owner2: this.horacio,
+      messageList: [this.message8, this.message9],
+ 
+    })
+
+    await getRepository(Chat).save([
+      this.chat1,
+      this.chat2,
+      this.chat3,
+      this.chat4,
+      this.chat5
+    ])
+  }
+
+  async createMessages(): Promise<void> {
+    this.message1 = new Message({
+      sender: this.pedro,
+      adressee: this.estefania,
+      chat: this.chat1,
+      body: 'Hola, me pasas tu telefono así te contacto',
+      read:true,
+    
+    })
+
+    this.message2 = new Message({
+      sender: this.estefania,
+      adressee: this.pedro,
+      chat: this.chat1,
+      body: 'Hola. Mi celu es 1154265446',
+      read:true,
+ 
+    })
+
+    this.message3 = new Message({
+      sender: this.pedro,
+      adressee: this.estefania,
+      chat: this.chat1,
+      body: 'Gracias',
+      read:false,
+   
+    })
+
+    this.message4 = new Message({
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
+      body: 'Lo quiero adoptar. te puedo mandar mensaje?',
+      read:true,
+  
+    })
+
+    this.message5 = new Message({
+      sender: this.ivan,
+      adressee: this.laura,
+      chat: this.chat2,
+      body: 'Mira al final como nadie lo reclamo me lo quedé. Gracias igual.',
+      read:false,
+     
+    })
+
+    this.message6 = new Message({
+      sender: this.pablo,
+      adressee: this.mariano,
+      chat: this.chat3,
+      body: 'Hola, como puedo comprobar que es mi perro? ',
+     
+    })
+
+    this.message7 = new Message({
+      sender: this.mariano,
+      adressee: this.pablo,
+      chat: this.chat3,
+      body: 'Mira, este perrito tiene una caracteristica que no cualquiera lo tiene decime cual es y ahi definimos si es tu perro ',
+  
+      
+    })
+
+    this.message8 = new Message({
+      sender: this.horacio,
+      adressee: this.mariano,
+      chat: this.chat4,
+      body: 'Hola. Lo quiero adoptar. Te puedo llamar?',
+      read:true,
+    
+    })
+
+    this.message9 = new Message({
+      sender: this.mariano,
+      adressee: this.horacio,
+      chat: this.chat4,
+      body: 'Mira, estoy buscando su dueño. De no aparecer nadie te paso mi celular para coordinar. ',
+      read:true,
+ 
+    })
+    await getRepository(Message).save([
+      this.message1,
+      this.message2,
+      this.message3,
+      this.message4,
+      this.message5,
+      this.message6,
+      this.message7,
+      this.message8,
+      this.message9
     ])
   }
 }
