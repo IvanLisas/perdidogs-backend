@@ -751,12 +751,12 @@ export class Bootstrap {
       post: this.post0001
     })
 
-    this.comentario32 = new Comment({
-      owner:this.pedro,
-      text: 'lo puedo ir a ver? Estoy interesado en adoptarlo',
-      creation: new Date('2021-01-20T23:31:01.456Z'),
-      post: this.post0001
-    })
+    // this.comentario32 = new Comment({
+    //   owner:this.pedro,
+    //   text: 'lo puedo ir a ver? Estoy interesado en adoptarlo',
+    //   creation: new Date('2021-01-20T23:31:01.456Z'),
+    //   post: this.post0001
+    // })
     this.comentario4 = new Comment({
       owner: this.pedro,
       text: 'Se lleva bien con otros perros?',
@@ -764,12 +764,12 @@ export class Bootstrap {
       post: this.post0001
     })
 
-    this.comentario33 = new Comment({
-      owner: this.estefania,
-      text: 'No tengo otros animales. Pero es super buena. Por las dudas vuelvo a recordar que es hembra!',
-      creation: new Date('2021-01-20T18:31:01.456Z'),
-      post: this.post0001
-    })
+    // this.comentario33 = new Comment({
+    //   owner: this.estefania,
+    //   text: 'No tengo otros animales. Pero es super buena. Por las dudas vuelvo a recordar que es hembra!',
+    //   creation: new Date('2021-01-20T18:31:01.456Z'),
+    //   post: this.post0001
+    // })
     this.comentario5 = new Comment({
       owner: this.horacio,
       text: 'Lo quiero adoptar. Como te contacto?',
@@ -804,12 +804,12 @@ export class Bootstrap {
       post: this.post0002
     })
 
-    this.comentario35 = new Comment({
-      owner: this.ivan,
-      text: 'Sigue en adopción.. El que quiera adoptar me avisa! slds!',
-      creation: new Date('2021-02-15T15:36:01.456Z'),
-      post: this.post0002
-    })
+    // this.comentario35 = new Comment({
+    //   owner: this.ivan,
+    //   text: 'Sigue en adopción.. El que quiera adoptar me avisa! slds!',
+    //   creation: new Date('2021-02-15T15:36:01.456Z'),
+    //   post: this.post0002
+    // })
     this.comentario10 = new Comment({
       owner: this.laura,
       text: 'Tiene collar, dice algo la chapita?.',
@@ -834,12 +834,12 @@ export class Bootstrap {
       creation: new Date('2021-01-28T10:25:00.456Z'),
       post: this.post0004
     })
-    this.comentario14 = new Comment({
-      owner: this.pedro,
-      text: 'Hola, por qué no me contestas.',
-      creation: new Date('2021-01-30T10:25:00.456Z'),
-      post: this.post0004
-    })
+    // this.comentario14 = new Comment({
+    //   owner: this.pedro,
+    //   text: 'Hola, por qué no me contestas.',
+    //   creation: new Date('2021-01-30T10:25:00.456Z'),
+    //   post: this.post0004
+    // })
     this.comentario14 = new Comment({
       owner: this.gabriel,
       text: 'Voy a cerrar la publicación, al final me lo quedo. Gracias a todos por el interés.', //publicada o cerrada
@@ -973,12 +973,12 @@ export class Bootstrap {
   }
   
   async createChats(): Promise<void> {
-    this.chat1 = new Chat({
-      owner: this.estefania,
-      owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3, this.message3],
+    // this.chat1 = new Chat({
+    //   owner: this.estefania,
+    //   owner2: this.pedro,
+    //   messageList: [],
  
-    })
+    // })
 
     this.chat2 = new Chat({
       owner: this.ivan,
@@ -990,21 +990,21 @@ export class Bootstrap {
     this.chat3 = new Chat({
       owner: this.ivan,
       owner2: this.laura,
-      messageList: [this.message7, this.message8, this.message9 ],
+      messageList: [this.message1, this.message2,this.message3, this.message7, this.message8, this.message9 ],
    
     })
 
     this.chat4 = new Chat({
       owner: this.ivan,
       owner2: this.pablo,
-      messageList: [this.message6, this.message7],
+      messageList: [this.message10, this.message11,this.message12],
  
     })
 
     this.chat5 = new Chat({
       owner: this.ivan,
       owner2: this.mariano,
-      messageList: [this.message8, this.message9],
+      messageList: [this.message13],
  
     })
 
@@ -1048,7 +1048,7 @@ export class Bootstrap {
     })
 
     await getRepository(Chat).save([
-      this.chat1,
+      // this.chat1,
       this.chat2,
       this.chat3,
       this.chat4,
@@ -1062,33 +1062,8 @@ export class Bootstrap {
   }
 
   async createMessages(): Promise<void> {
-    this.message1 = new Message({
-      sender: this.pedro,
-      adressee: this.estefania,
-      chat: this.chat1,
-      body: 'Hola, me pasas tu telefono así te contacto',
-      read:true,
+
     
-    })
-
-    this.message2 = new Message({
-      sender: this.estefania,
-      adressee: this.pedro,
-      chat: this.chat1,
-      body: 'Hola. Mi celu es 1154265446',
-      read:true,
- 
-    })
-
-    this.message3 = new Message({
-      sender: this.pedro,
-      adressee: this.estefania,
-      chat: this.chat1,
-      body: 'Gracias',
-      read:false,
-   
-    })
-
     this.message4 = new Message({
       sender: this.pedro,
       adressee: this.ivan,
@@ -1110,16 +1085,44 @@ export class Bootstrap {
     this.message6 = new Message({
       sender: this.pedro,
       adressee: this.ivan,
-      chat: this.chat3,
+      chat: this.chat2,
       body: 'Uh. Bueno, me alegro mucho. ',
       read:true,
     })
+
+    this.message1 = new Message({
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
+      body: 'Hola, me pasas tu telefono así te contacto',
+      read:true,
+    
+    })
+
+    this.message2 = new Message({
+      sender: this.ivan,
+      adressee: this.laura,
+      chat: this.chat2,
+      body: 'Hola. Mi celu es 1154265446',
+      read:true,
+ 
+    })
+
+    this.message3 = new Message({
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
+      body: 'Gracias',
+      read:false,
+   
+    })
+
 
     this.message7 = new Message({
       sender: this.laura,
       adressee: this.ivan,
       chat: this.chat3,
-      body: 'Hola, me decís si tiene una mancha negra en la pata derecha?',
+      body: 'Hola, te llame a ese numero pero no me respondes. Me decís si tiene una mancha negra en la pata derecha?',
       read:true,
       
     })
@@ -1128,7 +1131,7 @@ export class Bootstrap {
       sender: this.ivan,
       adressee: this.laura,
       chat: this.chat3,
-      body: 'Hola. No, no tiene una mancha',
+      body: 'Hola. No, no tiene una mancha. lo tuve en reparación al celu. Ahora podes llamar. Slds',
       read:true,
     
     })
@@ -1137,7 +1140,7 @@ export class Bootstrap {
       sender: this.laura,
       adressee: this.ivan,
       chat: this.chat3,
-      body: 'Ok, seguiré buscando entonces. Gracias! ',
+      body: 'Ok, gracias. ',
       read:true,
  
     })
@@ -1190,8 +1193,8 @@ export class Bootstrap {
     })
 
     this.message15 = new Message({
-      sender: this.ivan,
-      adressee: this.estefania,
+      sender: this.estefania,
+      adressee: this.ivan,
       chat: this.chat6,
       body: 'Hola Estefanía. lo estoy dando en adopción con compromiso de castración y seguimiento. Aun te interesa? ',
       read:true,
@@ -1206,6 +1209,7 @@ export class Bootstrap {
       read:true,
  
     })
+    
 
     
     this.message17 = new Message({
@@ -1256,17 +1260,24 @@ export class Bootstrap {
     await getRepository(Message).save([
       this.message1,
       this.message2,
-      this.message3,
-      this.message4,
-      this.message5,
-      this.message6,
-      this.message7,
-      this.message8,
-      this.message9,
-      this.message10,
-      this.message11,
-      this.message12,
-      this.message13
+      this.message3
+      // this.message4,
+      // this.message5,
+      // this.message6,
+      // this.message7,
+      // this.message8,
+      // this.message9,
+      // this.message10,
+      // this.message11,
+      // this.message12,
+      // this.message13,
+      // this.message14,
+      // this.message15,
+      // this.message16,
+      // this.message17,
+      // this.message18,
+      // this.message19,
+      // this.message20
     ])
   }
 }
