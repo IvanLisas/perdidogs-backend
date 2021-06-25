@@ -42,11 +42,11 @@ export class Bootstrap {
   yorkshire!: Breed
   corgie!: Breed
   dalmata!: Breed
-  color1!: Color
-  color2!: Color
-  color3!: Color
-  color10!: Color
-  color4!: Color
+  blanco!: Color
+  negro!: Color
+  beige!: Color
+  gris!: Color
+  marron!: Color
   color5!: Color
   color6!: Color
   color7!: Color
@@ -164,6 +164,11 @@ export class Bootstrap {
   pelaje1!: Fur
   pelaje2!: Fur
   pelaje3!: Fur
+  pelaje4!: Fur
+  pelaje5!: Fur
+  pelaje6!: Fur
+  pelaje7!:Fur
+  pelaje8!:Fur
   comentario1!: Comment
   comentario2!: Comment
   comentario3!: Comment
@@ -232,7 +237,7 @@ export class Bootstrap {
   chat8!: Chat
   chat9!: Chat
   chat10!: Chat
-  chat11!:Chat
+  chat11!: Chat
 
   // activo!: UserStatus
   // pendiente!:UserStatus
@@ -257,13 +262,13 @@ export class Bootstrap {
   //Colors
   async createColors(): Promise<void> {
     console.log('******************************Creando Colores***************************************')
-    this.color1 = new Color({ description: 'Blanco' })
-    this.color2 = new Color({ description: 'Negro' })
-    this.color3 = new Color({ description: 'Beige' })
-    this.color4 = new Color({ description: 'Gris' })
-    this.color5 = new Color({ description: 'Marrón' })
+    this.blanco = new Color({ description: 'Blanco' })
+    this.negro = new Color({ description: 'Negro' })
+    this.beige = new Color({ description: 'Beige' })
+    this.gris = new Color({ description: 'Gris' })
+    this.marron = new Color({ description: 'Marrón' })
 
-    await getRepository(Color).save([this.color1, this.color2, this.color3, this.color4, this.color5])
+    await getRepository(Color).save([this.blanco, this.negro, this.beige, this.gris, this.marron])
   }
 
   async createBreed(): Promise<void> {
@@ -323,10 +328,15 @@ export class Bootstrap {
 
   async createFurs(): Promise<void> {
     console.log('******************************Creando Pelos*****************************************')
-    this.pelaje1 = new Fur({ color: this.color1, length: this.largo1 })
-    this.pelaje2 = new Fur({ color: this.color2, length: this.largo2 })
-    this.pelaje3 = new Fur({ color: this.color3, length: this.largo3 })
-    await getRepository(Fur).save([this.pelaje1, this.pelaje2, this.pelaje3])
+    this.pelaje1 = new Fur({ color: this.blanco, length: this.largo1 })
+    this.pelaje2 = new Fur({ color: this.blanco, length: this.largo2 })
+    this.pelaje3 = new Fur({ color: this.negro, length: this.largo2 })
+    this.pelaje4 = new Fur({ color: this.negro, length: this.largo1 })
+    this.pelaje5 = new Fur({ color: this.beige, length: this.largo1 })
+    this.pelaje6 = new Fur({ color: this.beige, length: this.largo2 })
+    this.pelaje7 = new Fur({ color: this.marron, length: this.largo1 })
+    this.pelaje8 = new Fur({ color: this.marron, length: this.largo2 })
+    await getRepository(Fur).save([this.pelaje7, this.pelaje8, this.pelaje1, this.pelaje2, this.pelaje3, this.pelaje4, this.pelaje5, this.pelaje6])
   }
   //mascotas
   async createDogs(): Promise<void> {
@@ -335,26 +345,26 @@ export class Bootstrap {
     // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
 
-    this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje2, breed: this.barbincho, size: this.size2 })
+    this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje8, breed: this.sinRaza, size: this.size3 })
+    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje5, breed: this.barbincho, size: this.size2 })
     this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
-    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.overjeroAleman, size: this.size1 })
-    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.overjeroAleman, size: this.size3 })
-    this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.size1 })
+    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje8, breed: this.overjeroAleman, size: this.size1 })
+    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje5, breed: this.overjeroAleman, size: this.size3 })
+    this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.galgo, size: this.size1 })
     this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.caniche, size: this.size3 })
-    this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
-    this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
-    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
-    this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
+    this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
+    this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje1, breed: this.sinRaza, size: this.size1 })
+    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje8, breed: this.sinRaza, size: this.size3 })
+    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje8, breed: this.sinRaza, size: this.size3 })
+    this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje8, breed: this.sinRaza, size: this.size3 })
     this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.caniche, size: this.size1 })
-    this.perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
+    this.perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje7, breed: this.caniche, size: this.size1 })
+    this.perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje7, breed: this.sinRaza, size: this.size3 })
     this.perro16 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
-    this.perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.size3 })
+    this.perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
+    this.perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.galgo, size: this.size3 })
     this.perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.bulldogIngles, size: this.size2 })
+    this.perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.bulldogIngles, size: this.size2 })
     await getRepository(Pet).save([
       this.perro1,
       this.perro2,
@@ -378,17 +388,6 @@ export class Bootstrap {
       this.perro20
     ])
   }
-
-  //userStatus
-
-  // async createUserStatus(): Promise <void>{
-  //   this.activo = new UserStatus({description:"activo"})
-  //   this.pendiente = new UserStatus({description:"pendiente"})
-  //   this.inactivo = new UserStatus({description:"inactivo"})
-
-  //   await getRepository(UserStatus).save([this.activo, this.pendiente, this.inactivo])
-  // }
-  //users
   async hashPassword(password: string): Promise<string> {
     const salt = 10
     return await bcrypt.hash(password, salt)
@@ -401,8 +400,7 @@ export class Bootstrap {
       email: 'estefaniadipietro@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg',
-     
+      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
     })
     this.mariano = new User({
       firstName: 'Mariano',
@@ -410,8 +408,8 @@ export class Bootstrap {
       email: 'bottazzimariano@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg',
-    //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
+      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
+      //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
     })
     this.gabriel = new User({
       firstName: 'Gabriel',
@@ -419,8 +417,8 @@ export class Bootstrap {
       email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg',
-    //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
+      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
+      //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
     })
     this.ivan = new User({
       firstName: 'Ivan',
@@ -428,8 +426,8 @@ export class Bootstrap {
       email: 'ivanelisas@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg',
-  //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
+      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
+      //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
     })
 
     this.laura = new User({
@@ -438,8 +436,8 @@ export class Bootstrap {
       email: 'lauritaIbañez1982@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg',
-  //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
+      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
+      //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
     })
     this.horacio = new User({
       firstName: 'Horacio',
@@ -447,8 +445,8 @@ export class Bootstrap {
       email: 'hramos@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg',
-     // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
+      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
+      // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
     })
     this.pablo = new User({
       firstName: 'Pablo',
@@ -456,8 +454,8 @@ export class Bootstrap {
       email: 'primlo1988@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg',
-    //  comments: []
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
+      //  comments: []
     })
     this.pedro = new User({
       firstName: 'Pedro',
@@ -465,8 +463,8 @@ export class Bootstrap {
       email: 'pedrin12721@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg',
-    //  comments: []
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
+      //  comments: []
     })
 
     this.omar = new User({
@@ -475,8 +473,8 @@ export class Bootstrap {
       email: 'giliOmar@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
-     // comments:[]
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+      // comments:[]
     })
 
     this.ana = new User({
@@ -485,8 +483,8 @@ export class Bootstrap {
       email: 'aperez@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
-     // comments:[]
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+      // comments:[]
     })
     this.marcela = new User({
       firstName: 'Marcela',
@@ -494,8 +492,8 @@ export class Bootstrap {
       email: 'alopez12332@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
-     // comments:[]
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+      // comments:[]
     })
 
     await getRepository(User).save([this.estefania, this.ana, this.marcela, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
@@ -652,7 +650,7 @@ export class Bootstrap {
       pictures: [this.picture_0013, this.picture_0014, this.picture_0015]
     })
     this.post0006 = new Post({
-      description: 'Dos perritos perdidos sobre avenida crovara',
+      description: 'Caniche perdido sobre avenida crovara',
       location: this.location_0006,
       pet: this.perro7,
       creationDate: new Date('2021-01-20T17:31:01.456Z'),
@@ -757,7 +755,7 @@ export class Bootstrap {
       post: this.post0001
     })
     this.comentario2 = new Comment({
-      owner:this.estefania,
+      owner: this.estefania,
       text: 'Sí. Lo tengo en mi casa. ',
       creation: new Date('2021-01-20T18:31:01.456Z'),
       post: this.post0001
@@ -804,7 +802,7 @@ export class Bootstrap {
 
     this.comentario7 = new Comment({
       owner: this.omar,
-  
+
       text: 'Es mi tomy! ya mismo te contacto para coordinar',
       creation: new Date('2021-02-15T15:10:01.456Z'),
       post: this.post0002
@@ -836,7 +834,7 @@ export class Bootstrap {
       post: this.post0003
     })
     this.comentario11 = new Comment({
-      owner: this.gabriel, 
+      owner: this.gabriel,
       text: 'Hablame al chat, y hablamos..slds!',
       creation: new Date('2021-06-15T12:36:01.456Z'),
       post: this.post0003
@@ -990,80 +988,69 @@ export class Bootstrap {
       this.comentario31
     ])
   }
-  
+
   async createChats(): Promise<void> {
     // this.chat1 = new Chat({
     //   owner: this.estefania,
     //   owner2: this.pedro,
     //   messageList: [],
- 
+
     // })
 
     this.chat2 = new Chat({
       owner: this.ivan,
       owner2: this.pedro,
-      messageList: [ this.message4, this.message5, this.message6],
-    
+      messageList: [this.message4, this.message5, this.message6]
     })
 
     this.chat3 = new Chat({
       owner: this.ivan,
       owner2: this.laura,
-      messageList: [this.message1, this.message2,this.message3, this.message7, this.message8, this.message9 ],
-   
+      messageList: [this.message1, this.message2, this.message3, this.message7, this.message8, this.message9]
     })
 
     this.chat4 = new Chat({
       owner: this.ivan,
       owner2: this.pablo,
-      messageList: [this.message10, this.message11,this.message12],
- 
+      messageList: [this.message10, this.message11, this.message12]
     })
 
     this.chat5 = new Chat({
       owner: this.ivan,
       owner2: this.mariano,
-      messageList: [this.message13],
- 
+      messageList: [this.message13]
     })
 
     this.chat6 = new Chat({
       owner: this.ivan,
       owner2: this.estefania,
-      messageList: [this.message14, this.message15],
- 
-    })  
- 
- 
+      messageList: [this.message14, this.message15]
+    })
+
     this.chat7 = new Chat({
       owner: this.ivan,
       owner2: this.gabriel,
-      messageList: [this.message16],
- 
+      messageList: [this.message16]
     })
     this.chat8 = new Chat({
       owner: this.ivan,
       owner2: this.horacio,
-      messageList: [this.message17],
- 
+      messageList: [this.message17]
     })
     this.chat9 = new Chat({
       owner: this.ivan,
       owner2: this.omar,
-      messageList: [this.message18],
- 
+      messageList: [this.message18]
     })
     this.chat10 = new Chat({
       owner: this.ivan,
       owner2: this.marcela,
-      messageList: [this.message19],
- 
+      messageList: [this.message19]
     })
     this.chat11 = new Chat({
       owner: this.ivan,
       owner2: this.ana,
-      messageList: [this.message20],
- 
+      messageList: [this.message20]
     })
 
     await getRepository(Chat).save([
@@ -1081,15 +1068,12 @@ export class Bootstrap {
   }
 
   async createMessages(): Promise<void> {
-
-    
     this.message4 = new Message({
       sender: this.pedro,
       adressee: this.ivan,
       chat: this.chat2,
       body: 'Lo quiero adoptar. te puedo mandar mensaje?',
-      read:true,
-  
+      read: true
     })
 
     this.message5 = new Message({
@@ -1097,8 +1081,7 @@ export class Bootstrap {
       adressee: this.pedro,
       chat: this.chat2,
       body: 'Mira al final como nadie lo reclamo me lo quedé. Gracias igual.',
-      read:false,
-     
+      read: false
     })
 
     this.message6 = new Message({
@@ -1106,7 +1089,7 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat2,
       body: 'Uh. Bueno, me alegro mucho. ',
-      read:true,
+      read: true
     })
 
     this.message1 = new Message({
@@ -1114,8 +1097,7 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Hola, me pasas tu telefono así te contacto',
-      read:true,
-    
+      read: true
     })
 
     this.message2 = new Message({
@@ -1123,8 +1105,7 @@ export class Bootstrap {
       adressee: this.laura,
       chat: this.chat3,
       body: 'Hola. Mi celu es 1154265446',
-      read:true,
- 
+      read: true
     })
 
     this.message3 = new Message({
@@ -1132,18 +1113,15 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Gracias',
-      read:false,
-   
+      read: false
     })
-
 
     this.message7 = new Message({
       sender: this.laura,
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Hola, te llame a ese numero pero no me respondes. Me decís si tiene una mancha negra en la pata derecha?',
-      read:true,
-      
+      read: true
     })
 
     this.message8 = new Message({
@@ -1151,8 +1129,7 @@ export class Bootstrap {
       adressee: this.laura,
       chat: this.chat3,
       body: 'Hola. No, no tiene una mancha. lo tuve en reparación al celu. Ahora podes llamar. Slds',
-      read:true,
-    
+      read: true
     })
 
     this.message9 = new Message({
@@ -1160,55 +1137,46 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Ok, gracias. ',
-      read:true,
- 
+      read: true
     })
-   
+
     this.message10 = new Message({
       sender: this.pablo,
       adressee: this.ivan,
       chat: this.chat4,
       body: 'Hola. yo perdí uno igual. Lo puedo ir a ver a ver si es mi perro?',
-      read:true,
- 
+      read: true
     })
 
-    
     this.message11 = new Message({
       sender: this.ivan,
       adressee: this.pablo,
       chat: this.chat4,
       body: 'Hola. Sí como no, te paso mi dirección: Masiano castex 2332, San Martín',
-      read:true,
- 
+      read: true
     })
 
-    
     this.message12 = new Message({
       sender: this.pablo,
       adressee: this.ivan,
       chat: this.chat4,
       body: 'Dale, vos estas este sabado? ',
-      read:false,
- 
+      read: false
     })
 
-    
     this.message13 = new Message({
       sender: this.mariano,
       adressee: this.ivan,
       chat: this.chat5,
       body: 'Hola. Responde a nombre de rocco? ',
-      read:true,
- 
+      read: true
     })
     this.message14 = new Message({
       sender: this.estefania,
       adressee: this.ivan,
       chat: this.chat6,
       body: 'Hola.Me gustaría adoptarlo ',
-      read:true,
- 
+      read: true
     })
 
     this.message15 = new Message({
@@ -1216,8 +1184,7 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat6,
       body: 'Hola Estefanía. lo estoy dando en adopción con compromiso de castración y seguimiento. Aun te interesa? ',
-      read:true,
- 
+      read: true
     })
 
     this.message16 = new Message({
@@ -1225,29 +1192,23 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat7,
       body: 'Hola flaco. Sabes que perdí un perro igual? Lo puedo ir a buscar? ',
-      read:true,
- 
+      read: true
     })
-    
 
-    
     this.message17 = new Message({
       sender: this.horacio,
       adressee: this.ivan,
       chat: this.chat8,
       body: 'Hola. Quisiera adoptarlo. Yo vivo cerca, puedo pasar a verlo a ver si me acepta.',
-      read:true,
- 
+      read: true
     })
-    
 
     this.message18 = new Message({
       sender: this.omar,
       adressee: this.ivan,
       chat: this.chat9,
       body: 'Hola. Lo puedo ir a ver?',
-      read:true,
- 
+      read: true
     })
 
     this.message19 = new Message({
@@ -1255,8 +1216,7 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat10,
       body: 'Encontraste al dueño?',
-      read:true,
- 
+      read: true
     })
 
     this.message20 = new Message({
@@ -1264,17 +1224,8 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat11,
       body: 'Hola. Me avisas si tiene una manchita en la oreja?',
-      read:true,
- 
+      read: true
     })
-
-
-
-
-
-
-
-
 
     await getRepository(Message).save([
       this.message1,
