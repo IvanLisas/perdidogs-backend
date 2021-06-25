@@ -992,15 +992,15 @@ export class Bootstrap {
     })
 
     this.chat4 = new Chat({
-      owner: this.mariano,
+      owner: this.ivan,
       owner2: this.pablo,
       messageList: [this.message6, this.message7],
  
     })
 
     this.chat5 = new Chat({
-      owner: this.mariano,
-      owner2: this.horacio,
+      owner: this.pablo,
+      owner2: this.ivan,
       messageList: [this.message8, this.message9],
  
     })
@@ -1103,7 +1103,11 @@ export class Bootstrap {
       this.message6,
       this.message7,
       this.message8,
-      this.message9
+      this.message9,
+      this.message10,
+      this.message11,
+      this.message12,
+      this.message13
     ])
   }
 }
