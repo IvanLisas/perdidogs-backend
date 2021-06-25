@@ -743,14 +743,14 @@ export class Bootstrap {
 
     this.comentario3 = new Comment({
       owner: this.estefania,
-      text: 'Si alguien quiere adoptarlo me avisa?',
+      text: 'Si conoces de alguien que quiera adoptarlo me avisa?',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
 
     this.comentario32 = new Comment({
-      owner:this.laura,
-      text: 'Te escribo al chat. Estoy interesada en adoptarlo?',
+      owner:this.pedro,
+      text: 'lo puedo ir a ver? Estoy interesado en adoptarlo',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
@@ -973,21 +973,21 @@ export class Bootstrap {
     this.chat1 = new Chat({
       owner: this.estefania,
       owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3],
+      messageList: [this.message1, this.message2, this.message3, this.message3],
  
     })
 
     this.chat2 = new Chat({
-      owner: this.estefania,
+      owner: this.ivan,
       owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3],
+      messageList: [ this.message4, this.message5, this.message6],
     
     })
 
     this.chat3 = new Chat({
       owner: this.ivan,
       owner2: this.laura,
-      messageList: [this.message4, this.message5],
+      messageList: [this.message7, this.message8, this.message9 ],
    
     })
 
@@ -1043,7 +1043,7 @@ export class Bootstrap {
     })
 
     this.message4 = new Message({
-      sender: this.laura,
+      sender: this.pedro,
       adressee: this.ivan,
       chat: this.chat2,
       body: 'Lo quiero adoptar. te puedo mandar mensaje?',
@@ -1053,7 +1053,7 @@ export class Bootstrap {
 
     this.message5 = new Message({
       sender: this.ivan,
-      adressee: this.laura,
+      adressee: this.pedro,
       chat: this.chat2,
       body: 'Mira al final como nadie lo reclamo me lo quedé. Gracias igual.',
       read:false,
@@ -1061,36 +1061,36 @@ export class Bootstrap {
     })
 
     this.message6 = new Message({
-      sender: this.pablo,
-      adressee: this.mariano,
+      sender: this.pedro,
+      adressee: this.ivan,
       chat: this.chat3,
-      body: 'Hola, como puedo comprobar que es mi perro? ',
+      body: 'Uh. Bueno, me alegro mucho. ',
      
     })
 
     this.message7 = new Message({
-      sender: this.mariano,
-      adressee: this.pablo,
+      sender: this.laura,
+      adressee: this.ivan,
       chat: this.chat3,
-      body: 'Mira, este perrito tiene una caracteristica que no cualquiera lo tiene decime cual es y ahi definimos si es tu perro ',
+      body: 'Hola, me decís si tiene una mancha negra en la pata derecha?',
   
       
     })
 
     this.message8 = new Message({
-      sender: this.horacio,
-      adressee: this.mariano,
+      sender: this.ivan,
+      adressee: this.laura,
       chat: this.chat4,
-      body: 'Hola. Lo quiero adoptar. Te puedo llamar?',
+      body: 'Hola. No, no tiene una mancha',
       read:true,
     
     })
 
     this.message9 = new Message({
-      sender: this.mariano,
-      adressee: this.horacio,
+      sender: this.laura,
+      adressee: this.ivan,
       chat: this.chat4,
-      body: 'Mira, estoy buscando su dueño. De no aparecer nadie te paso mi celular para coordinar. ',
+      body: 'Ok, seguiré buscando entonces. Gracias! ',
       read:true,
  
     })
