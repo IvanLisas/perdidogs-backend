@@ -399,7 +399,7 @@ export class Bootstrap {
       password: await this.hashPassword('12345678'),
       isActive: true,
       avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg',
-      comments:[this.comentario1, this.comentario2, this.comentario3, this.comentario32]
+     
     })
     this.mariano = new User({
       firstName: 'Mariano',
@@ -408,7 +408,7 @@ export class Bootstrap {
       password: await this.hashPassword('12345678'),
       isActive: true,
       avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg',
-      comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
+    //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
     })
     this.gabriel = new User({
       firstName: 'Gabriel',
@@ -417,7 +417,7 @@ export class Bootstrap {
       password: await this.hashPassword('12345678'),
       isActive: true,
       avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg',
-      comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
+    //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
     })
     this.ivan = new User({
       firstName: 'Ivan',
@@ -425,7 +425,8 @@ export class Bootstrap {
       email: 'ivanelisas@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
+      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg',
+  //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
     })
 
     this.laura = new User({
@@ -434,7 +435,8 @@ export class Bootstrap {
       email: 'lauritaIbañez1982@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
+      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg',
+  //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
     })
     this.horacio = new User({
       firstName: 'Horacio',
@@ -442,7 +444,8 @@ export class Bootstrap {
       email: 'hramos@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
+      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg',
+     // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
     })
     this.pablo = new User({
       firstName: 'Pablo',
@@ -450,7 +453,8 @@ export class Bootstrap {
       email: 'primlo1988@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg',
+    //  comments: []
     })
     this.pedro = new User({
       firstName: 'Pedro',
@@ -458,7 +462,8 @@ export class Bootstrap {
       email: 'pedrin12721@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg',
+    //  comments: []
     })
 
     this.omar = new User({
@@ -467,7 +472,8 @@ export class Bootstrap {
       email: 'giliOmar@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
+     // comments:[]
     })
 
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])

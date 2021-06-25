@@ -4,6 +4,7 @@ import { MessageDTO } from '../routes/ChatRoutes'
 import userService from './UserService'
 import { Message } from '../models/Message'
 import { Comment } from '../models/Comment'
+import { EmailService } from './EmailService'
 
 export class CommentService {
   async getByPostId(postId: number): Promise<Comment[]> {
@@ -19,6 +20,16 @@ export class CommentService {
      
       return await getRepository(Comment).save(comment)
   
+  }
+
+  async sendEmail(email:string):Promise<void>{
+    const user= await userService.findByEmail(email)
+    console.log("USER: ",user)
+    const link = 'localhost:19000/receive-a-message-password/:'+email
+    if(user!=null){
+      const emailSender = new EmailService
+      emailSender.sendEmail( user,user.email,"Tiene un nuevo mensaje."+link)
+    }
   }
 
   async create(message: MessageDTO): Promise<Chat | undefined> {
