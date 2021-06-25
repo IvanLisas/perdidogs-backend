@@ -23,7 +23,7 @@ class PostService {
       }
     } else {
       return getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
         where: {
           isActive: true
         }
@@ -39,7 +39,7 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
       where: { isActive: true }
     })
   }
@@ -75,7 +75,7 @@ class PostService {
       const ids = locations.map((x) => x.Id)
       /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
         where: {
           location: { Id: In(ids), isActive: true }
         }
