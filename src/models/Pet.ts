@@ -14,7 +14,7 @@ export class Pet {
   @Column({ type: 'varchar' })
   name!: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default:"" })
   sex!: string
   
   @Column({ type: 'boolean', default:false}) 

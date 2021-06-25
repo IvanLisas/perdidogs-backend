@@ -15,7 +15,7 @@ export class Post {
   Id!: number
 
   @Column({ type: 'varchar',nullable:true })
-  title?: string
+  title!: string
 
   @Column({ type: 'varchar' })
   description!: string
