@@ -1093,7 +1093,7 @@ export class Bootstrap {
     this.message1 = new Message({
       sender: this.laura,
       adressee: this.ivan,
-      chat: this.chat2,
+      chat: this.chat3,
       body: 'Hola, me pasas tu telefono así te contacto',
       read:true,
     
@@ -1102,7 +1102,7 @@ export class Bootstrap {
     this.message2 = new Message({
       sender: this.ivan,
       adressee: this.laura,
-      chat: this.chat2,
+      chat: this.chat3,
       body: 'Hola. Mi celu es 1154265446',
       read:true,
  
@@ -1111,7 +1111,7 @@ export class Bootstrap {
     this.message3 = new Message({
       sender: this.laura,
       adressee: this.ivan,
-      chat: this.chat2,
+      chat: this.chat3,
       body: 'Gracias',
       read:false,
    
