@@ -20,7 +20,7 @@ export class Comment {
   @ManyToOne(() => Post, (post) => post.Id)
   post!: Post
 
-  @ManyToOne(() => User, (user) => user.Id)
+  @ManyToOne(() => User, (user) => user.Id,{eager:true})
   owner!: User
 
   static fromJson(PictureJson: string): Comment {

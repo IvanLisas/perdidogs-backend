@@ -5,7 +5,12 @@ import { EmailService } from './EmailService'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
-    const user = await getRepository(User).findOneOrFail({ email: anEmail })
+    const user = await getRepository(User).findOneOrFail({
+      relations: ['post', 'post.pet', 'post.location', 'post.pictures','post.comments','post.comments.owner'],
+      where: {
+        email:anEmail
+      }
+    })
 
     if (await bcrypt.compare(aPassword, user.password)) {
       return user
