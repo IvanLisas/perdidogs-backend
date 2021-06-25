@@ -14,7 +14,7 @@ class PostService {
       const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
       if (pets != null) {
         return await getRepository(Post).find({
-          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
           where: {
             pet: { Id: In(pets.map((x) => x.Id)) },
             isActive: true
@@ -51,7 +51,8 @@ class PostService {
     return await getRepository(Post).findOneOrFail({
       relations: ['owner'],
       where: {
-        Id: idPost
+        Id: idPost,
+        isActive: true
       }
     })
   }
