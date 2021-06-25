@@ -6,8 +6,16 @@ import { Message } from '../models/Message'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
-    return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
+    return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList', "messageList.sender", "messageList.adressee"], where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
   }
+
+  async getChatId(user1Id: number, user2Id: number): Promise<number> {
+    const chat = (await getRepository(Chat).findOne({ owner: { Id: user1Id }, owner2: { Id: user2Id } }, { relations: ['owner', 'owner2'] })) as Chat
+    if (!chat) return 0
+    else return chat.Id
+  }
+
+
 
   // async get(id: number): Promise<Chat> {
   //   return await getRepository(Chat).findOne({ Id: id }, 

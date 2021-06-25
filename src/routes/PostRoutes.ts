@@ -40,7 +40,7 @@ postRoutes.get('/getAll', async (req, res) => {
 postRoutes.put('/by-filter', async (req, res) => {
   try {
     const pet = req.body.pet
-    const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.sex, req.body.myLocation, req.body.delta)
+    const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.myLocation, req.body.delta)
     return res.json(await postService.getPostByFilters(filter))
   } catch (error) {
     res.status(400).send(error.message)

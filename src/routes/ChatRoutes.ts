@@ -41,6 +41,19 @@ chatRoutes.put('/:id', async (req, res) => {
   }
 })
 
+chatRoutes.get('/find-id', async (req, res) => {
+  try {
+    const user1Id = parseInt(req.body.user1Id)
+    const user2Id = parseInt(req.body.user2Id)
+    const chatId = await chatService.getChatId(user1Id, user2Id)
+    if(chatId != 0) return res.json(chatId)
+    else return res.json(await chatService.getChatId(user2Id, user1Id))
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
+})
+
+
 export default chatRoutes
 
 export class MessageDTO {

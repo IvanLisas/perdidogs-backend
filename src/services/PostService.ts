@@ -119,6 +119,11 @@ class PostService {
         pets = pets.filter((x) => x.breed.Id == filter.breed)
         console.log("Pets", pets.length )
       }
+      if (filter.size!==undefined&&filter.size !== null&&pets.length>0) {
+        console.log("Filtra por size", )
+        pets = pets.filter((x) => x.size.Id == filter.size)
+        console.log("Pets", pets.length )
+      }
       console.log("LLEGA AL FINAL DEL FILTAR", pets.length)
       return pets
     }else {
