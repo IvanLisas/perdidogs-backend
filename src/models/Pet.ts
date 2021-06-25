@@ -11,16 +11,16 @@ export class Pet {
   @PrimaryGeneratedColumn()
   Id!: number
 
-  @Column({ type: 'varchar' })
-  name!: string
+  @Column({ type: 'varchar', default: '' })
+  name?: string
 
-  @Column({ type: 'varchar', default:"" })
-  sex!: string
-  
-  @Column({ type: 'boolean', default:false}) 
+  @Column({ type: 'varchar', default: '' })
+  sex?: string
+
+  @Column({ type: 'boolean', default: false })
   hasCollar!: boolean
 
-  @ManyToOne(()=>Fur, fur=>fur.Id,{cascade: true})
+  @ManyToOne(() => Fur, (fur) => fur.Id, { cascade: true })
   fur!: Fur
 
   @ManyToOne(() => Breed, (breed) => breed.Id)

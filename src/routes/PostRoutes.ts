@@ -9,10 +9,12 @@ const postRoutes = Router()
 //POST a post
 postRoutes.post('/', async (req, res) => {
   try {
-    const userId = parseInt(req.body.owner)
+    console.log(req.body)
+    const userId = parseInt(req.body.owner.Id)
     const post = Post.fromJson(req.body)
     return res.json(await postService.create(userId, post))
   } catch (error) {
+    console.log(error.message)
     res.status(400).send(error.message)
   }
 })
@@ -38,6 +40,7 @@ postRoutes.get('/getAll', async (req, res) => {
 
 //GET BY FILTER post
 postRoutes.put('/by-filter', async (req, res) => {
+  if (!req.body.pet) res.json(await postService.getByLocation(req.body.myLocation, req.body.delta))
   try {
     const pet = req.body.pet
     const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.myLocation, req.body.delta)
