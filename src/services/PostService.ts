@@ -16,7 +16,7 @@ class PostService {
         const petIds= (this.getPetIdsByFilters(pets, filter))?.map(x=>x.Id);
         console.log("PETS despues DE FILTRAR", petIds?.length)
         return await getRepository(Post).find({
-          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
+          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur','pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size','comments','comments.owner'],
           where: {
             pet: { Id: In(petIds) },
             isActive: true
@@ -25,7 +25,7 @@ class PostService {
       }
     } else {
       return getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur','pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size','comments','comments.owner'],
         where: {
           isActive: true
         }
