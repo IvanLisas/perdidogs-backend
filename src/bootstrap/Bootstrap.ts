@@ -169,6 +169,7 @@ export class Bootstrap {
   pelaje1!: Fur
   pelaje2!: Fur
   pelaje3!: Fur
+  pelaje4!: Fur
   comentario1!: Comment
   comentario2!: Comment
   comentario3!: Comment
@@ -331,7 +332,8 @@ export class Bootstrap {
     console.log('******************************Creando Pelos*****************************************')
     this.pelaje1 = new Fur({ color: this.color1, length: this.largo1 })
     this.pelaje2 = new Fur({ color: this.color2, length: this.largo2 })
-    this.pelaje3 = new Fur({ color: this.color3, length: this.largo3 })
+    this.pelaje3 = new Fur({ color: this.color3, length: this.largo2 })
+    this.pelaje4 = new Fur({ color: this.color5, length: this.largo2 })
     await getRepository(Fur).save([this.pelaje1, this.pelaje2, this.pelaje3])
   }
   //mascotas
@@ -342,17 +344,18 @@ export class Bootstrap {
     //cuando hago fur voy a tener que hacer fur:: marron
 
     this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje2, breed: this.barbincho, size: this.size2 })
-    this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
-    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.overjeroAleman, size: this.size1 })
-    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.overjeroAleman, size: this.size3 })
+    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.barbincho, size: this.size2 })
+    this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size1 })
+    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.size1 })
+    this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.size3 })
     this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.size1 })
     this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.caniche, size: this.size3 })
-    this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
+    this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
     this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
-    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
+    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
+    this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
     this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.caniche, size: this.size1 })
     this.perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
