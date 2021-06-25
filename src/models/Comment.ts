@@ -21,7 +21,7 @@ export class Comment {
   post!: Post
 
   @ManyToOne(() => User, (user) => user.Id)
-  author!: User
+  owner!: User
 
   static fromJson(PictureJson: string): Comment {
     return Object.assign(new Comment(), PictureJson)

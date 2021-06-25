@@ -78,7 +78,7 @@ class PostService {
       const ids = locations.map((x) => x.Id)
       /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comment'],
         where: {
           location: { Id: In(ids), isActive: true }
         }
@@ -90,9 +90,7 @@ class PostService {
     return loc.Id
   }
 
-  getPetId(pet: Pet): number {
-    return pet.Id
-  }
+
 
   getPetIdsByFilters(pets: Pet[], filter: Filter): Pet[] {
     if (filter.sex != null) {
