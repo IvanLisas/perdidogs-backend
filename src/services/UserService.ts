@@ -6,9 +6,9 @@ import { EmailService } from './EmailService'
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     const user = await getRepository(User).findOneOrFail({
-      relations: ['post', 'post.pet', 'post.location', 'post.pictures','post.comments','post.comments.owner'],
+      relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
       where: {
-        email:anEmail
+        email: anEmail
       }
     })
 
@@ -18,19 +18,21 @@ class UserService {
   }
 
   async forgotPassword(email: string): Promise<any> {
-      const user= await this.findByEmail(email)
-      console.log("USER: ",user)
-      const link = 'localhost:19000/recover-password/:'+email
-      if(user!=null){
-        const emailSender = new EmailService
-        emailSender.sendEmail( user,user.email,"Ingrese a este link para recuperar su contraseña "+link)
-      }
+    const user = await this.findByEmail(email)
+    console.log('USER: ', user)
+    const link = 'localhost:19000/recover-password/:' + email
+    if (user != null) {
+      const emailSender = new EmailService()
+      emailSender.sendEmail(user, user.email, 'Ingrese a este link para recuperar su contraseña ' + link)
+    }
   }
 
-  async findByEmail(anEmail:string):Promise<User>{
-    return getRepository(User).findOneOrFail({where:{
-      email:anEmail
-    }})
+  async findByEmail(anEmail: string): Promise<User> {
+    return getRepository(User).findOneOrFail({
+      where: {
+        email: anEmail
+      }
+    })
   }
 
   async get(id: number): Promise<User> {

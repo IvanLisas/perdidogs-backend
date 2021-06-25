@@ -14,7 +14,7 @@ export class Post {
   @PrimaryGeneratedColumn()
   Id!: number
 
-  @Column({ type: 'varchar',nullable:true })
+  @Column({ type: 'varchar', nullable: true })
   title!: string
 
   @Column({ type: 'varchar' })
@@ -33,10 +33,10 @@ export class Post {
   // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
   // status!:PostStatus
 
-  @OneToMany(() => Picture, (picture) => picture.post, { nullable: true })
+  @OneToMany(() => Picture, (picture) => picture.post, { nullable: true, cascade: true })
   pictures?: Picture[]
 
-  @OneToMany(() => Comment, (comment) => comment.post, { nullable: true, cascade:true })
+  @OneToMany(() => Comment, (comment) => comment.post, { nullable: true, cascade: true })
   comments?: Comment[]
 
   @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
@@ -48,10 +48,9 @@ export class Post {
   @JoinColumn()
   pet!: Pet
 
-  
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
-  
+
   /* 
   validate() {
     if (!this.description || !this.creationDate || !this.endDate || !this.pet) {

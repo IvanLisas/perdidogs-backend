@@ -31,7 +31,6 @@ chatRoutes.get('/message/:id', async (req, res) => {
   }
 })
 
-
 chatRoutes.put('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id)
@@ -41,18 +40,19 @@ chatRoutes.put('/:id', async (req, res) => {
   }
 })
 
-chatRoutes.get('/find-id', async (req, res) => {
+chatRoutes.post('/find', async (req, res) => {
+  console.log('hola', req.body)
   try {
     const user1Id = parseInt(req.body.user1Id)
     const user2Id = parseInt(req.body.user2Id)
     const chatId = await chatService.getChatId(user1Id, user2Id)
-    if(chatId != 0) return res.json(chatId)
+    if (chatId != 0) return res.json(chatId)
     else return res.json(await chatService.getChatId(user2Id, user1Id))
   } catch (error) {
-    res.status(403).send(error.message)
+    console.log(error.message)
+    res.status(404).send(error.message)
   }
 })
-
 
 export default chatRoutes
 

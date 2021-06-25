@@ -5,30 +5,30 @@ import userService from './UserService'
 import { Message } from '../models/Message'
 import { Comment } from '../models/Comment'
 import { EmailService } from './EmailService'
+import postService from './PostService'
+import { Post } from '../models/Post'
 
 export class CommentService {
   async getByPostId(postId: number): Promise<Comment[]> {
     try {
-      return await getRepository(Comment).find( {relations: ['owner'], where:{ Id: postId } })
+      return await getRepository(Comment).find({ relations: ['owner'], where: { Id: postId } })
     } catch (error) {
-        
-       throw new Error(error.message)
+      throw new Error(error.message)
     }
   }
 
-  async save(comment: Comment): Promise<Comment> {
-     
-      return await getRepository(Comment).save(comment)
-  
+  async save(comment: Comment): Promise<Post> {
+    await getRepository(Comment).save(comment)
+    return await postService.get(comment.post.Id)
   }
 
-  async sendEmail(email:string):Promise<void>{
-    const user= await userService.findByEmail(email)
-    console.log("USER: ",user)
-    const link = 'localhost:19000/receive-a-message-password/:'+email
-    if(user!=null){
-      const emailSender = new EmailService
-      emailSender.sendEmail( user,user.email,"Tiene un nuevo mensaje."+link)
+  async sendEmail(email: string): Promise<void> {
+    const user = await userService.findByEmail(email)
+    console.log('USER: ', user)
+    const link = 'localhost:19000/receive-a-message-password/:' + email
+    if (user != null) {
+      const emailSender = new EmailService()
+      emailSender.sendEmail(user, user.email, 'Tiene un nuevo mensaje.' + link)
     }
   }
 
@@ -41,7 +41,6 @@ export class CommentService {
       const chat = new Chat({ owner: user1, owner2: user2, messageList: [mesagge] })
 
       return await getRepository(Chat).save(chat)
-      
     } else {
       /*   const users = await getRepository(Chat).find({ relations: ["photos"] }); */
       const chat = await getRepository(Chat).findOneOrFail(message.chat, { relations: ['messageList'], order: { creationDate: 'DESC' } })

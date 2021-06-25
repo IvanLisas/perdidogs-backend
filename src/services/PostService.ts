@@ -1,5 +1,5 @@
 import { Between, Entity, getRepository, In, getManager, FindOperator } from 'typeorm'
-import {  Point } from '../models/LatLang'
+import { Point } from '../models/LatLang'
 
 import { Post } from '../models/Post'
 import userService from './UserService'
@@ -9,14 +9,14 @@ import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 @Entity()
 class PostService {
-  async getPostByFilters(filter: Filter, ): Promise<Post[] | undefined> {
+  async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.myLocation != null && filter.delta != null) {
-      const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map(x=>x.pet)
+      const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
       if (pets != null) {
-        const petIds= (this.getPetIdsByFilters(pets, filter))?.map(x=>x.Id);
-        console.log("PETS despues DE FILTRAR", petIds?.length)
+        const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
+        console.log('PETS despues DE FILTRAR', petIds?.length)
         return await getRepository(Post).find({
-          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
+          relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size', 'comments', 'comments.owner'],
           where: {
             pet: { Id: In(petIds) },
             isActive: true
@@ -25,7 +25,7 @@ class PostService {
       }
     } else {
       return getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size', 'comments', 'comments.owner'],
         where: {
           isActive: true
         }
@@ -41,7 +41,7 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments','comments.owner'],
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner'],
       where: { isActive: true }
     })
   }
@@ -51,7 +51,7 @@ class PostService {
 
   async get(idPost: number): Promise<Post> {
     return await getRepository(Post).findOneOrFail({
-      relations: ['owner'],
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner'],
       where: {
         Id: idPost,
         isActive: true
@@ -78,7 +78,7 @@ class PostService {
       const ids = locations.map((x) => x.Id)
       /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur','pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size','comments','comments.owner'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner'],
         where: {
           location: { Id: In(ids), isActive: true }
         }
@@ -90,47 +90,47 @@ class PostService {
     return loc.Id
   }
 
-
-
   getPetIdsByFilters(pets: Pet[], filter: Filter): Pet[] {
-    if(filter!==undefined){
-      console.log("Entra en el getFilter", pets.length)
-      if (filter.sex!==undefined&& filter.sex !== null&&pets.length>0) {
+    if (filter !== undefined) {
+      console.log('Entra en el getFilter', pets.length)
+      if (filter.sex !== undefined && filter.sex !== null && pets.length > 0) {
         pets = pets.filter((x) => x.sex == filter.sex)
       }
-      if (filter.hasCollar!==undefined&&filter.hasCollar !== null&&pets.length>0) {
+      if (filter.hasCollar !== undefined && filter.hasCollar !== null && pets.length > 0) {
         pets = pets.filter((x) => x.hasCollar == filter.hasCollar)
       }
-      console.log("Pets 1", pets.length, filter.color )
-      if (filter.color!==undefined&&filter.color !== null && pets.length>0) {
-        console.log("Filtra por color", pets.map(x=>console.log(x.fur.color)) )
-        pets = pets.filter((x) => (x.fur.color.Id == filter.color))
-        console.log("Pets", pets.length )
+      console.log('Pets 1', pets.length, filter.color)
+      if (filter.color !== undefined && filter.color !== null && pets.length > 0) {
+        console.log(
+          'Filtra por color',
+          pets.map((x) => console.log(x.fur.color))
+        )
+        pets = pets.filter((x) => x.fur.color.Id == filter.color)
+        console.log('Pets', pets.length)
       }
-      console.log("Pets2", pets.length )
-      if (filter.length!==undefined&&filter.length !== null&&pets.length>0) {
-        console.log("Filtra por fur.lenghr", )
+      console.log('Pets2', pets.length)
+      if (filter.length !== undefined && filter.length !== null && pets.length > 0) {
+        console.log('Filtra por fur.lenghr')
         pets = pets.filter((x) => x.fur.length.Id == filter.length)
-        console.log("Pets", pets.length )
+        console.log('Pets', pets.length)
       }
-      console.log("Pets3", pets.length )
-      if (filter.breed!==undefined&&filter.breed !== null&&pets.length>0) {
-        console.log("Filtra por breed", )
+      console.log('Pets3', pets.length)
+      if (filter.breed !== undefined && filter.breed !== null && pets.length > 0) {
+        console.log('Filtra por breed')
         pets = pets.filter((x) => x.breed.Id == filter.breed)
-        console.log("Pets", pets.length )
+        console.log('Pets', pets.length)
       }
-      if (filter.size!==undefined&&filter.size !== null&&pets.length>0) {
-        console.log("Filtra por size", )
+      if (filter.size !== undefined && filter.size !== null && pets.length > 0) {
+        console.log('Filtra por size')
         pets = pets.filter((x) => x.size.Id == filter.size)
-        console.log("Pets", pets.length )
+        console.log('Pets', pets.length)
       }
-      console.log("LLEGA AL FINAL DEL FILTAR", pets.length)
+      console.log('LLEGA AL FINAL DEL FILTAR', pets.length)
       return pets
-    }else {
+    } else {
       return pets
     }
   }
-
 }
 
 const postService = new PostService()
