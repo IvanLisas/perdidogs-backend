@@ -976,7 +976,7 @@ export class Bootstrap {
     this.chat1 = new Chat({
       owner: this.estefania,
       owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3, this.message3],
+      messageList: [],
  
     })
 
@@ -990,7 +990,7 @@ export class Bootstrap {
     this.chat3 = new Chat({
       owner: this.ivan,
       owner2: this.laura,
-      messageList: [this.message7, this.message8, this.message9 ],
+      messageList: [this.message1, this.message2, this.message3, this.message7, this.message8, this.message9 ],
    
     })
 
@@ -1063,27 +1063,27 @@ export class Bootstrap {
 
   async createMessages(): Promise<void> {
     this.message1 = new Message({
-      sender: this.pedro,
-      adressee: this.estefania,
-      chat: this.chat1,
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
       body: 'Hola, me pasas tu telefono así te contacto',
       read:true,
     
     })
 
     this.message2 = new Message({
-      sender: this.estefania,
-      adressee: this.pedro,
-      chat: this.chat1,
+      sender: this.ivan,
+      adressee: this.laura,
+      chat: this.chat2,
       body: 'Hola. Mi celu es 1154265446',
       read:true,
  
     })
 
     this.message3 = new Message({
-      sender: this.pedro,
-      adressee: this.estefania,
-      chat: this.chat1,
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
       body: 'Gracias',
       read:false,
    
@@ -1119,7 +1119,7 @@ export class Bootstrap {
       sender: this.laura,
       adressee: this.ivan,
       chat: this.chat3,
-      body: 'Hola, me decís si tiene una mancha negra en la pata derecha?',
+      body: 'Hola, te llame a ese numero pero no me respondes. Me decís si tiene una mancha negra en la pata derecha?',
       read:true,
       
     })
@@ -1128,7 +1128,7 @@ export class Bootstrap {
       sender: this.ivan,
       adressee: this.laura,
       chat: this.chat3,
-      body: 'Hola. No, no tiene una mancha',
+      body: 'Hola. No, no tiene una mancha. lo tuve en reparación al celu. Ahora podes llamar. Slds',
       read:true,
     
     })
@@ -1137,7 +1137,7 @@ export class Bootstrap {
       sender: this.laura,
       adressee: this.ivan,
       chat: this.chat3,
-      body: 'Ok, seguiré buscando entonces. Gracias! ',
+      body: 'Ok, gracias. ',
       read:true,
  
     })
@@ -1266,7 +1266,14 @@ export class Bootstrap {
       this.message10,
       this.message11,
       this.message12,
-      this.message13
+      this.message13,
+      this.message14,
+      this.message15,
+      this.message16,
+      this.message17,
+      this.message18,
+      this.message19,
+      this.message20
     ])
   }
 }
