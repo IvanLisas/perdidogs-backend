@@ -992,15 +992,15 @@ export class Bootstrap {
     })
 
     this.chat4 = new Chat({
-      owner: this.mariano,
+      owner: this.ivan,
       owner2: this.pablo,
       messageList: [this.message6, this.message7],
  
     })
 
     this.chat5 = new Chat({
-      owner: this.mariano,
-      owner2: this.horacio,
+      owner: this.ivan,
+      owner2: this.mariano,
       messageList: [this.message8, this.message9],
  
     })
@@ -1065,7 +1065,7 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Uh. Bueno, me alegro mucho. ',
-     
+      read:true,
     })
 
     this.message7 = new Message({
@@ -1073,14 +1073,14 @@ export class Bootstrap {
       adressee: this.ivan,
       chat: this.chat3,
       body: 'Hola, me decís si tiene una mancha negra en la pata derecha?',
-  
+      read:true,
       
     })
 
     this.message8 = new Message({
       sender: this.ivan,
       adressee: this.laura,
-      chat: this.chat4,
+      chat: this.chat3,
       body: 'Hola. No, no tiene una mancha',
       read:true,
     
@@ -1089,11 +1089,62 @@ export class Bootstrap {
     this.message9 = new Message({
       sender: this.laura,
       adressee: this.ivan,
-      chat: this.chat4,
+      chat: this.chat3,
       body: 'Ok, seguiré buscando entonces. Gracias! ',
       read:true,
  
     })
+   
+    this.message10 = new Message({
+      sender: this.pablo,
+      adressee: this.ivan,
+      chat: this.chat4,
+      body: 'Hola. yo perdí uno igual. Lo puedo ir a ver a ver si es mi perro?',
+      read:true,
+ 
+    })
+
+    
+    this.message11 = new Message({
+      sender: this.ivan,
+      adressee: this.pablo,
+      chat: this.chat4,
+      body: 'Hola. Sí como no, te paso mi dirección: Masiano castex 2332, San Martín',
+      read:true,
+ 
+    })
+
+    
+    this.message12 = new Message({
+      sender: this.pablo,
+      adressee: this.ivan,
+      chat: this.chat4,
+      body: 'Dale, vos estas este sabado? ',
+      read:false,
+ 
+    })
+
+    
+    this.message13 = new Message({
+      sender: this.mariano,
+      adressee: this.ivan,
+      chat: this.chat5,
+      body: 'Hola. Responde a nombre de rocco? ',
+      read:true,
+ 
+    })
+
+    
+
+
+
+
+
+
+
+
+
+
     await getRepository(Message).save([
       this.message1,
       this.message2,
@@ -1103,7 +1154,11 @@ export class Bootstrap {
       this.message6,
       this.message7,
       this.message8,
-      this.message9
+      this.message9,
+      this.message10,
+      this.message11,
+      this.message12,
+      this.message13
     ])
   }
 }
