@@ -44,7 +44,7 @@ export class User {
   chat!: Chat[]
 
   @OneToMany(() => Comment, (comment) => comment.Id)
-  comments?: Comment[]
+  comments!: Comment[]
   // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   // userStatus!: UserStatus
 

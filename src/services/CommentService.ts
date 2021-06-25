@@ -8,7 +8,7 @@ import { Comment } from '../models/Comment'
 export class CommentService {
   async getByPostId(postId: number): Promise<Comment[]> {
     try {
-      return await getRepository(Comment).find({ post: { Id: postId } })
+      return await getRepository(Comment).find( {relations: ['owner'], where:{ Id: postId } })
     } catch (error) {
         
        throw new Error(error.message)
