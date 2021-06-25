@@ -39,7 +39,7 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+      relations: ['pet', 'pictures', 'owner', 'location', 'comments','pet.fur', 'pet.breed', 'pet.size'],
       where: { isActive: true }
     })
   }
