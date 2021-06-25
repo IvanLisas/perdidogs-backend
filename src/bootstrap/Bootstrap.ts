@@ -1270,6 +1270,8 @@ export class Bootstrap {
       this.message14,
       this.message15,
       this.message16,
+      this.message17,
+      this.message18,
       this.message19,
       this.message20
     ])
