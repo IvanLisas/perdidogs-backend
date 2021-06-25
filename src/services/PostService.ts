@@ -4,12 +4,10 @@ import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
-import { Geometry, Point } from '../models/LatLang'
+import {  Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
-import { query } from 'express'
-import { Breed } from '../models/Breed'
-import { X_OK } from 'constants'
+
 @Entity()
 class PostService {
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
@@ -26,7 +24,7 @@ class PostService {
       }
     } else {
       return getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
         where: {
           isActive: true
         }
@@ -42,7 +40,7 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size'],
+      relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
       where: { isActive: true }
     })
   }
@@ -78,7 +76,7 @@ class PostService {
       const ids = locations.map((x) => x.Id)
       /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
-        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comment'],
+        relations: ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.breed', 'pet.size','comments'],
         where: {
           location: { Id: In(ids), isActive: true }
         }
