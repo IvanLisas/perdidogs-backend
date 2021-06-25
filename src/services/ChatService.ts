@@ -6,13 +6,12 @@ import { Message } from '../models/Message'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
-    return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: [{ owner: { Id: id } }, { owner2: { Id: id } }] })
+    return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList'], where: [{ owner: { Id: id } }, { owner2: { Id: id }}, {messageList:{Id:id} }] })
   }
 
-  async get(id: number): Promise<Chat | undefined> {
+  async get(id: number): Promise<Chat> {
     return await getRepository(Chat).findOne({ Id: id }, 
-          { relations: ['owner', 'owner2', 'messageList'] }) as Chat
-  })
+          { relations: ['owner', 'owner2', 'messageList'] }) as Chat  }
 
 
   async getMessage(id: number): Promise<Message | undefined> {

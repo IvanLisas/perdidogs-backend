@@ -31,6 +31,14 @@ chatRoutes.get('/message/:id', async (req, res) => {
   }
 })
 
+chatRoutes.get('/:userid', async (req, res) => {
+  const id = parseInt(req.params.userid)
+  try {
+    res.json(await chatService.get(id))
+  } catch (error) {
+    res.send(error.chat)
+  }
+})
 
 
 chatRoutes.put('/:id', async (req, res) => {
