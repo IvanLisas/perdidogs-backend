@@ -14,6 +14,9 @@ import bcrypt, { hash } from 'bcrypt'
 import { Rol } from '../models/Rol'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
+import { Comment } from '../models/Comment'
+import { Chat } from '../models/Chat'
+import { Message } from '../models/Message'
 
 export class Bootstrap {
   // activo!: PostStatus
@@ -52,6 +55,11 @@ export class Bootstrap {
   gabriel!: User
   ivan!: User
   mariano!: User
+  laura!: User
+  horacio!: User
+  pablo!: User
+  pedro!: User
+  omar!: User
   perro1!: Pet
   perro2!: Pet
   perro3!: Pet
@@ -153,6 +161,75 @@ export class Bootstrap {
   pelaje1!: Fur
   pelaje2!: Fur
   pelaje3!: Fur
+  comentario1!: Comment
+  comentario2!: Comment
+  comentario3!: Comment
+  comentario4!: Comment
+  comentario5!: Comment
+  comentario6!: Comment
+  comentario7!: Comment
+  comentario8!: Comment
+  comentario9!: Comment
+  comentario10!: Comment
+  comentario11!: Comment
+  comentario12!: Comment
+  comentario13!: Comment
+  comentario14!: Comment
+  comentario15!: Comment
+  comentario16!: Comment
+  comentario17!: Comment
+  comentario18!: Comment
+  comentario19!: Comment
+  comentario20!: Comment
+  comentario21!: Comment
+  comentario22!: Comment
+  comentario23!: Comment
+  comentario24!: Comment
+  comentario25!: Comment
+  comentario26!: Comment
+  comentario27!: Comment
+  comentario28!: Comment
+  comentario29!: Comment
+  comentario30!: Comment
+  comentario31!: Comment
+  comentario32!: Comment
+  comentario33!: Comment
+  comentario34!: Comment
+  comentario35!: Comment
+  comentario36!: Comment
+  comentario37!: Comment
+  comentario38!: Comment
+  message1!: Message
+  message2!: Message
+  message3!: Message
+  message4!: Message
+  message5!: Message
+  message6!: Message
+  message7!: Message
+  message8!: Message
+  message9!: Message
+  message10!: Message
+  message11!: Message
+  message12!: Message
+  message13!: Message
+  message14!: Message
+  message15!: Message
+  message16!: Message
+  message17!: Message
+  message18!: Message
+  message19!: Message
+  message20!: Message
+  chat1!: Chat
+  chat2!: Chat
+  chat3!: Chat
+  chat4!: Chat
+  chat5!: Chat
+  chat6!: Chat
+  chat7!: Chat
+  chat8!: Chat
+  chat9!: Chat
+  chat10!: Chat
+
   // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
@@ -168,6 +245,9 @@ export class Bootstrap {
     await this.createLocations()
     await this.createPictures()
     await this.createPosts()
+    await this.createComments()
+    await this.createChats()
+    await this.createMessages()
   }
 
   //Colors
@@ -184,7 +264,7 @@ export class Bootstrap {
 
   async createBreed(): Promise<void> {
     console.log('******************************Creando Razas*****************************************')
-    this.sinRaza = new Breed({ description: 'sinRaza' })
+    this.sinRaza = new Breed({ description: 'Sin Raza' })
     this.borderCollie = new Breed({ description: 'Border Collie' })
     this.overjeroAleman = new Breed({ description: 'Overjero Aleman' })
     this.caniche = new Breed({ description: 'Caniche' })
@@ -193,7 +273,7 @@ export class Bootstrap {
     this.bulldogFrances = new Breed({ description: 'Bulldog Frances' })
     this.bulldogIngles = new Breed({ description: 'Bulldog Ingles' })
     this.HuskySiberia = new Breed({ description: 'Husky Siberian' })
-    this.coker = new Breed({ description: 'Cocket' })
+    this.coker = new Breed({ description: 'Cocker' })
     this.canicheToy = new Breed({ description: 'Caniche Toy' })
     this.barbincho = new Breed({ description: 'Barbincho' })
     this.ovejeroBelga = new Breed({ description: 'Ovejero Belga' })
@@ -252,18 +332,18 @@ export class Bootstrap {
     // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
 
-    this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.dalmata, size: this.size3 })
-    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size2 })
+    this.perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
+    this.perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje2, breed: this.barbincho, size: this.size2 })
     this.perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
-    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.corgie, size: this.size1 })
+    this.perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.overjeroAleman, size: this.size1 })
     this.perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.overjeroAleman, size: this.size3 })
-    this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.chihuahua, size: this.size1 })
-    this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.galgo, size: this.size3 })
+    this.perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.size1 })
+    this.perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.caniche, size: this.size3 })
     this.perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
-    this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.bulldogFrances, size: this.size1 })
-    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.ovejeroBelga, size: this.size3 })
-    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.HuskySiberia, size: this.size3 })
-    this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.size3 })
+    this.perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.sinRaza, size: this.size1 })
+    this.perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
+    this.perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, fur: this.pelaje2, breed: this.sinRaza, size: this.size3 })
+    this.perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
     this.perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.size3 })
     this.perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.caniche, size: this.size1 })
     this.perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.sinRaza, size: this.size3 })
@@ -345,7 +425,49 @@ export class Bootstrap {
       avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
     })
 
-    await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel])
+    this.laura = new User({
+      firstName: 'Laura',
+      lastName: 'Ibañez',
+      email: 'lauritaIbañez1982@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
+    })
+    this.horacio = new User({
+      firstName: 'Horacio',
+      lastName: 'Ramos',
+      email: 'hramos@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
+    })
+    this.pablo = new User({
+      firstName: 'Pablo',
+      lastName: 'Rimolo',
+      email: 'primlo1988@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
+    })
+    this.pedro = new User({
+      firstName: 'Pedro',
+      lastName: 'Paredes',
+      email: 'pedrin12721@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
+    })
+
+    this.omar = new User({
+      firstName: 'Omar',
+      lastName: 'Gili',
+      email: 'giliOmar@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
+    })
+
+    await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
   }
   //location
   async createLocations(): Promise<void> {
@@ -399,10 +521,11 @@ export class Bootstrap {
     this.picture_0001 = new Picture({ url: 'https://www.ecestaticos.com/image/clipping/7a6b6e93f92f61a94fd9d269e8ffd237/tu-perro-es-un-privilegiado-el-70-de-sus-congeneres-vive-en-la-calle.jpg' })
     this.picture_0002 = new Picture({ url: 'https://revista.weepec.com/wp-content/uploads/2017/07/perro-de-la-calle-01.jpg' })
     this.picture_0003 = new Picture({ url: 'https://t2.ea.ltmcdn.com/es/images/7/2/4/img_cuanto_vive_un_perro_callejero_22427_paso_1_600.jpg' })
-   
     this.picture_0004 = new Picture({ url: 'http://1.bp.blogspot.com/-fPPi-wskwjg/TiUEi2UqGTI/AAAAAAAAB4k/wjLNydAjDF0/s1600/Barbincho.jpg' })
     this.picture_0005 = new Picture({ url: 'https://c8.alamy.com/compes/t87pa8/el-aspecto-de-un-perro-callejero-triste-solitario-perro-en-la-calle-abrigo-sucio-y-humedo-el-animal-esta-buscando-su-dueno-t87pa8.jpg' })
-    this.picture_0006 = new Picture({ url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg' })
+    this.picture_0006 = new Picture({
+      url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg'
+    })
     this.picture_0007 = new Picture({ url: 'https://pbs.twimg.com/media/BvfgPU3CcAAGkxu.jpg' })
     this.picture_0008 = new Picture({ url: 'https://pbs.twimg.com/media/DnLSyPwW0AAELDv.jpg' })
     this.picture_0009 = new Picture({ url: 'https://www.elsiglodetorreon.com.mx/m/i/2020/05/1306610.jpeg' })
@@ -422,8 +545,8 @@ export class Bootstrap {
     this.picture_0023 = new Picture({ url: 'https://www.albergaria.es/media/photos/big-square/canfelin-protectora-grado-y-sus-valles-1529942078-X3Pq5.jpg' })
     this.picture_0024 = new Picture({ url: 'http://4.bp.blogspot.com/-T-596ClMxEs/UjOTzp39_JI/AAAAAAAAdV8/VsP-cuCoKyc/s1600/IMG_4553.JPG' })
     this.picture_0025 = new Picture({ url: 'http://3.bp.blogspot.com/-ldI6gHiByIQ/UjOTy80h2pI/AAAAAAAAdVs/Ce7Usv_HH8Q/s1600/IMG_4551.JPG' })
-    this.picture_0026 = new Picture ({url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg'})
-    
+    this.picture_0026 = new Picture({ url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg' })
+
     await getRepository(Picture).save([
       this.picture_0001,
       this.picture_0002,
@@ -457,7 +580,7 @@ export class Bootstrap {
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
     this.post0001 = new Post({
-      description: 'Perro encontrado en la calle Constitución al 3100, San Cristobal ',
+      description: 'Perra encontrada en la calle Constitución al 3100, San Cristobal ',
       location: this.location_0002,
       pet: this.perro1,
       creationDate: new Date('2021-06-20T04:34:01.456Z'),
@@ -470,7 +593,7 @@ export class Bootstrap {
       pet: this.perro2,
       creationDate: new Date('2021-01-20T15:55:01.456Z'),
       owner: this.gabriel,
-      pictures: [this.picture_0004,this.picture_0005, this.picture_0006]
+      pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     })
     this.post0003 = new Post({
       description: 'Perro negro, tenía collar rojo sin placa y correa. Está siguiendo a cualquier persona que pasa. Lo retuve en casa hasta dar con sus dueños.',
@@ -487,21 +610,20 @@ export class Bootstrap {
       pet: this.perro4,
       creationDate: new Date('2021-01-20T14:31:01.456Z'),
       owner: this.mariano,
-      pictures: [this.picture_0010, this.picture_0011, this.picture_0012] 
-
+      pictures: [this.picture_0010, this.picture_0011, this.picture_0012]
     })
-    this.post0005 = new Post({ 
-      description: 'Galgo atigrado, está en buenas condiciones pero se nota que busca a sus dueños', 
-      location: this.location_0005, 
+    this.post0005 = new Post({
+      description: 'Galgo atigrado, está en buenas condiciones pero se nota que busca a sus dueños',
+      location: this.location_0005,
       pet: this.perro5,
       creationDate: new Date('2021-01-20T18:31:01.456Z'),
-      owner: this.estefania,  
-      pictures: [this.picture_0013, this.picture_0014, this.picture_0015] 
+      owner: this.estefania,
+      pictures: [this.picture_0013, this.picture_0014, this.picture_0015]
     })
     this.post0006 = new Post({
       description: 'Dos perritos perdidos sobre avenida crovara',
       location: this.location_0006,
-      pet:this.perro7,
+      pet: this.perro7,
       creationDate: new Date('2021-01-20T17:31:01.456Z'),
       owner: this.estefania,
       pictures: [this.picture_0016, this.picture_0017, this.picture_0018]
@@ -522,19 +644,19 @@ export class Bootstrap {
       owner: this.ivan,
       pictures: [this.picture_0021, this.picture_0022]
     })
-    this.post0009 = new Post({ 
-    description: 'Cachorros abandonados en la autopista', 
-    location: this.location_0009,
-    pet: this.perro10,
-    owner: this.mariano,
-    pictures: [this.picture_0023, this.picture_0024, this.picture_0025] 
+    this.post0009 = new Post({
+      description: 'Cachorros abandonados en la autopista',
+      location: this.location_0009,
+      pet: this.perro10,
+      owner: this.mariano,
+      pictures: [this.picture_0023, this.picture_0024, this.picture_0025]
     })
     this.post0010 = new Post({
-      description: 'Perros vagando por la cuadra, están muy deteriorados, por favor alguien que le de tránsito',
+      description: 'Perro vagando por la plaza, está muy deteriorado, por favor alguien que le de tránsito',
       location: this.location_0010,
       pet: this.perro12,
       owner: this.gabriel,
-      creationDate: new Date('2021-06-20T13:31:01.456Z'),
+      creationDate: new Date('2021-06-20T11:31:01.456Z'),
       pictures: [this.picture_0002]
     })
     this.post0011 = new Post({
@@ -555,7 +677,7 @@ export class Bootstrap {
     })
     // this.post0013 = new Post({
     //    description: 'Lola perdida. Me ayudan a encontrarla',
-    //     location: this.location_0013, 
+    //     location: this.location_0013,
     //     pet: this.perro14,
     //     owner: this.ivan,
     //     creationDate: new Date('2021-07-20T17:31:01.456Z'),
@@ -593,6 +715,350 @@ export class Bootstrap {
       // this.post0022,
       // this.post0023,
       // this.post0024
+    ])
+  }
+
+  async createComments(): Promise<void> {
+    this.comentario1 = new Comment({
+      text: 'Lo retuviste?',
+      creation: new Date('2021-01-20T17:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario2 = new Comment({
+      text: 'Sí. Lo tengo en mi casa. ',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario3 = new Comment({
+      text: 'Si alguien quiere adoptarlo me avisa?',
+      creation: new Date('2021-01-20T23:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario32 = new Comment({
+      text: 'Te escribo al chat. Estoy interesada en adoptarlo?',
+      creation: new Date('2021-01-20T23:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario4 = new Comment({
+      text: 'Se lleva bien con otros perros?',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+
+    this.comentario33 = new Comment({
+      text: 'No tengo otros animales. Pero es super buena. Por las dudas vuelvo a recordar que es hembra!',
+      creation: new Date('2021-01-20T18:31:01.456Z'),
+      post: this.post0001
+    })
+    this.comentario5 = new Comment({
+      text: 'Lo quiero adoptar. Como te contacto?',
+      creation: new Date('2021-03-20T11:31:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario6 = new Comment({
+      text: 'Hablame a mi WP 15467676454',
+      creation: new Date('2021-03-20T12:31:01.456Z'), //probar sin horario
+      post: this.post0002
+    })
+
+    this.comentario7 = new Comment({
+      text: 'Es mi tomy! ya mismo te contacto para coordinar',
+      creation: new Date('2021-02-15T15:10:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario8 = new Comment({
+      text: 'Si es tuyo, tenes que contestar algun detalle caracteristico del perro',
+      creation: new Date('2021-02-15T15:31:01.456Z'),
+      post: this.post0002
+    })
+
+    this.comentario9 = new Comment({
+      text: 'Ya la respondo..',
+      creation: new Date('2021-02-15T15:36:01.456Z'),
+      post: this.post0002
+    })
+
+    this.comentario35 = new Comment({
+      text: 'Sigue en adopción.. El que quiera adoptar me avisa! slds!',
+      creation: new Date('2021-02-15T15:36:01.456Z'),
+      post: this.post0002
+    })
+    this.comentario10 = new Comment({
+      text: 'Tiene collar, dice algo la chapita?.',
+      creation: new Date('2021-06-15T12:36:01.456Z'),
+      post: this.post0003
+    })
+    this.comentario11 = new Comment({
+      text: 'Hablame al chat, y hablamos..slds!',
+      creation: new Date('2021-06-15T12:36:01.456Z'),
+      post: this.post0003
+    })
+    this.comentario12 = new Comment({
+      text: 'Lo quiero adoptar.',
+      creation: new Date('2021-01-23T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario13 = new Comment({
+      text: 'Hola, lo tenes? o quiero adoptar.',
+      creation: new Date('2021-01-28T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario14 = new Comment({
+      text: 'Hola, por qué no me contestas.',
+      creation: new Date('2021-01-30T10:25:00.456Z'),
+      post: this.post0004
+    })
+    this.comentario14 = new Comment({
+      text: 'Voy a cerrar la publicación, al final me lo quedo. Gracias a todos por el interés.', //publicada o cerrada
+      post: this.post0004
+    })
+    this.comentario31 = new Comment({
+      text: 'Lo quiero.',
+      post: this.post0005
+    })
+
+    this.comentario15 = new Comment({
+      text: 'Me lo regalas?.',
+      post: this.post0005
+    })
+
+    this.comentario16 = new Comment({
+      text: 'Lo quiero adoptar',
+      post: this.post0006
+    })
+
+    this.comentario17 = new Comment({
+      text: 'Soy la dueña! de donde sos? Me lo mandas a mi casa?',
+      post: this.post0006
+    })
+
+    this.comentario18 = new Comment({
+      text: 'Pobrecitos, por favor alguien que los quiera adoptarr',
+      post: this.post0009
+    })
+
+    this.comentario19 = new Comment({
+      text: 'Los que quieran adoptar hablenme al chat por favor',
+      post: this.post0009
+    })
+
+    this.comentario20 = new Comment({
+      text: 'El perro fallecio. cierro la publicación',
+      post: this.post0008
+    })
+    this.comentario21 = new Comment({
+      text: 'Pobrecitoo. Gracias por al menos ocuparte de publicarlo para al menos ubicar a sus dueños',
+      post: this.post0008
+    })
+    this.comentario22 = new Comment({
+      text: 'Para que no pase frío lo entre a mi casa. El que lo reconozca me avisa',
+      post: this.post0007
+    })
+    this.comentario23 = new Comment({
+      text: 'Tiene una mancha negra en la pata?',
+      post: this.post0007
+    })
+    this.comentario24 = new Comment({
+      text: 'No. No tiene una mancha negra. Slds',
+      post: this.post0007
+    })
+    this.comentario25 = new Comment({
+      text: 'Buenas! te puedo contactar? tengo a alguien que quiere adoptarlo',
+      post: this.post0010
+    })
+    this.comentario26 = new Comment({
+      text: 'Escribime al chat..Slds!',
+      post: this.post0011
+    })
+    this.comentario27 = new Comment({
+      text: 'Final feliz! Paco! como lo apodaron, fue adoptado!! Por más publicaciones como estas',
+      post: this.post0012
+    })
+    this.comentario28 = new Comment({
+      text: 'Necesitamos transito por favor. No la puedo retener pero no la quiero dejar en la calle',
+      post: this.post0012
+    })
+    this.comentario29 = new Comment({
+      text: 'Alguien nos da una mano con balanceado para poder alimnentarla? Cuchas, abrigo..todo será bienvenido',
+      post: this.post0012
+    })
+    this.comentario30 = new Comment({
+      text: 'Por favor. Ayudenme a difundirla. Está embarazada',
+      post: this.post0012
+    })
+
+    await getRepository(Comment).save([
+      this.comentario1,
+      this.comentario2,
+      this.comentario3,
+      this.comentario4,
+      this.comentario5,
+      this.comentario6,
+      this.comentario7,
+      this.comentario8,
+      this.comentario9,
+      this.comentario10,
+      this.comentario11,
+      this.comentario12,
+      this.comentario13,
+      this.comentario14,
+      this.comentario15,
+      this.comentario16,
+      this.comentario17,
+      this.comentario18,
+      this.comentario19,
+      this.comentario20,
+      this.comentario21,
+      this.comentario22,
+      this.comentario23,
+      this.comentario24,
+      this.comentario25,
+      this.comentario26,
+      this.comentario27,
+      this.comentario28,
+      this.comentario29,
+      this.comentario30,
+      this.comentario31
+    ])
+  }
+  
+  async createChats(): Promise<void> {
+    this.chat1 = new Chat({
+      owner: this.estefania,
+      owner2: this.pedro,
+      messageList: [this.message1, this.message2, this.message3],
+ 
+    })
+
+    this.chat2 = new Chat({
+      owner: this.estefania,
+      owner2: this.pedro,
+      messageList: [this.message1, this.message2, this.message3],
+    
+    })
+
+    this.chat3 = new Chat({
+      owner: this.ivan,
+      owner2: this.laura,
+      messageList: [this.message4, this.message5],
+   
+    })
+
+    this.chat4 = new Chat({
+      owner: this.mariano,
+      owner2: this.pablo,
+      messageList: [this.message6, this.message7],
+ 
+    })
+
+    this.chat5 = new Chat({
+      owner: this.mariano,
+      owner2: this.horacio,
+      messageList: [this.message8, this.message9],
+ 
+    })
+
+    await getRepository(Chat).save([
+      this.chat1,
+      this.chat2,
+      this.chat3,
+      this.chat4,
+      this.chat5
+    ])
+  }
+
+  async createMessages(): Promise<void> {
+    this.message1 = new Message({
+      sender: this.pedro,
+      adressee: this.estefania,
+      chat: this.chat1,
+      body: 'Hola, me pasas tu telefono así te contacto',
+      read:true,
+    
+    })
+
+    this.message2 = new Message({
+      sender: this.estefania,
+      adressee: this.pedro,
+      chat: this.chat1,
+      body: 'Hola. Mi celu es 1154265446',
+      read:true,
+ 
+    })
+
+    this.message3 = new Message({
+      sender: this.pedro,
+      adressee: this.estefania,
+      chat: this.chat1,
+      body: 'Gracias',
+      read:false,
+   
+    })
+
+    this.message4 = new Message({
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat2,
+      body: 'Lo quiero adoptar. te puedo mandar mensaje?',
+      read:true,
+  
+    })
+
+    this.message5 = new Message({
+      sender: this.ivan,
+      adressee: this.laura,
+      chat: this.chat2,
+      body: 'Mira al final como nadie lo reclamo me lo quedé. Gracias igual.',
+      read:false,
+     
+    })
+
+    this.message6 = new Message({
+      sender: this.pablo,
+      adressee: this.mariano,
+      chat: this.chat3,
+      body: 'Hola, como puedo comprobar que es mi perro? ',
+     
+    })
+
+    this.message7 = new Message({
+      sender: this.mariano,
+      adressee: this.pablo,
+      chat: this.chat3,
+      body: 'Mira, este perrito tiene una caracteristica que no cualquiera lo tiene decime cual es y ahi definimos si es tu perro ',
+  
+      
+    })
+
+    this.message8 = new Message({
+      sender: this.horacio,
+      adressee: this.mariano,
+      chat: this.chat4,
+      body: 'Hola. Lo quiero adoptar. Te puedo llamar?',
+      read:true,
+    
+    })
+
+    this.message9 = new Message({
+      sender: this.mariano,
+      adressee: this.horacio,
+      chat: this.chat4,
+      body: 'Mira, estoy buscando su dueño. De no aparecer nadie te paso mi celular para coordinar. ',
+      read:true,
+ 
+    })
+    await getRepository(Message).save([
+      this.message1,
+      this.message2,
+      this.message3,
+      this.message4,
+      this.message5,
+      this.message6,
+      this.message7,
+      this.message8,
+      this.message9
     ])
   }
 }
