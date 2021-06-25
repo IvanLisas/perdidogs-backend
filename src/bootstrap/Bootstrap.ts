@@ -479,7 +479,26 @@ export class Bootstrap {
      // comments:[]
     })
 
-    await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
+    this.ana = new User({
+      firstName: 'Ana',
+      lastName: 'Perez',
+      email: 'aperez@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
+     // comments:[]
+    })
+    this.marcela = new User({
+      firstName: 'Marcela',
+      lastName: 'Lopez',
+      email: 'alopez12332@gmail.com',
+      password: await this.hashPassword('12345678'),
+      isActive: true,
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
+     // comments:[]
+    })
+
+    await getRepository(User).save([this.estefania, this.ana, this.marcela, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
   }
   //location
   async createLocations(): Promise<void> {
