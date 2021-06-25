@@ -91,21 +91,19 @@ class PostService {
   }
 
   getPetIdsByFilters(pets: Pet[], filter: Filter): Pet[] {
+    console.log('PET 1 ', pets?.[0])
     if (filter !== undefined) {
-      console.log('Entra en el getFilter', pets.length)
+      console.log('ENTRA EN EL getPetIdsByFilters', pets.length)
       if (filter.sex !== undefined && filter.sex !== null && pets.length > 0) {
         pets = pets.filter((x) => x.sex == filter.sex)
       }
       if (filter.hasCollar !== undefined && filter.hasCollar !== null && pets.length > 0) {
         pets = pets.filter((x) => x.hasCollar == filter.hasCollar)
       }
-      console.log('Pets 1', pets.length, filter.color)
+      console.log('Pets 1 antes de color ', filter.color, pets.length)
       if (filter.color !== undefined && filter.color !== null && pets.length > 0) {
-        console.log(
-          'Filtra por color',
-          pets.map((x) => console.log(x.fur.color))
-        )
-        pets = pets.filter((x) => x.fur.color.Id == filter.color)
+        console.log('Filtra por color', pets[0].fur.color)
+        pets = pets.filter((x) => x.fur.color.Id === filter.color)
         console.log('Pets', pets.length)
       }
       console.log('Pets2', pets.length)
@@ -125,7 +123,7 @@ class PostService {
         pets = pets.filter((x) => x.size.Id == filter.size)
         console.log('Pets', pets.length)
       }
-      console.log('LLEGA AL FINAL DEL FILTAR', pets.length)
+      console.log('LLEGA AL FINAL DEL FILTRAR', pets.length)
       return pets
     } else {
       return pets
