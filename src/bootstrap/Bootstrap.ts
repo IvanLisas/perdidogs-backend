@@ -1004,7 +1004,7 @@ export class Bootstrap {
     this.chat5 = new Chat({
       owner: this.ivan,
       owner2: this.mariano,
-      messageList: [this.message8, this.message9],
+      messageList: [this.message13, this.message14],
  
     })
 
