@@ -56,6 +56,8 @@ export class Bootstrap {
   gabriel!: User
   ivan!: User
   mariano!: User
+  marcela!: User
+  ana!: User
   laura!: User
   horacio!: User
   pablo!: User
@@ -230,6 +232,7 @@ export class Bootstrap {
   chat8!: Chat
   chat9!: Chat
   chat10!: Chat
+  chat11!:Chat
 
   // activo!: UserStatus
   // pendiente!:UserStatus
@@ -1005,12 +1008,56 @@ export class Bootstrap {
  
     })
 
+    this.chat6 = new Chat({
+      owner: this.ivan,
+      owner2: this.estefania,
+      messageList: [this.message14, this.message15],
+ 
+    })  
+ 
+ 
+    this.chat7 = new Chat({
+      owner: this.ivan,
+      owner2: this.gabriel,
+      messageList: [this.message16],
+ 
+    })
+    this.chat8 = new Chat({
+      owner: this.ivan,
+      owner2: this.horacio,
+      messageList: [this.message17],
+ 
+    })
+    this.chat9 = new Chat({
+      owner: this.ivan,
+      owner2: this.omar,
+      messageList: [this.message18],
+ 
+    })
+    this.chat10 = new Chat({
+      owner: this.ivan,
+      owner2: this.marcela,
+      messageList: [this.message19],
+ 
+    })
+    this.chat11 = new Chat({
+      owner: this.ivan,
+      owner2: this.ana,
+      messageList: [this.message20],
+ 
+    })
+
     await getRepository(Chat).save([
       this.chat1,
       this.chat2,
       this.chat3,
       this.chat4,
-      this.chat5
+      this.chat6,
+      this.chat7,
+      this.chat8,
+      this.chat9,
+      this.chat10,
+      this.chat11
     ])
   }
 
@@ -1133,9 +1180,70 @@ export class Bootstrap {
       read:true,
  
     })
+    this.message14 = new Message({
+      sender: this.estefania,
+      adressee: this.ivan,
+      chat: this.chat6,
+      body: 'Hola.Me gustaría adoptarlo ',
+      read:true,
+ 
+    })
+
+    this.message15 = new Message({
+      sender: this.ivan,
+      adressee: this.estefania,
+      chat: this.chat6,
+      body: 'Hola Estefanía. lo estoy dando en adopción con compromiso de castración y seguimiento. Aun te interesa? ',
+      read:true,
+ 
+    })
+
+    this.message16 = new Message({
+      sender: this.gabriel,
+      adressee: this.ivan,
+      chat: this.chat7,
+      body: 'Hola flaco. Sabes que perdí un perro igual? Lo puedo ir a buscar? ',
+      read:true,
+ 
+    })
 
     
+    this.message17 = new Message({
+      sender: this.horacio,
+      adressee: this.ivan,
+      chat: this.chat8,
+      body: 'Hola. Quisiera adoptarlo. Yo vivo cerca, puedo pasar a verlo a ver si me acepta.',
+      read:true,
+ 
+    })
+    
 
+    this.message18 = new Message({
+      sender: this.omar,
+      adressee: this.ivan,
+      chat: this.chat9,
+      body: 'Hola. Lo puedo ir a ver?',
+      read:true,
+ 
+    })
+
+    this.message19 = new Message({
+      sender: this.marcela,
+      adressee: this.ivan,
+      chat: this.chat10,
+      body: 'Encontraste al dueño?',
+      read:true,
+ 
+    })
+
+    this.message20 = new Message({
+      sender: this.ana,
+      adressee: this.ivan,
+      chat: this.chat11,
+      body: 'Hola. Me avisas si tiene una manchita en la oreja?',
+      read:true,
+ 
+    })
 
 
 
