@@ -1,16 +1,15 @@
 import { Between, Entity, getRepository, In, getManager, FindOperator } from 'typeorm'
+import {  Point } from '../models/LatLang'
 
 import { Post } from '../models/Post'
 import userService from './UserService'
 
 import { Location } from '../models/Location'
-import {  Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
-
 @Entity()
 class PostService {
-  async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
+  async getPostByFilters(filter: Filter, ): Promise<Post[] | undefined> {
     if (filter.myLocation != null && filter.delta != null) {
       const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
       if (pets != null) {

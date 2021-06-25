@@ -17,6 +17,7 @@ import { User } from '../models/User'
 import { Comment } from '../models/Comment'
 import { Chat } from '../models/Chat'
 import { Message } from '../models/Message'
+import { throws } from 'assert'
 
 export class Bootstrap {
   // activo!: PostStatus
@@ -314,8 +315,7 @@ export class Bootstrap {
     console.log('******************************Creando Largos de pelos*******************************')
     this.largo1 = new Length({ description: 'Corto' })
     this.largo2 = new Length({ description: 'Largo' })
-    this.largo3 = new Length({ description: 'No tiene' })
-    await getRepository(Length).save([this.largo1, this.largo2, this.largo3])
+    await getRepository(Length).save([this.largo1, this.largo2])
   }
 
   async createFurs(): Promise<void> {
@@ -398,7 +398,8 @@ export class Bootstrap {
       email: 'estefaniadipietro@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
+      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg',
+      comments:[this.comentario1, this.comentario2, this.comentario3, this.comentario32]
     })
     this.mariano = new User({
       firstName: 'Mariano',
@@ -406,7 +407,8 @@ export class Bootstrap {
       email: 'bottazzimariano@gmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
+      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg',
+      comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
     })
     this.gabriel = new User({
       firstName: 'Gabriel',
@@ -414,7 +416,8 @@ export class Bootstrap {
       email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
       isActive: true,
-      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
+      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg',
+      comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
     })
     this.ivan = new User({
       firstName: 'Ivan',
@@ -720,171 +723,207 @@ export class Bootstrap {
 
   async createComments(): Promise<void> {
     this.comentario1 = new Comment({
+      owner: this.pedro,
       text: 'Lo retuviste?',
       creation: new Date('2021-01-20T17:31:01.456Z'),
       post: this.post0001
     })
     this.comentario2 = new Comment({
+      owner:this.estefania,
       text: 'Sí. Lo tengo en mi casa. ',
       creation: new Date('2021-01-20T18:31:01.456Z'),
       post: this.post0001
     })
 
     this.comentario3 = new Comment({
+      owner: this.estefania,
       text: 'Si alguien quiere adoptarlo me avisa?',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
 
     this.comentario32 = new Comment({
+      owner:this.laura,
       text: 'Te escribo al chat. Estoy interesada en adoptarlo?',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
     this.comentario4 = new Comment({
+      owner: this.pedro,
       text: 'Se lleva bien con otros perros?',
       creation: new Date('2021-01-20T18:31:01.456Z'),
       post: this.post0001
     })
 
     this.comentario33 = new Comment({
+      owner: this.estefania,
       text: 'No tengo otros animales. Pero es super buena. Por las dudas vuelvo a recordar que es hembra!',
       creation: new Date('2021-01-20T18:31:01.456Z'),
       post: this.post0001
     })
     this.comentario5 = new Comment({
+      owner: this.horacio,
       text: 'Lo quiero adoptar. Como te contacto?',
       creation: new Date('2021-03-20T11:31:01.456Z'),
       post: this.post0002
     })
     this.comentario6 = new Comment({
+      owner: this.mariano,
       text: 'Hablame a mi WP 15467676454',
       creation: new Date('2021-03-20T12:31:01.456Z'), //probar sin horario
       post: this.post0002
     })
 
     this.comentario7 = new Comment({
+      owner: this.omar,
+  
       text: 'Es mi tomy! ya mismo te contacto para coordinar',
       creation: new Date('2021-02-15T15:10:01.456Z'),
       post: this.post0002
     })
     this.comentario8 = new Comment({
+      owner: this.ivan,
       text: 'Si es tuyo, tenes que contestar algun detalle caracteristico del perro',
       creation: new Date('2021-02-15T15:31:01.456Z'),
       post: this.post0002
     })
 
     this.comentario9 = new Comment({
+      owner: this.omar,
       text: 'Ya la respondo..',
       creation: new Date('2021-02-15T15:36:01.456Z'),
       post: this.post0002
     })
 
     this.comentario35 = new Comment({
+      owner: this.ivan,
       text: 'Sigue en adopción.. El que quiera adoptar me avisa! slds!',
       creation: new Date('2021-02-15T15:36:01.456Z'),
       post: this.post0002
     })
     this.comentario10 = new Comment({
+      owner: this.laura,
       text: 'Tiene collar, dice algo la chapita?.',
       creation: new Date('2021-06-15T12:36:01.456Z'),
       post: this.post0003
     })
     this.comentario11 = new Comment({
+      owner: this.gabriel, 
       text: 'Hablame al chat, y hablamos..slds!',
       creation: new Date('2021-06-15T12:36:01.456Z'),
       post: this.post0003
     })
     this.comentario12 = new Comment({
+      owner: this.pablo,
       text: 'Lo quiero adoptar.',
       creation: new Date('2021-01-23T10:25:00.456Z'),
       post: this.post0004
     })
     this.comentario13 = new Comment({
+      owner: this.pedro,
       text: 'Hola, lo tenes? o quiero adoptar.',
       creation: new Date('2021-01-28T10:25:00.456Z'),
       post: this.post0004
     })
     this.comentario14 = new Comment({
+      owner: this.pedro,
       text: 'Hola, por qué no me contestas.',
       creation: new Date('2021-01-30T10:25:00.456Z'),
       post: this.post0004
     })
     this.comentario14 = new Comment({
+      owner: this.gabriel,
       text: 'Voy a cerrar la publicación, al final me lo quedo. Gracias a todos por el interés.', //publicada o cerrada
       post: this.post0004
     })
     this.comentario31 = new Comment({
+      owner: this.laura,
       text: 'Lo quiero.',
       post: this.post0005
     })
 
     this.comentario15 = new Comment({
-      text: 'Me lo regalas?.',
+      owner: this.estefania,
+      text: 'Me lo regalas? Es hermoso!',
       post: this.post0005
     })
 
     this.comentario16 = new Comment({
+      owner: this.omar,
       text: 'Lo quiero adoptar',
       post: this.post0006
     })
 
     this.comentario17 = new Comment({
+      owner: this.laura,
       text: 'Soy la dueña! de donde sos? Me lo mandas a mi casa?',
       post: this.post0006
     })
 
     this.comentario18 = new Comment({
+      owner: this.estefania,
       text: 'Pobrecitos, por favor alguien que los quiera adoptarr',
       post: this.post0009
     })
 
     this.comentario19 = new Comment({
+      owner: this.ivan,
       text: 'Los que quieran adoptar hablenme al chat por favor',
       post: this.post0009
     })
 
     this.comentario20 = new Comment({
+      owner: this.mariano,
       text: 'El perro fallecio. cierro la publicación',
       post: this.post0008
     })
     this.comentario21 = new Comment({
+      owner: this.estefania,
       text: 'Pobrecitoo. Gracias por al menos ocuparte de publicarlo para al menos ubicar a sus dueños',
       post: this.post0008
     })
     this.comentario22 = new Comment({
+      owner: this.estefania,
       text: 'Para que no pase frío lo entre a mi casa. El que lo reconozca me avisa',
       post: this.post0007
     })
     this.comentario23 = new Comment({
+      owner: this.horacio,
       text: 'Tiene una mancha negra en la pata?',
       post: this.post0007
     })
     this.comentario24 = new Comment({
+      owner: this.estefania,
       text: 'No. No tiene una mancha negra. Slds',
       post: this.post0007
     })
     this.comentario25 = new Comment({
+      owner: this.laura,
       text: 'Buenas! te puedo contactar? tengo a alguien que quiere adoptarlo',
       post: this.post0010
     })
     this.comentario26 = new Comment({
+      owner: this.estefania,
       text: 'Escribime al chat..Slds!',
       post: this.post0011
     })
     this.comentario27 = new Comment({
+      owner: this.gabriel,
       text: 'Final feliz! Paco! como lo apodaron, fue adoptado!! Por más publicaciones como estas',
       post: this.post0012
     })
     this.comentario28 = new Comment({
+      owner: this.pablo,
       text: 'Necesitamos transito por favor. No la puedo retener pero no la quiero dejar en la calle',
       post: this.post0012
     })
     this.comentario29 = new Comment({
+      owner: this.estefania,
       text: 'Alguien nos da una mano con balanceado para poder alimnentarla? Cuchas, abrigo..todo será bienvenido',
       post: this.post0012
     })
     this.comentario30 = new Comment({
+      owner: this.gabriel,
       text: 'Por favor. Ayudenme a difundirla. Está embarazada',
       post: this.post0012
     })
