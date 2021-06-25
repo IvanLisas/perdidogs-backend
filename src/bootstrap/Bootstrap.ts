@@ -56,6 +56,8 @@ export class Bootstrap {
   gabriel!: User
   ivan!: User
   mariano!: User
+  marcela!: User
+  ana!: User
   laura!: User
   horacio!: User
   pablo!: User
@@ -230,6 +232,7 @@ export class Bootstrap {
   chat8!: Chat
   chat9!: Chat
   chat10!: Chat
+  chat11!:Chat
 
   // activo!: UserStatus
   // pendiente!:UserStatus
@@ -743,14 +746,14 @@ export class Bootstrap {
 
     this.comentario3 = new Comment({
       owner: this.estefania,
-      text: 'Si alguien quiere adoptarlo me avisa?',
+      text: 'Si conoces de alguien que quiera adoptarlo me avisa?',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
 
     this.comentario32 = new Comment({
-      owner:this.laura,
-      text: 'Te escribo al chat. Estoy interesada en adoptarlo?',
+      owner:this.pedro,
+      text: 'lo puedo ir a ver? Estoy interesado en adoptarlo',
       creation: new Date('2021-01-20T23:31:01.456Z'),
       post: this.post0001
     })
@@ -973,35 +976,74 @@ export class Bootstrap {
     this.chat1 = new Chat({
       owner: this.estefania,
       owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3],
+      messageList: [this.message1, this.message2, this.message3, this.message3],
  
     })
 
     this.chat2 = new Chat({
-      owner: this.estefania,
+      owner: this.ivan,
       owner2: this.pedro,
-      messageList: [this.message1, this.message2, this.message3],
+      messageList: [ this.message4, this.message5, this.message6],
     
     })
 
     this.chat3 = new Chat({
       owner: this.ivan,
       owner2: this.laura,
-      messageList: [this.message4, this.message5],
+      messageList: [this.message7, this.message8, this.message9 ],
    
     })
 
     this.chat4 = new Chat({
-      owner: this.mariano,
+      owner: this.ivan,
       owner2: this.pablo,
       messageList: [this.message6, this.message7],
  
     })
 
     this.chat5 = new Chat({
-      owner: this.mariano,
-      owner2: this.horacio,
+      owner: this.ivan,
+      owner2: this.mariano,
       messageList: [this.message8, this.message9],
+ 
+    })
+
+    this.chat6 = new Chat({
+      owner: this.ivan,
+      owner2: this.estefania,
+      messageList: [this.message14, this.message15],
+ 
+    })  
+ 
+ 
+    this.chat7 = new Chat({
+      owner: this.ivan,
+      owner2: this.gabriel,
+      messageList: [this.message16],
+ 
+    })
+    this.chat8 = new Chat({
+      owner: this.ivan,
+      owner2: this.horacio,
+      messageList: [this.message17],
+ 
+    })
+    this.chat9 = new Chat({
+      owner: this.ivan,
+      owner2: this.omar,
+      messageList: [this.message18],
+ 
+    })
+    this.chat10 = new Chat({
+      owner: this.ivan,
+      owner2: this.marcela,
+      messageList: [this.message19],
+ 
+    })
+    this.chat11 = new Chat({
+      owner: this.ivan,
+      owner2: this.ana,
+      messageList: [this.message20],
  
     })
 
@@ -1010,7 +1052,12 @@ export class Bootstrap {
       this.chat2,
       this.chat3,
       this.chat4,
-      this.chat5
+      this.chat6,
+      this.chat7,
+      this.chat8,
+      this.chat9,
+      this.chat10,
+      this.chat11
     ])
   }
 
@@ -1043,7 +1090,7 @@ export class Bootstrap {
     })
 
     this.message4 = new Message({
-      sender: this.laura,
+      sender: this.pedro,
       adressee: this.ivan,
       chat: this.chat2,
       body: 'Lo quiero adoptar. te puedo mandar mensaje?',
@@ -1053,7 +1100,7 @@ export class Bootstrap {
 
     this.message5 = new Message({
       sender: this.ivan,
-      adressee: this.laura,
+      adressee: this.pedro,
       chat: this.chat2,
       body: 'Mira al final como nadie lo reclamo me lo quedé. Gracias igual.',
       read:false,
@@ -1061,39 +1108,151 @@ export class Bootstrap {
     })
 
     this.message6 = new Message({
-      sender: this.pablo,
-      adressee: this.mariano,
+      sender: this.pedro,
+      adressee: this.ivan,
       chat: this.chat3,
-      body: 'Hola, como puedo comprobar que es mi perro? ',
-     
+      body: 'Uh. Bueno, me alegro mucho. ',
+      read:true,
     })
 
     this.message7 = new Message({
-      sender: this.mariano,
-      adressee: this.pablo,
+      sender: this.laura,
+      adressee: this.ivan,
       chat: this.chat3,
-      body: 'Mira, este perrito tiene una caracteristica que no cualquiera lo tiene decime cual es y ahi definimos si es tu perro ',
-  
+      body: 'Hola, me decís si tiene una mancha negra en la pata derecha?',
+      read:true,
       
     })
 
     this.message8 = new Message({
-      sender: this.horacio,
-      adressee: this.mariano,
-      chat: this.chat4,
-      body: 'Hola. Lo quiero adoptar. Te puedo llamar?',
+      sender: this.ivan,
+      adressee: this.laura,
+      chat: this.chat3,
+      body: 'Hola. No, no tiene una mancha',
       read:true,
     
     })
 
     this.message9 = new Message({
-      sender: this.mariano,
-      adressee: this.horacio,
-      chat: this.chat4,
-      body: 'Mira, estoy buscando su dueño. De no aparecer nadie te paso mi celular para coordinar. ',
+      sender: this.laura,
+      adressee: this.ivan,
+      chat: this.chat3,
+      body: 'Ok, seguiré buscando entonces. Gracias! ',
       read:true,
  
     })
+   
+    this.message10 = new Message({
+      sender: this.pablo,
+      adressee: this.ivan,
+      chat: this.chat4,
+      body: 'Hola. yo perdí uno igual. Lo puedo ir a ver a ver si es mi perro?',
+      read:true,
+ 
+    })
+
+    
+    this.message11 = new Message({
+      sender: this.ivan,
+      adressee: this.pablo,
+      chat: this.chat4,
+      body: 'Hola. Sí como no, te paso mi dirección: Masiano castex 2332, San Martín',
+      read:true,
+ 
+    })
+
+    
+    this.message12 = new Message({
+      sender: this.pablo,
+      adressee: this.ivan,
+      chat: this.chat4,
+      body: 'Dale, vos estas este sabado? ',
+      read:false,
+ 
+    })
+
+    
+    this.message13 = new Message({
+      sender: this.mariano,
+      adressee: this.ivan,
+      chat: this.chat5,
+      body: 'Hola. Responde a nombre de rocco? ',
+      read:true,
+ 
+    })
+    this.message14 = new Message({
+      sender: this.estefania,
+      adressee: this.ivan,
+      chat: this.chat6,
+      body: 'Hola.Me gustaría adoptarlo ',
+      read:true,
+ 
+    })
+
+    this.message15 = new Message({
+      sender: this.ivan,
+      adressee: this.estefania,
+      chat: this.chat6,
+      body: 'Hola Estefanía. lo estoy dando en adopción con compromiso de castración y seguimiento. Aun te interesa? ',
+      read:true,
+ 
+    })
+
+    this.message16 = new Message({
+      sender: this.gabriel,
+      adressee: this.ivan,
+      chat: this.chat7,
+      body: 'Hola flaco. Sabes que perdí un perro igual? Lo puedo ir a buscar? ',
+      read:true,
+ 
+    })
+
+    
+    this.message17 = new Message({
+      sender: this.horacio,
+      adressee: this.ivan,
+      chat: this.chat8,
+      body: 'Hola. Quisiera adoptarlo. Yo vivo cerca, puedo pasar a verlo a ver si me acepta.',
+      read:true,
+ 
+    })
+    
+
+    this.message18 = new Message({
+      sender: this.omar,
+      adressee: this.ivan,
+      chat: this.chat9,
+      body: 'Hola. Lo puedo ir a ver?',
+      read:true,
+ 
+    })
+
+    this.message19 = new Message({
+      sender: this.marcela,
+      adressee: this.ivan,
+      chat: this.chat10,
+      body: 'Encontraste al dueño?',
+      read:true,
+ 
+    })
+
+    this.message20 = new Message({
+      sender: this.ana,
+      adressee: this.ivan,
+      chat: this.chat11,
+      body: 'Hola. Me avisas si tiene una manchita en la oreja?',
+      read:true,
+ 
+    })
+
+
+
+
+
+
+
+
+
     await getRepository(Message).save([
       this.message1,
       this.message2,
@@ -1103,7 +1262,11 @@ export class Bootstrap {
       this.message6,
       this.message7,
       this.message8,
-      this.message9
+      this.message9,
+      this.message10,
+      this.message11,
+      this.message12,
+      this.message13
     ])
   }
 }
