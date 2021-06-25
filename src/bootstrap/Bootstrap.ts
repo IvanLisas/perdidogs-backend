@@ -42,6 +42,8 @@ export class Bootstrap {
   yorkshire!: Breed
   corgie!: Breed
   dalmata!: Breed
+  golden!: Breed
+  labrador!:Breed
   blanco!: Color
   negro!: Color
   beige!: Color
@@ -287,9 +289,11 @@ export class Bootstrap {
     this.barbincho = new Breed({ description: 'Barbincho' })
     this.ovejeroBelga = new Breed({ description: 'Ovejero Belga' })
     this.galgo = new Breed({ description: 'Galgo' })
-    this.yorkshire = new Breed({ description: 'mediano' })
-    this.corgie = new Breed({ description: 'Yorkshire' })
+    this.yorkshire = new Breed({ description: 'Yorkshire' })
+    this.corgie = new Breed({ description: 'Corgie' })
     this.dalmata = new Breed({ description: 'Dalmata' })
+    this.golden = new Breed({ description: 'Golden' })
+    this.labrador= new Breed({description: 'Labrador'})
     await getRepository(Breed).save([
       this.sinRaza,
       this.borderCollie,
