@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinColumn } from 'typeorm'
 import { Chat } from './Chat'
+import { Comment } from './Comment'
 import { Post } from './Post'
 import { Rol } from './Rol'
 
@@ -42,6 +43,8 @@ export class User {
   @OneToMany(() => Chat, (chat) => chat.Id)
   chat!: Chat[]
 
+  @OneToMany(() => Comment, (comment) => comment.Id)
+  comments?: Comment[]
   // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
   // userStatus!: UserStatus
 

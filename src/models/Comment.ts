@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Post } from './Post'
+import { User } from './User'
 
 @Entity()
 export class Comment {
@@ -8,7 +9,7 @@ export class Comment {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @Column({ type: 'varchar'})
   text!: string
@@ -18,6 +19,9 @@ export class Comment {
 
   @ManyToOne(() => Post, (post) => post.Id)
   post!: Post
+
+  @ManyToOne(() => User, (user) => user.Id)
+  author!: User
 
   static fromJson(PictureJson: string): Comment {
     return Object.assign(new Comment(), PictureJson)
