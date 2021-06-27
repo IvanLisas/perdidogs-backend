@@ -24,14 +24,10 @@ export class Post {
   creationDate!: Date
 
   @ManyToOne(() => User, (user) => user.Id, { nullable: false })
-  @JoinColumn()
   owner!: User
 
   @CreateDateColumn()
   endDate!: Date
-
-  // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
-  // status!:PostStatus
 
   @OneToMany(() => Picture, (picture) => picture.post, { nullable: true, cascade: true })
   pictures?: Picture[]
@@ -51,16 +47,12 @@ export class Post {
   @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  /* 
-  validate() {
-    if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
-      throw 'Publicacion inválida'
-    } */
-  //}
-
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)
   }
+
+  // @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, {nullable: false})
+  // status!:PostStatus
 
   // static fromJson(postJson: any) {
   //   return Object.assign(new Post(), postJson, {
@@ -70,4 +62,11 @@ export class Post {
   //   user: postJson.user ? User.fromJson(postJson.user) : null,
   //   status: postJson.status ? PostStatus.fromJson(postJson.status) : null,
   // })}
+
+    /* 
+  validate() {
+    if (!this.description || !this.creationDate || !this.endDate || !this.pet) {
+      throw 'Publicacion inválida'
+    } */
+  //}
 }
