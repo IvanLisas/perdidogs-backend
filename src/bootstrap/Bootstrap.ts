@@ -17,6 +17,7 @@ import { Comment } from '../models/Comment'
 import { Chat } from '../models/Chat'
 import { Message } from '../models/Message'
 import bcrypt, { hash } from 'bcrypt'
+import { Alert } from '../models/Alert'
 
 export class Bootstrap {
   // activo!: PostStatus
@@ -419,7 +420,8 @@ export class Bootstrap {
     owner2: this.mariano,
     messageList: [this.message8, this.message9]
   })
-
+//------------------------------------------------------------------------------------------------------------------------------
+  alertaGabrielPerro1!:Alert
   // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
@@ -439,6 +441,7 @@ export class Bootstrap {
     await this.createComments()
     await this.createChats()
     await this.createMessages()
+    await this.createAlerts()
     }
   }
 
@@ -799,6 +802,11 @@ export class Bootstrap {
       this.comentario31
     ])
   }
+  async createAlerts(): Promise<void> {
+    this.alertaGabrielPerro1= new Alert({owner:this.gabriel,pet: this.perro1,location: this.location_0001})
+    console.log('******************************Creando Alertas*********************************')
+    await getRepository(Alert).save([this.alertaGabrielPerro1])
+  }
 
   async createChats(): Promise<void> {
     console.log('******************************Creando Chats*********************************')
@@ -926,6 +934,7 @@ export class Bootstrap {
       this.message13
     ])
   }
+  
 }
 const bootstrap = new Bootstrap()
 export default bootstrap

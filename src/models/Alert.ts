@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToMany, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Location } from './Location'
+import { Pet } from './Pet'
+import { User } from './User'
 
 @Entity()
 export class Alert {
@@ -9,17 +12,16 @@ export class Alert {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column()
-  x1!: number
+  @ManyToOne(() => User, (user) => user.Id, { nullable: false })
+  owner!:User
 
-  @Column()
-  x2!: number
+  @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
+  @JoinColumn()
+  pet!:Pet
 
-  @Column()
-  y1!: number
-
-  @Column()
-  y2!: number
+  @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
+  @JoinColumn()
+  location?: Location
 
   @CreateDateColumn()
   creationDate!: Date
@@ -28,9 +30,4 @@ export class Alert {
     return Object.assign(new Alert(), AlertJson)
   }
 
-  validate() {
-    if (!this.x1 || !this.x2 || !this.y1 || !this.y2) {
-      throw 'Coordenadas inválidas'
-    }
-  }
 }

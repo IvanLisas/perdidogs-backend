@@ -1,4 +1,4 @@
-import { Between, Entity, getRepository, In, getManager, FindOperator } from 'typeorm'
+import { Between, Entity, getRepository, In, } from 'typeorm'
 import { Point } from '../models/LatLang'
 
 import { Post } from '../models/Post'

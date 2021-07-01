@@ -29,6 +29,9 @@ export class Pet {
   @ManyToOne(() => Size, (size) => size.Id)
   size!: Size
 
+  @Column({ type: 'boolean', default: true })
+  isActive!: boolean
+
   validate() {
     if (!this.Id || !this.name || !this.sex || !this.hasCollar) {
       throw 'Mascota inválida'
