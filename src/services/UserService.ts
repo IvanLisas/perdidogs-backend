@@ -2,6 +2,7 @@ import { User } from '../models/User'
 import { getRepository } from 'typeorm'
 import bcrypt, { hash } from 'bcrypt'
 import { EmailService } from './EmailService'
+import { Bootstrap } from '../bootstrap/Bootstrap'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
@@ -52,7 +53,7 @@ class UserService {
   }
 
   async delete(user: User): Promise<User> {
-    user.isActive = false
+    user.userStatus = Bootstrap.userStatusActivo
     return await getRepository(User).save(user)
   }
 

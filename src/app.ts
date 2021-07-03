@@ -21,6 +21,8 @@ import { User } from './models/User'
 import dropDownRoutes from './routes/DropDownRoutes'
 import { Comment } from './models/Comment'
 import commentRoutes from './routes/CommentRoutes'
+import { UserStatus } from './models/UserStatus'
+import { PostStatus } from './models/PostStatus'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -35,7 +37,7 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment],
+  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus],
   synchronize: true,
   logging: false,
   dropSchema: true

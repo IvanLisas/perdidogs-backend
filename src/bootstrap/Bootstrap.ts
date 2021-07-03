@@ -18,8 +18,13 @@ import { Chat } from '../models/Chat'
 import { Message } from '../models/Message'
 import bcrypt, { hash } from 'bcrypt'
 import { Alert } from '../models/Alert'
+import { UserStatus } from '../models/UserStatus'
+import { PostStatus } from '../models/PostStatus'
 
 export class Bootstrap {
+  static userStatusActivo = new UserStatus({ description: 'Activo' })
+  static userStatusInActivo = new UserStatus({ description: 'Inactivo' })
+
   // activo!: PostStatus
   // pendiente!: PostStatus
   // cancelada!: PostStatus
@@ -63,7 +68,7 @@ export class Bootstrap {
   pelaje2 = new Fur({ color: this.negro, length: this.largo })
   pelaje3 = new Fur({ color: this.beige, length: this.largo })
   pelaje4 = new Fur({ color: this.gris, length: this.largo })
-    
+
   //----------------------USUARIOS-----------------------------------------------
   estefania!: User
   gabriel!: User
@@ -75,7 +80,7 @@ export class Bootstrap {
   pedro!: User
   omar!: User
 
-//-----------------------LOCATION---------------------------------------------------------------------------------
+  //-----------------------LOCATION---------------------------------------------------------------------------------
   location_0001 = new Location({ lat: -34.600585579493, long: -58.5127015868307 })
   location_0002 = new Location({ lat: -34.6275450762093, long: -58.4095720793038 })
   location_0003 = new Location({ lat: -34.5656755865268, long: -58.4701920657306 })
@@ -97,14 +102,13 @@ export class Bootstrap {
   location_0019 = new Location({ lat: -34.6210862925472, long: -58.4099333582122 })
   location_0020 = new Location({ lat: -34.6654628899305, long: -58.4720827828095 })
 
-
   //----------------------------FOTOS------------------------------------------------
   picture_0001 = new Picture({ url: 'https://www.ecestaticos.com/image/clipping/7a6b6e93f92f61a94fd9d269e8ffd237/tu-perro-es-un-privilegiado-el-70-de-sus-congeneres-vive-en-la-calle.jpg' })
   picture_0002 = new Picture({ url: 'https://revista.weepec.com/wp-content/uploads/2017/07/perro-de-la-calle-01.jpg' })
   picture_0003 = new Picture({ url: 'https://t2.ea.ltmcdn.com/es/images/7/2/4/img_cuanto_vive_un_perro_callejero_22427_paso_1_600.jpg' })
   picture_0004 = new Picture({ url: 'http://1.bp.blogspot.com/-fPPi-wskwjg/TiUEi2UqGTI/AAAAAAAAB4k/wjLNydAjDF0/s1600/Barbincho.jpg' })
   picture_0005 = new Picture({ url: 'https://c8.alamy.com/compes/t87pa8/el-aspecto-de-un-perro-callejero-triste-solitario-perro-en-la-calle-abrigo-sucio-y-humedo-el-animal-esta-buscando-su-dueno-t87pa8.jpg' })
-  picture_0006 = new Picture({ url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg'})
+  picture_0006 = new Picture({ url: 'https://thumbs.dreamstime.com/b/un-perro-perdido-est%C3%A1-buscando-su-due%C3%B1o-sucio-y-mojado-blanco-el-animal-mira-con-una-mirada-triste-la-gente-de-paso-primer-148175857.jpg' })
   picture_0007 = new Picture({ url: 'https://pbs.twimg.com/media/BvfgPU3CcAAGkxu.jpg' })
   picture_0008 = new Picture({ url: 'https://pbs.twimg.com/media/DnLSyPwW0AAELDv.jpg' })
   picture_0009 = new Picture({ url: 'https://www.elsiglodetorreon.com.mx/m/i/2020/05/1306610.jpeg' })
@@ -152,7 +156,7 @@ export class Bootstrap {
 
   rolGenerico!: Rol
   rolReestricto!: Rol
-  
+
   post0001!: Post
   post0002!: Post
   post0003!: Post
@@ -201,7 +205,7 @@ export class Bootstrap {
     text: 'Se lleva bien con otros perros?',
     creation: new Date('2021-01-20T18:31:01.456Z'),
     post: this.post0001
-  })  
+  })
   comentario5 = new Comment({
     owner: this.horacio,
     text: 'Lo quiero adoptar. Como te contacto?',
@@ -369,7 +373,7 @@ export class Bootstrap {
     post: this.post0001
   })
 
-//-----------------MENSAJES-----------------------------------------------------------------------------
+  //-----------------MENSAJES-----------------------------------------------------------------------------
   message1!: Message
   message2!: Message
   message3!: Message
@@ -420,31 +424,48 @@ export class Bootstrap {
     owner2: this.mariano,
     messageList: [this.message8, this.message9]
   })
-//------------------------------------------------------------------------------------------------------------------------------
-  alertaGabrielPerro1!:Alert
+  //------------------------------------------------------------------------------------------------------------------------------
+  alertaGabrielPerro1!: Alert
   // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
 
   async run(): Promise<void> {
-    if((await getRepository(Color).find()).length==0){
-    await this.createColors()
-    await this.createSizes()
-    await this.createLengths()
-    await this.createFurs()
-    await this.createBreed()
-    await this.createLocations()
-    await this.createPictures()
-    await this.createUsers()
-    await this.createDogs()
-    await this.createPosts()
-    await this.createComments()
-    await this.createChats()
-    await this.createMessages()
-    await this.createAlerts()
+    if ((await getRepository(Color).find()).length == 0) {
+      await this.createUserStatus()
+      await this.createPostStatus()
+      await this.createColors()
+      await this.createSizes()
+      await this.createLengths()
+      await this.createFurs()
+      await this.createBreed()
+      await this.createLocations()
+      await this.createPictures()
+      await this.createUsers()
+      await this.createDogs()
+      await this.createPosts()
+      await this.createComments()
+      await this.createChats()
+      await this.createMessages()
+      await this.createAlerts()
     }
   }
 
+  //UserStatus
+  async createUserStatus(): Promise<void> {
+    console.log('******************************Creando User Status***************************************')
+    Bootstrap.userStatusActivo = new UserStatus({ description: 'Activo' })
+    Bootstrap.userStatusInActivo = new UserStatus({ description: 'Inactivo' })
+    await getRepository(UserStatus).save([Bootstrap.userStatusActivo, Bootstrap.userStatusInActivo])
+
+  }
+
+    //UserStatus
+    async createPostStatus(): Promise<void> {
+      console.log('******************************Creando Post Status***************************************')
+      //await getRepository(PostStatus).save([Bootstrap.userStatusActivo, Bootstrap.userStatusInActivo])
+    }
+  
   //Colors
   async createColors(): Promise<void> {
     console.log('******************************Creando Colores***************************************')
@@ -496,9 +517,27 @@ export class Bootstrap {
     // const color9 = await getRepository(Color)
     //cuando hago fur voy a tener que hacer fur:: marron
 
-      await getRepository(Pet).save([this.perro1,this.perro2,this.perro3,this.perro4,this.perro7,
-        this.perro6,this.perro5,this.perro8,this.perro9,this.perro10,this.perro11,this.perro12,
-        this.perro13,this.perro14,this.perro15,this.perro16,this.perro17,this.perro18,this.perro19,this.perro20
+    await getRepository(Pet).save([
+      this.perro1,
+      this.perro2,
+      this.perro3,
+      this.perro4,
+      this.perro7,
+      this.perro6,
+      this.perro5,
+      this.perro8,
+      this.perro9,
+      this.perro10,
+      this.perro11,
+      this.perro12,
+      this.perro13,
+      this.perro14,
+      this.perro15,
+      this.perro16,
+      this.perro17,
+      this.perro18,
+      this.perro19,
+      this.perro20
     ])
   }
 
@@ -513,7 +552,7 @@ export class Bootstrap {
       lastName: 'Di Pietro',
       email: 'estefaniadipietro@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
     })
     this.mariano = new User({
@@ -521,7 +560,7 @@ export class Bootstrap {
       lastName: 'Bottazzi',
       email: 'bottazzimariano@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
       //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
     })
@@ -530,7 +569,7 @@ export class Bootstrap {
       lastName: 'Loy',
       email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
       //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
     })
@@ -539,7 +578,7 @@ export class Bootstrap {
       lastName: 'Lisas',
       email: 'ivanelisas@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
       //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
     })
@@ -549,7 +588,7 @@ export class Bootstrap {
       lastName: 'Ibañez',
       email: 'lauritaIbañez1982@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
       //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
     })
@@ -558,7 +597,7 @@ export class Bootstrap {
       lastName: 'Ramos',
       email: 'hramos@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
       // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
     })
@@ -567,7 +606,7 @@ export class Bootstrap {
       lastName: 'Rimolo',
       email: 'primlo1988@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
       //  comments: []
     })
@@ -576,7 +615,7 @@ export class Bootstrap {
       lastName: 'Paredes',
       email: 'pedrin12721@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
       //  comments: []
     })
@@ -586,7 +625,7 @@ export class Bootstrap {
       lastName: 'Gili',
       email: 'giliOmar@gmail.com',
       password: await this.hashPassword('12345678'),
-      isActive: true,
+      userStatus: Bootstrap.userStatusActivo,
       avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
       // comments:[]
     })
@@ -596,7 +635,7 @@ export class Bootstrap {
   //location
   async createLocations(): Promise<void> {
     console.log('******************************Creando Localizaciones********************************')
-    
+
     await getRepository(Location).save([
       this.location_0001,
       this.location_0002,
@@ -748,22 +787,9 @@ export class Bootstrap {
       location: this.location_0012,
       pet: this.perro14,
       owner: this.ivan,
-      creationDate: new Date('2021-06-20T13:31:01.456Z'),
+      creationDate: new Date('2021-06-20T13:31:01.456Z')
     })
-    await getRepository(Post).save([
-      this.post0001,
-      this.post0002,
-      this.post0003,
-      this.post0004,
-      this.post0005,
-      this.post0006,
-      this.post0007,
-      this.post0008,
-      this.post0009,
-      this.post0010,
-      this.post0011,
-      this.post0012
-    ])
+    await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])
   }
 
   async createComments(): Promise<void> {
@@ -803,7 +829,7 @@ export class Bootstrap {
     ])
   }
   async createAlerts(): Promise<void> {
-    this.alertaGabrielPerro1= new Alert({owner:this.gabriel,pet: this.perro1,location: this.location_0001})
+    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001 })
     console.log('******************************Creando Alertas*********************************')
     await getRepository(Alert).save([this.alertaGabrielPerro1])
   }
@@ -934,7 +960,6 @@ export class Bootstrap {
       this.message13
     ])
   }
-  
 }
 const bootstrap = new Bootstrap()
 export default bootstrap

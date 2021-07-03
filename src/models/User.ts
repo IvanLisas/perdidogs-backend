@@ -3,6 +3,7 @@ import { Chat } from './Chat'
 import { Comment } from './Comment'
 import { Post } from './Post'
 import { Rol } from './Rol'
+import { UserStatus } from './UserStatus'
 
 @Entity()
 export class User {
@@ -13,13 +14,11 @@ export class User {
   @PrimaryGeneratedColumn()
   Id!: number
 
-
   @Column({ type: 'varchar' })
   firstName!: string | null
 
   @Column({ type: 'varchar' })
   lastName!: string
-
 
   @OneToMany(() => Post, (post) => post.owner, { nullable: false })
   @JoinColumn()
@@ -31,10 +30,7 @@ export class User {
   /*   @Column({ type: 'varchar' })
   birthdate!: Date */
 
-  @Column({ type: 'boolean', default: true })
-  isActive!: boolean
-
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   password!: string
 
   @ManyToOne(() => Rol, (rol) => rol.Id)
@@ -45,14 +41,17 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.Id)
   comments!: Comment[]
-  // @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
-  // userStatus!: UserStatus
+
+  @ManyToOne(() => UserStatus, (userStatus) => userStatus.Id)
+  userStatus!: UserStatus
+
+  @OneToMany(() => User, (user: User) => user)
+  users?: User[]
 
   @CreateDateColumn()
   creationDate!: Date
 
-  
-  @Column({type: 'varchar'})
+  @Column({ type: 'varchar' })
   avatar!: string
 
   static fromJson(UserJson: string): User {
