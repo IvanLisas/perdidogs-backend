@@ -22,8 +22,12 @@ import { UserStatus } from '../models/UserStatus'
 import { PostStatus } from '../models/PostStatus'
 
 export class Bootstrap {
+  //----------------------------ESTADOS DE USUARIOS----------------------------------------------
   static userStatusActivo = new UserStatus({ description: 'Activo' })
   static userStatusInActivo = new UserStatus({ description: 'Inactivo' })
+  //----------------------------ESTADOS DE POSTS----------------------------------------------
+  static postActivo = new PostStatus({ description: 'Activo' })
+  static postInactivo = new UserStatus({ description: 'Inactivo' })
 
   // activo!: PostStatus
   // pendiente!: PostStatus
@@ -186,7 +190,7 @@ export class Bootstrap {
     owner: this.pedro,
     text: 'Lo retuviste?',
     creation: new Date('2021-01-20T17:31:01.456Z'),
-    post: this.post0001
+    post: this.post0001,
   })
   comentario2 = new Comment({
     owner: this.estefania,
@@ -463,7 +467,9 @@ export class Bootstrap {
     //UserStatus
     async createPostStatus(): Promise<void> {
       console.log('******************************Creando Post Status***************************************')
-      //await getRepository(PostStatus).save([Bootstrap.userStatusActivo, Bootstrap.userStatusInActivo])
+      Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
+      Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
+      await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
     }
   
   //Colors
@@ -700,6 +706,7 @@ export class Bootstrap {
       pet: this.perro1,
       creationDate: new Date('2021-06-20T04:34:01.456Z'),
       owner: this.estefania,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0001]
     })
     this.post0002 = new Post({
@@ -708,12 +715,14 @@ export class Bootstrap {
       pet: this.perro2,
       creationDate: new Date('2021-01-20T15:55:01.456Z'),
       owner: this.gabriel,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     })
     this.post0003 = new Post({
       description: 'Perro negro, tenía collar rojo sin placa y correa. Está siguiendo a cualquier persona que pasa. Lo retuve en casa hasta dar con sus dueños.',
       location: this.location_0003,
       pet: this.perro3,
+      postStatus: Bootstrap.postActivo,
       creationDate: new Date('2021-07-20T19:31:01.456Z'),
 
       pictures: [this.picture_0007, this.picture_0008, this.picture_0009],
@@ -725,6 +734,7 @@ export class Bootstrap {
       pet: this.perro4,
       creationDate: new Date('2021-01-20T14:31:01.456Z'),
       owner: this.mariano,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0010, this.picture_0011, this.picture_0012]
     })
     this.post0005 = new Post({
@@ -733,6 +743,7 @@ export class Bootstrap {
       pet: this.perro5,
       creationDate: new Date('2021-01-20T18:31:01.456Z'),
       owner: this.estefania,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0013, this.picture_0014, this.picture_0015]
     })
     this.post0006 = new Post({
@@ -741,6 +752,7 @@ export class Bootstrap {
       pet: this.perro7,
       creationDate: new Date('2021-01-20T17:31:01.456Z'),
       owner: this.estefania,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0016, this.picture_0017, this.picture_0018]
     })
     this.post0007 = new Post({
@@ -749,6 +761,7 @@ export class Bootstrap {
       pet: this.perro8,
       owner: this.estefania,
       creationDate: new Date('2021-03-20T17:31:01.456Z'),
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0019, this.picture_0020]
     })
     this.post0008 = new Post({
@@ -757,6 +770,7 @@ export class Bootstrap {
       pet: this.perro11,
       creationDate: new Date('2020-03-20T17:31:01.456Z'),
       owner: this.ivan,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0021, this.picture_0022]
     })
     this.post0009 = new Post({
@@ -764,6 +778,7 @@ export class Bootstrap {
       location: this.location_0009,
       pet: this.perro10,
       owner: this.mariano,
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0023, this.picture_0024, this.picture_0025]
     })
     this.post0010 = new Post({
@@ -772,6 +787,7 @@ export class Bootstrap {
       pet: this.perro12,
       owner: this.gabriel,
       creationDate: new Date('2021-06-20T11:31:01.456Z'),
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0002]
     })
     this.post0011 = new Post({
@@ -780,6 +796,7 @@ export class Bootstrap {
       pet: this.perro13,
       owner: this.mariano,
       creationDate: new Date('2020-12-20T23:31:01.456Z'),
+      postStatus: Bootstrap.postActivo,
       pictures: [this.picture_0003]
     })
     this.post0012 = new Post({
@@ -787,6 +804,7 @@ export class Bootstrap {
       location: this.location_0012,
       pet: this.perro14,
       owner: this.ivan,
+      postStatus: Bootstrap.postActivo,
       creationDate: new Date('2021-06-20T13:31:01.456Z')
     })
     await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])

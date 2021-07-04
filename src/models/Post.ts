@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn, ManyToMany } from 'typeorm'
 import { Comment } from './Comment'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { Picture } from './Picture'
+import { PostStatus } from './PostStatus'
 import { User } from './User'
 
 @Entity()
@@ -44,8 +45,8 @@ export class Post {
   @JoinColumn()
   pet!: Pet
 
-  @Column({ type: 'boolean', default: true })
-  isActive!: boolean
+  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, { nullable: false })
+  postStatus!:PostStatus
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)

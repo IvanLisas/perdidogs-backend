@@ -1,4 +1,5 @@
- import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm'
+ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinColumn } from 'typeorm'
+import { Post } from './Post'
 import { User } from './User'
 
  @Entity()
@@ -10,6 +11,10 @@ import { User } from './User'
     @PrimaryGeneratedColumn() Id!: number
 
     @Column({ type: 'varchar' }) description!: string
+
+    @OneToMany(() => Post, (post) => post.postStatus)
+    @JoinColumn()
+    posts?: Post[]
 
     @CreateDateColumn() creation!: Date
  
