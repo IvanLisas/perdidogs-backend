@@ -1,4 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToMany, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import bootstrap, { Bootstrap } from '../bootstrap/Bootstrap'
+import { AlertStatus } from './AlertStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { User } from './User'
@@ -25,6 +27,10 @@ export class Alert {
 
   @CreateDateColumn()
   creationDate!: Date
+
+  
+  @ManyToOne(() => AlertStatus, (alertStatus) => alertStatus.Id)
+  alertStatus?:AlertStatus
 
   static fromJson(AlertJson: string): Alert {
     return Object.assign(new Alert(), AlertJson)
