@@ -1,19 +1,29 @@
-import { Column, Entity,  PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity,  JoinColumn,  OneToMany,  PrimaryGeneratedColumn } from 'typeorm'
+import { Alert } from './Alert'
 
 @Entity()
-export class Alert {
-  constructor(init?: Partial<Alert>) {
+export class AlertStatus {
+  constructor(init?: Partial<AlertStatus>) {
     Object.assign(this, init)
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @Column({ type: 'varchar', default: '' })
   description!: string
 
-  static fromJson(AlertJson: string): Alert {
-    return Object.assign(new Alert(), AlertJson)
+  @OneToMany(() => Alert, (alert) => alert.alertStatus)
+  @JoinColumn()
+  alerts?: Alert[]
+
+  @CreateDateColumn() creation!: Date
+ 
+  @CreateDateColumn() endDate!: Date
+
+
+  static fromJson(AlertJson: string): AlertStatus {
+    return Object.assign(new AlertStatus(), AlertJson)
   }
 
 }

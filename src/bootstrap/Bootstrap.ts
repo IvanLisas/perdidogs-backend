@@ -20,6 +20,7 @@ import bcrypt, { hash } from 'bcrypt'
 import { Alert } from '../models/Alert'
 import { UserStatus } from '../models/UserStatus'
 import { PostStatus } from '../models/PostStatus'
+import { AlertStatus } from '../models/AlertStatus'
 
 export class Bootstrap {
   //----------------------------ESTADOS DE USUARIOS----------------------------------------------
@@ -28,7 +29,9 @@ export class Bootstrap {
   //----------------------------ESTADOS DE POSTS----------------------------------------------
   static postActivo = new PostStatus({ description: 'Activo' })
   static postInactivo = new UserStatus({ description: 'Inactivo' })
-
+  //----------------------------ESTADOS DE ALERTAS----------------------------------------------
+  static alertStatusActivo:AlertStatus
+  static alertStatusInActivo :AlertStatus
   // activo!: PostStatus
   // pendiente!: PostStatus
   // cancelada!: PostStatus
@@ -438,6 +441,7 @@ export class Bootstrap {
   async run(): Promise<void> {
     if ((await getRepository(Color).find()).length == 0) {
       await this.createUserStatus()
+      await this.createAlertStatus()
       await this.createPostStatus()
       await this.createColors()
       await this.createSizes()
@@ -465,12 +469,20 @@ export class Bootstrap {
 
   }
 
-    //UserStatus
+    //PostStatus
     async createPostStatus(): Promise<void> {
       console.log('******************************Creando Post Status***************************************')
       Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
       Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
       await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
+    }
+
+    //AlertStatus
+    async createAlertStatus(): Promise<void> {
+      console.log('******************************Creando Alert Status***************************************')
+      Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Activo' })
+      Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactivo' })
+      await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
     }
   
   //Colors
@@ -849,9 +861,10 @@ export class Bootstrap {
     ])
   }
   async createAlerts(): Promise<void> {
-    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001 })
+    console.log("ALERTA ACTIVA ", Bootstrap.alertStatusActivo)
+    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001, alertStatus:Bootstrap.alertStatusActivo })
     console.log('******************************Creando Alertas*********************************')
-    await getRepository(Alert).save([this.alertaGabrielPerro1])
+    //await getRepository(Alert).save([this.alertaGabrielPerro1])
   }
 
   async createChats(): Promise<void> {
