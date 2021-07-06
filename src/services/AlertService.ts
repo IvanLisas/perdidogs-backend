@@ -4,8 +4,7 @@ import userService from './UserService'
 
 class AlertService {
   async get(id: number): Promise<Alert[] | undefined> {
-    const user = userService.get(id)
-    if (user) return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { owner: user } })
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
 
   async create(alert: Alert): Promise<Alert> {
