@@ -20,6 +20,7 @@ import bcrypt, { hash } from 'bcrypt'
 import { Alert } from '../models/Alert'
 import { UserStatus } from '../models/UserStatus'
 import { PostStatus } from '../models/PostStatus'
+import { AlertStatus } from '../models/AlertStatus'
 
 export class Bootstrap {
   //----------------------------ESTADOS DE USUARIOS----------------------------------------------
@@ -28,7 +29,9 @@ export class Bootstrap {
   //----------------------------ESTADOS DE POSTS----------------------------------------------
   static postActivo = new PostStatus({ description: 'Activo' })
   static postInactivo = new UserStatus({ description: 'Inactivo' })
-
+  //----------------------------ESTADOS DE ALERTAS----------------------------------------------
+  static alertStatusActivo:AlertStatus
+  static alertStatusInActivo :AlertStatus
   // activo!: PostStatus
   // pendiente!: PostStatus
   // cancelada!: PostStatus
@@ -37,7 +40,7 @@ export class Bootstrap {
   //----------------------RAZAS-----------------------------------------------
   sinRaza = new Breed({ description: 'Sin Raza' })
   borderCollie = new Breed({ description: 'Border Collie' })
-  overjeroAleman = new Breed({ description: 'Overjero Aleman' })
+  overjeroAleman = new Breed({ description: 'Ovejero Aleman' })
   caniche = new Breed({ description: 'Caniche' })
   pastorIngles = new Breed({ description: 'Pastor Inglés' })
   chihuahua = new Breed({ description: 'Chihuaha' })
@@ -133,13 +136,14 @@ export class Bootstrap {
   picture_0024 = new Picture({ url: 'http://4.bp.blogspot.com/-T-596ClMxEs/UjOTzp39_JI/AAAAAAAAdV8/VsP-cuCoKyc/s1600/IMG_4553.JPG' })
   picture_0025 = new Picture({ url: 'http://3.bp.blogspot.com/-ldI6gHiByIQ/UjOTy80h2pI/AAAAAAAAdVs/Ce7Usv_HH8Q/s1600/IMG_4551.JPG' })
   picture_0026 = new Picture({ url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg' })
+  picture_0027 = new Picture ({url: 'https://s3-eu-west-1.amazonaws.com/barkibu-production/images/contents/000/023/240/original/uploads_2F1456934521386-va7sh1dz7gco9a4i-f348392e3c5e4537187730e873e7737d_2F145693446809792658303.jpg?1456934852'})
 
   //----------------------MASCOTAS-----------------------------------------------
   perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.grande })
   perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, fur: this.pelaje3, breed: this.barbincho, size: this.mediano })
   perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje2, breed: this.sinRaza, size: this.pequenio })
   perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.pequenio })
-  perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.overjeroAleman, size: this.grande })
+  perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.grande })
   perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, fur: this.pelaje3, breed: this.galgo, size: this.pequenio })
   perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje1, breed: this.caniche, size: this.grande })
   perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, fur: this.pelaje1, breed: this.sinRaza, size: this.grande })
@@ -437,6 +441,7 @@ export class Bootstrap {
   async run(): Promise<void> {
     if ((await getRepository(Color).find()).length == 0) {
       await this.createUserStatus()
+      await this.createAlertStatus()
       await this.createPostStatus()
       await this.createColors()
       await this.createSizes()
@@ -464,12 +469,20 @@ export class Bootstrap {
 
   }
 
-    //UserStatus
+    //PostStatus
     async createPostStatus(): Promise<void> {
       console.log('******************************Creando Post Status***************************************')
       Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
       Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
       await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
+    }
+
+    //AlertStatus
+    async createAlertStatus(): Promise<void> {
+      console.log('******************************Creando Alert Status***************************************')
+      Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Activo' })
+      Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactivo' })
+      await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
     }
   
   //Colors
@@ -805,7 +818,8 @@ export class Bootstrap {
       pet: this.perro14,
       owner: this.ivan,
       postStatus: Bootstrap.postActivo,
-      creationDate: new Date('2021-06-20T13:31:01.456Z')
+      creationDate: new Date('2021-06-20T13:31:01.456Z'),
+      pictures: [this.picture_0027]
     })
     await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])
   }
@@ -847,9 +861,10 @@ export class Bootstrap {
     ])
   }
   async createAlerts(): Promise<void> {
-    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001 })
+    console.log("ALERTA ACTIVA ", Bootstrap.alertStatusActivo)
+    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001, alertStatus:Bootstrap.alertStatusActivo })
     console.log('******************************Creando Alertas*********************************')
-    await getRepository(Alert).save([this.alertaGabrielPerro1])
+    //await getRepository(Alert).save([this.alertaGabrielPerro1])
   }
 
   async createChats(): Promise<void> {

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToMany, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { AlertStatus } from './AlertStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
 import { User } from './User'
@@ -10,14 +11,14 @@ export class Alert {
   }
 
   @PrimaryGeneratedColumn()
-  id!: number
+  Id!: number
 
   @ManyToOne(() => User, (user) => user.Id, { nullable: false })
-  owner!:User
+  owner!: User
 
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
   @JoinColumn()
-  pet!:Pet
+  pet!: Pet
 
   @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
   @JoinColumn()
@@ -26,8 +27,10 @@ export class Alert {
   @CreateDateColumn()
   creationDate!: Date
 
+  @ManyToOne(() => AlertStatus, (alertStatus) => alertStatus.Id)
+  alertStatus!: AlertStatus
+
   static fromJson(AlertJson: string): Alert {
     return Object.assign(new Alert(), AlertJson)
   }
-
 }
