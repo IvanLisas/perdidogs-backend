@@ -51,8 +51,8 @@ export class User {
   @CreateDateColumn()
   creationDate!: Date
 
-  @Column({ type: 'varchar' })
-  avatar!: string
+  @Column({ type: 'varchar', nullable: true })
+  avatar?: string
 
   static fromJson(UserJson: string): User {
     return Object.assign(new User(), UserJson)
