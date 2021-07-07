@@ -7,8 +7,8 @@ import { PostFilter } from '../models/PostFilter'
 const adminRoutes = Router()
 
 adminRoutes.put('/approve-user/:userId', async (req, res) => {
-  const id = parseInt(req.params.userId)
   try {
+    const id = parseInt(req.params.userId)
     const user = await userService.get(id)
     user.userStatus = Bootstrap.alertStatusInActivo
     res.json(await userService.update(user))
@@ -18,7 +18,7 @@ adminRoutes.put('/approve-user/:userId', async (req, res) => {
 
   adminRoutes.put('/filterPosts', async (req, res) => {
     try {
-      const filters= PostFilter.newFilter(req.body.breed, req.body.ownerEmail, req.body.createdFrom, req.body.createdTo, req.body.postStatus,req.body.userStatus);
+      const filters= PostFilter.newFilter(req.body.breed, req.body.ownerEmail, req.body.createdFrom, req.body.createdTo, req.body.status,req.body.userStatus);
       return res.json(await postService.getPostByAdminFilters(filters))
     } catch (error) {
       res.send(error.message)

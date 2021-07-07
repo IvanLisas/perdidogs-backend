@@ -7,15 +7,17 @@ export class PostFilter {
   ownerEmail?: string
   createdFrom?: Date
   createdTo?: Date
-  status?: number
+  postStatus?: number
+  userStatus?: number
 
-  static newFilter(_breed: number, _ownerEmail: string, _createdFrom: Date, _createdTo: Date, _status: number): PostFilter {
+  static newFilter(_breed: number, _ownerEmail: string, _createdFrom: Date, _createdTo: Date, _status: number,_userStatus:number): PostFilter {
     const filter = new PostFilter()
     filter.breed = _breed
     filter.ownerEmail = _ownerEmail
     filter.createdFrom = _createdFrom
     filter.createdTo = _createdTo
-    filter.status = _status
+    filter.postStatus = _status
+    filter.userStatus=_userStatus
     return filter
   }
 
