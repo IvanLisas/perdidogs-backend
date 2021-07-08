@@ -6,16 +6,20 @@ import { Bootstrap } from '../bootstrap/Bootstrap'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
-    const user = await getRepository(User).findOneOrFail({
-      relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
-      where: {
-        email: anEmail
-      }
-    })
+    try {
+      const user = await getRepository(User).findOneOrFail({
+        relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
+        where: {
+          email: anEmail
+        }
+      })
 
-    if (await bcrypt.compare(aPassword, user.password)) {
-      return user
-    } else throw new Error('contraseñas no coinciden')
+      if (await bcrypt.compare(aPassword, user.password)) {
+        return user
+      } else throw new Error()
+    } catch (error) {
+      throw new Error('El email o la contraseña no son validos')
+    }
   }
 
   async forgotPassword(email: string): Promise<any> {
