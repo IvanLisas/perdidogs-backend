@@ -65,8 +65,15 @@ class PostService {
   }
 
   async update(post: Post): Promise<Post | undefined> {
+    if(post.postStatus.Id ===1){
     return await getRepository(Post).save(post)
+    }else {
+      post.postStatus.Id ==2
+      post.postStatus.description=="Inactivo"
+    }
   }
+
+
   //function (location,r)
   //x > location.x -r && x < location.x + r
   //y > location.y - r && y <location.y +r
@@ -185,13 +192,15 @@ class PostService {
     } else {
       return posts
     }
-
-
-
-
-
   }
 
+  async getPostsByStatus(postsStatus: number): Promise<Post[] >{
+
+    return await getRepository(Post).find ({
+      relations: [ 'postStatus'],
+      where: {  postStatus : postsStatus }
+    })
+}
 
 
 }

@@ -49,11 +49,13 @@ class UserService {
   }
 
   async update(user: User): Promise<User> {
-    return await getRepository(User).save(user)
+     
+      return await getRepository(User).save(user)
+  
   }
 
   async delete(user: User): Promise<User> {
-    user.userStatus = Bootstrap.userStatusActivo
+    user.userStatus = Bootstrap.userStatusInActivo
     return await getRepository(User).save(user)
   }
 
@@ -79,6 +81,15 @@ class UserService {
       return await getRepository(User).save(user)
     } else throw new Error('las passwords no son iguales')
   }
+
+  async getUsersByStatus(userStatus: number): Promise<User[] >{
+
+    return await getRepository(User).find ({
+      relations: [ 'userStatus'],
+      where: {  userStatus : userStatus }
+    })
+}
+
 }
 
 const userService = new UserService()
