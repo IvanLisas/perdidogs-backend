@@ -1,4 +1,4 @@
-import { Between, Entity, getRepository, In, } from 'typeorm'
+import { Between, Entity, getRepository, In } from 'typeorm'
 import { Point } from '../models/LatLang'
 
 import { Post } from '../models/Post'
@@ -10,8 +10,7 @@ import { Pet } from '../models/Pet'
 import { PostFilter } from '../admin-module/models/PostFilter'
 @Entity()
 class PostService {
-
-  relations= ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
+  relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
 
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.myLocation != null && filter.delta != null) {
@@ -37,7 +36,6 @@ class PostService {
     }
   }
 
-
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
@@ -46,8 +44,8 @@ class PostService {
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: this.relations,
-      where: { isActive: true }
+      relations: this.relations /* ,
+      where: { isActive: true } */
     })
   }
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
@@ -137,12 +135,12 @@ class PostService {
 
   async getPostByAdminFilters(filter: PostFilter): Promise<Post[] | undefined> {
     if (filter != null) {
-      const posts = (await (getRepository(Post).find()))
+      const posts = await getRepository(Post).find()
       if (posts != null) {
         const postIds = this.getFilteredPostByAdminFilters(posts, filter)?.map((x) => x.Id)
         console.log('Posts despues DE FILTRAR', postIds?.length)
         return await getRepository(Post).find({
-          relations:this.relations,
+          relations: this.relations,
           where: {
             Id: In(postIds)
           }
@@ -164,20 +162,20 @@ class PostService {
       if (filtro.ownerEmail !== undefined && filtro.ownerEmail !== null && posts.length > 0) {
         posts = posts.filter((x) => x.owner.email == filtro.ownerEmail)
       }
-      if (filtro !== undefined && filtro.createdFrom !== undefined&& filtro.createdFrom !== null && posts.length > 0) {
+      if (filtro !== undefined && filtro.createdFrom !== undefined && filtro.createdFrom !== null && posts.length > 0) {
         const createdFrom = filtro.createdFrom
         posts = posts.filter((x) => x.creationDate >= createdFrom)
       }
-      if (filtro !== undefined && filtro.createdTo !== undefined&& filtro.createdTo !== null && posts.length > 0) {
+      if (filtro !== undefined && filtro.createdTo !== undefined && filtro.createdTo !== null && posts.length > 0) {
         const createdTo = filtro.createdTo
         posts = posts.filter((x) => x.creationDate >= createdTo)
       }
 
-      if (filtro !== undefined && filtro.postStatus !== undefined&& filtro.postStatus !== null && posts.length > 0) {
+      if (filtro !== undefined && filtro.postStatus !== undefined && filtro.postStatus !== null && posts.length > 0) {
         posts = posts.filter((x) => x.postStatus.Id == filtro.postStatus)
       }
 
-      if (filtro !== undefined && filtro.userStatus !== undefined&& filtro.userStatus !== null && posts.length > 0) {
+      if (filtro !== undefined && filtro.userStatus !== undefined && filtro.userStatus !== null && posts.length > 0) {
         posts = posts.filter((x) => x.postStatus.Id == filtro.userStatus)
       }
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
@@ -185,15 +183,7 @@ class PostService {
     } else {
       return posts
     }
-
-
-
-
-
   }
-
-
-
 }
 
 const postService = new PostService()
