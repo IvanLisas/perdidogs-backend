@@ -35,6 +35,15 @@ class AlertService {
         { pet: {fur: alert.pet.fur, breed: alert.pet.breed, size: alert.pet.size, sex: alert.pet.sex, hasCollar: alert.pet.hasCollar}, 
         location: alert.location }] })
   }
+
+  async getAlertsByStatus(alertsStatus: number): Promise<Alert[] >{
+
+    return await getRepository(Alert).find ({
+      relations: [ 'alertStatus'],
+      where: {  alertStatus : alertsStatus }
+    })
+}
+
 }
 
 const alertService = new AlertService()
