@@ -25,6 +25,8 @@ import { UserStatus } from './models/UserStatus'
 import { PostStatus } from './models/PostStatus'
 import { AlertStatus } from './models/AlertStatus'
 import statsRoutes from './admin-module/routes/StatsRoutes'
+import { AlertPost } from './models/AlertPost'
+import alertRoutes from './routes/AlertRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -39,7 +41,7 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus],
+  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,AlertPost],
   synchronize: true,
   logging: false,
   dropSchema: false
@@ -61,6 +63,7 @@ createConnection({
     app.use('/comment', commentRoutes)
     app.use('/dropdown', dropDownRoutes)
     app.use('/stats', statsRoutes)
+    app.use('/alerts', alertRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
     })

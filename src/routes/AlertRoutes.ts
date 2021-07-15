@@ -12,9 +12,17 @@ alertRoutes.get('/:alertId', async (req, res) => {
   }
 })
 
-alertRoutes.put('/update', async (req, res) => {
+alertRoutes.put('/', async (req, res) => {
   try {
     return res.json(await alertService.update(req.body))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+alertRoutes.post('/', async (req, res) => {
+  try {
+    return res.json(await alertService.create(req.body))
   } catch (error) {
     res.send(error.message)
   }

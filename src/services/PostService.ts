@@ -1,4 +1,4 @@
-import { Between, Entity, getRepository, In } from 'typeorm'
+import { Between, Entity, getRepository, In, Index } from 'typeorm'
 import { Point } from '../models/LatLang'
 
 import { Post } from '../models/Post'
@@ -8,6 +8,9 @@ import { Location } from '../models/Location'
 import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 import { PostFilter } from '../admin-module/models/PostFilter'
+import { PostRepo } from '../repos/PostRepo'
+import { AlertPost } from '../models/AlertPost'
+import { AlertRepo } from '../repos/AlertRepo'
 @Entity()
 class PostService {
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
@@ -39,7 +42,24 @@ class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
-    return await getRepository(Post).save(post)
+    const result = await getRepository(Post).save(post)
+    this.populateAlertPostTable(post.pet, result.Id)
+    return result
+  }
+
+  async populateAlertPostTable(pet: Pet, postId: number) {
+    const alertIds= this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x)=>x.alertOrPostId))
+    const alertPosts = alertIds.map((x) => new AlertPost({ alertId:x , postId: postId }))
+    await getRepository(AlertPost).save(alertPosts)
+  }
+
+
+  deleteRepetedValues(data:number[]):number[]{
+    const result=data.filter((x,index)=>{
+      return data.indexOf(x)===index
+    })
+    console.log("alertIds " ,result)
+    return result
   }
 
   async getAllPosts(): Promise<Post[] | undefined> {
