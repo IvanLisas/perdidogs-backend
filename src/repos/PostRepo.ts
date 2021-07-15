@@ -31,5 +31,20 @@ export class PostRepo extends Repository<Post> {
           ' AND pet.sizeId= ' + pet.size)
         return counts
       }
+
+      static async getPostsByUserId(userId:number):Promise<Post[]>{
+        console.log("LLEGA AL getAlertsByUserId() ")
+        const entityManager = getManager();
+        return  await entityManager.query('SELECT DISTINCT p.* FROM  perdidogs.user u INNER JOIN post p '+
+        ' ON p.ownerId = u.Id '+
+        ' INNER JOIN alert_post ap '+
+        ' ON ap.postId = p.Id '+
+        ' inner join alert a '+
+        ' on a.Id= ap.alertId '+
+        ' WHERE ap.hasBeenRead=false '+
+        ' AND ap.hasBeenRejected= false' +
+        ' AND p.ownerId!= '+userId +
+        ' AND a.ownerId= '+userId);
+      }
 }
 

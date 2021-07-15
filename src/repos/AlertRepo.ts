@@ -18,4 +18,6 @@ export class AlertRepo extends Repository<Alert> {
         ' AND pet.sizeId= ' + pet.size);
         return counts
       }
+
+
 }
