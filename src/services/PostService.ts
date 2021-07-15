@@ -9,7 +9,7 @@ import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 import { PostFilter } from '../admin-module/models/PostFilter'
 import { PostRepo } from '../repos/PostRepo'
-import { AlertPost } from '../models/AlertPost'
+import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
 @Entity()
 class PostService {
@@ -49,8 +49,8 @@ class PostService {
 
   async populateAlertPostTable(pet: Pet, postId: number) {
     const alertIds= this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x)=>x.alertOrPostId))
-    const alertPosts = alertIds.map((x) => new AlertPost({ alertId:x , postId: postId }))
-    await getRepository(AlertPost).save(alertPosts)
+    const alertPosts = alertIds.map((x) => new Notification({ alertId:x , postId: postId }))
+    await getRepository(Notification).save(alertPosts)
   }
 
 

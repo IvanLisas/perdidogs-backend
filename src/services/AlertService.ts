@@ -1,15 +1,13 @@
 import { getRepository } from 'typeorm'
 import { Alert } from '../models/Alert'
-import { AlertPost } from '../models/AlertPost'
+import { Notification } from '../models/Notification'
+import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
-import { Post } from '../models/Post'
 import { PostRepo } from '../repos/PostRepo'
 import userService from './UserService'
 
 class AlertService {
-  async getAllActiveAlerts(userId: number): Promise<Post[]> {
-    return await PostRepo.getPostsByUserId(userId);
-  }
+
 
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
@@ -23,9 +21,9 @@ class AlertService {
 
   async populateAlertPostTable(pet: Pet, alertId: number) {
     const postIds= this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x)=>x.alertOrPostId))
-    const alertPosts = postIds.map((x) => new AlertPost({ alertId: alertId, postId: x }))
+    const alertPosts = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
     console.log(alertPosts)
-    await getRepository(AlertPost).save(alertPosts)
+    await getRepository(Notification).save(alertPosts)
   }
 
   deleteRepetedValues(data:number[]):number[]{

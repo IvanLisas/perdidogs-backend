@@ -25,7 +25,7 @@ import { UserStatus } from './models/UserStatus'
 import { PostStatus } from './models/PostStatus'
 import { AlertStatus } from './models/AlertStatus'
 import statsRoutes from './admin-module/routes/StatsRoutes'
-import { AlertPost } from './models/AlertPost'
+import { Notification } from './models/Notification'
 import alertRoutes from './routes/AlertRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
@@ -41,10 +41,10 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Role, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,AlertPost],
+  entities: [User, Alert, Chat, Role, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,Notification],
   synchronize: true,
   logging: false,
-  dropSchema: false
+  dropSchema: true
 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {

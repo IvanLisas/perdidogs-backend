@@ -12,15 +12,6 @@ alertRoutes.get('/:alertId', async (req, res) => {
   }
 })
 
-alertRoutes.get('/byUserId/:userId', async (req, res) => {
-  try {
-    const id = parseInt(req.params.userId)
-    res.json(await alertService.getAllActiveAlerts(id))
-  } catch (error) {
-    res.send(error.message)
-  }
-})
-
 alertRoutes.put('/', async (req, res) => {
   try {
     return res.json(await alertService.update(req.body))

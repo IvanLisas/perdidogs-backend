@@ -1,6 +1,7 @@
 import { EntityRepository, getManager, Repository } from 'typeorm'
 import { Count } from '../admin-module/models/Count';
 import { QueryResult } from '../admin-module/models/QueryResult';
+import { NotificationDTO } from '../models/NotificationDTO';
 import { Pet } from '../models/Pet';
 import { Post } from '../models/Post'
  
@@ -32,17 +33,16 @@ export class PostRepo extends Repository<Post> {
         return counts
       }
 
-      static async getPostsByUserId(userId:number):Promise<Post[]>{
+      static async getPostsByUserId(userId:number):Promise<NotificationDTO[]>{
         console.log("LLEGA AL getAlertsByUserId() ")
         const entityManager = getManager();
-        return  await entityManager.query('SELECT DISTINCT p.* FROM  perdidogs.user u INNER JOIN post p '+
+        return  await entityManager.query('SELECT DISTINCT p.*, n.alertId, n.postId FROM  perdidogs.user u INNER JOIN post p '+
         ' ON p.ownerId = u.Id '+
-        ' INNER JOIN alert_post ap '+
-        ' ON ap.postId = p.Id '+
+        ' INNER JOIN notifications n '+
+        ' ON n.postId = p.Id '+
         ' inner join alert a '+
-        ' on a.Id= ap.alertId '+
-        ' WHERE ap.hasBeenRead=false '+
-        ' AND ap.hasBeenRejected= false' +
+        ' on a.Id= n.alertId '+
+        ' AND n.hasBeenRejected= false' +
         ' AND p.ownerId!= '+userId +
         ' AND a.ownerId= '+userId);
       }
