@@ -27,6 +27,7 @@ import { AlertStatus } from './models/AlertStatus'
 import statsRoutes from './admin-module/routes/StatsRoutes'
 import { Notification } from './models/Notification'
 import alertRoutes from './routes/AlertRoutes'
+import notificationRoutes from './routes/NotificationRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -64,6 +65,7 @@ createConnection({
     app.use('/dropdown', dropDownRoutes)
     app.use('/stats', statsRoutes)
     app.use('/alerts', alertRoutes)
+    app.use('/notifications', notificationRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
     })
