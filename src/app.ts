@@ -15,7 +15,7 @@ import { Message } from './models/Message'
 import { Pet } from './models/Pet'
 import { Picture } from './models/Picture'
 import { Post } from './models/Post'
-import { Rol } from './models/Rol'
+import { Role } from './models/Role'
 import { Size } from './models/Size'
 import { User } from './models/User'
 import dropDownRoutes from './routes/DropDownRoutes'
@@ -41,7 +41,7 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,AlertPost],
+  entities: [User, Alert, Chat, Role, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,AlertPost],
   synchronize: true,
   logging: false,
   dropSchema: false

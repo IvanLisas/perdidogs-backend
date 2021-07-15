@@ -1,5 +1,4 @@
 import { getRepository } from 'typeorm'
-
 import { Breed } from '../models/Breed'
 import { Color } from '../models/Color'
 import { Fur } from '../models/Fur'
@@ -8,9 +7,7 @@ import { Location } from '../models/Location'
 import { Pet } from '../models/Pet'
 import { Picture } from '../models/Picture'
 import { Post } from '../models/Post'
-//import { PostStatus } from '../models/PostStatus'
-
-import { Rol } from '../models/Rol'
+import { Role } from '../models/Role'
 import { Size } from '../models/Size'
 import { User } from '../models/User'
 import { Comment } from '../models/Comment'
@@ -24,14 +21,17 @@ import { AlertStatus } from '../models/AlertStatus'
 
 export class Bootstrap {
   //----------------------------ESTADOS DE USUARIOS----------------------------------------------
-  static userStatusActivo = new UserStatus({ description: 'Activo' })
-  static userStatusInActivo = new UserStatus({ description: 'Inactivo' })
+  static userStatusActive = new UserStatus({ description: 'Activo' })
+  static userStatusInactive = new UserStatus({ description: 'Inactivo' })
+  //----------------------------ROL DE USUARIOS----------------------------------------------
+  static rolAdmin = new UserStatus({ description: 'Admin' })
+  static rolNotAdmin = new UserStatus({ description: 'Usuario final' })
   //----------------------------ESTADOS DE POSTS----------------------------------------------
   static postActivo = new PostStatus({ description: 'Activo' })
   static postInactivo = new UserStatus({ description: 'Inactivo' })
   //----------------------------ESTADOS DE ALERTAS----------------------------------------------
-  static alertStatusActivo:AlertStatus
-  static alertStatusInActivo :AlertStatus
+  static alertStatusActivo: AlertStatus
+  static alertStatusInActivo: AlertStatus
   // activo!: PostStatus
   // pendiente!: PostStatus
   // cancelada!: PostStatus
@@ -136,7 +136,9 @@ export class Bootstrap {
   picture_0024 = new Picture({ url: 'http://4.bp.blogspot.com/-T-596ClMxEs/UjOTzp39_JI/AAAAAAAAdV8/VsP-cuCoKyc/s1600/IMG_4553.JPG' })
   picture_0025 = new Picture({ url: 'http://3.bp.blogspot.com/-ldI6gHiByIQ/UjOTy80h2pI/AAAAAAAAdVs/Ce7Usv_HH8Q/s1600/IMG_4551.JPG' })
   picture_0026 = new Picture({ url: 'https://pbs.twimg.com/media/DvgzCYTX4AEsjdv.jpg' })
-  picture_0027 = new Picture ({url: 'https://s3-eu-west-1.amazonaws.com/barkibu-production/images/contents/000/023/240/original/uploads_2F1456934521386-va7sh1dz7gco9a4i-f348392e3c5e4537187730e873e7737d_2F145693446809792658303.jpg?1456934852'})
+  picture_0027 = new Picture({
+    url: 'https://s3-eu-west-1.amazonaws.com/barkibu-production/images/contents/000/023/240/original/uploads_2F1456934521386-va7sh1dz7gco9a4i-f348392e3c5e4537187730e873e7737d_2F145693446809792658303.jpg?1456934852'
+  })
 
   //----------------------MASCOTAS-----------------------------------------------
   perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, fur: this.pelaje1, breed: this.sinRaza, size: this.grande })
@@ -161,9 +163,6 @@ export class Bootstrap {
   perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, fur: this.pelaje2, breed: this.bulldogIngles, size: this.mediano })
 
   //---------------------------POSTS-----------------------------------------------------------------------------------------------------------------
-
-  rolGenerico!: Rol
-  rolReestricto!: Rol
 
   post0001!: Post
   post0002!: Post
@@ -194,7 +193,7 @@ export class Bootstrap {
     owner: this.pedro,
     text: 'Lo retuviste?',
     creation: new Date('2021-01-20T17:31:01.456Z'),
-    post: this.post0001,
+    post: this.post0001
   })
   comentario2 = new Comment({
     owner: this.estefania,
@@ -441,6 +440,7 @@ export class Bootstrap {
   async run(): Promise<void> {
     if ((await getRepository(Color).find()).length == 0) {
       await this.createUserStatus()
+      await this.createUserRole()
       await this.createAlertStatus()
       await this.createPostStatus()
       await this.createColors()
@@ -463,28 +463,35 @@ export class Bootstrap {
   //UserStatus
   async createUserStatus(): Promise<void> {
     console.log('******************************Creando User Status***************************************')
-    Bootstrap.userStatusActivo = new UserStatus({ description: 'Activo' })
-    Bootstrap.userStatusInActivo = new UserStatus({ description: 'Inactivo' })
-    await getRepository(UserStatus).save([Bootstrap.userStatusActivo, Bootstrap.userStatusInActivo])
-
+    Bootstrap.userStatusActive = new UserStatus({ description: 'Activo' })
+    Bootstrap.userStatusInactive = new UserStatus({ description: 'Inactivo' })
+    await getRepository(UserStatus).save([Bootstrap.userStatusActive, Bootstrap.userStatusInactive])
   }
 
-    //PostStatus
-    async createPostStatus(): Promise<void> {
-      console.log('******************************Creando Post Status***************************************')
-      Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
-      Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
-      await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
-    }
+  //User Rol
+  async createUserRole(): Promise<void> {
+    console.log('******************************Creando User Role***************************************')
+    Bootstrap.rolAdmin = new UserStatus({ description: 'Activo' })
+    Bootstrap.rolNotAdmin = new UserStatus({ description: 'Inactivo' })
+    await getRepository(UserStatus).save([Bootstrap.userStatusActive, Bootstrap.userStatusInactive])
+  }
 
-    //AlertStatus
-    async createAlertStatus(): Promise<void> {
-      console.log('******************************Creando Alert Status***************************************')
-      Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Activo' })
-      Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactivo' })
-      await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
-    }
-  
+  //PostStatus
+  async createPostStatus(): Promise<void> {
+    console.log('******************************Creando Post Status***************************************')
+    Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
+    Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
+    await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
+  }
+
+  //AlertStatus
+  async createAlertStatus(): Promise<void> {
+    console.log('******************************Creando Alert Status***************************************')
+    Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Activo' })
+    Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactivo' })
+    await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
+  }
+
   //Colors
   async createColors(): Promise<void> {
     console.log('******************************Creando Colores***************************************')
@@ -571,7 +578,7 @@ export class Bootstrap {
       lastName: 'Di Pietro',
       email: 'estefaniadipietro@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
     })
     this.mariano = new User({
@@ -579,7 +586,7 @@ export class Bootstrap {
       lastName: 'Bottazzi',
       email: 'bottazzimariano@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
       //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
     })
@@ -588,7 +595,7 @@ export class Bootstrap {
       lastName: 'Loy',
       email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
       //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
     })
@@ -597,7 +604,7 @@ export class Bootstrap {
       lastName: 'Lisas',
       email: 'ivanelisas@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
       //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
     })
@@ -607,7 +614,7 @@ export class Bootstrap {
       lastName: 'Ibañez',
       email: 'lauritaIbañez1982@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
       //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
     })
@@ -616,7 +623,7 @@ export class Bootstrap {
       lastName: 'Ramos',
       email: 'hramos@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
       // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
     })
@@ -625,7 +632,7 @@ export class Bootstrap {
       lastName: 'Rimolo',
       email: 'primlo1988@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
       //  comments: []
     })
@@ -634,7 +641,7 @@ export class Bootstrap {
       lastName: 'Paredes',
       email: 'pedrin12721@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
       //  comments: []
     })
@@ -644,7 +651,7 @@ export class Bootstrap {
       lastName: 'Gili',
       email: 'giliOmar@gmail.com',
       password: await this.hashPassword('12345678'),
-      userStatus: Bootstrap.userStatusActivo,
+      userStatus: Bootstrap.userStatusActive,
       avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
       // comments:[]
     })
@@ -861,8 +868,8 @@ export class Bootstrap {
     ])
   }
   async createAlerts(): Promise<void> {
-    console.log("ALERTA ACTIVA ", Bootstrap.alertStatusActivo)
-    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001, alertStatus:Bootstrap.alertStatusActivo })
+    console.log('ALERTA ACTIVA ', Bootstrap.alertStatusActivo)
+    this.alertaGabrielPerro1 = new Alert({ owner: this.gabriel, pet: this.perro1, location: this.location_0001, alertStatus: Bootstrap.alertStatusActivo })
     console.log('******************************Creando Alertas*********************************')
     //await getRepository(Alert).save([this.alertaGabrielPerro1])
   }

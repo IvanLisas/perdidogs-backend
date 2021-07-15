@@ -67,8 +67,7 @@ userRoutes.delete('/:userid', async (req, res) => {
 userRoutes.post('/registration', async (req, res) => {
   try {
     const user = User.fromJson(req.body)
-    console.log(req.body)
-    res.json(await userService.registrateUser(user))
+    return res.json(await userService.registrateUser(user))
   } catch (error) {
     res.status(400).send(error.message)
   }

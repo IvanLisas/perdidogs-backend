@@ -53,28 +53,22 @@ class UserService {
   }
 
   async update(user: User): Promise<User> {
-     
-      return await getRepository(User).save(user)
-  
+    return await getRepository(User).save(user)
   }
 
   async delete(user: User): Promise<User> {
-    user.userStatus = Bootstrap.userStatusInActivo
+    user.userStatus = Bootstrap.userStatusInactive
     return await getRepository(User).save(user)
   }
 
   async registrateUser(user: User): Promise<User> {
-    console.log(user)
-    const userWithSameMail = await getRepository(User).findOne({ email: user.email })
-
-    if (!userWithSameMail) {
+    if (!(await getRepository(User).findOne({ email: user.email }))) {
       const salt = 10
       user.password = await bcrypt.hash(user.password, salt)
-      console.log(user.password)
-      return await this.save(user)
-    }
-
-    throw new Error('Este mail ya está en uso')
+      user.role.Id = 1
+      console.log(user)
+      return await getRepository(User).save(user)
+    } else throw new Error('Este mail ya está en uso')
   }
 
   async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<User> {
@@ -86,14 +80,12 @@ class UserService {
     } else throw new Error('las passwords no son iguales')
   }
 
-  async getUsersByStatus(userStatus: number): Promise<User[] >{
-
-    return await getRepository(User).find ({
-      relations: [ 'userStatus'],
-      where: {  userStatus : userStatus }
+  async getUsersByStatus(userStatus: number): Promise<User[]> {
+    return await getRepository(User).find({
+      relations: ['userStatus'],
+      where: { userStatus: userStatus }
     })
-}
-
+  }
 }
 
 const userService = new UserService()
