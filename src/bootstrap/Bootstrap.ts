@@ -473,7 +473,7 @@ export class Bootstrap {
     console.log('******************************Creando User Role***************************************')
     Bootstrap.rolAdmin = new UserStatus({ description: 'Activo' })
     Bootstrap.rolNotAdmin = new UserStatus({ description: 'Inactivo' })
-    await getRepository(UserStatus).save([Bootstrap.userStatusActive, Bootstrap.userStatusInactive])
+    await getRepository(Role).save([Bootstrap.rolAdmin, Bootstrap.rolNotAdmin])
   }
 
   //PostStatus

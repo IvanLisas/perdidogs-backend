@@ -3,20 +3,19 @@ import { getRepository } from 'typeorm'
 import bcrypt, { hash } from 'bcrypt'
 import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
+import { Role } from '../models/Role'
 
 class UserService {
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
-      const user = await getRepository(User).findOneOrFail({
+      const user = (await getRepository(User).findOneOrFail({
         relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
         where: {
           email: anEmail
         }
-      })
-
-      if (await bcrypt.compare(aPassword, user.password)) {
-        return user
-      } else throw new Error()
+      })) as User
+      if (await bcrypt.compare(aPassword, user.password)) return user
+      else throw new Error('Contraseña incorrecta')
     } catch (error) {
       throw new Error('El email o la contraseña no son validos')
     }
@@ -48,9 +47,6 @@ class UserService {
       }
     })
   }
-  async save(user: User): Promise<User> {
-    return await getRepository(User).save(user)
-  }
 
   async update(user: User): Promise<User> {
     return await getRepository(User).save(user)
@@ -62,13 +58,13 @@ class UserService {
   }
 
   async registrateUser(user: User): Promise<User> {
-    if (!(await getRepository(User).findOne({ email: user.email }))) {
-      const salt = 10
-      user.password = await bcrypt.hash(user.password, salt)
-      user.role.Id = 1
-      console.log(user)
-      return await getRepository(User).save(user)
-    } else throw new Error('Este mail ya está en uso')
+    if (await getRepository(User).findOne({ email: user.email })) throw new Error('Este mail ya está en uso')
+    if (user.password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres')
+    const salt = 10
+    user.password = await bcrypt.hash(user.password, salt)
+    user.role = await getRepository(Role).findOneOrFail({ Id: 1 })
+    console.log(user)
+    return await getRepository(User).save(user)
   }
 
   async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<User> {
