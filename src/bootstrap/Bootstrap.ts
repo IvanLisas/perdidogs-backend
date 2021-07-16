@@ -58,11 +58,11 @@ export class Bootstrap {
   golden = new Breed({ description: 'Golden' })
   labrador = new Breed({ description: 'Labrador' })
   //----------------------COLORES-----------------------------------------------
-  blanco = new Color({ description: 'Blanco' })
-  negro = new Color({ description: 'Negro' })
-  beige = new Color({ description: 'Beige' })
-  gris = new Color({ description: 'Gris' })
-  marron = new Color({ description: 'Marrón' })
+  blanco = new Color({ description: 'Blanco', hexCode:'#ffffff' })
+  negro = new Color({ description: 'Negro',hexCode:'#000000'  })
+  beige = new Color({ description: 'Beige', hexCode:'#edb021' })
+  gris = new Color({ description: 'Gris', hexCode:'#9d9e99' })
+  marron = new Color({ description: 'Marrón', hexCode:'#6e4605'})
   //----------------------LARGOS DE PELO-----------------------------------------------
   corto = new Length({ description: 'Corto' })
   largo = new Length({ description: 'Largo' })

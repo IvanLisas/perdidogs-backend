@@ -11,6 +11,7 @@ import { PostFilter } from '../admin-module/models/PostFilter'
 import { PostRepo } from '../repos/PostRepo'
 import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
+import { User } from '../models/User'
 @Entity()
 class PostService {
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
@@ -217,6 +218,7 @@ class PostService {
       where: { postStatus: postsStatus }
     })
   }
+
 }
 
 const postService = new PostService()
