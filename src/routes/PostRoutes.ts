@@ -63,7 +63,6 @@ postRoutes.get('/:postId', async (req, res) => {
 //GET a post BY LOCATION
 postRoutes.put('/by-location', async (req, res) => {
   try {
-    /*  console.log(req.body) */
     const bounderies = req.body.viewport as Point
     return res.json(await postService.getByLocation(bounderies, { lat: 0, lng: 0 }))
   } catch (error) {
@@ -73,13 +72,14 @@ postRoutes.put('/by-location', async (req, res) => {
 })
 
 //DELETE a post
-/*postRoutes.delete('/:postId', async (req, res) => {
+postRoutes.delete('/:postId/:userId', async (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(await postService.deletePost(post))
+    const postId = parseInt(req.params.postId)
+    const userId = parseInt(req.params.userId)
+    return res.json(await postService.delete(postId, userId))
   } catch (error) {
     res.send(error.message)
   }
-})*/
+})
 
 export default postRoutes

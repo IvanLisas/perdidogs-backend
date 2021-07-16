@@ -1,20 +1,18 @@
 import { Between, Entity, getRepository, In, Index } from 'typeorm'
 import { Point } from '../models/LatLang'
-
 import { Post } from '../models/Post'
 import userService from './UserService'
-
 import { Location } from '../models/Location'
 import { Filter } from '../models/Filter'
 import { Pet } from '../models/Pet'
 import { PostFilter } from '../admin-module/models/PostFilter'
-import { PostRepo } from '../repos/PostRepo'
 import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
+import { User } from '../models/User'
+
 @Entity()
 class PostService {
-  relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
-
+  relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.myLocation != null && filter.delta != null) {
       const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
@@ -25,7 +23,7 @@ class PostService {
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) },
-            isActive: true
+            postStatus: 1
           }
         })
       }
@@ -33,7 +31,7 @@ class PostService {
       return getRepository(Post).find({
         relations: this.relations,
         where: {
-          isActive: true
+          postStatus: 1
         }
       })
     }
@@ -48,26 +46,25 @@ class PostService {
   }
 
   async populateAlertPostTable(pet: Pet, postId: number) {
-    const alertIds= this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x)=>x.alertOrPostId))
-    const alertPosts = alertIds.map((x) => new Notification({ alertId:x , postId: postId }))
+    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
+    const alertPosts = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
     await getRepository(Notification).save(alertPosts)
   }
 
-
-  deleteRepetedValues(data:number[]):number[]{
-    const result=data.filter((x,index)=>{
-      return data.indexOf(x)===index
+  deleteRepetedValues(data: number[]): number[] {
+    const result = data.filter((x, index) => {
+      return data.indexOf(x) === index
     })
-    console.log("alertIds " ,result)
+    console.log('alertIds ', result)
     return result
   }
 
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
-      relations: this.relations /* ,
-      where: { isActive: true } */
+      relations: this.relations
     })
   }
+
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
     return await getRepository(Post).find({ owner: { Id: idUser } })
   }
@@ -77,7 +74,7 @@ class PostService {
       relations: this.relations,
       where: {
         Id: idPost,
-        isActive: true
+        postStatus: 1
       }
     })
   }
@@ -91,10 +88,6 @@ class PostService {
     }
   }
 
-  //function (location,r)
-  //x > location.x -r && x < location.x + r
-  //y > location.y - r && y <location.y +r
-
   async getLocation(url: string): Promise<string> {
     return this.getLocation(url)
   }
@@ -105,11 +98,10 @@ class PostService {
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
-      /*  console.log('ids:', ids) */
       return await getRepository(Post).find({
         relations: this.relations,
         where: {
-          location: { Id: In(ids), isActive: true }
+          location: { Id: In(ids), postStatus: 1 }
         }
       })
     } else return []
@@ -182,12 +174,8 @@ class PostService {
   getFilteredPostByAdminFilters(posts: Post[], filtro: PostFilter): Post[] {
     console.log('PET 1 ', posts?.[0])
     if (filtro !== undefined) {
-      if (filtro.breed !== undefined && filtro.breed !== null && posts.length > 0) {
-        posts = posts.filter((x) => x.pet.breed.Id == filtro.breed)
-      }
-      if (filtro.ownerEmail !== undefined && filtro.ownerEmail !== null && posts.length > 0) {
-        posts = posts.filter((x) => x.owner.email == filtro.ownerEmail)
-      }
+      if (filtro.breed !== undefined && filtro.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filtro.breed)
+      if (filtro.ownerEmail !== undefined && filtro.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email == filtro.ownerEmail)
       if (filtro !== undefined && filtro.createdFrom !== undefined && filtro.createdFrom !== null && posts.length > 0) {
         const createdFrom = filtro.createdFrom
         posts = posts.filter((x) => x.creationDate >= createdFrom)
@@ -196,19 +184,11 @@ class PostService {
         const createdTo = filtro.createdTo
         posts = posts.filter((x) => x.creationDate >= createdTo)
       }
-
-      if (filtro !== undefined && filtro.postStatus !== undefined && filtro.postStatus !== null && posts.length > 0) {
-        posts = posts.filter((x) => x.postStatus.Id == filtro.postStatus)
-      }
-
-      if (filtro !== undefined && filtro.userStatus !== undefined && filtro.userStatus !== null && posts.length > 0) {
-        posts = posts.filter((x) => x.postStatus.Id == filtro.userStatus)
-      }
+      if (filtro !== undefined && filtro.postStatus !== undefined && filtro.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filtro.postStatus)
+      if (filtro !== undefined && filtro.userStatus !== undefined && filtro.userStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filtro.userStatus)
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
       return posts
-    } else {
-      return posts
-    }
+    } else return posts
   }
 
   async getPostsByStatus(postsStatus: number): Promise<Post[]> {
@@ -216,6 +196,15 @@ class PostService {
       relations: ['postStatus'],
       where: { postStatus: postsStatus }
     })
+  }
+
+  async delete(postId: number, userId: number): Promise<Post> {
+    const post = (await getRepository(Post).findOneOrFail({ Id: postId }, { relations: this.relations })) as Post
+    const user = (await getRepository(User).findOneOrFail({ Id: userId }, { relations: ['role'] })) as User
+    if (post.postStatus.Id != 1) throw new Error('Este post esta deshabilitado.')
+    if (post.owner.role.Id != 1 && post.owner != user) throw new Error('No tiene permisos para eliminar este post')
+    post.postStatus.Id = 2
+    return await getRepository(Post).save(post)
   }
 }
 

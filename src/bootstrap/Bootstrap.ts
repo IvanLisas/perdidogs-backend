@@ -24,11 +24,11 @@ export class Bootstrap {
   static userStatusActive = new UserStatus({ description: 'Activo' })
   static userStatusInactive = new UserStatus({ description: 'Inactivo' })
   //----------------------------ROL DE USUARIOS----------------------------------------------
-  static rolAdmin = new UserStatus({ description: 'Admin' })
-  static rolNotAdmin = new UserStatus({ description: 'Usuario final' })
+  static adminRole = new UserStatus({ description: 'Admin' })
+  static notAdminRole = new UserStatus({ description: 'Usuario final' })
   //----------------------------ESTADOS DE POSTS----------------------------------------------
-  static postActivo = new PostStatus({ description: 'Activo' })
-  static postInactivo = new UserStatus({ description: 'Inactivo' })
+  static postActive = new PostStatus({ description: 'Activo' })
+  static inactivePost = new UserStatus({ description: 'Inactivo' })
   //----------------------------ESTADOS DE ALERTAS----------------------------------------------
   static alertStatusActivo: AlertStatus
   static alertStatusInActivo: AlertStatus
@@ -471,17 +471,17 @@ export class Bootstrap {
   //User Rol
   async createUserRole(): Promise<void> {
     console.log('******************************Creando User Role***************************************')
-    Bootstrap.rolAdmin = new UserStatus({ description: 'Activo' })
-    Bootstrap.rolNotAdmin = new UserStatus({ description: 'Inactivo' })
-    await getRepository(Role).save([Bootstrap.rolAdmin, Bootstrap.rolNotAdmin])
+    Bootstrap.adminRole = new UserStatus({ description: 'Admin' })
+    Bootstrap.notAdminRole = new UserStatus({ description: 'Final User' })
+    await getRepository(Role).save([Bootstrap.adminRole, Bootstrap.notAdminRole])
   }
 
   //PostStatus
   async createPostStatus(): Promise<void> {
     console.log('******************************Creando Post Status***************************************')
-    Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
-    Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
-    await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
+    Bootstrap.postActive = new PostStatus({ description: 'Activo' })
+    Bootstrap.inactivePost = new PostStatus({ description: 'Inactivo' })
+    await getRepository(PostStatus).save([Bootstrap.postActive, Bootstrap.inactivePost])
   }
 
   //AlertStatus
@@ -579,7 +579,8 @@ export class Bootstrap {
       email: 'estefaniadipietro@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg'
+      avatar: 'https://s03.s3c.es/imag/_v0/635x300/3/a/8/Perro-mascota-getty-635.jpg',
+      role: Bootstrap.adminRole
     })
     this.mariano = new User({
       firstName: 'Mariano',
@@ -587,8 +588,8 @@ export class Bootstrap {
       email: 'bottazzimariano@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg'
-      //  comments: [this.comentario33, this.comentario4, this.comentario5, this.comentario6]
+      avatar: 'https://www.hogarmania.com/archivos/201710/mascotas-perros-personas-mayores-ejercicio-XxXx80.jpg',
+      role: Bootstrap.adminRole
     })
     this.gabriel = new User({
       firstName: 'Gabriel',
@@ -596,8 +597,8 @@ export class Bootstrap {
       email: 'loygabriel@hotmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg'
-      //  comments:[this.comentario7, this.comentario8, this.comentario9, this.comentario10]
+      avatar: 'https://www.ayudafamiliar.es/blog/wp-content/uploads/2019/11/perros-ancianos.jpg',
+      role: Bootstrap.adminRole
     })
     this.ivan = new User({
       firstName: 'Ivan',
@@ -605,8 +606,8 @@ export class Bootstrap {
       email: 'ivanelisas@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg'
-      //    comments:[this.comentario11, this.comentario12, this.comentario12, this.comentario13]
+      avatar: 'https://image.freepik.com/foto-gratis/retrato-cuerpo-entero-nino-perro-parque_13339-271579.jpg',
+      role: Bootstrap.adminRole
     })
 
     this.laura = new User({
@@ -615,8 +616,8 @@ export class Bootstrap {
       email: 'lauritaIbañez1982@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg'
-      //    comments:[this.comentario14, this.comentario15, this.comentario16, this.comentario17]
+      avatar: 'https://imgv3.fotor.com/images/homepage-feature-card/one-tap-photo-enhancer.jpg',
+      role: Bootstrap.notAdminRole
     })
     this.horacio = new User({
       firstName: 'Horacio',
@@ -624,8 +625,8 @@ export class Bootstrap {
       email: 'hramos@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg'
-      // comments:[this.comentario18, this.comentario19, this.comentario20, this.comentario21]
+      avatar: 'https://static8.depositphotos.com/1311503/875/i/600/depositphotos_8758702-stock-photo-insant-camera-kid.jpg',
+      role: Bootstrap.notAdminRole
     })
     this.pablo = new User({
       firstName: 'Pablo',
@@ -633,8 +634,8 @@ export class Bootstrap {
       email: 'primlo1988@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg'
-      //  comments: []
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_2.jpg',
+      role: Bootstrap.notAdminRole
     })
     this.pedro = new User({
       firstName: 'Pedro',
@@ -642,8 +643,8 @@ export class Bootstrap {
       email: 'pedrin12721@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg'
-      //  comments: []
+      avatar: 'https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg',
+      role: Bootstrap.notAdminRole
     })
 
     this.omar = new User({
@@ -652,8 +653,8 @@ export class Bootstrap {
       email: 'giliOmar@gmail.com',
       password: await this.hashPassword('12345678'),
       userStatus: Bootstrap.userStatusActive,
-      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg'
-      // comments:[]
+      avatar: 'https://i.pinimg.com/originals/bc/fe/d9/bcfed93239d2a49726d0dc97912af5b2.jpg',
+      role: Bootstrap.notAdminRole
     })
 
     await getRepository(User).save([this.estefania, this.mariano, this.ivan, this.gabriel, this.pedro, this.pablo, this.laura, this.horacio, this.omar])
@@ -721,110 +722,121 @@ export class Bootstrap {
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
     this.post0001 = new Post({
+      title: 'Post N°1',
       description: 'Perra encontrada en la calle Constitución al 3100, San Cristobal ',
       location: this.location_0002,
       pet: this.perro1,
       creationDate: new Date('2021-06-20T04:34:01.456Z'),
       owner: this.estefania,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0001]
     })
     this.post0002 = new Post({
+      title: 'Post N°2',
       description: 'Encontrado en Villa Devoto, está lastimado',
       location: this.location_0001,
       pet: this.perro2,
       creationDate: new Date('2021-01-20T15:55:01.456Z'),
       owner: this.gabriel,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0004, this.picture_0005, this.picture_0006]
     })
     this.post0003 = new Post({
+      title: 'Post N°3',
       description: 'Perro negro, tenía collar rojo sin placa y correa. Está siguiendo a cualquier persona que pasa. Lo retuve en casa hasta dar con sus dueños.',
       location: this.location_0003,
       pet: this.perro3,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       creationDate: new Date('2021-07-20T19:31:01.456Z'),
-
       pictures: [this.picture_0007, this.picture_0008, this.picture_0009],
       owner: this.gabriel
     })
     this.post0004 = new Post({
+      title: 'Post N°4',
       description: 'Ovejero perdido en Av Las Heras al 2600',
       location: this.location_0004,
       pet: this.perro4,
       creationDate: new Date('2021-01-20T14:31:01.456Z'),
       owner: this.mariano,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0010, this.picture_0011, this.picture_0012]
     })
     this.post0005 = new Post({
+      title: 'Post N°5',
       description: 'Galgo atigrado, está en buenas condiciones pero se nota que busca a sus dueños',
       location: this.location_0005,
       pet: this.perro5,
       creationDate: new Date('2021-01-20T18:31:01.456Z'),
       owner: this.estefania,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0013, this.picture_0014, this.picture_0015]
     })
     this.post0006 = new Post({
+      title: 'Post N°6',
       description: 'Dos perritos perdidos sobre avenida crovara',
       location: this.location_0006,
       pet: this.perro7,
       creationDate: new Date('2021-01-20T17:31:01.456Z'),
       owner: this.estefania,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0016, this.picture_0017, this.picture_0018]
     })
     this.post0007 = new Post({
+      title: 'Post N°7',
       description: 'Alguien lo conoce? está en la puerta de mi casa',
       location: this.location_0007,
       pet: this.perro8,
       owner: this.estefania,
       creationDate: new Date('2021-03-20T17:31:01.456Z'),
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0019, this.picture_0020]
     })
     this.post0008 = new Post({
+      title: 'Post N°8',
       description: 'Caniche encontrado,tiene chapita y un celu que nadie contesta',
       location: this.location_0008,
       pet: this.perro11,
       creationDate: new Date('2020-03-20T17:31:01.456Z'),
       owner: this.ivan,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0021, this.picture_0022]
     })
     this.post0009 = new Post({
+      title: 'Post N°9',
       description: 'Cachorros abandonados en la autopista',
       location: this.location_0009,
       pet: this.perro10,
       owner: this.mariano,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0023, this.picture_0024, this.picture_0025]
     })
     this.post0010 = new Post({
+      title: 'Post N°10',
       description: 'Perro vagando por la plaza, está muy deteriorado, por favor alguien que le de tránsito',
       location: this.location_0010,
       pet: this.perro12,
       owner: this.gabriel,
       creationDate: new Date('2021-06-20T11:31:01.456Z'),
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0002]
     })
     this.post0011 = new Post({
+      title: 'Post N°11',
       description: 'Lo retuve, es un perro abandonado, el que quiera adoptarlo me puede contactar',
       location: this.location_0011,
       pet: this.perro13,
       owner: this.mariano,
       creationDate: new Date('2020-12-20T23:31:01.456Z'),
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       pictures: [this.picture_0003]
     })
     this.post0012 = new Post({
+      title: 'Post N°12',
       description: 'Perra hembra embarazada, está muy gordita',
       location: this.location_0012,
       pet: this.perro14,
       owner: this.ivan,
-      postStatus: Bootstrap.postActivo,
+      postStatus: Bootstrap.postActive,
       creationDate: new Date('2021-06-20T13:31:01.456Z'),
       pictures: [this.picture_0027]
     })
