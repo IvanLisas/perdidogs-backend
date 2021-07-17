@@ -18,12 +18,12 @@ class PostService {
       const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation))?.map((x) => x.pet)
       if (pets != null) {
         const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
-        console.log('PETS despues DE FILTRAR', petIds?.length)
+        console.log('PETS despues DE FILTRAR', petIds)
         return await getRepository(Post).find({
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) },
-            postStatus: 1
+            //postStatus: 1
           }
         })
       }
@@ -114,7 +114,7 @@ class PostService {
   }
 
   getPetIdsByFilters(pets: Pet[], filter: Filter): Pet[] {
-    console.log('PET 1 ', pets?.[0])
+    console.log('CANTIDAD DE PETS ANTES DE FILTRAR  ', pets.length)
     if (filter !== undefined) {
       console.log('ENTRA EN EL getPetIdsByFilters', pets.length)
       if (filter.sex !== undefined && filter.sex !== null && pets.length > 0) {
@@ -123,11 +123,10 @@ class PostService {
       if (filter.hasCollar !== undefined && filter.hasCollar !== null && pets.length > 0) {
         pets = pets.filter((x) => x.hasCollar == filter.hasCollar)
       }
-      console.log('Pets 1 antes de color ', filter.color, pets.length)
+      console.log('Pets antes de filtrar por color ', filter.color, pets.length)
       if (filter.color !== undefined && filter.color !== null && pets.length > 0) {
-        console.log('Filtra por color', pets[0].fur.color)
         pets = pets.filter((x) => x.fur.color.Id === filter.color)
-        console.log('Pets', pets.length)
+        console.log('Pets despues de filtar por color', pets.length)
       }
       console.log('Pets2', pets.length)
       if (filter.length !== undefined && filter.length !== null && pets.length > 0) {
