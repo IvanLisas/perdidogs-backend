@@ -43,7 +43,7 @@ postRoutes.put('/by-filter', async (req, res) => {
       res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
     } else {
       const pet = req.body.pet
-      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.searchLocation, req.body.deltaLocation)
+      const filter = Filter.newFilter(pet, req.body.searchLocation, req.body.deltaLocation)
       return res.json(await postService.getPostByFilters(filter))
     }
   } catch (error) {
