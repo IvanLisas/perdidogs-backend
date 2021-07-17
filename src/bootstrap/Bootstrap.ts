@@ -21,14 +21,14 @@ import { AlertStatus } from '../models/AlertStatus'
 
 export class Bootstrap {
   //----------------------------ESTADOS DE USUARIOS----------------------------------------------
-  static userStatusActive = new UserStatus({ description: 'Activo' })
-  static userStatusInactive = new UserStatus({ description: 'Inactivo' })
+  static userStatusActive = new UserStatus({ description: 'Active' })
+  static userStatusInactive = new UserStatus({ description: 'Inactive' })
   //----------------------------ROL DE USUARIOS----------------------------------------------
   static adminRole = new UserStatus({ description: 'Admin' })
   static notAdminRole = new UserStatus({ description: 'Usuario final' })
   //----------------------------ESTADOS DE POSTS----------------------------------------------
-  static postActive = new PostStatus({ description: 'Activo' })
-  static inactivePost = new UserStatus({ description: 'Inactivo' })
+  static postActive = new PostStatus({ description: 'Active' })
+  static inactivePost = new UserStatus({ description: 'Inactive' })
   //----------------------------ESTADOS DE ALERTAS----------------------------------------------
   static alertStatusActivo: AlertStatus
   static alertStatusInActivo: AlertStatus
@@ -463,8 +463,8 @@ export class Bootstrap {
   //UserStatus
   async createUserStatus(): Promise<void> {
     console.log('******************************Creando User Status***************************************')
-    Bootstrap.userStatusActive = new UserStatus({ description: 'Activo' })
-    Bootstrap.userStatusInactive = new UserStatus({ description: 'Inactivo' })
+    Bootstrap.userStatusActive = new UserStatus({ description: 'Active' })
+    Bootstrap.userStatusInactive = new UserStatus({ description: 'Inactive' })
     await getRepository(UserStatus).save([Bootstrap.userStatusActive, Bootstrap.userStatusInactive])
   }
 
@@ -479,16 +479,16 @@ export class Bootstrap {
   //PostStatus
   async createPostStatus(): Promise<void> {
     console.log('******************************Creando Post Status***************************************')
-    Bootstrap.postActive = new PostStatus({ description: 'Activo' })
-    Bootstrap.inactivePost = new PostStatus({ description: 'Inactivo' })
+    Bootstrap.postActive = new PostStatus({ description: 'Active' })
+    Bootstrap.inactivePost = new PostStatus({ description: 'Inactive' })
     await getRepository(PostStatus).save([Bootstrap.postActive, Bootstrap.inactivePost])
   }
 
   //AlertStatus
   async createAlertStatus(): Promise<void> {
     console.log('******************************Creando Alert Status***************************************')
-    Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Activo' })
-    Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactivo' })
+    Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Active' })
+    Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactive' })
     await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
   }
 

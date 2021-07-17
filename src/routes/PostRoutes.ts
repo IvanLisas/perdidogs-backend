@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
-import { Geometry, Point } from '../models/LatLang'
+import { Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
+import { PostFilter } from '../admin-module/models/PostFilter'
 
 const postRoutes = Router()
 
-//POST a post
 postRoutes.post('/', async (req, res) => {
   try {
     console.log(req.body)
@@ -19,7 +19,6 @@ postRoutes.post('/', async (req, res) => {
   }
 })
 
-//EDITAR un post
 postRoutes.put('/', async (req, res) => {
   try {
     const post = Post.fromJson(req.body)
@@ -29,7 +28,6 @@ postRoutes.put('/', async (req, res) => {
   }
 })
 
-//GET ALL post
 postRoutes.get('/getAll', async (req, res) => {
   try {
     return res.json(await postService.getAllPosts())
@@ -38,7 +36,6 @@ postRoutes.get('/getAll', async (req, res) => {
   }
 })
 
-//GET BY FILTER post
 postRoutes.put('/by-filter', async (req, res) => {
   if (!req.body.pet) res.json(await postService.getByLocation(req.body.myLocation, req.body.delta))
   try {
@@ -50,7 +47,14 @@ postRoutes.put('/by-filter', async (req, res) => {
   }
 })
 
-//GET ONE post
+postRoutes.put('/by-admin-filter', async (req, res) => {
+  try {
+    return res.json(await postService.getPostByAdminFilters(req.body))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 postRoutes.get('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
@@ -60,7 +64,6 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })
 
-//GET a post BY LOCATION
 postRoutes.put('/by-location', async (req, res) => {
   try {
     const bounderies = req.body.viewport as Point
@@ -71,7 +74,6 @@ postRoutes.put('/by-location', async (req, res) => {
   }
 })
 
-//DELETE a post
 postRoutes.delete('/:postId/:userId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
@@ -80,6 +82,7 @@ postRoutes.delete('/:postId/:userId', async (req, res) => {
   } catch (error) {
     res.send(error.message)
   }
+
 })
 
 export default postRoutes
