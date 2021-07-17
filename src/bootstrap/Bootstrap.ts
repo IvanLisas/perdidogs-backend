@@ -57,11 +57,11 @@ export class Bootstrap {
   golden = new Breed({ description: 'Golden' })
   labrador = new Breed({ description: 'Labrador' })
   //----------------------COLORES-----------------------------------------------
-  blanco = new Color({ description: 'Blanco', hexCode:'#ffffff' })
-  negro = new Color({ description: 'Negro',hexCode:'#000000'  })
-  beige = new Color({ description: 'Beige', hexCode:'#edb021' })
-  gris = new Color({ description: 'Gris', hexCode:'#9d9e99' })
-  marron = new Color({ description: 'Marrón', hexCode:'#6e4605'})
+  blanco = new Color({ description: 'Blanco', hexCode: '#ffffff' })
+  negro = new Color({ description: 'Negro', hexCode: '#000000' })
+  beige = new Color({ description: 'Beige', hexCode: '#edb021' })
+  gris = new Color({ description: 'Gris', hexCode: '#9d9e99' })
+  marron = new Color({ description: 'Marrón', hexCode: '#6e4605' })
   //----------------------LARGOS DE PELO-----------------------------------------------
   corto = new FurLength({ description: 'Corto' })
   largo = new FurLength({ description: 'Largo' })
@@ -69,7 +69,6 @@ export class Bootstrap {
   pequenio = new Size({ description: 'Pequeño' })
   mediano = new Size({ description: 'Mediano' })
   grande = new Size({ description: 'Grande' })
-
 
   //----------------------USUARIOS-----------------------------------------------
   estefania!: User
@@ -136,26 +135,26 @@ export class Bootstrap {
   })
 
   //----------------------MASCOTAS-----------------------------------------------
-  perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, color:this.blanco,furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, color:this.beige,furLength: this.largo, breed: this.barbincho, size: this.mediano })
-  perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, color:this.negro,furLength: this.negro, breed: this.sinRaza, size: this.pequenio })
-  perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false,color:this.beige, furLength: this.largo, breed: this.overjeroAleman, size: this.pequenio })
-  perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false,color:this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
-  perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, color:this.beige,furLength: this.largo, breed: this.galgo, size: this.pequenio })
-  perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false,color:this.blanco, furLength: this.corto, breed: this.caniche, size: this.grande })
-  perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, color:this.blanco,furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, color:this.beige,furLength: this.largo, breed: this.sinRaza, size: this.pequenio })
-  perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color:this.blanco,furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false,color:this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, color:this.beige,furLength: this.largo, breed: this.sinRaza, size: this.grande })
-  perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color:this.beige,furLength: this.largo, breed: this.sinRaza, size: this.grande })
-  perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false,color:this.beige, furLength: this.largo, breed: this.caniche, size: this.pequenio })
-  perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color:this.beige,furLength: this.largo, breed: this.sinRaza, size: this.grande })
-  perro16 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color:this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, color:this.negro,furLength: this.negro, breed: this.sinRaza, size: this.grande })
-  perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color:this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
-  perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color:this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color:this.negro,furLength: this.negro, breed: this.bulldogIngles, size: this.mediano })
+  perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, color: this.beige, furLength: this.largo, breed: this.barbincho, size: this.mediano })
+  perro3 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, color: this.negro, furLength: this.negro, breed: this.sinRaza, size: this.pequenio })
+  perro4 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.overjeroAleman, size: this.pequenio })
+  perro5 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
+  perro6 = new Pet({ name: 'pepito', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.galgo, size: this.pequenio })
+  perro7 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.caniche, size: this.grande })
+  perro8 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: true, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro9 = new Pet({ name: 'tyson', sex: 'Macho', hasCollar: true, color: this.beige, furLength: this.largo, breed: this.sinRaza, size: this.pequenio })
+  perro10 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro11 = new Pet({ name: 'Severino', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro12 = new Pet({ name: 'Lalo', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.sinRaza, size: this.grande })
+  perro13 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.sinRaza, size: this.grande })
+  perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.caniche, size: this.pequenio })
+  perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.sinRaza, size: this.grande })
+  perro16 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, color: this.negro, furLength: this.negro, breed: this.sinRaza, size: this.grande })
+  perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
+  perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
+  perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.negro, furLength: this.negro, breed: this.bulldogIngles, size: this.mediano })
 
   //---------------------------POSTS-----------------------------------------------------------------------------------------------------------------
 
@@ -397,35 +396,12 @@ export class Bootstrap {
   message19!: Message
   message20!: Message
   //------------------------------------------CHATS----------------------------------------------------------------
-  chat1 = new Chat({
-    owner: this.estefania,
-    owner2: this.pedro,
-    messageList: [this.message1, this.message2, this.message3, this.message3]
-  })
+  chat1!: Chat
+  chat2!: Chat
+  chat3!: Chat
+  chat4!: Chat
+  chat5!: Chat
 
-  chat2 = new Chat({
-    owner: this.ivan,
-    owner2: this.pedro,
-    messageList: [this.message4, this.message5, this.message6]
-  })
-
-  chat3 = new Chat({
-    owner: this.ivan,
-    owner2: this.laura,
-    messageList: [this.message7, this.message8, this.message9]
-  })
-
-  chat4 = new Chat({
-    owner: this.ivan,
-    owner2: this.pablo,
-    messageList: [this.message6, this.message7]
-  })
-
-  chat5 = new Chat({
-    owner: this.ivan,
-    owner2: this.mariano,
-    messageList: [this.message8, this.message9]
-  })
   //------------------------------------------------------------------------------------------------------------------------------
   alertaGabrielPerro1!: Alert
   // activo!: UserStatus
@@ -875,6 +851,35 @@ export class Bootstrap {
   }
 
   async createChats(): Promise<void> {
+    this.chat1 = new Chat({
+      owner: this.estefania,
+      owner2: this.pedro,
+      messageList: [this.message1, this.message2, this.message3, this.message3]
+    })
+
+    this.chat2 = new Chat({
+      owner: this.ivan,
+      owner2: this.pedro,
+      messageList: [this.message4, this.message5, this.message6]
+    })
+
+    this.chat3 = new Chat({
+      owner: this.ivan,
+      owner2: this.laura,
+      messageList: [this.message7, this.message8, this.message9]
+    })
+
+    this.chat4 = new Chat({
+      owner: this.ivan,
+      owner2: this.pablo,
+      messageList: [this.message6, this.message7]
+    })
+
+    this.chat5 = new Chat({
+      owner: this.ivan,
+      owner2: this.mariano,
+      messageList: [this.message8, this.message9]
+    })
     console.log('******************************Creando Chats*********************************')
     await getRepository(Chat).save([this.chat1, this.chat2, this.chat3, this.chat4, this.chat5])
   }
