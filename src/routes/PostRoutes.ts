@@ -39,12 +39,14 @@ postRoutes.get('/getAll', async (req, res) => {
 postRoutes.put('/by-filter', async (req, res) => {
   console.log(req.body)
   try {
-    if (!req.body.pet) res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
-
-    const pet = req.body.pet
-    const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.myLocation, req.body.delta)
-    console.log(filter)
-    return res.json(await postService.getPostByFilters(filter))
+    if (!req.body.pet) {
+      res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
+    } else {
+      const pet = req.body.pet
+      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.searchLocation, req.body.deltaLocation)
+      console.log("PASA ANTES DE LLAMAR AL getPOstByFIlters()", filter)
+      return res.json(await postService.getPostByFilters(filter))
+    }
   } catch (error) {
     res.status(400).send(error.message)
   }
@@ -85,7 +87,6 @@ postRoutes.delete('/:postId/:userId', async (req, res) => {
   } catch (error) {
     res.send(error.message)
   }
-
 })
 
 export default postRoutes
