@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
 import { AlertStatus } from './AlertStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
+import { Post } from './Post'
 import { User } from './User'
 
 @Entity()
@@ -29,6 +30,20 @@ export class Alert {
 
   @ManyToOne(() => AlertStatus, (alertStatus) => alertStatus.Id)
   alertStatus!: AlertStatus
+
+  @ManyToMany(()=> Post, post => post.Id)
+  @JoinTable({
+    name: 'alert_post',
+    joinColumn: {
+      name: 'alertId',
+      referencedColumnName: 'Id',
+    },
+    inverseJoinColumn: {
+      name: 'postId',
+      referencedColumnName: 'Id',
+    },
+  })
+  posiblePostAlerts?: Post[]
 
   static fromJson(AlertJson: string): Alert {
     return Object.assign(new Alert(), AlertJson)

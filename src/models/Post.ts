@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, OneToOne, OneToMany, JoinColumn, ManyToMany } from 'typeorm'
+import { Alert } from './Alert'
 import { Comment } from './Comment'
 import { Location } from './Location'
 import { Pet } from './Pet'
@@ -47,6 +48,9 @@ export class Post {
 
   @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, { nullable: false })
   postStatus!:PostStatus
+
+  @ManyToMany(() => Alert, alert => alert.posiblePostAlerts)
+  posibleAlertPost?: Alert[]
 
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)

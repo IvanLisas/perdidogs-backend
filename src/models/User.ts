@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, On
 import { Chat } from './Chat'
 import { Comment } from './Comment'
 import { Post } from './Post'
-import { Rol } from './Rol'
+import { Role } from './Role'
 import { UserStatus } from './UserStatus'
 
 @Entity()
@@ -26,15 +26,12 @@ export class User {
 
   @Column({ type: 'varchar' })
   email!: string
-  //TODO
-  /*   @Column({ type: 'varchar' })
-  birthdate!: Date */
-
+  
   @Column({ type: 'varchar' })
   password!: string
 
-  @ManyToOne(() => Rol, (rol) => rol.Id)
-  rol!: Rol
+  @ManyToOne(() => Role, (rol) => rol.Id)
+  role!: Role
 
   @OneToMany(() => Chat, (chat) => chat.Id)
   chat!: Chat[]

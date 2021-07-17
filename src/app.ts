@@ -15,7 +15,7 @@ import { Message } from './models/Message'
 import { Pet } from './models/Pet'
 import { Picture } from './models/Picture'
 import { Post } from './models/Post'
-import { Rol } from './models/Rol'
+import { Role } from './models/Role'
 import { Size } from './models/Size'
 import { User } from './models/User'
 import dropDownRoutes from './routes/DropDownRoutes'
@@ -25,6 +25,9 @@ import { UserStatus } from './models/UserStatus'
 import { PostStatus } from './models/PostStatus'
 import { AlertStatus } from './models/AlertStatus'
 import statsRoutes from './admin-module/routes/StatsRoutes'
+import { Notification } from './models/Notification'
+import alertRoutes from './routes/AlertRoutes'
+import notificationRoutes from './routes/NotificationRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -39,10 +42,10 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Rol, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus],
+  entities: [User, Alert, Chat, Role, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,Notification],
   synchronize: true,
   logging: false,
-  dropSchema: false
+  dropSchema: true
 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {
@@ -61,6 +64,8 @@ createConnection({
     app.use('/comment', commentRoutes)
     app.use('/dropdown', dropDownRoutes)
     app.use('/stats', statsRoutes)
+    app.use('/alerts', alertRoutes)
+    app.use('/notifications', notificationRoutes)
     app.get('/', (req, res) => {
       res.send('Aplicacion Perdidogs')
     })

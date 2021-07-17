@@ -14,10 +14,10 @@ userRoutes.put('/login', async (req, res) => {
 
 userRoutes.put('/forgot-password', async (req, res) => {
   try {
-    const email = req.body.email;
-    if(email==null){
+    const email = req.body.email
+    if (email == null) {
       res.status(403).send('El email que ha ingresado es invalido')
-    }else{
+    } else {
       res.json(await userService.forgotPassword(email))
     }
   } catch (error) {
@@ -42,18 +42,17 @@ userRoutes.put('/update', async (req, res) => {
   }
 })
 
-userRoutes.put('/changePassword',async (req, res) => {
+userRoutes.put('/changePassword', async (req, res) => {
   try {
     const idUser = req.body.userId
     const oldPassword = req.body.oldPassword
     const newPassWord = req.body.newPassword
-   // console.log(oldPassword, newPassWord)
-
-    res.json(await userService.changePassword(idUser, oldPassword,newPassWord))
+    res.json(await userService.changePassword(idUser, oldPassword, newPassWord))
   } catch (error) {
     res.send(error.message)
   }
 })
+
 userRoutes.delete('/:userid', async (req, res) => {
   try {
     const id = parseInt(req.params.userid)
@@ -67,8 +66,15 @@ userRoutes.delete('/:userid', async (req, res) => {
 userRoutes.post('/registration', async (req, res) => {
   try {
     const user = User.fromJson(req.body)
-    console.log(req.body)
-    res.json(await userService.registrateUser(user))
+    return res.json(await userService.registrateUser(user))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
+userRoutes.put('/byUsername', async (req, res) => {
+  try {
+    return res.json(await userService.getByUsername(req.body.username))
   } catch (error) {
     res.status(400).send(error.message)
   }

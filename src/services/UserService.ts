@@ -1,22 +1,22 @@
 import { User } from '../models/User'
-import { getRepository } from 'typeorm'
-import bcrypt, { hash } from 'bcrypt'
+import { getRepository, Like } from 'typeorm'
+import bcrypt from 'bcrypt'
 import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
+import { Role } from '../models/Role'
 
 class UserService {
+  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed']
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
-      const user = await getRepository(User).findOneOrFail({
-        relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
+      const user = (await getRepository(User).findOneOrFail({
+        relations: this.relations,
         where: {
           email: anEmail
         }
-      })
-
-      if (await bcrypt.compare(aPassword, user.password)) {
-        return user
-      } else throw new Error()
+      })) as User
+      if (await bcrypt.compare(aPassword, user.password)) return user
+      else throw new Error('Contraseña incorrecta')
     } catch (error) {
       throw new Error('El email o la contraseña no son validos')
     }
@@ -24,7 +24,6 @@ class UserService {
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
-    console.log('USER: ', user)
     const link = 'localhost:19000/recover-password/:' + email
     if (user != null) {
       const emailSender = new EmailService()
@@ -42,39 +41,29 @@ class UserService {
 
   async get(id: number): Promise<User> {
     return await getRepository(User).findOneOrFail({
-      relations: ['post', 'post.pet', 'post.location', 'post.pictures'],
+      relations: this.relations,
       where: {
         Id: id
       }
     })
   }
-  async save(user: User): Promise<User> {
+
+  async update(user: User): Promise<User> {
     return await getRepository(User).save(user)
   }
 
-  async update(user: User): Promise<User> {
-     
-      return await getRepository(User).save(user)
-  
-  }
-
   async delete(user: User): Promise<User> {
-    user.userStatus = Bootstrap.userStatusInActivo
+    user.userStatus = Bootstrap.userStatusInactive
     return await getRepository(User).save(user)
   }
 
   async registrateUser(user: User): Promise<User> {
-    console.log(user)
-    const userWithSameMail = await getRepository(User).findOne({ email: user.email })
-
-    if (!userWithSameMail) {
-      const salt = 10
-      user.password = await bcrypt.hash(user.password, salt)
-      console.log(user.password)
-      return await this.save(user)
-    }
-
-    throw new Error('Este mail ya está en uso')
+    if (await getRepository(User).findOne({ email: user.email })) throw new Error('Este mail ya está en uso')
+    if (user.password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres')
+    const salt = 10
+    user.password = await bcrypt.hash(user.password, salt)
+    user.role = await getRepository(Role).findOneOrFail({ Id: 1 })
+    return await getRepository(User).save(user)
   }
 
   async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<User> {
@@ -83,17 +72,21 @@ class UserService {
     if (await bcrypt.compare(oldPassword, user.password)) {
       user.password = await bcrypt.hash(newPassword, salt)
       return await getRepository(User).save(user)
-    } else throw new Error('las passwords no son iguales')
+    } else throw new Error('las passwords no coinciden')
+  }
+  
+  async getByUsername(username: string): Promise<User[]> {
+    return await getRepository(User).find({
+      email: Like('%' + username + '%')
+    })
   }
 
-  async getUsersByStatus(userStatus: number): Promise<User[] >{
-
-    return await getRepository(User).find ({
-      relations: [ 'userStatus'],
-      where: {  userStatus : userStatus }
+  async getUsersByStatus(userStatus: number): Promise<User[]> {
+    return await getRepository(User).find({
+      relations: this.relations,
+      where: { userStatus: userStatus }
     })
-}
-
+  }
 }
 
 const userService = new UserService()

@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn,} from 'typeorm'
 
 @Entity()
-export class Rol {
-  constructor(init?: Partial<Rol>) {
+export class Role {
+  constructor(init?: Partial<Role>) {
     Object.assign(this, init)
   }
 
@@ -12,7 +12,7 @@ export class Rol {
   @Column({ type: 'varchar'})
   description!: string
 
-  static fromJson(RolJson: string) {
-    return Object.assign(new Rol(), RolJson)
+  static fromJson(RoleJson: string) {
+    return Object.assign(new Role(), RoleJson)
   }
 }
