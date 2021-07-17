@@ -200,7 +200,6 @@ class PostService {
     })
   }
 
-<<<<<<< HEAD
   async delete(postId: number, userId: number): Promise<Post> {
     const post = (await getRepository(Post).findOneOrFail({ Id: postId }, { relations: this.relations })) as Post
     const user = (await getRepository(User).findOneOrFail({ Id: userId }, { relations: ['role'] })) as User
@@ -209,8 +208,6 @@ class PostService {
     post.postStatus.Id = 2
     return await getRepository(Post).save(post)
   }
-=======
->>>>>>> 406d106900286d58273f5b63ea66ba23320c29be
 }
 
 const postService = new PostService()
