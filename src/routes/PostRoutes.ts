@@ -43,9 +43,7 @@ postRoutes.put('/by-filter', async (req, res) => {
       res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
     } else {
       const pet = req.body.pet
-      console.log("PASA ANTES DE LLAMAR AL getPOstByFIlters()", pet.fur.color.Id)
-      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color.Id, pet.fur.length.Id, pet.size.Id, pet.sex, req.body.searchLocation, req.body.deltaLocation)
-      console.log("COLOOOOOOOOOOOOOOOOOOR",filter.color)
+      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.searchLocation, req.body.deltaLocation)
       return res.json(await postService.getPostByFilters(filter))
     }
   } catch (error) {

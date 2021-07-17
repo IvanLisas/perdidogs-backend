@@ -23,7 +23,7 @@ class PostService {
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) },
-            postStatus: { Id: 1 }
+            //postStatus: { Id: 1 }
           }
         })
       }

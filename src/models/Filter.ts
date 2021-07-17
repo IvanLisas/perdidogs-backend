@@ -1,6 +1,8 @@
 import { Breed } from './Breed'
+import { Color } from './Color'
 import { Fur } from './Fur'
 import { Point } from './LatLang'
+import { Length } from './Length'
 
 export class Filter {
   constructor(init?: Partial<Filter>) {
@@ -16,13 +18,21 @@ export class Filter {
   searchLocation?: Point
   deltaLocation?: Point
 
-  static newFilter(_breed: number, _hasCollar: boolean, _color: number, _length: number, _size: number, _sex: string, _myLocation: Point, _delta: Point): Filter {
+  static newFilter(_breed: Breed, _hasCollar: boolean, _color: Color, _length: Length, _size: Length, _sex: string, _myLocation: Point, _delta: Point): Filter {
     const filter = new Filter()
-    filter.breed = _breed
+    if (_breed != undefined && _breed != null) {
+      filter.breed = _breed.Id
+    }
     filter.hasCollar = _hasCollar
-    filter.color = _color
-    filter.length = _length
-    filter.size = _size
+    if (_color != undefined && _color != null) {
+      filter.color = _color.Id
+    }
+    if (_length != undefined && _length != null) {
+      filter.length = _length.Id
+    }
+    if ( _size != undefined &&  _size != null) {
+      filter.size = _size.Id
+    }
     filter.sex = _sex
     filter.searchLocation = _myLocation
     filter.deltaLocation = _delta
