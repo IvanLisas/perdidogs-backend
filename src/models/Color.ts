@@ -12,6 +12,9 @@ export class Color {
   @Column({ type: 'varchar' })
   description!: string
 
+  @Column({ type: 'varchar' })
+  hexCode!: string
+
   static fromJson(ColorJson: string): Color {
     return Object.assign(new Color(), ColorJson)
   }
