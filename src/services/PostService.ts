@@ -22,8 +22,8 @@ class PostService {
         return await getRepository(Post).find({
           relations: this.relations,
           where: {
-            pet: { Id: In(petIds) },
-            postStatus: { Id: 1 }
+            pet: { Id: In(petIds) }
+            /*    postStatus: { Id: 1 } */
           }
         })
       }
