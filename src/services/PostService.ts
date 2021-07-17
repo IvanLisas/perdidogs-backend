@@ -12,7 +12,7 @@ import { User } from '../models/User'
 
 @Entity()
 class PostService {
-  relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLenght', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
+  relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLength', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.searchLocation != null && filter.deltaLocation != null) {
       const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation))?.map((x) => x.pet)
