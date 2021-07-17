@@ -23,7 +23,7 @@ class PostService {
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) },
-            //postStatus: 1
+            postStatus: { Id: 1 }
           }
         })
       }
@@ -214,4 +214,3 @@ export default postService
 function PostSatus(PostSatus: any) {
   throw new Error('Function not implemented.')
 }
-

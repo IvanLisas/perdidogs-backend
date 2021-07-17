@@ -44,7 +44,7 @@ postRoutes.put('/by-filter', async (req, res) => {
     } else {
       const pet = req.body.pet
       console.log("PASA ANTES DE LLAMAR AL getPOstByFIlters()", pet.fur.color.Id)
-      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color.Id, pet.fur.length, pet.size, pet.sex, req.body.searchLocation, req.body.deltaLocation)
+      const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color.Id, pet.fur.length.Id, pet.size, pet.sex, req.body.searchLocation, req.body.deltaLocation)
       console.log("COLOOOOOOOOOOOOOOOOOOR",filter.color)
       return res.json(await postService.getPostByFilters(filter))
     }
