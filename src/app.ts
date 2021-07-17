@@ -8,8 +8,7 @@ import { Alert } from './models/Alert'
 import { Breed } from './models/Breed'
 import { Chat } from './models/Chat'
 import { Color } from './models/Color'
-import { Fur } from './models/Fur'
-import { Length } from './models/Length'
+import { FurLength } from './models/FurLength'
 import { Location } from './models/Location'
 import { Message } from './models/Message'
 import { Pet } from './models/Pet'
@@ -42,10 +41,10 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Role, Message, Fur, Color, Length, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,Notification],
+  entities: [User, Alert, Chat, Role, Message, Color, FurLength, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,Notification],
   synchronize: true,
   logging: false,
-  dropSchema: false
+  dropSchema: true
 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {

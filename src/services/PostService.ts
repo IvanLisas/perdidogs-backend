@@ -12,7 +12,7 @@ import { User } from '../models/User'
 
 @Entity()
 class PostService {
-  relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
+  relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLenght', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.searchLocation != null && filter.deltaLocation != null) {
       const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation))?.map((x) => x.pet)
@@ -125,13 +125,13 @@ class PostService {
       }
       console.log('Pets antes de filtrar por color ', filter.color, pets.length)
       if (filter.color !== undefined && filter.color !== null && pets.length > 0) {
-        pets = pets.filter((x) => x.fur.color.Id === filter.color)
+        pets = pets.filter((x) => x.color.Id === filter.color)
         console.log('Pets despues de filtar por color', pets.length)
       }
       console.log('Pets2', pets.length)
-      if (filter.length !== undefined && filter.length !== null && pets.length > 0) {
+      if (filter.furLength !== undefined && filter.furLength !== null && pets.length > 0) {
         console.log('Filtra por fur.lenghr')
-        pets = pets.filter((x) => x.fur.length.Id == filter.length)
+        pets = pets.filter((x) => x.furLength.Id == filter.furLength)
         console.log('Pets', pets.length)
       }
       console.log('Pets3', pets.length)

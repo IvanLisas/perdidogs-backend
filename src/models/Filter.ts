@@ -1,8 +1,7 @@
 import { Breed } from './Breed'
 import { Color } from './Color'
-import { Fur } from './Fur'
 import { Point } from './LatLang'
-import { Length } from './Length'
+import { FurLength } from './FurLength'
 import { Location } from './Location'
 import { Pet } from './Pet'
 
@@ -14,7 +13,7 @@ export class Filter {
   breed?: number
   hasCollar?: boolean
   color?: number
-  length?: number
+  furLength?: number
   size?: number
   sex?: string
   searchLocation?: Point
@@ -26,13 +25,11 @@ export class Filter {
       filter.breed = pet.breed.Id
     }
     filter.hasCollar = pet.hasCollar
-    if (pet.fur !== undefined && pet.fur !== null) {
-      if (pet.fur.color !== undefined && pet.fur.color !== null) {
-        filter.color = pet.fur.color.Id
-      }
-      if (pet.fur.length !== undefined && pet.fur.length !== null) {
-        filter.length = pet.fur.length.Id
-      }
+    if (pet.color !== undefined && pet.color !== null) {
+      filter.color = pet.color.Id
+    }
+    if (pet.furLength !== undefined && pet.furLength !== null) {
+      filter.furLength = pet.furLength.Id
     }
     if (pet.size !== undefined && pet.size !== null) {
       filter.size = pet.size.Id

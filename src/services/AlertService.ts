@@ -7,8 +7,6 @@ import { PostRepo } from '../repos/PostRepo'
 import userService from './UserService'
 
 class AlertService {
-
-
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
@@ -20,17 +18,17 @@ class AlertService {
   }
 
   async populateAlertPostTable(pet: Pet, alertId: number) {
-    const postIds= this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x)=>x.alertOrPostId))
+    const postIds = this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x) => x.alertOrPostId))
     const alertPosts = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
     console.log(alertPosts)
     await getRepository(Notification).save(alertPosts)
   }
 
-  deleteRepetedValues(data:number[]):number[]{
-    const result=data.filter((x,index)=>{
-      return data.indexOf(x)===index
+  deleteRepetedValues(data: number[]): number[] {
+    const result = data.filter((x, index) => {
+      return data.indexOf(x) === index
     })
-    console.log("postIds " ,result)
+    console.log('postIds ', result)
     return result
   }
 
@@ -55,7 +53,11 @@ class AlertService {
     if (user)
       return await getRepository(Alert).find({
         relations: ['owner', 'pet', 'location'],
-        where: [{ owner: user }, { alertStatus: 1 }, { pet: { fur: alert.pet.fur, breed: alert.pet.breed, size: alert.pet.size, sex: alert.pet.sex, hasCollar: alert.pet.hasCollar }, location: alert.location }]
+        where: [
+          { owner: user },
+          { alertStatus: 1 },
+          { pet: { furLength: alert.pet.furLength, color: alert.pet.color, breed: alert.pet.breed, size: alert.pet.size, sex: alert.pet.sex, hasCollar: alert.pet.hasCollar }, location: alert.location }
+        ]
       })
   }
 
