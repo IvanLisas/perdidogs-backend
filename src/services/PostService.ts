@@ -13,8 +13,8 @@ class PostService {
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.fur', 'pet.fur.color', 'pet.fur.length', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus']
 
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
-    if (filter.myLocation != null && filter.delta != null) {
-      const pets = (await this.getByLocation(filter.myLocation, filter.delta))?.map((x) => x.pet)
+    if (filter.searchLocation != null && filter.deltaLocation != null) {
+      const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation))?.map((x) => x.pet)
       if (pets != null) {
         const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
         console.log('PETS despues DE FILTRAR', petIds?.length)
