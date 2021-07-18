@@ -1,15 +1,16 @@
 import { User } from '../models/User'
-import { getRepository } from 'typeorm'
-import bcrypt, { hash } from 'bcrypt'
+import { getRepository, Like } from 'typeorm'
+import bcrypt from 'bcrypt'
 import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { Role } from '../models/Role'
 
 class UserService {
+  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'role']
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
-        relations: ['post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed'],
+        relations: this.relations,
         where: {
           email: anEmail
         }
@@ -23,7 +24,6 @@ class UserService {
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
-    console.log('USER: ', user)
     const link = 'localhost:19000/recover-password/:' + email
     if (user != null) {
       const emailSender = new EmailService()
@@ -41,7 +41,7 @@ class UserService {
 
   async get(id: number): Promise<User> {
     return await getRepository(User).findOneOrFail({
-      relations: ['post', 'post.pet', 'post.location', 'post.pictures'],
+      relations: this.relations,
       where: {
         Id: id
       }
@@ -63,7 +63,6 @@ class UserService {
     const salt = 10
     user.password = await bcrypt.hash(user.password, salt)
     user.role = await getRepository(Role).findOneOrFail({ Id: 1 })
-    console.log(user)
     return await getRepository(User).save(user)
   }
 
@@ -73,12 +72,18 @@ class UserService {
     if (await bcrypt.compare(oldPassword, user.password)) {
       user.password = await bcrypt.hash(newPassword, salt)
       return await getRepository(User).save(user)
-    } else throw new Error('las passwords no son iguales')
+    } else throw new Error('las passwords no coinciden')
+  }
+  
+  async getByUsername(username: string): Promise<User[]> {
+    return await getRepository(User).find({
+      email: Like('%' + username + '%')
+    })
   }
 
   async getUsersByStatus(userStatus: number): Promise<User[]> {
     return await getRepository(User).find({
-      relations: ['userStatus'],
+      relations: this.relations,
       where: { userStatus: userStatus }
     })
   }

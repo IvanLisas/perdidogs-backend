@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class Length {
-  constructor(init?: Partial<Length>) {
+export class FurLength {
+  constructor(init?: Partial<FurLength>) {
     Object.assign(this, init)
   }
 

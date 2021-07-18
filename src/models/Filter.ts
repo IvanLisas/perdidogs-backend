@@ -1,6 +1,9 @@
 import { Breed } from './Breed'
-import { Fur } from './Fur'
+import { Color } from './Color'
 import { Point } from './LatLang'
+import { FurLength } from './FurLength'
+import { Location } from './Location'
+import { Pet } from './Pet'
 
 export class Filter {
   constructor(init?: Partial<Filter>) {
@@ -9,23 +12,31 @@ export class Filter {
 
   breed?: number
   hasCollar?: boolean
-  color?:number
-  length?:number
-  size?:number
+  color?: number
+  furLength?: number
+  size?: number
   sex?: string
-  myLocation?: Point
-  delta?: Point
+  searchLocation?: Point
+  deltaLocation?: Point
 
-  static newFilter(_breed:number, _hasCollar:boolean, _color:number, _length:number,_size:number, _sex:string, _myLocation:Point, _delta:Point):Filter{
+  static newFilter(pet: Pet, searchLocation: Point, deltaLocation: Point): Filter {
     const filter = new Filter()
-    filter.breed= _breed;
-    filter.hasCollar= _hasCollar;
-    filter.color= _color;
-    filter.length= _length
-    filter.size=_size
-    filter.sex= _sex;
-    filter.myLocation=_myLocation
-    filter.delta= _delta
+    if (pet.breed !== undefined && pet.breed !== null) {
+      filter.breed = pet.breed.Id
+    }
+    filter.hasCollar = pet.hasCollar
+    if (pet.color !== undefined && pet.color !== null) {
+      filter.color = pet.color.Id
+    }
+    if (pet.furLength !== undefined && pet.furLength !== null) {
+      filter.furLength = pet.furLength.Id
+    }
+    if (pet.size !== undefined && pet.size !== null) {
+      filter.size = pet.size.Id
+    }
+    filter.sex = pet.sex
+    filter.searchLocation = searchLocation
+    filter.deltaLocation = deltaLocation
     return filter
   }
 

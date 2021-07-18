@@ -26,10 +26,7 @@ export class User {
 
   @Column({ type: 'varchar' })
   email!: string
-  //TODO
-  /*   @Column({ type: 'varchar' })
-  birthdate!: Date */
-
+  
   @Column({ type: 'varchar' })
   password!: string
 

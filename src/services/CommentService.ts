@@ -22,16 +22,6 @@ export class CommentService {
     return await postService.get(comment.post.Id)
   }
 
-  async sendEmail(email: string): Promise<void> {
-    const user = await userService.findByEmail(email)
-    console.log('USER: ', user)
-    const link = 'localhost:19000/receive-a-message-password/:' + email
-    if (user != null) {
-      const emailSender = new EmailService()
-      emailSender.sendEmail(user, user.email, 'Tiene un nuevo mensaje.' + link)
-    }
-  }
-
   async create(message: MessageDTO): Promise<Chat | undefined> {
     const user1 = await userService.get(message.sender)
     const user2 = await userService.get(message.adressee)

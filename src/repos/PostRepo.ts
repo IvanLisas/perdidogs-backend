@@ -26,7 +26,8 @@ export class PostRepo extends Repository<Post> {
           `SELECT p.Id as alertOrPostId,p.locationId, pet.* FROM Post p 
           INNER JOIN pet  
           ON p.petId= petId
-          WHERE pet.furId= `+ pet.fur +
+          WHERE pet.furLength= `+ pet.furLength +
+          ' AND pet.colorId= '+ pet.color.Id +
           ' AND pet.breedId= '+ pet.breed +
           ' AND pet.hasCollar= '+ pet.hasCollar + 
           ' AND pet.sizeId= ' + pet.size)

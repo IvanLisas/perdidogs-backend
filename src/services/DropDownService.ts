@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 import { Color } from '../models/Color'
 import { Size } from '../models/Size';
-import { Length } from '../models/Length';
+import { FurLength } from '../models/FurLength';
 import { Breed } from '../models/Breed';
 class DropDownService {
     async getAllColors(): Promise<Color[] | undefined>{
@@ -12,8 +12,8 @@ class DropDownService {
         return await getRepository(Size).find({order:{description:'DESC'}});
     }
 
-    async getAllLengths(): Promise<Length[] | undefined>{
-        return await getRepository(Length).find({order:{description:'DESC'}});
+    async getAllLengths(): Promise<FurLength[] | undefined>{
+        return await getRepository(FurLength).find({order:{description:'DESC'}});
     }
 
     

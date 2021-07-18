@@ -12,7 +12,8 @@ export class AlertRepo extends Repository<Alert> {
         `SELECT a.Id as alertOrPostId,a.locationId, pet.* FROM Alert a
         INNER JOIN pet  
         ON a.petId= petId
-        WHERE pet.furId= `+ pet.fur +
+        WHERE pet.colorId= `+ pet.color.Id+
+        ' AND pet.furLength= '+ pet.furLength +
         ' AND pet.breedId= '+ pet.breed +
         ' AND pet.hasCollar= '+ pet.hasCollar + 
         ' AND pet.sizeId= ' + pet.size);

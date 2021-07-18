@@ -1,12 +1,13 @@
 import { Router } from 'express'
 import postService from '../services/PostService'
 import { Post } from '../models/Post'
-import { Geometry, Point } from '../models/LatLang'
+import { Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
+import { PostFilter } from '../admin-module/models/PostFilter'
+import userService from '../services/UserService'
 
 const postRoutes = Router()
 
-//POST a post
 postRoutes.post('/', async (req, res) => {
   try {
     console.log(req.body)
@@ -19,7 +20,6 @@ postRoutes.post('/', async (req, res) => {
   }
 })
 
-//EDITAR un post
 postRoutes.put('/', async (req, res) => {
   try {
     const post = Post.fromJson(req.body)
@@ -29,7 +29,6 @@ postRoutes.put('/', async (req, res) => {
   }
 })
 
-//GET ALL post
 postRoutes.get('/getAll', async (req, res) => {
   try {
     return res.json(await postService.getAllPosts())
@@ -38,19 +37,29 @@ postRoutes.get('/getAll', async (req, res) => {
   }
 })
 
-//GET BY FILTER post
 postRoutes.put('/by-filter', async (req, res) => {
-  if (!req.body.pet) res.json(await postService.getByLocation(req.body.myLocation, req.body.delta))
+  console.log(req.body)
   try {
-    const pet = req.body.pet
-    const filter = Filter.newFilter(pet.breed, pet.hasCollar, pet.fur.color, pet.fur.length, pet.size, pet.sex, req.body.myLocation, req.body.delta)
-    return res.json(await postService.getPostByFilters(filter))
+    if (!req.body.pet) {
+      res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
+    } else {
+      const pet = req.body.pet
+      const filter = Filter.newFilter(pet, req.body.searchLocation, req.body.deltaLocation)
+      return res.json(await postService.getPostByFilters(filter))
+    }
   } catch (error) {
     res.status(400).send(error.message)
   }
 })
 
-//GET ONE post
+postRoutes.put('/by-admin-filter', async (req, res) => {
+  try {
+    return res.json(await postService.getPostByAdminFilters(req.body))
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
 postRoutes.get('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
@@ -60,10 +69,8 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })
 
-//GET a post BY LOCATION
 postRoutes.put('/by-location', async (req, res) => {
   try {
-    /*  console.log(req.body) */
     const bounderies = req.body.viewport as Point
     return res.json(await postService.getByLocation(bounderies, { lat: 0, lng: 0 }))
   } catch (error) {
@@ -72,20 +79,18 @@ postRoutes.put('/by-location', async (req, res) => {
   }
 })
 
-
-postRoutes.put('/AceptAPost/:postId/:userId', async (req, res) => {
+postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
   try {
-    const postId = parseInt(req.params.postId)
-    const user = parseInt(req.params.userId)
-    
-    return res.json(await postService.aceptAPost(postId,user))
+    const postid = parseInt(req.params.postId)
+    const userid = parseInt(req.params.userId)
+ 
+    return res.json(await postService.aceptAPost(postid,userid))
   } catch (error) {
     res.status(404).send(error.message)
   }
 })
 
-
-postRoutes.put('/RejectAPost/:postId/:userId', async (req, res) => {
+postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
     const user = parseInt(req.params.userId)
@@ -99,8 +104,9 @@ postRoutes.put('/RejectAPost/:postId/:userId', async (req, res) => {
 //DELETE a post
 /*postRoutes.delete('/:postId', async (req, res) => {
   try {
-    const post = parseInt(req.params.postId)
-    return res.json(await postService.deletePost(post))
+    const postId = parseInt(req.params.postId)
+    const userId = parseInt(req.params.userId)
+    return res.json(await postService.delete(postId, userId))
   } catch (error) {
     res.send(error.message)
   }

@@ -6,10 +6,10 @@ export class Location {
     Object.assign(this, init)
   }
 
-  static createNewLocation(lat:number, long:number):Location{
-    const location= new Location()
-    location.lat= lat
-    location.long= long
+  static createNewLocation(lat: number, long: number): Location {
+    const location = new Location()
+    location.lat = lat
+    location.long = long
     return location
   }
 
