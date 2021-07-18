@@ -49,17 +49,16 @@ class PostService {
   }
 
   async populateAlertPostTable(pet: Pet, postId: number) {
-    const alertIds= this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x)=>x.alertOrPostId))
-    const alertPosts = alertIds.map((x) => new Notification({ alertId:x , postId: postId }))
+    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
+    const alertPosts = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
     await getRepository(Notification).save(alertPosts)
   }
 
-
-  deleteRepetedValues(data:number[]):number[]{
-    const result=data.filter((x,index)=>{
-      return data.indexOf(x)===index
+  deleteRepetedValues(data: number[]): number[] {
+    const result = data.filter((x, index) => {
+      return data.indexOf(x) === index
     })
-    console.log("alertIds " ,result)
+    console.log('alertIds ', result)
     return result
   }
 
@@ -219,6 +218,26 @@ class PostService {
     })
   }
 
+  async aceptAPost(postId: number, userId: number): Promise<Post| undefined> {
+    const post = await postService.get(postId)
+    const user = await userService.get(userId)
+    if (user.role.Id === 1 && post.postStatus.description==='Inactivo') {
+ 
+      return await postService.update(post)
+    }
+  }
+
+  async rejectAPost(postId: number, userId: number): Promise<Post| undefined> {
+    const post = await postService.get(postId)
+    const user = await userService.get(userId)
+    
+    if (user.role.Id === 1 ) {
+
+       post.postStatus.Id == 2
+       post.postStatus.description == 'Inactivo'
+       return await postService.update(post)
+    }
+  }
 }
 
 const postService = new PostService()

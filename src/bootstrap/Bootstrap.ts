@@ -29,6 +29,7 @@ export class Bootstrap {
   //----------------------------ESTADOS DE POSTS----------------------------------------------
   static postActivo = new PostStatus({ description: 'Activo' })
   static postInactivo = new UserStatus({ description: 'Inactivo' })
+  static postPendiente =  new UserStatus({ description: 'Pendiente' })
   //----------------------------ESTADOS DE ALERTAS----------------------------------------------
   static alertStatusActivo: AlertStatus
   static alertStatusInActivo: AlertStatus
@@ -481,7 +482,8 @@ export class Bootstrap {
     console.log('******************************Creando Post Status***************************************')
     Bootstrap.postActivo = new PostStatus({ description: 'Activo' })
     Bootstrap.postInactivo = new PostStatus({ description: 'Inactivo' })
-    await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo])
+    Bootstrap.postPendiente = new PostStatus({ description: 'Pendiente' })
+    await getRepository(PostStatus).save([Bootstrap.postActivo, Bootstrap.postInactivo, Bootstrap.postPendiente])
   }
 
   //AlertStatus
