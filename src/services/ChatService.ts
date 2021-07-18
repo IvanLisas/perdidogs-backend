@@ -3,14 +3,18 @@ import { getRepository } from 'typeorm'
 import { MessageDTO } from '../routes/ChatRoutes'
 import userService from './UserService'
 import { Message } from '../models/Message'
+import { ChatRepo } from '../repos/ChatRepo'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
+    const chat = (await ChatRepo.getByOwnerId())
+    console.log("CHATS", chat)
     return await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList', "messageList.sender", "messageList.adressee"],order: { creationDate: 'DESC' }, where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
   }
 
   async getChatId(user1Id: number, user2Id: number): Promise<number> {
     const chat = (await getRepository(Chat).findOne({ owner: { Id: user1Id }, owner2: { Id: user2Id } }, { relations: ['owner', 'owner2'],order: { creationDate: 'DESC' } })) as Chat
+    console.log(chat)
     if (!chat) return 0
     else return chat.Id
   }
