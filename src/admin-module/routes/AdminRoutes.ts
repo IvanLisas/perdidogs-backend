@@ -11,7 +11,7 @@ const adminRoutes = Router()
 
 adminRoutes.put('/filterPosts', async (req, res) => {
     try {
-      const filters= PostFilter.newFilter(req.body.breed, req.body.ownerEmail, req.body.createdFrom, req.body.createdTo, req.body.status,req.body.userStatus);
+      const filters= PostFilter.newFilter(req.body.breed, req.body.user, req.body.ownerEmail, req.body.createdFrom, req.body.createdTo, req.body.status,req.body.userStatus);
       return res.json(await postService.getPostByAdminFilters(filters))
     } catch (error) {
       res.send(error.message)
