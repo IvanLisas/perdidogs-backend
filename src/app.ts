@@ -41,10 +41,10 @@ createConnection({
   username: 'root',
   password: '1234',
   database: 'perdidogs',
-  entities: [User, Alert, Chat, Role, Message, Color, FurLength, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus,Notification],
+  entities: [User, Alert, Chat, Role, Message, Color, FurLength, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus, Notification],
   synchronize: true,
   logging: false,
-  dropSchema: false
+  dropSchema: true
 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {

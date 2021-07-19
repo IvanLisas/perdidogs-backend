@@ -6,26 +6,27 @@ import { Message } from '../models/Message'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
-    let chats = await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList', "messageList.sender", "messageList.adressee"],order: { creationDate: 'DESC' }, where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
-    console.log("CHATS ANTES DE ORDENAR ",chats)
-    chats = chats.sort((a,b)=> (a.messageList[a.messageList.length-1].creationDate).getMilliseconds()-(b.messageList[b.messageList.length-1].creationDate).getMilliseconds())
-    console.log("CHATS DESPUES DE ORDENAR ",chats)
+    let chats = await getRepository(Chat).find({
+      relations: ['owner', 'owner2', 'messageList', 'messageList.sender', 'messageList.adressee'],
+      order: { creationDate: 'DESC' },
+      where: [{ owner: { Id: id } }, { owner2: { Id: id } }]
+    })
+
+    chats = chats.sort((a, b) => a.messageList[0].creationDate.getMilliseconds() - b.messageList[0].creationDate.getMilliseconds())
+
     return chats
   }
 
   async getChatId(user1Id: number, user2Id: number): Promise<number> {
-    const chat = (await getRepository(Chat).findOne({ owner: { Id: user1Id }, owner2: { Id: user2Id } }, { relations: ['owner', 'owner2'],order: { creationDate: 'DESC' } })) as Chat
+    const chat = (await getRepository(Chat).findOne({ owner: { Id: user1Id }, owner2: { Id: user2Id } }, { relations: ['owner', 'owner2'], order: { creationDate: 'DESC' } })) as Chat
     console.log(chat)
     if (!chat) return 0
     else return chat.Id
   }
 
-
-
   // async get(id: number): Promise<Chat> {
-  //   return await getRepository(Chat).findOne({ Id: id }, 
+  //   return await getRepository(Chat).findOne({ Id: id },
   //         { relations: ['owner', 'owner2', 'messageList'] }) as Chat  }
-
 
   async getMessage(id: number): Promise<Message | undefined> {
     return await getRepository(Message).findOne({ Id: id })
