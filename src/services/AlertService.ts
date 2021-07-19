@@ -7,9 +7,15 @@ import { PostRepo } from '../repos/PostRepo'
 import userService from './UserService'
 
 class AlertService {
+
+  async getByUserId(userId: number): Promise<Alert[] | undefined> {
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: {owner:{Id:userId}}})
+  }
+
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
+
 
   async create(alert: Alert): Promise<Alert> {
     const result = await getRepository(Alert).save(alert)

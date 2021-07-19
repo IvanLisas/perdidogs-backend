@@ -459,7 +459,7 @@ export class Bootstrap {
     console.log('******************************Creando Alert Status***************************************')
     Bootstrap.alertStatusActivo = new AlertStatus({ description: 'Active' })
     Bootstrap.alertStatusInActivo = new AlertStatus({ description: 'Inactive' })
-    await getRepository(PostStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
+    await getRepository(AlertStatus).save([Bootstrap.alertStatusActivo, Bootstrap.alertStatusInActivo])
   }
 
   //Colors

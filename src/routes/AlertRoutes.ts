@@ -3,10 +3,19 @@ import alertService from '../services/AlertService'
 
 const alertRoutes = Router()
 
-alertRoutes.get('/:alertId', async (req, res) => {
+alertRoutes.get('/by-id/:alertId', async (req, res) => {
   const id = parseInt(req.params.alertId)
   try {
     res.json(await alertService.get(id))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+alertRoutes.get('/by-user-id/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId)
+  try {
+    res.json(await alertService.getByUserId(userId))
   } catch (error) {
     res.send(error.message)
   }

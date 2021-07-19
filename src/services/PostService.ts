@@ -22,7 +22,7 @@ class PostService {
         return await getRepository(Post).find({
           relations: this.relations,
           where: {
-            pet: { Id: In(petIds) },
+            pet: { Id: In(petIds) }
             //postStatus: { Id: 1 }
           }
         })
@@ -31,7 +31,7 @@ class PostService {
       return getRepository(Post).find({
         relations: this.relations,
         where: {
-          postStatus: 1
+          postStatus: 3
         }
       })
     }
@@ -199,13 +199,28 @@ class PostService {
     })
   }
 
-  async delete(postId: number, userId: number): Promise<Post> {
-    const post = (await getRepository(Post).findOneOrFail({ Id: postId }, { relations: this.relations })) as Post
-    const user = (await getRepository(User).findOneOrFail({ Id: userId }, { relations: ['role'] })) as User
-    if (post.postStatus.Id != 1) throw new Error('Este post esta deshabilitado.')
-    if (post.owner.role.Id != 1 && post.owner != user) throw new Error('No tiene permisos para eliminar este post')
-    post.postStatus.Id = 2
-    return await getRepository(Post).save(post)
+  async aceptAPost(postId: number, userId: number): Promise<Post | undefined> {
+   console.log(postId, userId)
+    const post = await postService.get(postId)
+    //console.log("POST" , post)
+    const user = await userService.get(userId)
+    console.log("USER" , user.role)
+    if (user.role.Id === 1) {
+      console.log("ES ADMIN")
+      post.postStatus.Id == 1
+      return await getRepository(Post).save(post)
+    }
+  }
+
+  async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
+    
+    const post =  await postService.get(postId)
+    const user = await userService.get(userId)
+
+    if (user.role.Id === 1) {
+      post.postStatus.Id == 2
+      return await getRepository(Post).save(post)
+    }
   }
 }
 

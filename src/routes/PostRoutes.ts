@@ -4,6 +4,7 @@ import { Post } from '../models/Post'
 import { Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
 import { PostFilter } from '../admin-module/models/PostFilter'
+import userService from '../services/UserService'
 
 const postRoutes = Router()
 
@@ -78,7 +79,30 @@ postRoutes.put('/by-location', async (req, res) => {
   }
 })
 
-postRoutes.delete('/:postId/:userId', async (req, res) => {
+postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
+  try {
+    const postid = parseInt(req.params.postId)
+    const userid = parseInt(req.params.userId)
+ 
+    return res.json(await postService.aceptAPost(postid,userid))
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
+
+postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
+  try {
+    const postId = parseInt(req.params.postId)
+    const user = parseInt(req.params.userId)
+
+    return res.json(await postService.rejectAPost(postId,user))
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
+
+//DELETE a post
+/*postRoutes.delete('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
     const userId = parseInt(req.params.userId)
@@ -86,6 +110,6 @@ postRoutes.delete('/:postId/:userId', async (req, res) => {
   } catch (error) {
     res.send(error.message)
   }
-})
+})*/
 
 export default postRoutes
