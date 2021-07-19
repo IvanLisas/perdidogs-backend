@@ -6,10 +6,7 @@ import { Message } from '../models/Message'
 
 export class ChatService {
   async getAll(id: number): Promise<Chat[]> {
-    let chats = await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList', "messageList.sender", "messageList.adressee"],order: { creationDate: 'DESC' }, where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
-    console.log("CHATS ANTES DE ORDENAR ",chats)
-    chats = chats.sort((a,b)=> (a.messageList[a.messageList.length-1].creationDate).getMilliseconds()-(b.messageList[b.messageList.length-1].creationDate).getMilliseconds())
-    console.log("CHATS DESPUES DE ORDENAR ",chats)
+    const chats = await getRepository(Chat).find({ relations: ['owner', 'owner2', 'messageList', "messageList.sender", "messageList.adressee"],order: { creationDate: 'DESC' }, where: [{ owner: { Id: id } }, { owner2: { Id: id }}] })
     return chats
   }
 
