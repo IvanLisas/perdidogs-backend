@@ -4,7 +4,7 @@ import notificationService from '../services/NotificationService'
 
 const notificationRoutes = Router()
 
-notificationRoutes.get('by-user-id/:userId', async (req, res) => {
+notificationRoutes.get('/by-user-id/:userId', async (req, res) => {
   try {
     const id = parseInt(req.params.userId)
     res.json(await notificationService.getAllActiveAlerts(id))

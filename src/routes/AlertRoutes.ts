@@ -46,14 +46,5 @@ alertRoutes.delete('/:alertId', async (req, res) => {
   }
 })
 
-alertRoutes.get('/:userId', async (req, res) => {
-  try {
-    const id = parseInt(req.params.userId)
-    return res.json(alertService.match(id, req.body))
-  } catch (error) {
-    res.send(error.message)
-  }
-})
-
 export default alertRoutes
 
