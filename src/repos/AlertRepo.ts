@@ -13,10 +13,10 @@ export class AlertRepo extends Repository<Alert> {
           INNER JOIN pet  
           ON a.petId= pet.Id
           WHERE pet.colorId= `+ pet.color.Id+
-          ' AND pet.furLengthId= '+ pet.furLength +
-          ' AND pet.breedId= '+ pet.breed +
+          ' AND pet.furLengthId= '+ pet.furLength.Id +
+          ' AND pet.breedId= '+ pet.breed.Id +
           ' AND pet.hasCollar= '+ pet.hasCollar + 
-          ' AND pet.sizeId= ' + pet.size);
+          ' AND pet.sizeId= ' + pet.size.Id);
         return counts
       }
 
