@@ -15,41 +15,48 @@ export class AlertRepo extends Repository<Alert> {
     const counts = await entityManager.query(query)
     return counts
   }
-
- 
 }
 function buildWhereStatements(pet: Pet): string {
-    let query = ''
-    if (pet.furLength != undefined) {
-      if (query.length < 5) {
-        query = query + ' WHERE'
-      }
-      query = query + ' pet.furLengthId= ' + pet.furLength.Id
+  let query = ''
+  if (pet.furLength != undefined) {
+    if (query.length < 5) {
+      query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
-    if (pet.color !== undefined) {
-      if (query.length < 5) {
-        query = query + ' WHERE'
-      }
-      query = query + ' AND pet.colorId= ' + pet.color.Id
-    }
-    if (pet.breed !== undefined) {
-      if (query.length < 5) {
-        query = query + ' WHERE'
-      }
-      query = query + ' AND pet.breedId= ' + pet.breed.Id
-    }
-    if (pet.size !== undefined) {
-      if (query.length < 5) {
-        query = query + ' WHERE'
-      }
-      query = query + ' AND pet.sizeId= ' + pet.size.Id
-    }
-    if (pet.hasCollar !== undefined) {
-      if (query.length < 5) {
-        query = query + ' WHERE'
-      }
-      query = query + ' AND pet.hasCollar=  ' + pet.hasCollar
-    }
-    return query
+    query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
-
+  if (pet.color !== undefined) {
+    if (query.length < 5) {
+      query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
+    }
+    query = query + '  pet.colorId= ' + pet.color.Id
+  }
+  if (pet.breed !== undefined) {
+    if (query.length < 5) {
+      query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
+    }
+    query = query + '  pet.breedId= ' + pet.breed.Id
+  }
+  if (pet.size !== undefined) {
+    if (query.length < 5) {
+      query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
+    }
+    query = query + '  pet.sizeId= ' + pet.size.Id
+  }
+  if (pet.hasCollar !== undefined) {
+    if (query.length < 5) {
+      query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
+    }
+    query = query + '  pet.hasCollar=  ' + pet.hasCollar
+  }
+  return query
+}

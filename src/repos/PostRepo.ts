@@ -51,32 +51,42 @@ function buildWhereStatements(pet: Pet): string {
   if (pet.furLength != undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
     query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
   if (pet.color !== undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
-    query = query + ' AND pet.colorId= ' + pet.color.Id
+    query = query + '  pet.colorId= ' + pet.color.Id
   }
   if (pet.breed !== undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
-    query = query + ' AND pet.breedId= ' + pet.breed.Id
+    query = query + '  pet.breedId= ' + pet.breed.Id
   }
   if (pet.size !== undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
-    query = query + ' AND pet.sizeId= ' + pet.size.Id
+    query = query + '  pet.sizeId= ' + pet.size.Id
   }
   if (pet.hasCollar !== undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
+    } else {
+      query = query + ' AND '
     }
-    query = query + ' AND pet.hasCollar=  ' + pet.hasCollar
+    query = query + '  pet.hasCollar=  ' + pet.hasCollar
   }
   return query
 }
