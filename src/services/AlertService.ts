@@ -9,7 +9,7 @@ import userService from './UserService'
 class AlertService {
 
   async getByUserId(userId: number): Promise<Alert[] | undefined> {
-    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength','pet.breed', 'pet.color', 'pet.size'], where: {owner:{Id:userId}}})
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength','pet.breed', 'pet.color', 'pet.size'], where: {owner:{Id:userId},order: { creationDate: 'DESC' }}})
   }
 
   async get(id: number): Promise<Alert[] | undefined> {

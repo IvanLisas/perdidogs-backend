@@ -21,7 +21,7 @@ export class PostRepo extends Repository<Post> {
 
   static async filterPostByPetAlert(pet: Pet): Promise<QueryResult[]> {
     const entityManager = getManager()
-    const query = PostRepo.filterPostByPetAlertQuery + buildWhereStatements(pet)
+    const query = PostRepo.filterPostByPetAlertQuery + buildWhereStatements(pet) + " order by creationDate DESC "
     console.log(query)
     const counts = await entityManager.query(query)
     return counts
