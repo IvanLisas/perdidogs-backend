@@ -41,14 +41,15 @@ class PostService {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
     const result = await getRepository(Post).save(post)
-    this.populateAlertPostTable(post.pet, result.Id)
+    this.populateNotificationTable(post.pet, result.Id)
     return result
   }
 
-  async populateAlertPostTable(pet: Pet, postId: number) {
+  async populateNotificationTable(pet: Pet, postId: number) {
     const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
-    const alertPosts = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
-    await getRepository(Notification).save(alertPosts)
+    const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
+    console.log("NOTIFICATIONS ", notifications)
+    await getRepository(Notification).save(notifications)
   }
 
   deleteRepetedValues(data: number[]): number[] {

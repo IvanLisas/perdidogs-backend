@@ -19,15 +19,15 @@ class AlertService {
 
   async create(alert: Alert): Promise<Alert> {
     const result = await getRepository(Alert).save(alert)
-    this.populateAlertPostTable(alert.pet, result.Id)
+    this.populateNotificationTable(alert.pet, result.Id)
     return result
   }
 
-  async populateAlertPostTable(pet: Pet, alertId: number) {
+  async populateNotificationTable(pet: Pet, alertId: number) {
     const postIds = this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x) => x.alertOrPostId))
-    const alertPosts = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
-    console.log(alertPosts)
-    await getRepository(Notification).save(alertPosts)
+    const notifications = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
+    console.log(notifications)
+    await getRepository(Notification).save(notifications)
   }
 
   deleteRepetedValues(data: number[]): number[] {

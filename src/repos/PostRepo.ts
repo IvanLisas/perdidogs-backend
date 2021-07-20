@@ -20,13 +20,12 @@ export class PostRepo extends Repository<Post> {
       }
 
       static async filterPostByPetAlert(pet:Pet):Promise<QueryResult[]>{
-        console.log("LLEGA AL POST REPO")
         const entityManager = getManager();
         const counts = await entityManager.query(
           `SELECT p.Id as alertOrPostId,p.locationId, pet.* FROM Post p 
           INNER JOIN pet  
-          ON p.petId= petId
-          WHERE pet.furLength= `+ pet.furLength +
+          ON p.petId= pet.Id
+          WHERE pet.furLengthId= `+ pet.furLength +
           ' AND pet.colorId= '+ pet.color.Id +
           ' AND pet.breedId= '+ pet.breed +
           ' AND pet.hasCollar= '+ pet.hasCollar + 
