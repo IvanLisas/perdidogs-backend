@@ -80,13 +80,5 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.sizeId= ' + pet.size.Id
   }
-  if (pet.hasCollar !== undefined) {
-    if (query.length < 5) {
-      query = query + ' WHERE'
-    } else {
-      query = query + ' AND '
-    }
-    query = query + '  pet.hasCollar=  ' + pet.hasCollar
-  }
   return query
 }
