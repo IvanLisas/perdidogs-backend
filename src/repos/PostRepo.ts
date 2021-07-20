@@ -30,21 +30,27 @@ export class PostRepo extends Repository<Post> {
   static async getPostsByUserId(userId: number): Promise<NotificationDTO[]> {
     console.log('LLEGA AL getAlertsByUserId() ')
     const entityManager = getManager()
-    return await entityManager.query(
-      'SELECT DISTINCT p.*, n.alertId, n.postId, n.creationDate FROM  perdidogs.user u INNER JOIN post p ' +
-        ' ON p.ownerId = u.Id ' +
-        ' INNER JOIN notifications n ' +
-        ' ON n.postId = p.Id ' +
-        ' inner join alert a ' +
-        ' on a.Id= n.alertId ' +
-        ' AND n.hasBeenRejected= false' +
-        ' AND p.ownerId!= ' +
-        userId +
-        ' AND a.ownerId= ' +
-        userId
-    )
+    const query =  'SELECT DISTINCT n.alertId, n.postId , pic.url, n.creationDate, l.lat, l.long '+  
+    ' FROM  perdidogs.user u INNER JOIN post p ' +
+    ' ON p.ownerId = u.Id ' +
+    ' INNER JOIN notifications n ' +
+    ' ON n.postId = p.Id ' +
+    ' INNER JOIN location l  ' +
+    ' ON p.locationId= l.Id ' +
+    ' INNER JOIN picture pic'+
+    ' ON pic.postId= p.Id ' +
+    ' inner join alert a ' +
+    ' on a.Id= n.alertId ' +
+    ' AND n.hasBeenRejected= false' +
+    ' AND p.ownerId!= ' +    userId +
+    ' AND a.ownerId= ' +    userId
+    console.log(query)
+    return await entityManager.query(query    )
   }
 }
+
+
+
 
 function buildWhereStatements(pet: Pet): string {
   let query = ''

@@ -30,7 +30,7 @@ class NotificationService {
     return getRepository(Notification).findOneOrFail({postId:postId, alertId:alertId})
   }
 
-  async getAllActiveAlerts(userId: number): Promise<NotificationDTO[]> {
+  async getNotificationDtosByUserId(userId: number): Promise<NotificationDTO[]> {
     return await PostRepo.getPostsByUserId(userId)
   }
 }

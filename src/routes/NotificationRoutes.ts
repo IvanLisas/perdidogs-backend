@@ -7,7 +7,7 @@ const notificationRoutes = Router()
 notificationRoutes.get('/by-user-id/:userId', async (req, res) => {
   try {
     const id = parseInt(req.params.userId)
-    res.json(await notificationService.getAllActiveAlerts(id))
+    res.json(await notificationService.getNotificationDtosByUserId(id))
   } catch (error) {
     res.send(error.message)
   }

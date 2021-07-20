@@ -9,8 +9,11 @@ export class NotificationDTO {
 
   alertId!:number
   postId!:number
-  post!:Post
-
+  url!:string
+  creationDate!:Date
+  lat!:number
+  long!:number
+  
   static fromJson(AlertJson: string): NotificationDTO {
     return Object.assign(new NotificationDTO(), AlertJson)
   }
