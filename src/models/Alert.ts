@@ -33,7 +33,7 @@ export class Alert {
 
   @ManyToMany(()=> Post, post => post.Id)
   @JoinTable({
-    name: 'notification',
+    name: 'notifications',
     joinColumn: {
       name: 'alertId',
       referencedColumnName: 'Id',

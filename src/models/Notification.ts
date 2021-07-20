@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, CreateDateColumn } from 'typeorm'
 
 @Entity("notifications")
 export class Notification {
@@ -19,6 +19,9 @@ export class Notification {
 
   @Column({default:false})
   hasBeenRejected!:boolean
+
+  @CreateDateColumn()
+  creationDate!: Date
 
   static fromJson(AlertJson: string): Notification {
     return Object.assign(new Notification(), AlertJson)
