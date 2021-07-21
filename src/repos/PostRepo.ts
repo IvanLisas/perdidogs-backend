@@ -51,7 +51,7 @@ export class PostRepo extends Repository<Post> {
 
 function buildWhereStatements(pet: Pet): string {
   let query = ''
-  if (pet.furLength != undefined) {
+  if (pet.furLength != undefined && pet.furLength.Id!=undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -59,7 +59,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
-  if (pet.color !== undefined) {
+  if (pet.color !== undefined&&pet.furLength.Id!=undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -67,7 +67,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.colorId= ' + pet.color.Id
   }
-  if (pet.breed !== undefined) {
+  if (pet.breed !== undefined&&pet.breed.Id!=undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -75,7 +75,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.breedId= ' + pet.breed.Id
   }
-  if (pet.size !== undefined) {
+  if (pet.size !== undefined&&pet.size.Id!=undefined) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {

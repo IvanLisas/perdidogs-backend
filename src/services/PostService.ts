@@ -46,7 +46,7 @@ class PostService {
   }
 
   async populateNotificationTable(pet: Pet, postId: number) {
-    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
+    const alertIds = this.deleteRepetedValues(((await AlertRepo.filterAlertsByPetInPost(pet))).map((x) => x.alertOrPostId))
     const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
     console.log("NOTIFICATIONS ", notifications)
     await getRepository(Notification).save(notifications)
