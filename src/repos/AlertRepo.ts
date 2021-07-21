@@ -11,7 +11,6 @@ export class AlertRepo extends Repository<Alert> {
     console.log('LLEGA AL ALERT REPO', pet)
     const entityManager = getManager()
     const query = AlertRepo.filterAlertsByPetInPostQuery + buildWhereStatements(pet)+ " order by creationDate DESC "
-    console.log(query)
     const counts = await entityManager.query(query)
     return counts
   }

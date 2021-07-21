@@ -3,14 +3,11 @@ import postService from '../services/PostService'
 import { Post } from '../models/Post'
 import { Point } from '../models/LatLang'
 import { Filter } from '../models/Filter'
-import { PostFilter } from '../admin-module/models/PostFilter'
-import userService from '../services/UserService'
 
 const postRoutes = Router()
 
 postRoutes.post('/', async (req, res) => {
   try {
-    console.log(req.body)
     const userId = parseInt(req.body.owner)
     const post = Post.fromJson(req.body)
     return res.json(await postService.create(userId, post))
