@@ -54,7 +54,7 @@ export class PostRepo extends Repository<Post> {
 
 function buildWhereStatements(pet: Pet): string {
   let query = ''
-  if (pet.furLength != undefined && pet.furLength.Id!=undefined) {
+  if (pet.furLength != undefined && pet.furLength.Id!=undefined&&pet.furLength!=null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -62,7 +62,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
-  if (pet.color !== undefined&&pet.furLength.Id!=undefined) {
+  if (pet.color !== undefined&&pet.furLength.Id!=undefined&&pet.color!=null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -70,7 +70,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.colorId= ' + pet.color.Id
   }
-  if (pet.breed !== undefined&&pet.breed.Id!=undefined) {
+  if (pet.breed !== undefined&&pet.breed.Id!=undefined&&pet.breed!=null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
@@ -78,7 +78,7 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.breedId= ' + pet.breed.Id
   }
-  if (pet.size !== undefined&&pet.size.Id!=undefined) {
+  if (pet.size !== undefined&&pet.size.Id!=undefined&&pet.size!=null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
