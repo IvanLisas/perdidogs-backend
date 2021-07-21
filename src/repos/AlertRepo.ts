@@ -21,7 +21,7 @@ function buildWhereStatements(pet: Pet): string {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
-      query = query + ' AND '
+      query = query + ' OR '
     }
     query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
@@ -29,7 +29,7 @@ function buildWhereStatements(pet: Pet): string {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
-      query = query + ' AND '
+      query = query + ' OR '
     }
     query = query + '  pet.colorId= ' + pet.color.Id
   }
@@ -37,7 +37,7 @@ function buildWhereStatements(pet: Pet): string {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
-      query = query + ' AND '
+      query = query + ' OR '
     }
     query = query + '  pet.breedId= ' + pet.breed.Id
   }
@@ -45,7 +45,7 @@ function buildWhereStatements(pet: Pet): string {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
-      query = query + ' AND '
+      query = query + ' OR '
     }
     query = query + '  pet.sizeId= ' + pet.size.Id
   }
