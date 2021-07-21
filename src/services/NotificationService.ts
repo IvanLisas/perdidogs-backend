@@ -31,17 +31,20 @@ class NotificationService {
   }
 
   async getNotificationDtosByUserId(userId: number): Promise<NotificationDTO[]> {
-    const result= Array.from(new Set(await PostRepo.getPostsByUserId(userId)))
+    const result= this.deleteRepetedValues(await PostRepo.getPostsByUserId(userId))
     console.log(result)
     return result
   }
 
-  deleteRepetedValues(data: number[]): number[] {
-    const result = data.filter((x, index) => {
-      return data.indexOf(x) === index
+  deleteRepetedValues(data: NotificationDTO[]): NotificationDTO[] {
+    const unique :NotificationDTO[]= []
+    data.forEach((value)=> {
+      if((unique.filter(x=>x.postId==value.postId)).length==0){
+        unique.push(value)
+      }
     })
-    console.log('postIds ', result)
-    return result
+    unique.map(x=>{console.log(x.alertId, x.postId)})
+    return unique
   }
 }
 
