@@ -8,15 +8,13 @@ import notificationService from './NotificationService'
 import userService from './UserService'
 
 class AlertService {
-
   async getByUserId(userId: number): Promise<Alert[] | undefined> {
-    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength','pet.breed', 'pet.color', 'pet.size'], where: {owner:{Id:userId},order: { creationDate: 'DESC' }}})
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'], where: { owner: { Id: userId } } })
   }
 
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
-
 
   async create(alert: Alert): Promise<Alert> {
     const result = await getRepository(Alert).save(alert)
@@ -27,7 +25,7 @@ class AlertService {
   async populateNotificationTable(pet: Pet, alertId: number) {
     const postIds = this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x) => x.alertOrPostId))
     const notifications = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
-    console.log(notifications)
+
     await getRepository(Notification).save(notifications)
   }
 
@@ -35,13 +33,13 @@ class AlertService {
     const result = data.filter((x, index) => {
       return data.indexOf(x) === index
     })
-    console.log('postIds ', result)
     return result
   }
 
   async update(alert: Alert): Promise<Alert> {
+    console.log(alert.pet.breed.Id == undefined)
     await notificationService.deleteNotificationByAlertId(alert.Id)
-    this.populateNotificationTable(alert.pet,alert.Id)
+    this.populateNotificationTable(alert.pet, alert.Id)
     return await getRepository(Alert).save(alert)
   }
 
