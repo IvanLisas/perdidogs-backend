@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import alertService from '../services/AlertService'
 import notificationService from '../services/NotificationService'
 
 const notificationRoutes = Router()
@@ -16,8 +15,7 @@ notificationRoutes.get('/by-user-id/:userId', async (req, res) => {
 notificationRoutes.put('/read', async (req, res) => {
   try {
     const postId= parseInt(req.body.postId)
-    const alertId= parseInt(req.body.alertId)
-    return res.json(await notificationService.markAsRead(postId, alertId))
+    return res.json(await notificationService.markAsRead(postId))
   } catch (error) {
     res.send(error.message)
   }
@@ -26,8 +24,7 @@ notificationRoutes.put('/read', async (req, res) => {
 notificationRoutes.put('/reject', async (req, res) => {
     try {
       const postId= parseInt(req.body.postId)
-      const alertId= parseInt(req.body.alertId)
-      return res.json(await notificationService.markAsRejected(postId, alertId))
+      return res.json(await notificationService.markAsRejected(postId))
     } catch (error) {
       res.send(error.message)
     }
