@@ -4,6 +4,7 @@ import { Notification } from '../models/Notification'
 import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
 import { PostRepo } from '../repos/PostRepo'
+import notificationService from './NotificationService'
 import userService from './UserService'
 
 class AlertService {
@@ -39,6 +40,8 @@ class AlertService {
   }
 
   async update(alert: Alert): Promise<Alert> {
+    await notificationService.deleteNotificationByAlertId(alert.Id)
+    this.populateNotificationTable(alert.pet,alert.Id)
     return await getRepository(Alert).save(alert)
   }
 

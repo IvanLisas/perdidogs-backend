@@ -14,6 +14,9 @@ import { AlertRepo } from '../repos/AlertRepo'
 import { NotificationDTO } from '../models/NotificationDTO'
 @Entity()
 class NotificationService {
+  async deleteNotificationByAlertId(Id: number) {
+    return getRepository(Notification).delete({alertId:Id})
+  }
   async markAsRead(postId: number, alertId: number): Promise<Notification> {
     const notification = await this.findById(postId,alertId)
     notification.hasBeenRead=true
