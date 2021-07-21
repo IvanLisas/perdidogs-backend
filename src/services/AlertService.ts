@@ -40,7 +40,8 @@ class AlertService {
     console.log(alert.pet.breed.Id == undefined)
     await notificationService.deleteNotificationByAlertId(alert.Id)
     this.populateNotificationTable(alert.pet, alert.Id)
-    return await getRepository(Alert).save(alert)
+    const a = await getRepository(Alert).save(alert)
+    return a
   }
 
   async delete(id: number): Promise<Alert | undefined> {
