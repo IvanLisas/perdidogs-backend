@@ -64,10 +64,10 @@ userRoutes.put('/changePassword', async (req, res) => {
 
 userRoutes.put('/changePasswordWithToken', async (req, res) => {
   try {
-    const idUser = req.body.userId
+    const emailUser = req.body.email
     const token = req.body.token
     const newPassWord = req.body.newPassword
-    res.json(await userService.changePasswordWithToken(idUser, token, newPassWord))
+    res.json(await userService.changePasswordWithToken(emailUser, token, newPassWord))
   } catch (error) {
     res.send(error.message)
   }
