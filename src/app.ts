@@ -44,7 +44,7 @@ createConnection({
   entities: [User, Alert, Chat, Role, Message, Color, FurLength, Pet, Size, Breed, Picture, Post, Location, Comment, UserStatus, PostStatus, AlertStatus, Notification],
   synchronize: true,
   logging: false,
-  dropSchema: true
+  dropSchema: false
 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then(async (connection) => {

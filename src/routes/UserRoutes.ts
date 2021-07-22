@@ -62,6 +62,18 @@ userRoutes.put('/changePassword', async (req, res) => {
   }
 })
 
+userRoutes.put('/changePasswordWithToken', async (req, res) => {
+  try {
+    const idUser = req.body.userId
+    const token = req.body.token
+    const newPassWord = req.body.newPassword
+    res.json(await userService.changePassword(idUser, token, newPassWord))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+
 userRoutes.delete('/:userid', async (req, res) => {
   try {
     const id = parseInt(req.params.userid)
