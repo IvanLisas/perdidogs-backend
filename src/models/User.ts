@@ -26,11 +26,11 @@ export class User {
 
   @Column({ type: 'varchar' })
   email!: string
-  
+
   @Column({ type: 'varchar' })
   password!: string
 
-  @Column({ type: 'varchar' , nullable:true })
+  @Column({ type: 'int', nullable: true })
   tempToken?: number
 
   @ManyToOne(() => Role, (rol) => rol.Id)
