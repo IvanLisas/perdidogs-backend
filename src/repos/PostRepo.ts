@@ -22,6 +22,7 @@ export class PostRepo extends Repository<Post> {
   static async filterPostByPetAlert(pet: Pet): Promise<QueryResult[]> {
     const entityManager = getManager()
     const query = PostRepo.filterPostByPetAlertQuery + buildWhereStatements(pet) + ' order by creationDate DESC '
+    console.log(query)
     const counts = await entityManager.query(query)
     return counts
   }
@@ -68,7 +69,8 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.colorId= ' + pet.color.Id
   }
-  if (pet.breed && pet.breed.Id) {
+  console.log("BREED ", pet.breed)
+  if ((pet.breed && pet.breed.Id)||pet.breed!=null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {

@@ -24,10 +24,12 @@ class UserService {
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
-    const link = 'localhost:19000/recover-password/:' + email
+    const token = Math.floor(Math.random()*999999)
     if (user != null) {
       const emailSender = new EmailService()
-      emailSender.sendEmail(user, user.email, 'Ingrese a este link para recuperar su contraseña ' + link)
+      emailSender.sendEmail(user, user.email, 'Ingrese a este token para recuperar su contraseña ' + token)
+      user.tempToken= token
+      this.update(user)
     }
   }
 

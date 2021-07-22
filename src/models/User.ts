@@ -30,6 +30,9 @@ export class User {
   @Column({ type: 'varchar' })
   password!: string
 
+  @Column({ type: 'varchar' })
+  tempToken?: number
+
   @ManyToOne(() => Role, (rol) => rol.Id)
   role!: Role
 
