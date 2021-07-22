@@ -12,15 +12,24 @@ userRoutes.put('/login', async (req, res) => {
   }
 })
 
+userRoutes.put('/loginWithToken', async (req, res) => {
+  try {
+    res.json(await userService.loginWithToken(req.body.email, req.body.token))
+  } catch (error) {
+    res.status(403).send(error.message)
+  }
+})
 userRoutes.put('/forgot-password', async (req, res) => {
   try {
     const email = req.body.email
+    console.log(email)
     if (email == null) {
       res.status(403).send('El email que ha ingresado es invalido')
     } else {
       res.json(await userService.forgotPassword(email))
     }
   } catch (error) {
+    console.log(error.message)
     res.status(403).send(error.message)
   }
 })

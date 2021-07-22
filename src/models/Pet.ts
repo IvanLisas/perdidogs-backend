@@ -21,7 +21,7 @@ export class Pet {
   @Column({ type: 'boolean', default: false })
   hasCollar!: boolean
 
-  @ManyToOne(() => Breed, (breed) => breed.Id)
+  @ManyToOne(() => Breed, (breed) => breed.Id,{ nullable: false })
   breed!: Breed
 
   @ManyToOne(() => Size, (size) => size.Id)
