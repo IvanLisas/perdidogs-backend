@@ -67,7 +67,7 @@ userRoutes.put('/changePasswordWithToken', async (req, res) => {
     const idUser = req.body.userId
     const token = req.body.token
     const newPassWord = req.body.newPassword
-    res.json(await userService.changePassword(idUser, token, newPassWord))
+    res.json(await userService.changePasswordWithToken(idUser, token, newPassWord))
   } catch (error) {
     res.send(error.message)
   }
