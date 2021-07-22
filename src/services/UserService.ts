@@ -24,11 +24,12 @@ class UserService {
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
-    const token = Math.floor(Math.random()*999999)
+    const token = Math.floor(Math.random() * 999999)
     if (user != null) {
       const emailSender = new EmailService()
       emailSender.sendEmail(user, user.email, 'Ingrese a este token para recuperar su contraseña ' + token)
-      user.tempToken= token
+      user.tempToken = token
+      console.log('Update user')
       this.update(user)
     }
   }
@@ -76,7 +77,7 @@ class UserService {
       return await getRepository(User).save(user)
     } else throw new Error('las passwords no coinciden')
   }
-  
+
   async getByUsername(username: string): Promise<User[]> {
     return await getRepository(User).find({
       email: Like('%' + username + '%')

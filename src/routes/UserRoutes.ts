@@ -15,12 +15,14 @@ userRoutes.put('/login', async (req, res) => {
 userRoutes.put('/forgot-password', async (req, res) => {
   try {
     const email = req.body.email
+    console.log(email)
     if (email == null) {
       res.status(403).send('El email que ha ingresado es invalido')
     } else {
       res.json(await userService.forgotPassword(email))
     }
   } catch (error) {
+    console.log(error.message)
     res.status(403).send(error.message)
   }
 })
