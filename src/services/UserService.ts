@@ -27,7 +27,7 @@ class UserService {
     const token = Math.floor(Math.random()*999999)
     if (user != null) {
       const emailSender = new EmailService()
-      emailSender.sendEmail(user, user.email, 'Ingrese a este token para recuperar su contraseña ' + token)
+      emailSender.sendEmail(user, user.email, 'Ingrese este token para recuperar su contraseña ' + token)
       user.tempToken= token
       this.update(user)
     }
