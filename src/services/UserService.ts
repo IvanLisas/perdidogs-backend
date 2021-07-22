@@ -21,15 +21,29 @@ class UserService {
       throw new Error('El email o la contraseña no son validos')
     }
   }
+  async loginWithToken (anEmail:string, aToken: number): Promise<User> {
+    try {
+      console.log(anEmail,aToken)
+      const user = (await getRepository(User).findOneOrFail({
+        relations: this.relations,
+        where: {
+          email: anEmail,
+          tempToken: aToken
+        }
+      })) as User
+      if (aToken ==user.tempToken) return user
+      else throw new Error('El token ingresado no es correcto')
+    } catch (error) {
+      throw new Error('El email o el token ingresado no es válido')
+    }
+  }
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
-    const token = Math.floor(Math.random()*999999)
+    const link = 'localhost:19000/recover-password/:' + email
     if (user != null) {
       const emailSender = new EmailService()
-      emailSender.sendEmail(user, user.email, 'Ingrese a este token para recuperar su contraseña ' + token)
-      user.tempToken= token
-      this.update(user)
+      emailSender.sendEmail(user, user.email, 'Ingrese a este link para recuperar su contraseña ' + link)
     }
   }
 
