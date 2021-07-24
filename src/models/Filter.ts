@@ -18,7 +18,7 @@ export class Filter {
   furLength?: number
   size?: number
   sex?: string
-  searchLocation?: Point
+  searchLocation!: Point
   deltaLocation?: Point
   dateFrom?: Date
   dateTo?: Date
