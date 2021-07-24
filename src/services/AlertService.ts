@@ -9,14 +9,14 @@ import notificationService from './NotificationService'
 import userService from './UserService'
 
 class AlertService {
-  async getByUserId(userId: number): Promise<Alert[] | undefined> {
+  async getByUserId(userId: number): Promise<Alert[] | undefined> { 
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'], where: { owner: { Id: userId } } })
   }
 
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
-
+ 
   async create(alert: Alert): Promise<Alert> {
     const result = await getRepository(Alert).save(alert)
     this.populateNotificationTable(alert.pet, result.Id)
@@ -58,10 +58,10 @@ class AlertService {
 
   async match(id: number, alert: Alert): Promise<Alert[] | undefined> {
     const user = userService.get(id)
-    if (user)
+    if (user) 
       return await getRepository(Alert).find({
         relations: ['owner', 'pet', 'location'],
-        where: [
+        where: [ 
           { owner: user },
           { alertStatus: 1 },
           { pet: { furLength: alert.pet.furLength, color: alert.pet.color, breed: alert.pet.breed, size: alert.pet.size, sex: alert.pet.sex, hasCollar: alert.pet.hasCollar }, location: alert.location }
@@ -70,7 +70,7 @@ class AlertService {
   }
 
   async getAlertsByStatus(alertsStatus: number, filter:Filter): Promise<Alert[]> {
-   let whereJson
+   let whereJson 
    if(filter ){
      console.log(new Date('1980-01-01'))
      whereJson = {alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo)}
@@ -82,7 +82,7 @@ class AlertService {
       relations: ['alertStatus'],
       where: whereJson
     })
-  }
+  } 
 }
 
 const alertService = new AlertService()

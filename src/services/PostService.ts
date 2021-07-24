@@ -164,7 +164,7 @@ class PostService {
           where: {
             Id: In(postIds)
           }
-        })
+        }) 
       }
     } else {
       return getRepository(Post).find({
@@ -174,7 +174,7 @@ class PostService {
   }
 
   getFilteredPostByAdminFilters(posts: Post[], filter: PostFilter): Post[] {
-    console.log('PET 1 ', posts?.[0])
+    console.log('PET 1 ', posts?.[0]) 
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
       if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email == filter.ownerEmail)
@@ -185,7 +185,7 @@ class PostService {
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
         const createdTo = filter.createdTo
         posts = posts.filter((x) => x.creationDate >= createdTo)
-      }
+      } 
       if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
       if (filter !== undefined && filter.userStatus !== undefined && filter.userStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.userStatus)
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
@@ -194,10 +194,10 @@ class PostService {
   }
 
   async getPostsByStatus(postsStatus: number, filter: Filter): Promise<Post[]> {
-    let whereJson
-    if (filter) {
+    let whereJson 
+    if (filter) { 
       whereJson = { postStatus: postsStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
-    } else {
+    } else { 
       whereJson = { postStatus: postsStatus, creationDate: Between(new Date('1980-01-01'), new Date()) }
     }
     return await getRepository(Post).find({
