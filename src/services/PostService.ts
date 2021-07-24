@@ -59,19 +59,19 @@ class PostService {
     console.log('alertIds ', result)
     return result
   }
-
+  
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
       relations: this.relations
     })
   }
-
+  
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
       where: { owner: { Id: idUser }, postStatus: 1 }
     })
   }
-
+  
   async get(idPost: number): Promise<Post> {
     return await getRepository(Post).findOneOrFail({
       relations: this.relations,

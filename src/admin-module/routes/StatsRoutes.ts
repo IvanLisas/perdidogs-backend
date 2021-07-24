@@ -7,7 +7,7 @@ import statsService from '../services/StatsService'
 const statsRoutes = Router()
 
 statsRoutes.put('/porcentajeUsuariosActivosSobreInactivos', async (req, res) => {
-  try {
+  try { 
     const filter = req.body.filter
     const activeUsers = await userService.getUsersByStatus(1,filter)
     const inactiveUsers = await userService.getUsersByStatus(2,filter)

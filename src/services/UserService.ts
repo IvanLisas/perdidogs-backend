@@ -106,23 +106,23 @@ class UserService {
     return await getRepository(User).find({
       email: Like('%' + username + '%')
     })
-  }
+  } 
 
   async getUsersByStatus(userStatus: number, filter: Filter): Promise<User[]> {
-  let whereJson
+  let whereJson 
   if(filter){
     whereJson ={ userStatus: userStatus,creationDate:  Between(filter.dateFrom, filter.dateTo) }
   }
-  else{
+  else{  
     whereJson ={ userStatus: userStatus,creationDate: Between(new Date('1980-01-01'), new Date ()) }
-  }
+  }  
     return await getRepository(User).find({
       relations: this.relations,
       where: whereJson
     })
   }
 }
-
+  
 const userService = new UserService()
 
 export default userService
