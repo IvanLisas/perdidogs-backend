@@ -39,7 +39,7 @@ export class Post {
 
   @OneToOne(() => Location, (location) => location.Id, { nullable: false, cascade: true })
   @JoinColumn()
-  location?: Location
+  location!: Location
 
   //TODO: SE PUEDE CREAR UN POST SIN MASCOTA.
   @OneToOne(() => Pet, (pet) => pet.Id, { nullable: false, cascade: true })
@@ -52,6 +52,8 @@ export class Post {
   @ManyToMany(() => Alert, alert => alert.posiblePostAlerts)
   posibleAlertPost?: Alert[]
 
+  distance?:number
+  
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)
   }

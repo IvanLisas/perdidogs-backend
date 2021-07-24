@@ -8,7 +8,8 @@ import { Pet } from '../models/Pet'
 import { PostFilter } from '../admin-module/models/PostFilter'
 import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
-import { User } from '../models/User'
+import { HelperService } from './HelperService'
+
 
 @Entity()
 class PostService {
@@ -19,13 +20,14 @@ class PostService {
       if (pets != null) {
         const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
         console.log('PETS despues DE FILTRAR', petIds)
-        return await getRepository(Post).find({
+        const result=  await getRepository(Post).find({
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) }
             //postStatus: { Id: 1 }
           }
         })
+        return result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.searchLocation);return x})
       }
     } else {
       return getRepository(Post).find({
@@ -232,6 +234,4 @@ class PostService {
 
 const postService = new PostService()
 export default postService
-function PostSatus(PostSatus: any) {
-  throw new Error('Function not implemented.')
-}
+

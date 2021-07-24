@@ -1,6 +1,5 @@
-import { Between, getRepository } from 'typeorm'
+import { getRepository } from 'typeorm'
 import { Alert } from '../models/Alert'
-import { Filter } from '../models/Filter'
 import { Notification } from '../models/Notification'
 import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
@@ -26,7 +25,6 @@ class AlertService {
   async populateNotificationTable(pet: Pet, alertId: number) {
     const postIds = this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x) => x.alertOrPostId))
     const notifications = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
-
     await getRepository(Notification).save(notifications)
   }
 
@@ -69,18 +67,10 @@ class AlertService {
       })
   }
 
-  async getAlertsByStatus(alertsStatus: number, filter:Filter): Promise<Alert[]> {
-   let whereJson
-   if(filter ){
-     console.log(new Date('1980-01-01'))
-     whereJson = {alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo)}
-   }
-   else {
-     whereJson = {alertStatus: alertsStatus, creationDate:Between(new Date('1980-01-01'), new Date ()) }
-   }
+  async getAlertsByStatus(alertsStatus: number): Promise<Alert[]> {
     return await getRepository(Alert).find({
       relations: ['alertStatus'],
-      where: whereJson
+      where: { alertStatus: alertsStatus }
     })
   }
 }
