@@ -94,8 +94,8 @@ class UserService {
     } else throw new Error('las passwords no coinciden')
   }
 
-  async changePasswordWithToken(idUser: number, token: number, newPassWord: string): Promise<User> {
-    const user = await getRepository(User).findOneOrFail({ Id: idUser })
+  async changePasswordWithToken(email: string, token: number, newPassWord: string): Promise<User> {
+    const user = await getRepository(User).findOneOrFail({ email: email })
     const salt = 10
     if (token==user.tempToken) {
       user.password = await bcrypt.hash(newPassWord, salt)
