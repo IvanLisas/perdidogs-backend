@@ -27,6 +27,7 @@ import statsRoutes from './admin-module/routes/StatsRoutes'
 import { Notification } from './models/Notification'
 import alertRoutes from './routes/AlertRoutes'
 import notificationRoutes from './routes/NotificationRoutes'
+import adminRoutes from './admin-module/routes/AdminRoutes'
 //Tirar este query del ojete en el sql
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
@@ -62,7 +63,8 @@ createConnection({
     app.use('/post', postRoutes)
     app.use('/comment', commentRoutes)
     app.use('/dropdown', dropDownRoutes)
-    app.use('/stats', statsRoutes)
+    app.use('/admin/stats', statsRoutes)
+    app.use('/admin', adminRoutes)
     app.use('/alerts', alertRoutes)
     app.use('/notifications', notificationRoutes)
     app.get('/', (req, res) => {

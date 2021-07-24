@@ -8,8 +8,9 @@ const statsRoutes = Router()
 
 statsRoutes.put('/porcentajeUsuariosActivosSobreInactivos', async (req, res) => {
   try {
-    const activeUsers = await userService.getUsersByStatus(1)
-    const inactiveUsers = await userService.getUsersByStatus(2)
+    const filter = req.body.filter
+    const activeUsers = await userService.getUsersByStatus(1,filter)
+    const inactiveUsers = await userService.getUsersByStatus(2,filter)
     return res.json(statsService.calculoDePorcentajeDeUsuariosActivosSobreInactivos(activeUsers, inactiveUsers))
   } catch (error) {
     res.send(error.message)
@@ -18,7 +19,8 @@ statsRoutes.put('/porcentajeUsuariosActivosSobreInactivos', async (req, res) => 
 
 statsRoutes.put('/calculateLostBreeds', async (req, res) => {
   try {
-    return res.json(await statsService.calculateLostBreeds())
+    const filter =req.body.filter
+    return res.json(await statsService.calculateLostBreeds(filter))
   } catch (error) {
     res.send(error.message)
   }
@@ -26,8 +28,9 @@ statsRoutes.put('/calculateLostBreeds', async (req, res) => {
 
 statsRoutes.put('/porcentajePostActivosSobreInactivos', async (req, res) => {
   try {
-    const activePost = await postService.getPostsByStatus(1)
-    const inactivePost = await postService.getPostsByStatus(2)
+    const filter = req.body.filter
+    const activePost = await postService.getPostsByStatus(1,filter)
+    const inactivePost = await postService.getPostsByStatus(2,filter)
     return res.json(statsService.calculoDePorcentajeDePostsActivosSobreInactivos(activePost, inactivePost))
   } catch (error) {
     res.send(error.message)
@@ -36,8 +39,9 @@ statsRoutes.put('/porcentajePostActivosSobreInactivos', async (req, res) => {
 
 statsRoutes.put('/porcentajeDeRazasPerdidas', async (req, res) => {
   try {
-    const activePost = await postService.getPostsByStatus(1)
-    const inactivePost = await postService.getPostsByStatus(2)
+    const filter = req.body.filter
+    const activePost = await postService.getPostsByStatus(1,filter)
+    const inactivePost = await postService.getPostsByStatus(2,filter)
     return res.json(statsService.calculoDePorcentajeDePostsActivosSobreInactivos(activePost, inactivePost))
   } catch (error) {
     res.send(error.message)
@@ -46,8 +50,10 @@ statsRoutes.put('/porcentajeDeRazasPerdidas', async (req, res) => {
 
 statsRoutes.put('/porcentajeDeAlertasActivasSobreInactivas', async (req, res) => {
   try {
-    const activeAlert = await alertService.getAlertsByStatus(1)
-    const inactiveAlert = await alertService.getAlertsByStatus(2)
+    const filter = req.body.filter
+    console.log("FILTER", filter)
+    const activeAlert = await alertService.getAlertsByStatus(1,filter)
+    const inactiveAlert = await alertService.getAlertsByStatus(2,filter)
     return res.json(statsService.calculoDePorcentajeDeAlertasActivasSobreInactivas(activeAlert, inactiveAlert))
   } catch (error) {
     res.send(error.message)

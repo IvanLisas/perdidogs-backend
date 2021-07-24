@@ -1,6 +1,7 @@
 import { EntityRepository, getManager, Repository } from 'typeorm'
 import { Count } from '../admin-module/models/Count'
 import { QueryResult } from '../admin-module/models/QueryResult'
+import { Filter } from '../models/Filter'
 import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
 import { Post } from '../models/Post'
@@ -8,21 +9,25 @@ import { Post } from '../models/Post'
 @EntityRepository(Post)
 export class PostRepo extends Repository<Post> {
   static filterPostByPetAlertQuery = 'SELECT p.Id as alertOrPostId,p.locationId, pet.* FROM Post p INNER JOIN pet  ON p.petId= pet.Id'
-  static async countLostBreeds(): Promise<Count[]> {
+  static async countLostBreeds(filter: Filter): Promise<Count[]> {
+   let where = ""
+   if(filter){
+    where = " WHERE p.creationDate BETWEEN \"" + filter.dateFrom + "\"" + " AND \"" + filter.dateTo  + "\"" 
+   }
     const entityManager = getManager()
-    const counts = await entityManager.query(`SELECT COUNT(b.Id) as count, b.Id, b.description from post p
-        INNER JOIN pet 
-        on p.petId= pet.id
-        INNER JOIN breed b
-        on pet.breedId = b.id
-        group by b.Id`)
+    const query = (`SELECT COUNT(b.Id) as count, b.Id, b.description FROM post p
+    INNER JOIN pet 
+    on p.petId= pet.id
+    INNER JOIN breed b
+    on pet.breedId = b.id` + where + 
+    ` group by b.Id`)
+    const counts = await entityManager.query(query )
     return counts
   }
 
   static async filterPostByPetAlert(pet: Pet): Promise<QueryResult[]> {
     const entityManager = getManager()
     const query = PostRepo.filterPostByPetAlertQuery + buildWhereStatements(pet) + ' order by creationDate DESC '
-    console.log(query)
     const counts = await entityManager.query(query)
     return counts
   }

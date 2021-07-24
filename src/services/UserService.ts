@@ -1,9 +1,10 @@
 import { User } from '../models/User'
-import { getRepository, Like } from 'typeorm'
+import { Between, getRepository, Like } from 'typeorm'
 import bcrypt from 'bcrypt'
 import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { Role } from '../models/Role'
+import { Filter } from '../models/Filter'
 
 class UserService {
   relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'role']
@@ -21,22 +22,22 @@ class UserService {
       throw new Error('El email o la contraseña no son validos')
     }
   }
-  async loginWithToken (anEmail:string, aToken: number): Promise<User> {
-    try {
-      console.log(anEmail,aToken)
-      const user = (await getRepository(User).findOneOrFail({
-        relations: this.relations,
-        where: {
-          email: anEmail,
-          tempToken: aToken
-        }
-      })) as User
-      if (aToken ==user.tempToken) return user
-      else throw new Error('El token ingresado no es correcto')
-    } catch (error) {
-      throw new Error('El email o el token ingresado no es válido')
-    }
-  }
+  // async loginWithToken (anEmail:string, aToken: number): Promise<User> {
+  //   try {
+  //     console.log(anEmail,aToken)
+  //     const user = (await getRepository(User).findOneOrFail({
+  //       relations: this.relations,
+  //       where: {
+  //         email: anEmail,
+  //         tempToken: aToken
+  //       }
+  //     })) as User
+  //     if (aToken ==user.tempToken) return user
+  //     else throw new Error('El token ingresado no es correcto')
+  //   } catch (error) {
+  //     throw new Error('El email o el token ingresado no es válido')
+  //   }
+  // }
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
@@ -107,10 +108,17 @@ class UserService {
     })
   }
 
-  async getUsersByStatus(userStatus: number): Promise<User[]> {
+  async getUsersByStatus(userStatus: number, filter: Filter): Promise<User[]> {
+  let whereJson
+  if(filter){
+    whereJson ={ userStatus: userStatus,creationDate:  Between(filter.dateFrom, filter.dateTo) }
+  }
+  else{
+    whereJson ={ userStatus: userStatus,creationDate: Between(new Date('1980-01-01'), new Date ()) }
+  }
     return await getRepository(User).find({
       relations: this.relations,
-      where: { userStatus: userStatus }
+      where: whereJson
     })
   }
 }

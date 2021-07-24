@@ -1,5 +1,6 @@
-import { getRepository } from 'typeorm'
+import { Between, getRepository } from 'typeorm'
 import { Alert } from '../models/Alert'
+import { Filter } from '../models/Filter'
 import { Notification } from '../models/Notification'
 import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
@@ -68,10 +69,18 @@ class AlertService {
       })
   }
 
-  async getAlertsByStatus(alertsStatus: number): Promise<Alert[]> {
+  async getAlertsByStatus(alertsStatus: number, filter:Filter): Promise<Alert[]> {
+   let whereJson
+   if(filter ){
+     console.log(new Date('1980-01-01'))
+     whereJson = {alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo)}
+   }
+   else {
+     whereJson = {alertStatus: alertsStatus, creationDate:Between(new Date('1980-01-01'), new Date ()) }
+   }
     return await getRepository(Alert).find({
       relations: ['alertStatus'],
-      where: { alertStatus: alertsStatus }
+      where: whereJson
     })
   }
 }
