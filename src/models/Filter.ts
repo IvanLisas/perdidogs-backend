@@ -4,8 +4,10 @@ import { Point } from './LatLang'
 import { FurLength } from './FurLength'
 import { Location } from './Location'
 import { Pet } from './Pet'
+import { Post } from './Post'
 
 export class Filter {
+  
   constructor(init?: Partial<Filter>) {
     Object.assign(this, init)
   }
@@ -18,6 +20,8 @@ export class Filter {
   sex?: string
   searchLocation?: Point
   deltaLocation?: Point
+  dateFrom?: Date
+  dateTo?: Date
 
   static newFilter(pet: Pet, searchLocation: Point, deltaLocation: Point): Filter {
     const filter = new Filter()
@@ -37,6 +41,7 @@ export class Filter {
     filter.sex = pet.sex
     filter.searchLocation = searchLocation
     filter.deltaLocation = deltaLocation
+    
     return filter
   }
 

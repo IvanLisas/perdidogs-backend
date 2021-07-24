@@ -46,9 +46,9 @@ class PostService {
   }
 
   async populateNotificationTable(pet: Pet, postId: number) {
-    const alertIds = this.deleteRepetedValues(((await AlertRepo.filterAlertsByPetInPost(pet))).map((x) => x.alertOrPostId))
+    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
     const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
-    console.log("NOTIFICATIONS ", notifications)
+    console.log('NOTIFICATIONS ', notifications)
     await getRepository(Notification).save(notifications)
   }
 
@@ -193,29 +193,34 @@ class PostService {
     } else return posts
   }
 
-  async getPostsByStatus(postsStatus: number): Promise<Post[]> {
+  async getPostsByStatus(postsStatus: number, filter: Filter): Promise<Post[]> {
+    let whereJson
+    if (filter) {
+      whereJson = { postStatus: postsStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
+    } else {
+      whereJson = { postStatus: postsStatus, creationDate: Between(new Date('1980-01-01'), new Date()) }
+    }
     return await getRepository(Post).find({
       relations: ['postStatus'],
-      where: { postStatus: postsStatus }
+      where: whereJson
     })
   }
 
   async aceptAPost(postId: number, userId: number): Promise<Post | undefined> {
-   console.log(postId, userId)
+    console.log(postId, userId)
     const post = await postService.get(postId)
     //console.log("POST" , post)
     const user = await userService.get(userId)
-    console.log("USER" , user.role)
+    console.log('USER', user.role)
     if (user.role.Id === 1) {
-      console.log("ES ADMIN")
+      console.log('ES ADMIN')
       post.postStatus.Id == 1
       return await getRepository(Post).save(post)
     }
   }
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
-    
-    const post =  await postService.get(postId)
+    const post = await postService.get(postId)
     const user = await userService.get(userId)
 
     if (user.role.Id === 1) {
