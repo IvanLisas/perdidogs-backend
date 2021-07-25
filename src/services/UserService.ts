@@ -7,7 +7,7 @@ import { Role } from '../models/Role'
 import { Filter } from '../models/Filter'
 
 class UserService {
-  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'role']
+  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color','post.pet.furLength','role']
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({

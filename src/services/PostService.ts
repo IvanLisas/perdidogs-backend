@@ -15,8 +15,8 @@ import { HelperService } from './HelperService'
 class PostService {
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLength', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
-    if (filter.searchLocation != null && filter.deltaLocation != null) {
-      const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation))?.map((x) => x.pet)
+    if (filter.searchLocation !== undefined && filter.deltaLocation != undefined) {
+      const pets = (await this.getByLocation(filter.searchLocation, filter.deltaLocation, filter.myLocation))?.map((x) => x.pet)
       if (pets != null) {
         const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
         console.log('PETS despues DE FILTRAR', petIds)
@@ -24,19 +24,18 @@ class PostService {
           relations: this.relations,
           where: {
             pet: { Id: In(petIds) }
-            //postStatus: { Id: 1 }
           }
         })
-        return result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.searchLocation);return x})
+        return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation);return x})).sort((a, b) => a.distance - b.distance)
       }
     } else {
       const result = await getRepository(Post).find({
         relations: this.relations,
         where: {
-          postStatus: 3
+          postStatus: 1
         }
       })
-      return result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.searchLocation);return x})
+      return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation);return x})).sort((a, b) => a.distance - b.distance)
     }
   }
 
@@ -99,18 +98,19 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(point: Point, delta: Point): Promise<Post[] | undefined> {
+  async getByLocation(point: Point, delta: Point, myLocation:Point): Promise<Post[] | undefined> {
     const extremeX = [point.lat - delta.lat / 2, point.lat + delta.lat / 2]
     const extremeY = [point.lng - delta.lng / 2, point.lng + delta.lng / 2]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
-      return await getRepository(Post).find({
+      const result= await getRepository(Post).find({
         relations: this.relations,
         where: {
           location: { Id: In(ids), postStatus: 1 }
         }
       })
+      return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, myLocation);return x})).sort((a, b) => a.distance - b.distance)
     } else return []
   }
 

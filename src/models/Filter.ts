@@ -7,7 +7,6 @@ import { Pet } from './Pet'
 import { Post } from './Post'
 
 export class Filter {
-  
   constructor(init?: Partial<Filter>) {
     Object.assign(this, init)
   }
@@ -18,12 +17,13 @@ export class Filter {
   furLength?: number
   size?: number
   sex?: string
-  searchLocation!: Point
+  searchLocation?: Point
   deltaLocation?: Point
+  myLocation!: Point
   dateFrom?: Date
   dateTo?: Date
 
-  static newFilter(pet: Pet, searchLocation: Point, deltaLocation: Point): Filter {
+  static newFilter(pet: Pet, searchLocation: Point, deltaLocation: Point, myLocation:Point): Filter {
     const filter = new Filter()
     if (pet.breed !== undefined && pet.breed !== null) {
       filter.breed = pet.breed.Id
@@ -39,9 +39,13 @@ export class Filter {
       filter.size = pet.size.Id
     }
     filter.sex = pet.sex
-    filter.searchLocation = searchLocation
-    filter.deltaLocation = deltaLocation
-    
+    if (searchLocation !== undefined && searchLocation !== null) {
+      filter.searchLocation = searchLocation
+    }
+    if (deltaLocation!== undefined && deltaLocation!== null) {
+      filter.deltaLocation = deltaLocation
+    }
+    filter.myLocation=myLocation
     return filter
   }
 
