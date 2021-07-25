@@ -49,14 +49,6 @@ postRoutes.put('/by-filter', async (req, res) => {
   }
 })
 
-postRoutes.put('/by-admin-filter', async (req, res) => {
-  try {
-    return res.json(await postService.getPostByAdminFilters(req.body))
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-})
-
 postRoutes.get('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
