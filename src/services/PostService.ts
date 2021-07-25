@@ -9,6 +9,7 @@ import { PostFilter } from '../admin-module/models/PostFilter'
 import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
 import { HelperService } from './HelperService'
+import { Bootstrap } from '../bootstrap/Bootstrap'
 
 
 @Entity()
@@ -42,6 +43,7 @@ class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
+    post.postStatus= Bootstrap.postPendingStatus
     const result = await getRepository(Post).save(post)
     this.populateNotificationTable(post.pet, result.Id)
     return result
