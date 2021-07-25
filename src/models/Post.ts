@@ -47,6 +47,7 @@ export class Post {
   pet!: Pet
 
   @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, { nullable: false })
+  @Column({default:3})
   postStatus!:PostStatus
 
   @ManyToMany(() => Alert, alert => alert.posiblePostAlerts)
