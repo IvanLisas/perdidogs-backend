@@ -61,7 +61,7 @@ postRoutes.get('/:postId', async (req, res) => {
 postRoutes.get('/by-user/:userId', async (req, res) => {
   try {
     const postId = parseInt(req.params.userId)
-    return res.json(await postService.findById(postId))
+    return res.json(await postService.findByUserId(postId))
   } catch (error) {
     res.status(404).send(error.message)
   }
