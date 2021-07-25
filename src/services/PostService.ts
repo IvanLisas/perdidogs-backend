@@ -30,12 +30,13 @@ class PostService {
         return result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.searchLocation);return x})
       }
     } else {
-      return getRepository(Post).find({
+      const result = await getRepository(Post).find({
         relations: this.relations,
         where: {
           postStatus: 3
         }
       })
+      return result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.searchLocation);return x})
     }
   }
 

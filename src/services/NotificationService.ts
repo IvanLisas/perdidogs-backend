@@ -32,7 +32,6 @@ class NotificationService {
 
   async getNotificationDtosByUserId(userId: number): Promise<NotificationDTO[]> {
     const result = this.deleteRepetedValues(await PostRepo.getPostsByUserId(userId))
-
     return result
   }
 
