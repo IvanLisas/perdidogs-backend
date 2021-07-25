@@ -24,7 +24,8 @@ class PostService {
         const result=  await getRepository(Post).find({
           relations: this.relations,
           where: {
-            pet: { Id: In(petIds) }
+            pet: { Id: In(petIds) },
+            postStatus:1
           }
         })
         return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation);return x})).sort((a, b) => a.distance - b.distance)

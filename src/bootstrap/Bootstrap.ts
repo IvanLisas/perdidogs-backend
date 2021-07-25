@@ -20,15 +20,15 @@ import bcrypt, { hash } from 'bcrypt'
 
 export class Bootstrap {
   //----------------------------ESTADOS DE USUARIOS----------------------------------------------
-  static userStatusActive = new UserStatus({ description: 'Active' })
-  static userStatusInactive = new UserStatus({ description: 'Inactive' })
+  static userStatusActive = new UserStatus({ description: 'Activo' })
+  static userStatusInactive = new UserStatus({ description: 'Inactivo' })
   //----------------------------ROL DE USUARIOS----------------------------------------------
   static adminRole = new UserStatus({ description: 'Admin' })
   static notAdminRole = new UserStatus({ description: 'Usuario final' })
   //----------------------------ESTADOS DE POSTS----------------------------------------------
-  static postActiveStatus = new PostStatus({ description: 'Active' })
-  static postInactiveStatus = new PostStatus({ description: 'Inactive' })
-  static postPendingStatus = new PostStatus({ description: 'Pending' })
+  static postActiveStatus = new PostStatus({ description: 'Activo' })
+  static postInactiveStatus = new PostStatus({ description: 'Inactivo' })
+  static postPendingStatus = new PostStatus({ description: 'Pendiente' })
   //----------------------------ESTADOS DE ALERTAS----------------------------------------------
   static alertStatusActivo: AlertStatus
   static alertStatusInActivo: AlertStatus
