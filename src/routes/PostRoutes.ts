@@ -58,6 +58,15 @@ postRoutes.get('/:postId', async (req, res) => {
   }
 })
 
+postRoutes.get('/:postId', async (req, res) => {
+  try {
+    const postId = parseInt(req.params.postId)
+    return res.json(await postService.get(postId))
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
+
 postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
   try {
     const postid = parseInt(req.params.postId)

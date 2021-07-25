@@ -19,7 +19,7 @@ export class CommentService {
 
   async save(comment: Comment): Promise<Post> {
     await getRepository(Comment).save(comment)
-    return await postService.get(comment.post.Id)
+    return await postService.findById(comment.post.Id)
   }
 
   async create(message: MessageDTO): Promise<Chat | undefined> {

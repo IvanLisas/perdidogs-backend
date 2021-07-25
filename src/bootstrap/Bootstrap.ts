@@ -807,7 +807,8 @@ export class Bootstrap {
       creationDate: new Date('2021-06-20T13:31:01.456Z'),
       pictures: [this.picture_0027]
     })
-    await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])
+    const savedPosts= await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])
+    await getRepository(Post).save(savedPosts.map(x=>{x.postStatus=Bootstrap.postActiveStatus;return x}))
   }
 
   async createComments(): Promise<void> {
