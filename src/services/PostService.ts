@@ -10,6 +10,7 @@ import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
 import { HelperService } from './HelperService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
+import { PostStatus } from '../models/PostStatus'
 
 
 @Entity()
@@ -110,7 +111,8 @@ class PostService {
       const result= await getRepository(Post).find({
         relations: this.relations,
         where: {
-          location: { Id: In(ids), postStatus: 1 }
+          location: { Id: In(ids)},
+          postStatus: 1
         }
       })
       return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, myLocation);return x})).sort((a, b) => a.distance - b.distance)
