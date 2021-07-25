@@ -52,7 +52,7 @@ export class Post {
   @ManyToMany(() => Alert, alert => alert.posiblePostAlerts)
   posibleAlertPost?: Alert[]
 
-  distance?:number
+  distance!:number
   
   static fromJson(postJson: string): Post {
     return Object.assign(new Post(), postJson)
