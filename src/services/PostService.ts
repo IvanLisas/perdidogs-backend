@@ -97,8 +97,8 @@ class PostService {
     })
   }
 
-  async findByUserId(userId: number): Promise<Post> {
-    return await getRepository(Post).findOneOrFail({
+  async findByUserId(userId: number): Promise<Post[]> {
+    return await getRepository(Post).find({
       relations: this.relations,
       where: {
         owner: userId
