@@ -86,8 +86,9 @@ class PostService {
     if (post.postStatus.Id === 1) {
       return await getRepository(Post).save(post)
     } else {
-      post.postStatus.Id == 2
-      post.postStatus.description == 'Inactive'
+     post.postStatus.Id == 2
+     post.postStatus.description == 'Inactive'
+ 
     }
   }
 
@@ -232,6 +233,4 @@ class PostService {
 
 const postService = new PostService()
 export default postService
-function PostSatus(PostSatus: any) {
-  throw new Error('Function not implemented.')
-}
+
