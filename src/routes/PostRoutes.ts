@@ -35,13 +35,13 @@ postRoutes.get('/getAll', async (req, res) => {
 })
 
 postRoutes.put('/by-filter', async (req, res) => {
-  console.log(req.body)
   try {
     if (!req.body.pet) {
-      res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation))
+      res.json(await postService.getByLocation(req.body.searchLocation, req.body.deltaLocation, req.body.myLocation))
     } else {
       const pet = req.body.pet
-      const filter = Filter.newFilter(pet, req.body.searchLocation, req.body.deltaLocation)
+      const filter = Filter.newFilter(pet, req.body.searchLocation, req.body.deltaLocation, req.body.myLocation)
+      filter.myLocation= req.body.myLocation
       return res.json(await postService.getPostByFilters(filter))
     }
   } catch (error) {
@@ -63,16 +63,6 @@ postRoutes.get('/:postId', async (req, res) => {
     return res.json(await postService.get(postId))
   } catch (error) {
     res.status(404).send(error.message)
-  }
-})
-
-postRoutes.put('/by-location', async (req, res) => {
-  try {
-    const bounderies = req.body.viewport as Point
-    return res.json(await postService.getByLocation(bounderies, { lat: 0, lng: 0 }))
-  } catch (error) {
-    console.log(error)
-    res.status(400).send(error.message)
   }
 })
 
