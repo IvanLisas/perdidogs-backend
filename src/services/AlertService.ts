@@ -26,7 +26,6 @@ class AlertService {
   async populateNotificationTable(pet: Pet, alertId: number) {
     const postIds = this.deleteRepetedValues((await PostRepo.filterPostByPetAlert(pet)).map((x) => x.alertOrPostId))
     const notifications = postIds.map((x) => new Notification({ alertId: alertId, postId: x }))
-
     await getRepository(Notification).save(notifications)
   }
 
@@ -72,7 +71,6 @@ class AlertService {
   async getAlertsByStatus(alertsStatus: number, filter:Filter): Promise<Alert[]> {
    let whereJson 
    if(filter ){
-     console.log(new Date('1980-01-01'))
      whereJson = {alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo)}
    }
    else {
@@ -80,7 +78,7 @@ class AlertService {
    }
     return await getRepository(Alert).find({
       relations: ['alertStatus'],
-      where: whereJson
+      where: { alertStatus: alertsStatus }
     })
   } 
 }
