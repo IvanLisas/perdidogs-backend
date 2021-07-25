@@ -11,6 +11,7 @@ import { AlertRepo } from '../repos/AlertRepo'
 import { HelperService } from './HelperService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { PostStatus } from '../models/PostStatus'
+import dropDownService from './DropDownService'
 
 @Entity()
 class PostService {
@@ -54,7 +55,7 @@ class PostService {
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
-    post.postStatus = Bootstrap.postPendingStatus
+    post.postStatus = await dropDownService.getPostStatusById(3)
     const result = await getRepository(Post).save(post)
     this.populateNotificationTable(post.pet, result.Id)
     return result

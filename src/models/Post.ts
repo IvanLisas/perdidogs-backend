@@ -46,8 +46,7 @@ export class Post {
   @JoinColumn()
   pet!: Pet
 
-  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, { nullable: false })
-  @Column({default:3})
+  @ManyToOne(() => PostStatus, (postStatus) => postStatus.Id, { nullable: true })
   postStatus!:PostStatus
 
   @ManyToMany(() => Alert, alert => alert.posiblePostAlerts)

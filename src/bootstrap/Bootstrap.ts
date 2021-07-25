@@ -450,9 +450,9 @@ export class Bootstrap {
   //PostStatus
   async createPostStatus(): Promise<void> {
     console.log('******************************Creando Post Status***************************************')
-    Bootstrap.postActiveStatus = new PostStatus({ description: 'Active' })
-    Bootstrap.postInactiveStatus = new PostStatus({ description: 'Inactive' })
-    Bootstrap.postPendingStatus = new PostStatus({ description: 'Pending' })
+    Bootstrap.postActiveStatus = new PostStatus({ description: 'Activo' })
+    Bootstrap.postInactiveStatus = new PostStatus({ description: 'Inactivo' })
+    Bootstrap.postPendingStatus = new PostStatus({ description: 'Pendiente' })
     await getRepository(PostStatus).save([Bootstrap.postActiveStatus, Bootstrap.postInactiveStatus, Bootstrap.postPendingStatus])
   
   }
