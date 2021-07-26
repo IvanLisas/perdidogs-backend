@@ -43,7 +43,7 @@ userRoutes.get('/:userid', async (req, res) => {
   }
 })
 
-userRoutes.put('/update', async (req, res) => {
+userRoutes.put('/', async (req, res) => {
   try {
     return res.json(await userService.update(req.body))
   } catch (error) {
