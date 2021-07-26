@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable, Column } from 'typeorm'
 import { AlertStatus } from './AlertStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'
@@ -13,6 +13,9 @@ export class Alert {
 
   @PrimaryGeneratedColumn()
   Id!: number
+
+  @Column({ type: 'varchar' })
+  title!: string
 
   @ManyToOne(() => User, (user) => user.Id, { nullable: false })
   owner!: User
