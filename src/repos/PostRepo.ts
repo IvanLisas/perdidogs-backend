@@ -10,18 +10,20 @@ import { Post } from '../models/Post'
 export class PostRepo extends Repository<Post> {
   static filterPostByPetAlertQuery = 'SELECT p.Id as alertOrPostId,p.locationId, pet.* FROM Post p INNER JOIN pet  ON p.petId= pet.Id'
   static async countLostBreeds(filter: Filter): Promise<Count[]> {
-   let where = ""
-   if(filter){
-    where = " WHERE p.creationDate BETWEEN \"" + filter.dateFrom + "\"" + " AND \"" + filter.dateTo  + "\"" 
-   }
+    let where = ''
+    if (filter) {
+      where = ' WHERE p.creationDate BETWEEN "' + filter.dateFrom + '"' + ' AND "' + filter.dateTo + '"'
+    }
     const entityManager = getManager()
-    const query = (`SELECT COUNT(b.Id) as count, b.Id, b.description FROM post p
+    const query =
+      `SELECT COUNT(b.Id) as count, b.Id, b.description FROM post p
     INNER JOIN pet 
     on p.petId= pet.id
     INNER JOIN breed b
-    on pet.breedId = b.id` + where + 
-    ` group by b.Id`)
-    const counts = await entityManager.query(query )
+    on pet.breedId = b.id` +
+      where +
+      ` group by b.Id`
+    const counts = await entityManager.query(query)
     return counts
   }
 
@@ -52,7 +54,6 @@ export class PostRepo extends Repository<Post> {
       ' AND a.ownerId= ' +
       userId +
       ' ORDER BY n.creationDate, n.postId desc '
-      console.log(query)
     return await entityManager.query(query)
   }
 }
@@ -76,8 +77,8 @@ function buildWhereStatements(pet: Pet): string {
     }
     query = query + '  pet.colorId= ' + pet.color.Id
   }
-  console.log("BREED ", pet.breed)
-  if ((pet.breed && pet.breed.Id)||pet.breed!=null) {
+  console.log('BREED ', pet.breed)
+  if ((pet.breed && pet.breed.Id) || pet.breed != null) {
     if (query.length < 5) {
       query = query + ' WHERE'
     } else {
