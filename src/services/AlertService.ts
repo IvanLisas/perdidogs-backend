@@ -47,7 +47,6 @@ class AlertService {
     const alert = await getRepository(Alert).findOneOrFail({ Id: id })
       alert.alertStatus.Id = 2
       return await getRepository(Alert).save(alert)
- 
   }
 
   async perimeter(): Promise<number> {

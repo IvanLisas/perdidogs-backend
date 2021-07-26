@@ -241,7 +241,7 @@ class PostService {
     console.log('USER', user.role)
     if (user.role.Id === 1) {
       console.log('ES ADMIN')
-      post.postStatus.Id == 1
+      post.postStatus.Id = 2
       return await getRepository(Post).save(post)
     }
   }
@@ -249,10 +249,12 @@ class PostService {
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.findById(postId)
     const user = await userService.get(userId)
-
     if (user.role.Id === 1) {
-      post.postStatus.Id == 2
+      console.log('ES ADMIN')
+      post.postStatus.Id = 2
+      
       return await getRepository(Post).save(post)
+      
     }
   }
 }
