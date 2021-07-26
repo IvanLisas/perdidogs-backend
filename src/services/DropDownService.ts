@@ -4,6 +4,7 @@ import { Size } from '../models/Size';
 import { FurLength } from '../models/FurLength';
 import { Breed } from '../models/Breed';
 import { PostStatus } from '../models/PostStatus';
+import { AlertStatus } from '../models/AlertStatus';
 class DropDownService {
     async getAllColors(): Promise<Color[] | undefined>{
         return await getRepository(Color).find({order:{description:'ASC'}});
@@ -25,6 +26,10 @@ class DropDownService {
         
     async getPostStatusById(id:number): Promise<PostStatus >{
         return await getRepository(PostStatus).findOneOrFail({Id:id});
+    }
+
+    async getAlertStatusById(id:number): Promise<AlertStatus >{
+        return await getRepository(AlertStatus).findOneOrFail({Id:id});
     }
 }
 

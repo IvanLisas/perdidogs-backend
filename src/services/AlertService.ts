@@ -5,6 +5,7 @@ import { Notification } from '../models/Notification'
 import { NotificationDTO } from '../models/NotificationDTO'
 import { Pet } from '../models/Pet'
 import { PostRepo } from '../repos/PostRepo'
+import dropDownService from './DropDownService'
 import notificationService from './NotificationService'
 import userService from './UserService'
 
@@ -18,6 +19,7 @@ class AlertService {
   }
 
   async create(alert: Alert): Promise<Alert> {
+    alert.alertStatus= await dropDownService.getAlertStatusById(1)
     const result = await getRepository(Alert).save(alert)
     this.populateNotificationTable(alert.pet, result.Id)
     return result
@@ -45,7 +47,7 @@ class AlertService {
 
   async delete(id: number): Promise<Alert | undefined> {
     const alert = await getRepository(Alert).findOneOrFail({ Id: id })
-    alert.alertStatus.Id = 2
+    alert.alertStatus=await dropDownService.getAlertStatusById(2)
     notificationService.markAsRejectedByAlertId(id)
     return await getRepository(Alert).save(alert)
   }
