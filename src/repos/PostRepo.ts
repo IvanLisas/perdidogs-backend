@@ -37,7 +37,7 @@ export class PostRepo extends Repository<Post> {
   static async getPostsByUserId(userId: number): Promise<NotificationDTO[]> {
     const entityManager = getManager()
     const query =
-      'SELECT DISTINCT pic.postId, n.alertId, n.postId , pic.url, n.creationDate, l.lat, l.long ' +
+      'SELECT DISTINCT pic.postId, n.alertId, n.postId , pic.url, n.creationDate, l.lat, l.long, n.hasBeenRead ' +
       ' FROM  perdidogs.user u INNER JOIN post p ' +
       ' ON p.ownerId = u.Id ' +
       ' INNER JOIN notifications n ' +

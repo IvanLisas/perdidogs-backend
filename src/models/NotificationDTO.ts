@@ -13,6 +13,7 @@ export class NotificationDTO {
   creationDate!:Date
   lat!:number
   long!:number
+  hasBeenRead!:boolean
   
   static fromJson(AlertJson: string): NotificationDTO {
     return Object.assign(new NotificationDTO(), AlertJson)
