@@ -61,12 +61,14 @@ class UserService {
   }
 
   async get(id: number): Promise<User> {
-    return await getRepository(User).findOneOrFail({
+    const result =  await getRepository(User).findOneOrFail({
       relations: this.relations,
       where: {
         Id: id
       }
     })
+    result.post= result.post.filter(x=>x.postStatus.Id==1||x.postStatus.Id==3)
+    return result
   }
 
   async update(user: User): Promise<User> {
