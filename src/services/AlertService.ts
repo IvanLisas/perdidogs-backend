@@ -10,7 +10,7 @@ import userService from './UserService'
 
 class AlertService {
   async getByUserId(userId: number): Promise<Alert[] | undefined> { 
-    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'], where: { owner: { Id: userId } } })
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'],order: {creationDate: 'DESC'},where: { owner: { Id: userId } } })
   }
 
   async get(id: number): Promise<Alert[] | undefined> {
@@ -45,10 +45,9 @@ class AlertService {
 
   async delete(id: number): Promise<Alert | undefined> {
     const alert = await getRepository(Alert).findOneOrFail({ Id: id })
-    if (alert.alertStatus.Id == 1) {
       alert.alertStatus.Id = 2
       return await getRepository(Alert).save(alert)
-    }
+ 
   }
 
   async perimeter(): Promise<number> {
