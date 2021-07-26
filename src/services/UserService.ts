@@ -8,7 +8,7 @@ import { Filter } from '../models/Filter'
 import dropDownService from './DropDownService'
 
 class UserService {
-  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
+  relations = ['userStatus', 'post','post.postStatus', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
