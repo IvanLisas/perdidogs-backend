@@ -50,7 +50,9 @@ export class PostRepo extends Repository<Post> {
       ' AND p.ownerId!= ' +
       userId +
       ' AND a.ownerId= ' +
-      userId
+      userId +
+      ' ORDER BY n.creationDate, n.postId desc '
+      console.log(query)
     return await entityManager.query(query)
   }
 }
