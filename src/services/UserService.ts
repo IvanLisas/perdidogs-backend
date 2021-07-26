@@ -5,6 +5,7 @@ import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { Role } from '../models/Role'
 import { Filter } from '../models/Filter'
+import dropDownService from './DropDownService'
 
 class UserService {
   relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
@@ -13,7 +14,8 @@ class UserService {
       const user = (await getRepository(User).findOneOrFail({
         relations: this.relations,
         where: {
-          email: anEmail
+          email: anEmail,
+          userStatus: 1
         }
       })) as User
       if (await bcrypt.compare(aPassword, user.password)) return user
@@ -72,7 +74,7 @@ class UserService {
   }
 
   async delete(user: User): Promise<User> {
-    user.userStatus = Bootstrap.userStatusInactive
+    user.userStatus =await dropDownService.getUserStatusById(2)
     return await getRepository(User).save(user)
   }
 
