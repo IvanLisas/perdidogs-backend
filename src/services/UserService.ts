@@ -7,7 +7,7 @@ import { Role } from '../models/Role'
 import { Filter } from '../models/Filter'
 
 class UserService {
-  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color','post.pet.furLength','role']
+  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
@@ -45,7 +45,7 @@ class UserService {
     if (user != null) {
       const emailSender = new EmailService()
       emailSender.sendEmail(user, user.email, 'Ingrese este token para recuperar su contraseña ' + token)
-      user.tempToken= token
+      user.tempToken = token
       this.update(user)
     }
   }
@@ -97,32 +97,32 @@ class UserService {
   async changePasswordWithToken(email: string, token: number, newPassWord: string): Promise<User> {
     const user = await getRepository(User).findOneOrFail({ email: email })
     const salt = 10
-    if (token==user.tempToken) {
+    if (token == user.tempToken) {
       user.password = await bcrypt.hash(newPassWord, salt)
       return await getRepository(User).save(user)
-    } else throw new Error('las passwords no coinciden')  }
+    } else throw new Error('las passwords no coinciden')
+  }
 
   async getByUsername(username: string): Promise<User[]> {
     return await getRepository(User).find({
       email: Like('%' + username + '%')
     })
-  } 
+  }
 
   async getUsersByStatus(userStatus: number, filter: Filter): Promise<User[]> {
-  let whereJson 
-  if(filter){
-    whereJson ={ userStatus: userStatus,creationDate:  Between(filter.dateFrom, filter.dateTo) }
-  }
-  else{  
-    whereJson ={ userStatus: userStatus,creationDate: Between(new Date('1980-01-01'), new Date ()) }
-  }  
+    let whereJson
+    if (filter) {
+      whereJson = { userStatus: userStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
+    } else {
+      whereJson = { userStatus: userStatus, creationDate: Between(new Date('1980-01-01'), new Date()) }
+    }
     return await getRepository(User).find({
       relations: this.relations,
       where: whereJson
     })
   }
 }
-  
+
 const userService = new UserService()
 
 export default userService

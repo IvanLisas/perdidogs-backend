@@ -108,12 +108,7 @@ class PostService {
   }
 
   async update(post: Post): Promise<Post | undefined> {
-    if (post.postStatus.Id === 1) {
-      return await getRepository(Post).save(post)
-    } else {
-      post.postStatus.Id == 2
-      post.postStatus.description == 'Inactive'
-    }
+    return await getRepository(Post).save(post)
   }
 
   async getLocation(url: string): Promise<string> {

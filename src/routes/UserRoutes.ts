@@ -73,7 +73,6 @@ userRoutes.put('/changePasswordWithToken', async (req, res) => {
   }
 })
 
-
 userRoutes.delete('/:userid', async (req, res) => {
   try {
     const id = parseInt(req.params.userid)
