@@ -9,7 +9,9 @@ import { PostFilter } from '../admin-module/models/PostFilter'
 import { Notification } from '../models/Notification'
 import { AlertRepo } from '../repos/AlertRepo'
 import { HelperService } from './HelperService'
-
+import { Bootstrap } from '../bootstrap/Bootstrap'
+import { PostStatus } from '../models/PostStatus'
+import dropDownService from './DropDownService'
 
 @Entity()
 class PostService {
@@ -20,13 +22,19 @@ class PostService {
       if (pets != null) {
         const petIds = this.getPetIdsByFilters(pets, filter)?.map((x) => x.Id)
         console.log('PETS despues DE FILTRAR', petIds)
-        const result=  await getRepository(Post).find({
+        const result = await getRepository(Post).find({
           relations: this.relations,
           where: {
-            pet: { Id: In(petIds) }
+            pet: { Id: In(petIds) },
+            postStatus: 1
           }
         })
-        return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation);return x})).sort((a, b) => a.distance - b.distance)
+        return result
+          .map((x) => {
+            x.distance = HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation)
+            return x
+          })
+          .sort((a, b) => a.distance - b.distance)
       }
     } else {
       const result = await getRepository(Post).find({
@@ -35,13 +43,19 @@ class PostService {
           postStatus: 1
         }
       })
-      return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation);return x})).sort((a, b) => a.distance - b.distance)
+      return result
+        .map((x) => {
+          x.distance = HelperService.calculateDistanceBetweenToPoints(x.location, filter.myLocation)
+          return x
+        })
+        .sort((a, b) => a.distance - b.distance)
     }
   }
 
   async create(idUser: number, post: Post): Promise<Post> {
     const foundUser = await userService.get(idUser)
     post.owner = foundUser
+    post.postStatus = await dropDownService.getPostStatusById(3)
     const result = await getRepository(Post).save(post)
     this.populateNotificationTable(post.pet, result.Id)
     return result
@@ -61,20 +75,20 @@ class PostService {
     console.log('alertIds ', result)
     return result
   }
-  
+
   async getAllPosts(): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
       relations: this.relations
     })
   }
-  
+
   async getPostsByUserId(idUser: number): Promise<Post[] | undefined> {
     return await getRepository(Post).find({
       where: { owner: { Id: idUser }, postStatus: 1 }
     })
   }
-  
-  async get(idPost: number): Promise<Post> {
+
+  async findById(idPost: number): Promise<Post> {
     return await getRepository(Post).findOneOrFail({
       relations: this.relations,
       where: {
@@ -84,13 +98,21 @@ class PostService {
     })
   }
 
+  async findByUserId(userId: number): Promise<Post[]> {
+    return await getRepository(Post).find({
+      relations: this.relations,
+      where: {
+        owner: userId
+      }
+    })
+  }
+
   async update(post: Post): Promise<Post | undefined> {
     if (post.postStatus.Id === 1) {
       return await getRepository(Post).save(post)
     } else {
-     post.postStatus.Id == 2
-     post.postStatus.description == 'Inactive'
- 
+      post.postStatus.Id == 2
+      post.postStatus.description == 'Inactive'
     }
   }
 
@@ -98,19 +120,25 @@ class PostService {
     return this.getLocation(url)
   }
 
-  async getByLocation(point: Point, delta: Point, myLocation:Point): Promise<Post[] | undefined> {
+  async getByLocation(point: Point, delta: Point, myLocation: Point): Promise<Post[] | undefined> {
     const extremeX = [point.lat - delta.lat / 2, point.lat + delta.lat / 2]
     const extremeY = [point.lng - delta.lng / 2, point.lng + delta.lng / 2]
     const locations = await getRepository(Location).find({ lat: Between(extremeX[0], extremeX[1]), long: Between(extremeY[0], extremeY[1]) })
     if (locations.length > 0) {
       const ids = locations.map((x) => x.Id)
-      const result= await getRepository(Post).find({
+      const result = await getRepository(Post).find({
         relations: this.relations,
         where: {
-          location: { Id: In(ids), postStatus: 1 }
+          location: { Id: In(ids) },
+          postStatus: 1
         }
       })
-      return (result.map(x=>{x.distance= HelperService.calculateDistanceBetweenToPoints(x.location, myLocation);return x})).sort((a, b) => a.distance - b.distance)
+      return result
+        .map((x) => {
+          x.distance = HelperService.calculateDistanceBetweenToPoints(x.location, myLocation)
+          return x
+        })
+        .sort((a, b) => a.distance - b.distance)
     } else return []
   }
 
@@ -168,7 +196,7 @@ class PostService {
           where: {
             Id: In(postIds)
           }
-        }) 
+        })
       }
     } else {
       return getRepository(Post).find({
@@ -178,7 +206,7 @@ class PostService {
   }
 
   getFilteredPostByAdminFilters(posts: Post[], filter: PostFilter): Post[] {
-    console.log('PET 1 ', posts?.[0]) 
+    console.log('PET 1 ', posts?.[0])
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
       if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email == filter.ownerEmail)
@@ -189,7 +217,7 @@ class PostService {
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
         const createdTo = filter.createdTo
         posts = posts.filter((x) => x.creationDate >= createdTo)
-      } 
+      }
       if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
       if (filter !== undefined && filter.userStatus !== undefined && filter.userStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.userStatus)
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
@@ -198,10 +226,10 @@ class PostService {
   }
 
   async getPostsByStatus(postsStatus: number, filter: Filter): Promise<Post[]> {
-    let whereJson 
-    if (filter) { 
+    let whereJson
+    if (filter) {
       whereJson = { postStatus: postsStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
-    } else { 
+    } else {
       whereJson = { postStatus: postsStatus, creationDate: Between(new Date('1980-01-01'), new Date()) }
     }
     return await getRepository(Post).find({
@@ -212,7 +240,7 @@ class PostService {
 
   async aceptAPost(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
-    const post = await postService.get(postId)
+    const post = await postService.findById(postId)
     //console.log("POST" , post)
     const user = await userService.get(userId)
     console.log('USER', user.role)
@@ -224,7 +252,7 @@ class PostService {
   }
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
-    const post = await postService.get(postId)
+    const post = await postService.findById(postId)
     const user = await userService.get(userId)
 
     if (user.role.Id === 1) {
@@ -236,4 +264,3 @@ class PostService {
 
 const postService = new PostService()
 export default postService
-
