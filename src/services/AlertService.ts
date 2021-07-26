@@ -9,14 +9,14 @@ import notificationService from './NotificationService'
 import userService from './UserService'
 
 class AlertService {
-  async getByUserId(userId: number): Promise<Alert[] | undefined> { 
-    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'],order: {creationDate: 'DESC'},where: { owner: { Id: userId } } })
+  async getByUserId(userId: number): Promise<Alert[] | undefined> {
+    return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location', 'pet.furLength', 'pet.breed', 'pet.color', 'pet.size'], order: { creationDate: 'DESC' }, where: { owner: { Id: userId } } })
   }
 
   async get(id: number): Promise<Alert[] | undefined> {
     return await getRepository(Alert).find({ relations: ['owner', 'pet', 'location'], where: { Id: id } })
   }
- 
+
   async create(alert: Alert): Promise<Alert> {
     const result = await getRepository(Alert).save(alert)
     this.populateNotificationTable(alert.pet, result.Id)
@@ -45,9 +45,9 @@ class AlertService {
 
   async delete(id: number): Promise<Alert | undefined> {
     const alert = await getRepository(Alert).findOneOrFail({ Id: id })
-      alert.alertStatus.Id = 2
-      return await getRepository(Alert).save(alert)
- 
+    alert.alertStatus.Id = 2
+    notificationService.markAsRejectedByAlertId(id)
+    return await getRepository(Alert).save(alert)
   }
 
   async perimeter(): Promise<number> {
@@ -56,10 +56,10 @@ class AlertService {
 
   async match(id: number, alert: Alert): Promise<Alert[] | undefined> {
     const user = userService.get(id)
-    if (user) 
+    if (user)
       return await getRepository(Alert).find({
         relations: ['owner', 'pet', 'location'],
-        where: [ 
+        where: [
           { owner: user },
           { alertStatus: 1 },
           { pet: { furLength: alert.pet.furLength, color: alert.pet.color, breed: alert.pet.breed, size: alert.pet.size, sex: alert.pet.sex, hasCollar: alert.pet.hasCollar }, location: alert.location }
@@ -67,19 +67,18 @@ class AlertService {
       })
   }
 
-  async getAlertsByStatus(alertsStatus: number, filter:Filter): Promise<Alert[]> {
-   let whereJson 
-   if(filter ){
-     whereJson = {alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo)}
-   }
-   else {
-     whereJson = {alertStatus: alertsStatus, creationDate:Between(new Date('1980-01-01'), new Date ()) }
-   }
+  async getAlertsByStatus(alertsStatus: number, filter: Filter): Promise<Alert[]> {
+    let whereJson
+    if (filter) {
+      whereJson = { alertStatus: alertsStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
+    } else {
+      whereJson = { alertStatus: alertsStatus, creationDate: Between(new Date('1980-01-01'), new Date()) }
+    }
     return await getRepository(Alert).find({
       relations: ['alertStatus'],
       where: { alertStatus: alertsStatus }
     })
-  } 
+  }
 }
 
 const alertService = new AlertService()

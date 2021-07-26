@@ -12,9 +12,11 @@ import { HelperService } from './HelperService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { PostStatus } from '../models/PostStatus'
 import dropDownService from './DropDownService'
+import notificationService from './NotificationService'
 
 @Entity()
 class PostService {
+
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLength', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.searchLocation !== undefined && filter.deltaLocation != undefined) {
@@ -249,11 +251,15 @@ class PostService {
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.findById(postId)
     const user = await userService.get(userId)
-
-    if (user.role.Id === 1) {
       post.postStatus.Id == 2
       return await getRepository(Post).save(post)
-    }
+  }
+
+  async delete(postId: number):  Promise<Post | undefined> {
+    const post = await this.findById(postId)
+    post.postStatus= await dropDownService.getPostStatusById(2)
+    await notificationService.markAsRejectedByPostId(postId)
+    return await getRepository(Post).save(post)
   }
 }
 

@@ -14,8 +14,17 @@ class NotificationService {
     return getRepository(Notification).save(notifications)
   }
 
-  async markAsRejected(postId: number): Promise<Notification[]> {
+  async markAsRejectedByPostId(postId: number): Promise<Notification[]> {
     const notifications = await this.findByPostId(postId)
+    notifications.forEach((x) => (x.hasBeenRejected = true))
+    console.log('NOTIFICATIONS ', notifications)
+    return getRepository(Notification).save(notifications)
+    //return getRepository(Notification).save(notifications)
+  }
+
+  
+  async markAsRejectedByAlertId(alertId: number): Promise<Notification[]> {
+    const notifications = await this.findByAlertId(alertId)
     notifications.forEach((x) => (x.hasBeenRejected = true))
     console.log('NOTIFICATIONS ', notifications)
     return getRepository(Notification).save(notifications)
@@ -28,6 +37,10 @@ class NotificationService {
 
   async findByPostId(postId: number): Promise<Notification[]> {
     return getRepository(Notification).find({ postId: postId })
+  }
+
+  async findByAlertId(alertId: number): Promise<Notification[]> {
+    return getRepository(Notification).find({ alertId: alertId })
   }
 
   async getNotificationDtosByUserId(userId: number): Promise<NotificationDTO[]> {
