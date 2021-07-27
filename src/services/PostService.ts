@@ -186,7 +186,7 @@ class PostService {
       const posts = await getRepository(Post).find({ relations: this.relations })
       if (posts != null) {
         const postIds = this.getFilteredPostByAdminFilters(posts, filter)?.map((x) => x.Id)
-        console.log('Posts despues DE FILTRAR', postIds?.length)
+        /*    console.log('Posts despues DE FILTRAR', postIds?.length) */
         return await getRepository(Post).find({
           relations: this.relations,
           where: {
@@ -202,7 +202,7 @@ class PostService {
   }
 
   getFilteredPostByAdminFilters(posts: Post[], filter: PostFilter): Post[] {
-    console.log('PET 1 ', posts?.[0])
+    /*    console.log('PET 1 ', posts?.[0]) */
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
       if (filter.ownerEmail && filter.ownerEmail !== null && posts.length > 0)
@@ -215,10 +215,10 @@ class PostService {
       }
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
         const createdTo = filter.createdTo
-        posts = posts.filter((x) => x.creationDate >= createdTo)
+        posts = posts.filter((x) => x.creationDate <= createdTo)
       }
       if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
-      console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
+      /*     console.log('LLEGA AL FINAL DEL FILTRAR', posts.length) */
       return posts
     } else return posts
   }
