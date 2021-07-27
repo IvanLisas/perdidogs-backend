@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { Filter } from '../../models/Filter'
 import postRoutes from '../../routes/PostRoutes'
 import postService from '../../services/PostService'
 import userService from '../../services/UserService'
@@ -11,9 +12,11 @@ const adminRoutes = Router()
 
 adminRoutes.put('/filterPosts', async (req, res) => {
   try {
-    const filters = PostFilter.newFilter(req.body.breed, req.body.user, req.body.ownerEmail, req.body.createdFrom, req.body.createdTo, req.body.status, req.body.userStatus)
+    const filters = req.body as PostFilter
+    console.log(req.body)
     return res.json(await postService.getPostByAdminFilters(filters))
   } catch (error) {
+    console.log(error)
     res.status(400).send(error.message)
   }
 })
