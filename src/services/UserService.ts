@@ -39,22 +39,23 @@ class UserService {
       throw new Error('El email o la contraseña no son validos')
     }
   }
-  // async loginWithToken (anEmail:string, aToken: number): Promise<User> {
-  //   try {
-  //     console.log(anEmail,aToken)
-  //     const user = (await getRepository(User).findOneOrFail({
-  //       relations: this.relations,
-  //       where: {
-  //         email: anEmail,
-  //         tempToken: aToken
-  //       }
-  //     })) as User
-  //     if (aToken ==user.tempToken) return user
-  //     else throw new Error('El token ingresado no es correcto')
-  //   } catch (error) {
-  //     throw new Error('El email o el token ingresado no es válido')
-  //   }
-  // }
+
+  async loginAdmin(anEmail: string, aPassword: string): Promise<User> {
+    try {
+      const user = (await getRepository(User).findOneOrFail({
+        relations: this.relations,
+        where: {
+          email: anEmail,
+          userStatus: 1,
+          role:1
+        }
+      })) as User
+      if (await bcrypt.compare(aPassword, user.password)) return user
+      else throw new Error('Contraseña incorrecta')
+    } catch (error) {
+      throw new Error('El email o la contraseña no son validos')
+    }
+  }
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
