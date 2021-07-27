@@ -209,11 +209,11 @@ class PostService {
       if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email.match("/*"+filter.ownerEmail+"*/"))
       if (filter !== undefined && filter.createdFrom !== undefined && filter.createdFrom !== null && posts.length > 0) {
         const createdFrom = filter.createdFrom
-        posts = posts.filter((x) => x.creationDate >= createdFrom)
+        posts = posts.filter((x) => x.creationDate.getMilliseconds() >= createdFrom.getMilliseconds())
       }
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
         const createdTo = filter.createdTo
-        posts = posts.filter((x) => x.creationDate >= createdTo)
+        posts = posts.filter((x) => x.creationDate.getMilliseconds() <= createdTo.getMilliseconds())
       }
       if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
