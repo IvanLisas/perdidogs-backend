@@ -216,7 +216,6 @@ class PostService {
         posts = posts.filter((x) => x.creationDate >= createdTo)
       }
       if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
-      if (filter !== undefined && filter.userStatus !== undefined && filter.userStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.userStatus)
       console.log('LLEGA AL FINAL DEL FILTRAR', posts.length)
       return posts
     } else return posts
