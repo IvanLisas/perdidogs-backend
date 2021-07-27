@@ -206,7 +206,7 @@ class PostService {
     console.log('PET 1 ', posts?.[0])
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
-      if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email.match("/"+filter.ownerEmail+"*/"))
+      if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email.match("/*"+filter.ownerEmail+"*/"))
       if (filter !== undefined && filter.createdFrom !== undefined && filter.createdFrom !== null && posts.length > 0) {
         const createdFrom = filter.createdFrom
         posts = posts.filter((x) => x.creationDate >= createdFrom)
