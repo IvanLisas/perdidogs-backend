@@ -184,7 +184,7 @@ class PostService {
 
   async getPostByAdminFilters(filter: PostFilter): Promise<Post[] | undefined> {
     if (filter != null) {
-      const posts = await getRepository(Post).find()
+      const posts = await getRepository(Post).find({relations:this.relations})
       if (posts != null) {
         const postIds = this.getFilteredPostByAdminFilters(posts, filter)?.map((x) => x.Id)
         console.log('Posts despues DE FILTRAR', postIds?.length)
