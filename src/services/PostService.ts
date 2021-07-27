@@ -16,7 +16,6 @@ import notificationService from './NotificationService'
 
 @Entity()
 class PostService {
-
   relations = ['pet', 'pictures', 'owner', 'location', 'pet.furLength', 'pet.color', 'pet.breed', 'pet.size', 'comments', 'comments.owner', 'postStatus', 'owner.role']
   async getPostByFilters(filter: Filter): Promise<Post[] | undefined> {
     if (filter.searchLocation !== undefined && filter.deltaLocation != undefined) {
@@ -184,7 +183,7 @@ class PostService {
 
   async getPostByAdminFilters(filter: PostFilter): Promise<Post[] | undefined> {
     if (filter != null) {
-      const posts = await getRepository(Post).find({relations:this.relations})
+      const posts = await getRepository(Post).find({ relations: this.relations })
       if (posts != null) {
         const postIds = this.getFilteredPostByAdminFilters(posts, filter)?.map((x) => x.Id)
         console.log('Posts despues DE FILTRAR', postIds?.length)
@@ -206,7 +205,10 @@ class PostService {
     console.log('PET 1 ', posts?.[0])
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
-      if (filter.ownerEmail !== undefined && filter.ownerEmail !== null && posts.length > 0) posts = posts.filter((x) => x.owner.email.match("/*"+filter.ownerEmail+"*/"))
+      if (filter.ownerEmail && filter.ownerEmail !== null && posts.length > 0)
+        posts = posts.filter((x) => {
+          if (filter.ownerEmail) return x.owner.email.match(filter.ownerEmail)
+        })
       if (filter !== undefined && filter.createdFrom !== undefined && filter.createdFrom !== null && posts.length > 0) {
         const createdFrom = filter.createdFrom
         posts = posts.filter((x) => x.creationDate.getMilliseconds() >= createdFrom.getMilliseconds())
@@ -250,13 +252,13 @@ class PostService {
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.findById(postId)
     const user = await userService.get(userId)
-      post.postStatus.Id == 2
-      return await getRepository(Post).save(post)
+    post.postStatus.Id == 2
+    return await getRepository(Post).save(post)
   }
 
-  async delete(postId: number):  Promise<Post | undefined> {
+  async delete(postId: number): Promise<Post | undefined> {
     const post = await this.findById(postId)
-    post.postStatus= await dropDownService.getPostStatusById(2)
+    post.postStatus = await dropDownService.getPostStatusById(2)
     await notificationService.markAsRejectedByPostId(postId)
     return await getRepository(Post).save(post)
   }
