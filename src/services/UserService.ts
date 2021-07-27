@@ -101,7 +101,7 @@ class UserService {
     if (user.password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres')
     const salt = 10
     user.password = await bcrypt.hash(user.password, salt)
-    user.role = await getRepository(Role).findOneOrFail({ Id: 1 })
+    user.role = await getRepository(Role).findOneOrFail({ Id: 2 })
     return await getRepository(User).save(user)
   }
 
