@@ -211,7 +211,7 @@ class PostService {
         })
       if (filter !== undefined && filter.createdFrom !== undefined && filter.createdFrom !== null && posts.length > 0) {
         const createdFrom = filter.createdFrom
-        posts = posts.filter((x) => x.creationDate >= createdFrom)
+        posts = posts.filter((x) => x.creationDate.getMilliseconds() >= createdFrom.getMilliseconds())
       }
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
         const createdTo = filter.createdTo
