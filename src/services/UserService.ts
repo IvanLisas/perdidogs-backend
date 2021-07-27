@@ -8,7 +8,22 @@ import { Filter } from '../models/Filter'
 import dropDownService from './DropDownService'
 
 class UserService {
-  relations = ['userStatus', 'post','post.postStatus', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
+  relations = [
+    'userStatus',
+    'post',
+    'post.postStatus',
+    'post.pet',
+    'post.location',
+    'post.pictures',
+    'post.comments',
+    'post.comments.owner',
+    'post.pet.breed',
+    'post.pet.color',
+    'post.pet.furLength',
+    'role',
+    'post.pet.size'
+  ]
+
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
@@ -24,22 +39,23 @@ class UserService {
       throw new Error('El email o la contraseña no son validos')
     }
   }
-  // async loginWithToken (anEmail:string, aToken: number): Promise<User> {
-  //   try {
-  //     console.log(anEmail,aToken)
-  //     const user = (await getRepository(User).findOneOrFail({
-  //       relations: this.relations,
-  //       where: {
-  //         email: anEmail,
-  //         tempToken: aToken
-  //       }
-  //     })) as User
-  //     if (aToken ==user.tempToken) return user
-  //     else throw new Error('El token ingresado no es correcto')
-  //   } catch (error) {
-  //     throw new Error('El email o el token ingresado no es válido')
-  //   }
-  // }
+
+  async loginAdmin(anEmail: string, aPassword: string): Promise<User> {
+    try {
+      const user = (await getRepository(User).findOneOrFail({
+        relations: this.relations,
+        where: {
+          email: anEmail,
+          userStatus: 1,
+          role:1
+        }
+      })) as User
+      if (await bcrypt.compare(aPassword, user.password)) return user
+      else throw new Error('Contraseña incorrecta')
+    } catch (error) {
+      throw new Error('El email o la contraseña no son validos')
+    }
+  }
 
   async forgotPassword(email: string): Promise<any> {
     const user = await this.findByEmail(email)
@@ -61,13 +77,13 @@ class UserService {
   }
 
   async get(id: number): Promise<User> {
-    const result =  await getRepository(User).findOneOrFail({
+    const result = await getRepository(User).findOneOrFail({
       relations: this.relations,
       where: {
         Id: id
       }
     })
-    result.post= result.post.filter(x=>x.postStatus.Id==1||x.postStatus.Id==3)
+    result.post = result.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
     return result
   }
 
@@ -76,7 +92,7 @@ class UserService {
   }
 
   async delete(user: User): Promise<User> {
-    user.userStatus =await dropDownService.getUserStatusById(2)
+    user.userStatus = await dropDownService.getUserStatusById(2)
     return await getRepository(User).save(user)
   }
 

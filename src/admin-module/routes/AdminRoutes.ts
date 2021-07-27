@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import postRoutes from '../../routes/PostRoutes'
 import postService from '../../services/PostService'
+import userService from '../../services/UserService'
 import { PostFilter } from '../models/PostFilter'
 
 const adminRoutes = Router()
@@ -14,6 +15,14 @@ adminRoutes.put('/filterPosts', async (req, res) => {
     return res.json(await postService.getPostByAdminFilters(filters))
   } catch (error) {
     res.status(400).send(error.message)
+  }
+})
+
+adminRoutes.put('/login', async (req, res) => {
+  try {
+    res.json(await userService.loginAdmin(req.body.email, req.body.password))
+  } catch (error) {
+    res.status(403).send(error.message)
   }
 })
 
