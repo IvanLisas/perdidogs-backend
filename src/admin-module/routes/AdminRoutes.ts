@@ -13,6 +13,7 @@ const adminRoutes = Router()
 adminRoutes.put('/filterPosts', async (req, res) => {
   try {
     const filters = req.body.filter as PostFilter
+    console.log(filters)
     return res.json(await postService.getPostByAdminFilters(filters))
   } catch (error) {
     console.log(error)
