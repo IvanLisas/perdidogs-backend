@@ -23,7 +23,6 @@ class UserService {
     'role',
     'post.pet.size'
   ]
-
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
@@ -33,6 +32,7 @@ class UserService {
           userStatus: 1
         }
       })) as User
+      user.post = user.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
       if (await bcrypt.compare(aPassword, user.password)) return user
       else throw new Error('Contraseña incorrecta')
     } catch (error) {
