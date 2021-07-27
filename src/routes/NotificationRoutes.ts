@@ -24,7 +24,7 @@ notificationRoutes.put('/read', async (req, res) => {
 notificationRoutes.put('/reject', async (req, res) => {
     try {
       const postId= parseInt(req.body.postId)
-      return res.json(await notificationService.markAsRejected(postId))
+      return res.json(await notificationService.markAsRejectedByPostId(postId))
     } catch (error) {
       res.send(error.message)
     }

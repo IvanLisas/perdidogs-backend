@@ -5,17 +5,34 @@ import { EmailService } from './EmailService'
 import { Bootstrap } from '../bootstrap/Bootstrap'
 import { Role } from '../models/Role'
 import { Filter } from '../models/Filter'
+import dropDownService from './DropDownService'
 
 class UserService {
-  relations = ['userStatus', 'post', 'post.pet', 'post.location', 'post.pictures', 'post.comments', 'post.comments.owner', 'post.pet.breed', 'post.pet.color', 'post.pet.furLength', 'role', 'post.pet.size']
+  relations = [
+    'userStatus',
+    'post',
+    'post.postStatus',
+    'post.pet',
+    'post.location',
+    'post.pictures',
+    'post.comments',
+    'post.comments.owner',
+    'post.pet.breed',
+    'post.pet.color',
+    'post.pet.furLength',
+    'role',
+    'post.pet.size'
+  ]
   async login(anEmail: string, aPassword: string): Promise<User> {
     try {
       const user = (await getRepository(User).findOneOrFail({
         relations: this.relations,
         where: {
-          email: anEmail
+          email: anEmail,
+          userStatus: 1
         }
       })) as User
+      user.post = user.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
       if (await bcrypt.compare(aPassword, user.password)) return user
       else throw new Error('Contraseña incorrecta')
     } catch (error) {
@@ -59,12 +76,14 @@ class UserService {
   }
 
   async get(id: number): Promise<User> {
-    return await getRepository(User).findOneOrFail({
+    const result = await getRepository(User).findOneOrFail({
       relations: this.relations,
       where: {
         Id: id
       }
     })
+    result.post = result.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
+    return result
   }
 
   async update(user: User): Promise<User> {
@@ -72,7 +91,7 @@ class UserService {
   }
 
   async delete(user: User): Promise<User> {
-    user.userStatus = Bootstrap.userStatusInactive
+    user.userStatus = await dropDownService.getUserStatusById(2)
     return await getRepository(User).save(user)
   }
 

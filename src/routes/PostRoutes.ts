@@ -91,15 +91,13 @@ postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
   }
 })
 
-//DELETE a post
-/*postRoutes.delete('/:postId', async (req, res) => {
+postRoutes.delete('/:postId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
-    const userId = parseInt(req.params.userId)
-    return res.json(await postService.delete(postId, userId))
+    return res.json(await postService.delete(postId))
   } catch (error) {
     res.send(error.message)
   }
-})*/
+})
 
 export default postRoutes
