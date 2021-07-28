@@ -107,6 +107,15 @@ class PostService {
       }
     })
   }
+  async get(id: number): Promise<Post | void> {
+    const result = await getRepository(Post).findOneOrFail({
+      relations: this.relations,
+      where: {
+        Id: id
+      }
+    })
+  }
+
 
   async update(post: Post): Promise<Post | undefined> {
     return await getRepository(Post).save(post)
@@ -263,7 +272,7 @@ class PostService {
 
   async aceptAPost(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
-    const post = await postService.findById(postId)
+    const post = await postService.get(postId)
     //console.log("POST" , post)
     const user = await userService.get(userId)
     console.log('USER', user.role)
@@ -277,7 +286,7 @@ class PostService {
   }
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
-    const post = await postService.findById(postId)
+    const post = await postService.get(postId)
     const user = await userService.get(userId)
     if (user.role.Id === 1) {
       post.postStatus.Id = 2
