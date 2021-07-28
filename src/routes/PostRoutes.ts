@@ -69,27 +69,7 @@ postRoutes.get('/by-user/:userId', async (req, res) => {
   }
 })
 
-postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
-  try {
-    const postid = parseInt(req.params.postId)
-    const userid = parseInt(req.params.userId)
 
-    return res.json(await postService.aceptAPost(postid, userid))
-  } catch (error) {
-    res.status(404).send(error.message)
-  }
-})
-
-postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
-  try {
-    const postId = parseInt(req.params.postId)
-    const user = parseInt(req.params.userId)
-
-    return res.json(await postService.rejectAPost(postId, user))
-  } catch (error) {
-    res.status(404).send(error.message)
-  }
-})
 
 postRoutes.delete('/:postId', async (req, res) => {
   try {
