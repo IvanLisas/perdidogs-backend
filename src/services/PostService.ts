@@ -253,8 +253,10 @@ class PostService {
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.findById(postId)
     const user = await userService.get(userId)
-    post.postStatus.Id == 2
+    if (user.role.Id === 1) {
+    post.postStatus.Id = 2
     return await getRepository(Post).save(post)
+    }
   }
 
   async delete(postId: number): Promise<Post | undefined> {
