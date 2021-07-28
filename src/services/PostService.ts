@@ -99,6 +99,15 @@ class PostService {
     })
   }
 
+  async get(idPost: number): Promise<Post> {
+    return await getRepository(Post).findOneOrFail({
+      relations: this.relations,
+      where: {
+        Id: idPost
+      }
+    })
+  }
+
   async findByUserId(userId: number): Promise<Post[]> {
     return await getRepository(Post).find({
       relations: this.relations,
@@ -263,21 +272,20 @@ class PostService {
 
   async aceptAPost(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
-    const post = await postService.findById(postId)
+    const post = await postService.get(postId)
     //console.log("POST" , post)
     const user = await userService.get(userId)
     console.log('USER', user.role)
     if (user.role.Id === 1) {
-    
       post.postStatus.Id = 1
-  //    post.postStatus.description='Inactivo'
+      //    post.postStatus.description='Inactivo'
       console.log('post status id', post.postStatus)
       return await getRepository(Post).save(post)
     }
   }
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
-    const post = await postService.findById(postId)
+    const post = await postService.get(postId)
     const user = await userService.get(userId)
     if (user.role.Id === 1) {
       post.postStatus.Id = 2
