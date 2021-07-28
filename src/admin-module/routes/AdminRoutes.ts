@@ -29,7 +29,7 @@ adminRoutes.put('/login', async (req, res) => {
   }
 })
 
-postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
+adminRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
   try {
     const postid = parseInt(req.params.postId)
     const userid = parseInt(req.params.userId)
@@ -40,7 +40,7 @@ postRoutes.put('/aceptAPost/:postId/:userId', async (req, res) => {
   }
 })
 
-postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
+adminRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
   try {
     const postId = parseInt(req.params.postId)
     const user = parseInt(req.params.userId)
@@ -50,5 +50,6 @@ postRoutes.put('/rejectAPost/:postId/:userId', async (req, res) => {
     res.status(404).send(error.message)
   }
 })
+
 
 export default adminRoutes

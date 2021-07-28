@@ -134,6 +134,7 @@ export class Bootstrap {
   picture_0027 = new Picture({
     url: 'https://s3-eu-west-1.amazonaws.com/barkibu-production/images/contents/000/023/240/original/uploads_2F1456934521386-va7sh1dz7gco9a4i-f348392e3c5e4537187730e873e7737d_2F145693446809792658303.jpg?1456934852'
   })
+  //borderCollieConPelota = new Picture ({"https://http2.mlstatic.com/D_NQ_NP_614800-MLA44526920361_012021-O.jpg"})
 
   //----------------------MASCOTAS-----------------------------------------------
   perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
@@ -156,7 +157,7 @@ export class Bootstrap {
   perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
   perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
   perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.negro, furLength: this.negro, breed: this.bulldogIngles, size: this.mediano })
-
+  borderCollier = new Pet({name:'Tomaso', sex:'Macho', hasCollar: false, color:this.beige,furLength:this.largo, breed:this.borderCollie,size:this.mediano})
   //---------------------------POSTS-----------------------------------------------------------------------------------------------------------------
 
   post0001!: Post
@@ -183,6 +184,7 @@ export class Bootstrap {
   post0022!: Post
   post0023!: Post
   post0024!: Post
+  post0025!: Post
   //--------------------------------COMENTARIOS------------------------------------------------------
   comentario1 = new Comment({
     owner: this.pedro,

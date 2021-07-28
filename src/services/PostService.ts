@@ -268,8 +268,10 @@ class PostService {
     const user = await userService.get(userId)
     console.log('USER', user.role)
     if (user.role.Id === 1) {
-      console.log('ES ADMIN')
-      post.postStatus.Id = 2
+    
+      post.postStatus.Id = 1
+  //    post.postStatus.description='Inactivo'
+      console.log('post status id', post.postStatus)
       return await getRepository(Post).save(post)
     }
   }
@@ -279,6 +281,7 @@ class PostService {
     const user = await userService.get(userId)
     if (user.role.Id === 1) {
       post.postStatus.Id = 2
+      console.log('post status id', post.postStatus)
       return await getRepository(Post).save(post)
     }
   }
