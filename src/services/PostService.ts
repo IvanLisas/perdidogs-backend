@@ -236,20 +236,18 @@ class PostService {
         posts = posts.filter((x) => x.creationDate >= createdFrom)
       }
       if (filter !== undefined && filter.createdTo !== undefined && filter.createdTo !== null && posts.length > 0) {
-        const createdTo =new Date( filter.createdTo)
+        const createdTo = new Date(filter.createdTo)
         //posts.map(x=>console.log(x.creationDate.getMilliseconds(), createdTo.getMilliseconds()))
-        posts = posts.filter((x) => x.creationDate  <= createdTo )
-        console.log("post LA CONCHA DE TU MADRE",posts.length)
-        console.log("creeated to", filter.createdTo)
-        console.log("creeated from", filter.createdFrom)
+        posts = posts.filter((x) => x.creationDate <= createdTo)
+        console.log('post LA CONCHA DE TU MADRE', posts.length)
+        console.log('creeated to', filter.createdTo)
+        console.log('creeated from', filter.createdFrom)
       }
-      if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
+      if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => filter.postStatus?.some((x2) => x2 == x.postStatus.Id))
       /*     console.log('LLEGA AL FINAL DEL FILTRAR', posts.length) */
       return posts
     } else return posts
   }
-
-  
 
   async getPostsByStatus(postsStatus: number, filter: Filter): Promise<Post[]> {
     let whereJson
@@ -281,8 +279,8 @@ class PostService {
     const post = await postService.findById(postId)
     const user = await userService.get(userId)
     if (user.role.Id === 1) {
-    post.postStatus.Id = 2
-    return await getRepository(Post).save(post)
+      post.postStatus.Id = 2
+      return await getRepository(Post).save(post)
     }
   }
 

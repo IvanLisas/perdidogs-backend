@@ -1,4 +1,4 @@
-import { User } from "../../models/User"
+import { User } from '../../models/User'
 
 export class PostFilter {
   constructor(init?: Partial<PostFilter>) {
@@ -9,8 +9,7 @@ export class PostFilter {
   ownerEmail?: string
   createdFrom?: Date
   createdTo?: Date
-  postStatus?: number
-
+  postStatus?: number[]
 
   static fromJson(FilterJson: string): PostFilter {
     return Object.assign(new PostFilter(), FilterJson)
