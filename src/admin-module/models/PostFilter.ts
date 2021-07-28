@@ -9,7 +9,7 @@ export class PostFilter {
   ownerEmail?: string
   createdFrom?: Date
   createdTo?: Date
-  postStatus?: number
+  postStatus?: number[]
 
 
   static fromJson(FilterJson: string): PostFilter {

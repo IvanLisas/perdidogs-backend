@@ -688,6 +688,7 @@ export class Bootstrap {
   //posts
   async createPosts(): Promise<void> {
     console.log('******************************Creando Publicaciones*********************************')
+
     this.post0001 = new Post({
       title: 'Post N°1',
       description: 'Perra encontrada en la calle Constitución al 3100, San Cristobal ',
@@ -695,9 +696,11 @@ export class Bootstrap {
       pet: this.perro1,
       creationDate: new Date('2021-06-20T04:34:01.456Z'),
       owner: this.estefania,
-      postStatus: Bootstrap.postPendingStatus,
+      postStatus: Bootstrap.postInactiveStatus,
       pictures: [this.picture_0001]
     })
+     
+     console.log(this.post0001.postStatus)
     this.post0002 = new Post({
       title: 'Post N°2',
       description: 'Encontrado en Villa Devoto, está lastimado',

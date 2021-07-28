@@ -240,10 +240,12 @@ class PostService {
         //posts.map(x=>console.log(x.creationDate.getMilliseconds(), createdTo.getMilliseconds()))
         posts = posts.filter((x) => x.creationDate  <= createdTo )
         console.log("post LA CONCHA DE TU MADRE",posts.length)
+      
         console.log("creeated to", filter.createdTo)
         console.log("creeated from", filter.createdFrom)
       }
-      if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0) posts = posts.filter((x) => x.postStatus.Id == filter.postStatus)
+      if (filter !== undefined && filter.postStatus !== undefined && filter.postStatus !== null && posts.length > 0)posts.filter((x) => filter.postStatus?.some((x2)=> x2 == x.postStatus.Id))
+      // posts = posts.filter((x) => x.postStatus.Id == filter.postStatus.includes(x.postStatus.Id])
       /*     console.log('LLEGA AL FINAL DEL FILTRAR', posts.length) */
       return posts
     } else return posts
