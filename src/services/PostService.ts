@@ -239,7 +239,7 @@ class PostService {
         const createdTo =new Date( filter.createdTo)
         //posts.map(x=>console.log(x.creationDate.getMilliseconds(), createdTo.getMilliseconds()))
         posts = posts.filter((x) => x.creationDate  <= createdTo )
-        console.log("post LA CONCHA DE TU MADRE",posts.length)
+        console.log("conteo de posts",posts.length)
       
         console.log("creeated to", filter.createdTo)
         console.log("creeated from", filter.createdFrom)
