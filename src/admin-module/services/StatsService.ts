@@ -12,7 +12,7 @@ class StatsService {
     const usuariosTotales = usersActive.length + usersInactive.length
     const porcentajeDeUsuariosActivos = this.calculatePercent(usuariosTotales, usersActive.length)
     const porcentajeDeUsuariosInactivos = this.calculatePercent(usuariosTotales, usersInactive.length)
-    return new ActiveOverInactivePercent({ total: usuariosTotales, activePercent: porcentajeDeUsuariosActivos, inactivePercent: porcentajeDeUsuariosInactivos })
+    return new ActiveOverInactivePercent({ total: usuariosTotales, activePercent: porcentajeDeUsuariosActivos, inactivePercent: porcentajeDeUsuariosInactivos, activeCunt:usersActive.length, inactiveCount:usersInactive.length })
   }
 
   calculoDePorcentajeDePostsActivosSobreInactivos(postsActive: Post[], postsInactive: Post[]): ActiveOverInactivePercent {
@@ -26,7 +26,7 @@ class StatsService {
     const totalAlerts = activeAlerts.length + inactiveAlerts.length
     const activeAlertsPercent = this.calculatePercent(totalAlerts, activeAlerts.length)
     const inactiveAlertsPercent = this.calculatePercent(totalAlerts, inactiveAlerts.length)
-    return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent })
+    return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent, activeCunt: activeAlerts.length, inactiveCount: inactiveAlerts.length })
   }
 
   async calculateLostBreeds(filter:StatsFilter): Promise<Stat[]> {

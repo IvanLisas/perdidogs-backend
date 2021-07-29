@@ -26,6 +26,15 @@ statsRoutes.put('/calculateLostBreeds', async (req, res) => {
   }
 })
 
+statsRoutes.put('/calculatePostStatus', async (req, res) => {
+  try {
+    const filter =req.body.filter
+    return res.json(await statsService.calculatePostStatus(filter))
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 statsRoutes.put('/porcentajePostActivosSobreInactivos', async (req, res) => {
   try {
     const filter = req.body.filter
