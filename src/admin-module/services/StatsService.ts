@@ -1,5 +1,5 @@
 import { Alert } from '../../models/Alert'
-import { Filter } from '../../models/Filter'
+import { Filter as StatsBreedFilter } from '../../models/Filter'
 
 import { Post } from '../../models/Post'
 import { User } from '../../models/User'
@@ -29,7 +29,7 @@ class StatsService {
     return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent })
   }
 
-  async calculateLostBreeds(filter:Filter): Promise<Stat[]> {
+  async calculateLostBreeds(filter:StatsBreedFilter): Promise<Stat[]> {
     const counts = await PostRepo.countLostBreeds(filter)
     //calculo la cantidad de mascotas que hay sumando los de cada raza
     const totals = counts.map((x) => Number.parseInt(x.count.toString())).reduce((acum: number, item: number) => acum + item)
