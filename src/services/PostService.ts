@@ -13,6 +13,7 @@ import { Bootstrap } from '../bootstrap/Bootstrap'
 import { PostStatus } from '../models/PostStatus'
 import dropDownService from './DropDownService'
 import notificationService from './NotificationService'
+import postRoutes from '../routes/PostRoutes'
 
 @Entity()
 class PostService {
@@ -262,6 +263,20 @@ class PostService {
     }
   }
 
+
+  async isOwner(postId: number, userId: number): Promise<Post | undefined> {
+    console.log(postId, userId)
+    const post = await postService.get(postId)
+    const user = await userService.get(userId)
+    console.log('USER', user.role)
+    if (post.owner.Id === user.Id) {
+      console.log(post.owner.Id)
+      post.postStatus.Id = 1
+      //    post.postStatus.description='Inactivo'
+      console.log('post status id', post.postStatus)
+      return await getRepository(Post).save(post)
+    }
+  }
   async dogFoundStatusPost(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
     const post = await postService.get(postId)

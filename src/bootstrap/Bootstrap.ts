@@ -135,8 +135,11 @@ export class Bootstrap {
   picture_0027 = new Picture({
     url: 'https://s3-eu-west-1.amazonaws.com/barkibu-production/images/contents/000/023/240/original/uploads_2F1456934521386-va7sh1dz7gco9a4i-f348392e3c5e4537187730e873e7737d_2F145693446809792658303.jpg?1456934852'
   })
-  //borderCollieConPelota = new Picture ({"https://http2.mlstatic.com/D_NQ_NP_614800-MLA44526920361_012021-O.jpg"})
-
+  borderCollieConPelota = new Picture({ url: 'https://http2.mlstatic.com/D_NQ_NP_614800-MLA44526920361_012021-O.jpg' })
+  bulldogfranc = new Picture ({url: 'https://naturalplanet.es/wp-content/uploads/2018/01/91E55BDE65F5450795D6A3F3CF867038-315x480.jpg'})
+  bulldogIngl = new Picture ({url:'https://bulldogfrances.club/wp-content/uploads/2020/08/orejas-bulldog-ingles.jpeg'})
+  chihua = new Picture ({url: 'https://www.perroperdido.mx/wp-content/uploads/2020/05/aome-es-chihuahua-mini-toy-se-perdio-en-morelia-michoacan-el-16-de-mayo-2020-le-da-ataques-epilepticos-y-necesita-su-medicamento-846x515.jpg'})
+  
   //----------------------MASCOTAS-----------------------------------------------
   perro1 = new Pet({ name: 'coki', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
   perro2 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: true, color: this.beige, furLength: this.largo, breed: this.barbincho, size: this.mediano })
@@ -154,11 +157,15 @@ export class Bootstrap {
   perro14 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.caniche, size: this.pequenio })
   perro15 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.sinRaza, size: this.grande })
   perro16 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, color: this.negro, furLength: this.negro, breed: this.sinRaza, size: this.grande })
+  perro17 = new Pet({ name: 'Ramon', sex: 'Macho', hasCollar: false, color: this.negro, furLength: this.corto, breed: this.sinRaza, size: this.grande })
   perro18 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.galgo, size: this.grande })
   perro19 = new Pet({ name: 'NN', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.corto, breed: this.sinRaza, size: this.grande })
-  perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.negro, furLength: this.negro, breed: this.bulldogIngles, size: this.mediano })
-  borderCollier = new Pet({name:'Tomaso', sex:'Macho', hasCollar: false, color:this.beige,furLength:this.largo, breed:this.borderCollie,size:this.mediano})
+  perro20 = new Pet({ name: 'NN', sex: 'Hembra', hasCollar: false, color: this.negro, furLength: this.largo, breed: this.bulldogIngles, size: this.mediano })
+  bordercollie = new Pet({ name: 'Tomaso', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.borderCollie, size: this.mediano })
+  bulldogfrances = new Pet({ name: 'Bulldog', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.blanco, breed: this.bulldogFrances, size: this.pequenio })
+  bulldogingles = new Pet({ name: 'Bulldog Ingles', sex: 'Hembra', hasCollar: true, color: this.marron, furLength: this.corto, breed: this.bulldogIngles, size: this.mediano })
+ // chihu =new Pet({ name: 'Bulldog Ingles', sex: 'Hembra', hasCollar: true, color: this.marron, furLength: this.corto, breed: this.bulldogIngles, size: this.mediano })
+ 
   //---------------------------POSTS-----------------------------------------------------------------------------------------------------------------
 
   post0001!: Post
@@ -408,7 +415,7 @@ export class Bootstrap {
 
   //------------------------------------------------------------------------------------------------------------------------------
   alertaGabrielPerro1!: Alert
-   // activo!: UserStatus
+  // activo!: UserStatus
   // pendiente!:UserStatus
   // inactivo!:UserStatus
 
@@ -458,7 +465,6 @@ export class Bootstrap {
     Bootstrap.postPendingStatus = new PostStatus({ description: 'Pendiente' })
     Bootstrap.postDogFoundStatus = new PostStatus({ description: 'Encontrado' })
     await getRepository(PostStatus).save([Bootstrap.postActiveStatus, Bootstrap.postInactiveStatus, Bootstrap.postPendingStatus, Bootstrap.postDogFoundStatus])
-  
   }
 
   //AlertStatus
@@ -534,7 +540,10 @@ export class Bootstrap {
       this.perro17,
       this.perro18,
       this.perro19,
-      this.perro20
+      this.perro20,
+      this.bordercollie,
+      this.bulldogfrances,
+      this.bulldogingles
     ])
   }
 
@@ -686,7 +695,10 @@ export class Bootstrap {
       this.picture_0023,
       this.picture_0024,
       this.picture_0025,
-      this.picture_0026
+      this.picture_0026,
+      this.borderCollieConPelota,
+      this.bulldogfranc,
+      this.bulldogIngl
     ])
   }
   //posts
@@ -703,8 +715,8 @@ export class Bootstrap {
       postStatus: Bootstrap.postInactiveStatus,
       pictures: [this.picture_0001]
     })
-     
-     console.log(this.post0001.postStatus)
+
+    console.log(this.post0001.postStatus)
     this.post0002 = new Post({
       title: 'Post N°2',
       description: 'Encontrado en Villa Devoto, está lastimado',
@@ -814,8 +826,62 @@ export class Bootstrap {
       creationDate: new Date('2021-06-20T13:31:01.456Z'),
       pictures: [this.picture_0027]
     })
-    const savedPosts= await getRepository(Post).save([this.post0001, this.post0002, this.post0003, this.post0004, this.post0005, this.post0006, this.post0007, this.post0008, this.post0009, this.post0010, this.post0011, this.post0012])
-    await getRepository(Post).save(savedPosts.map(x=>{x.postStatus=Bootstrap.postActiveStatus;return x}))
+
+    this.post0013 = new Post({
+      title: 'Post N°13',
+      description: 'Border Collie Perdido',
+      location: this.location_0020,
+      pet: this.bordercollie,
+      owner: this.ivan,
+      postStatus: Bootstrap.postDogFoundStatus,
+      creationDate: new Date('2021-05-20T13:31:01.456Z'),
+      pictures: [this.borderCollieConPelota]
+    })
+
+    this.post0014 = new Post({
+      title: 'Post N°14',
+      description: 'Bulldog frances perdido',
+      location: this.location_0014,
+      pet: this.bulldogfrances,
+      owner: this.mariano,
+      postStatus: Bootstrap.postDogFoundStatus,
+      creationDate: new Date('2021-07-27T13:31:01.456Z'),
+      pictures: [this.bulldogfranc]
+    })
+
+    this.post0015 = new Post({
+      title: 'Post N°15',
+      description: 'Bulldog Ingles caminando sobre av..',
+      location: this.location_0016,
+      pet: this.bulldogingles,
+      owner: this.estefania,
+      postStatus: Bootstrap.postDogFoundStatus,
+      creationDate: new Date('2021-02-14T13:31:01.456Z'),
+      pictures: [this.bulldogIngl]
+    })
+    const savedPosts = await getRepository(Post).save([
+      this.post0001,
+      this.post0002,
+      this.post0003,
+      this.post0004,
+      this.post0005,
+      this.post0006,
+      this.post0007,
+      this.post0008,
+      this.post0009,
+      this.post0010,
+      this.post0011,
+      this.post0012,
+      this.post0013,
+      this.post0014,
+      this.post0015
+    ])
+    await getRepository(Post).save(
+      savedPosts.map((x) => {
+        x.postStatus = Bootstrap.postActiveStatus
+        return x
+      })
+    )
   }
 
   async createComments(): Promise<void> {
