@@ -69,7 +69,16 @@ postRoutes.get('/by-user/:userId', async (req, res) => {
   }
 })
 
+postRoutes.put('/dogFoundStatus/:postId/:userId', async (req, res) => {
+  try {
+    const postid = parseInt(req.params.postId)
+    const userid = parseInt(req.params.userId)
 
+    return res.json(await postService.dogFoundStatusPost(postid, userid))
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
 
 postRoutes.delete('/:postId', async (req, res) => {
   try {
