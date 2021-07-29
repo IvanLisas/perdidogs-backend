@@ -6,8 +6,8 @@ export class ActiveOverInactivePercent {
   total?: number
   activePercent?: number
   inactivePercent?: number
-  activeCunt?:number
-  inactiveCount?:number
+  activeCount?: number
+  inactiveCount?: number
 
   static fromJson(FilterJson: string): ActiveOverInactivePercent {
     return Object.assign(new ActiveOverInactivePercent(), FilterJson)

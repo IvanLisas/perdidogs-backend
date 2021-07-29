@@ -12,7 +12,13 @@ class StatsService {
     const usuariosTotales = usersActive.length + usersInactive.length
     const porcentajeDeUsuariosActivos = this.calculatePercent(usuariosTotales, usersActive.length)
     const porcentajeDeUsuariosInactivos = this.calculatePercent(usuariosTotales, usersInactive.length)
-    return new ActiveOverInactivePercent({ total: usuariosTotales, activePercent: porcentajeDeUsuariosActivos, inactivePercent: porcentajeDeUsuariosInactivos, activeCunt:usersActive.length, inactiveCount:usersInactive.length })
+    return new ActiveOverInactivePercent({
+      total: usuariosTotales,
+      activePercent: porcentajeDeUsuariosActivos,
+      inactivePercent: porcentajeDeUsuariosInactivos,
+      activeCount: usersActive.length,
+      inactiveCount: usersInactive.length
+    })
   }
 
   calculoDePorcentajeDePostsActivosSobreInactivos(postsActive: Post[], postsInactive: Post[]): ActiveOverInactivePercent {
@@ -26,23 +32,23 @@ class StatsService {
     const totalAlerts = activeAlerts.length + inactiveAlerts.length
     const activeAlertsPercent = this.calculatePercent(totalAlerts, activeAlerts.length)
     const inactiveAlertsPercent = this.calculatePercent(totalAlerts, inactiveAlerts.length)
-    return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent, activeCunt: activeAlerts.length, inactiveCount: inactiveAlerts.length })
+    return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent, activeCount: activeAlerts.length, inactiveCount: inactiveAlerts.length })
   }
 
-  async calculateLostBreeds(filter:StatsFilter): Promise<Stat[]> {
+  async calculateLostBreeds(filter: StatsFilter): Promise<Stat[]> {
     const counts = await PostRepo.countLostBreeds(filter)
     //calculo la cantidad de mascotas que hay sumando los de cada raza
     const totals = counts.map((x) => Number.parseInt(x.count.toString())).reduce((acum: number, item: number) => acum + item)
     //calculo el porcentaje de cada raza y lo meto en una lista de tipo Stat para retornarlo
-    return counts.map((x) => new Stat({Id: x.Id, description: x.description, percent: this.calculatePercent(totals, x.count), count: x.count }))
+    return counts.map((x) => new Stat({ Id: x.Id, description: x.description, percent: this.calculatePercent(totals, x.count), count: x.count }))
   }
 
-  async calculatePostStatus(filter:StatsFilter): Promise<Stat[]> {
+  async calculatePostStatus(filter: StatsFilter): Promise<Stat[]> {
     const counts = await PostRepo.countPostByStatus(filter)
     //calculo la cantidad de post con cada estado
     const totals = counts.map((x) => Number.parseInt(x.count.toString())).reduce((acum: number, item: number) => acum + item)
     //calculo el porcentaje de cada postStatus y lo meto en una lista de tipo Stat para retornarlo
-    return counts.map((x) => new Stat({Id: x.Id, description: x.description, percent: this.calculatePercent(totals, x.count), count: x.count }))
+    return counts.map((x) => new Stat({ Id: x.Id, description: x.description, percent: this.calculatePercent(totals, x.count), count: x.count }))
   }
 
   calculatePercent(total: number, part: number): number {
