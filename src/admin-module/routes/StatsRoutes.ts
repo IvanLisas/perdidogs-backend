@@ -29,7 +29,7 @@ statsRoutes.put('/calculatePostLostBreeds', async (req, res) => {
 statsRoutes.put('/calculateAlertLostBreeds', async (req, res) => {
   try {
     const filter =req.body.filter
-    return res.json(await statsService.calculatePostLostBreeds(filter))
+    return res.json(await statsService.calculateAlertLostBreeds(filter))
   } catch (error) {
     res.send(error.message)
   }
