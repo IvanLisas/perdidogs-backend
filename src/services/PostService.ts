@@ -13,7 +13,7 @@ import { Bootstrap } from '../bootstrap/Bootstrap'
 import { PostStatus } from '../models/PostStatus'
 import dropDownService from './DropDownService'
 import notificationService from './NotificationService'
-import postRoutes from '../routes/PostRoutes'
+import { StatsFilter } from '../admin-module/models/StatsFilter'
 
 @Entity()
 class PostService {
@@ -59,15 +59,19 @@ class PostService {
     post.owner = foundUser
     post.postStatus = await dropDownService.getPostStatusById(3)
     const result = await getRepository(Post).save(post)
-    this.populateNotificationTable(post.pet, result.Id)
+    await this.populateNotificationTable(post.pet, result.Id)
     return result
   }
 
   async populateNotificationTable(pet: Pet, postId: number) {
-    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
-    const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
-    console.log('NOTIFICATIONS ', notifications)
-    await getRepository(Notification).save(notifications)
+    try {
+      const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
+      const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
+      console.log('NOTIFICATIONS ', notifications)
+      await getRepository(Notification).save(notifications)
+    } catch (error) {
+      console.log('No se pudieron crear las notificaciones: ' + error.message)
+    }
   }
 
   deleteRepetedValues(data: number[]): number[] {
@@ -236,7 +240,7 @@ class PostService {
     } else return posts
   }
 
-  async getPostsByStatus(postsStatus: number, filter: Filter): Promise<Post[]> {
+  async getPostsByStatus(postsStatus: number, filter: StatsFilter): Promise<Post[]> {
     let whereJson
     if (filter) {
       whereJson = { postStatus: postsStatus, creationDate: Between(filter.dateFrom, filter.dateTo) }
