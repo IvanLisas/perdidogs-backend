@@ -14,7 +14,6 @@ export class PostRepo extends Repository<Post> {
     let where = ''
     if (filter) {
       where = ' WHERE p.creationDate BETWEEN "' + filter.dateFrom + '"' + ' AND "' + filter.dateTo + '"'
-
     }
     const entityManager = getManager()
     const query =
@@ -25,6 +24,22 @@ export class PostRepo extends Repository<Post> {
     on pet.breedId = b.id` +
       where +
       ` group by b.Id`
+    const counts = await entityManager.query(query)
+    return counts
+  }
+
+  static async countPostByStatus(filter: StatsFilter): Promise<Count[]> {
+    let where = ''
+    if (filter) {
+      where = ' WHERE p.creationDate BETWEEN "' + filter.dateFrom + '"' + ' AND "' + filter.dateTo + '"'
+    }
+    const entityManager = getManager()
+    const query =
+      `SELECT COUNT(p.Id) as count, ps.Id, ps.description FROM post p
+      INNER JOIN post_status ps 
+      on p.postStatusId= ps.Id ` +
+      where +
+      ` group by p.postStatusId`
     const counts = await entityManager.query(query)
     return counts
   }
