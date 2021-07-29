@@ -25,7 +25,7 @@ function buildWhereStatements(pet: Pet): string {
     } else {
       query = query + ' OR '
     }
-    query = query + ' pet.furLengthId= ' + pet.furLength
+    query = query + ' pet.furLengthId= ' + pet.furLength.Id
   }
   if (pet.color !== undefined) {
     if (query.length < 5) {
@@ -33,7 +33,7 @@ function buildWhereStatements(pet: Pet): string {
     } else {
       query = query + ' OR '
     }
-    query = query + '  pet.colorId= ' + pet.color
+    query = query + '  pet.colorId= ' + pet.color.Id
   }
   console.log("BREED ", pet.breed)
   if (pet.breed !== undefined) {
@@ -42,7 +42,7 @@ function buildWhereStatements(pet: Pet): string {
     } else {
       query = query + ' OR '
     }
-    query = query + '  pet.breedId= ' + pet.breed
+    query = query + '  pet.breedId= ' + pet.breed.Id
   }
   if (pet.size !== undefined) {
     if (query.length < 5) {
@@ -50,7 +50,7 @@ function buildWhereStatements(pet: Pet): string {
     } else {
       query = query + ' OR '
     }
-    query = query + '  pet.sizeId= ' + pet.size
+    query = query + '  pet.sizeId= ' + pet.size.Id
   }
 
   return query
