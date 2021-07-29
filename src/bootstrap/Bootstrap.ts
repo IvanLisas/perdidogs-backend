@@ -164,7 +164,7 @@ export class Bootstrap {
   bordercollie = new Pet({ name: 'Tomaso', sex: 'Macho', hasCollar: false, color: this.beige, furLength: this.largo, breed: this.borderCollie, size: this.mediano })
   bulldogfrances = new Pet({ name: 'Bulldog', sex: 'Macho', hasCollar: false, color: this.blanco, furLength: this.blanco, breed: this.bulldogFrances, size: this.pequenio })
   bulldogingles = new Pet({ name: 'Bulldog Ingles', sex: 'Hembra', hasCollar: true, color: this.marron, furLength: this.corto, breed: this.bulldogIngles, size: this.mediano })
- // chihu =new Pet({ name: 'Bulldog Ingles', sex: 'Hembra', hasCollar: true, color: this.marron, furLength: this.corto, breed: this.bulldogIngles, size: this.mediano })
+ // chihu =new Pet({ name: 'Chihuahua', sex: 'Hembra', hasCollar: false, color: this.marron, furLength: this.corto, breed: this.chihuahua, size: this.mediano })
  
   //---------------------------POSTS-----------------------------------------------------------------------------------------------------------------
 
@@ -183,7 +183,7 @@ export class Bootstrap {
   post0013!: Post
   post0014!: Post
   post0015!: Post
-  post0016!: Post
+  //post0016!: Post
   post0017!: Post
   post0018!: Post
   post0019!: Post
@@ -543,7 +543,8 @@ export class Bootstrap {
       this.perro20,
       this.bordercollie,
       this.bulldogfrances,
-      this.bulldogingles
+      this.bulldogingles,
+      //this.chihu
     ])
   }
 
@@ -698,7 +699,8 @@ export class Bootstrap {
       this.picture_0026,
       this.borderCollieConPelota,
       this.bulldogfranc,
-      this.bulldogIngl
+      this.bulldogIngl,
+      //this.chihu
     ])
   }
   //posts
@@ -859,6 +861,17 @@ export class Bootstrap {
       creationDate: new Date('2021-02-14T13:31:01.456Z'),
       pictures: [this.bulldogIngl]
     })
+
+    // this.post0016 = new Post({
+    //   title: 'Post N°16',
+    //   description: 'Bulldog Ingles caminando sobre av..',
+    //   location: this.location_0017,
+    //   pet: this.chihu,
+    //   owner: this.estefania,
+    //   postStatus: Bootstrap.postDogFoundStatus,
+    //   creationDate: new Date('2021-02-24T13:31:01.456Z'),
+    //   pictures: [this.chihua]
+    // })
     const savedPosts = await getRepository(Post).save([
       this.post0001,
       this.post0002,
@@ -874,7 +887,8 @@ export class Bootstrap {
       this.post0012,
       this.post0013,
       this.post0014,
-      this.post0015
+      this.post0015,
+      //this.post0016
     ])
     await getRepository(Post).save(
       savedPosts.map((x) => {

@@ -88,7 +88,7 @@ postRoutes.put('/dogNotFoundStatus/:postId/:userId', async (req, res) => {
     const postid = parseInt(req.params.postId)
     const userid = parseInt(req.params.userId)
    
-    return res.json(await postService.isOwner(postid, userid))
+    return res.json(await postService.changeStatusIfOwner(postid, userid))
   } catch (error) {
     res.status(404).send(error.message)
   }
