@@ -10,7 +10,10 @@ postRoutes.post('/', async (req, res) => {
   try {
     const userId = parseInt(req.body.owner)
     const post = Post.fromJson(req.body)
-    return res.json(await postService.create(userId, post))
+    const newPost = await postService.create(userId, post)
+    newPost.pictures = newPost.pictures?.filter((r) => r !== null)
+    console.log(newPost)
+    return res.json(newPost)
   } catch (error) {
     console.log(error.message)
     res.status(400).send(error.message)
@@ -79,6 +82,18 @@ postRoutes.put('/dogFoundStatus/:postId/:userId', async (req, res) => {
     res.status(404).send(error.message)
   }
 })
+
+postRoutes.put('/dogNotFoundStatus/:postId/:userId', async (req, res) => {
+  try {
+    const postid = parseInt(req.params.postId)
+    const userid = parseInt(req.params.userId)
+   
+    return res.json(await postService.isOwner(postid, userid))
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
+ 
 
 postRoutes.delete('/:postId', async (req, res) => {
   try {

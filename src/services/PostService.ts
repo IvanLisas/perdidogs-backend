@@ -59,15 +59,19 @@ class PostService {
     post.owner = foundUser
     post.postStatus = await dropDownService.getPostStatusById(3)
     const result = await getRepository(Post).save(post)
-    this.populateNotificationTable(post.pet, result.Id)
+    await this.populateNotificationTable(post.pet, result.Id)
     return result
   }
 
   async populateNotificationTable(pet: Pet, postId: number) {
-    const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
-    const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
-    console.log('NOTIFICATIONS ', notifications)
-    await getRepository(Notification).save(notifications)
+    try {
+      const alertIds = this.deleteRepetedValues((await AlertRepo.filterAlertsByPetInPost(pet)).map((x) => x.alertOrPostId))
+      const notifications = alertIds.map((x) => new Notification({ alertId: x, postId: postId }))
+      console.log('NOTIFICATIONS ', notifications)
+      await getRepository(Notification).save(notifications)
+    } catch (error) {
+      console.log('No se pudieron crear las notificaciones: ' + error.message)
+    }
   }
 
   deleteRepetedValues(data: number[]): number[] {
@@ -263,6 +267,20 @@ class PostService {
     }
   }
 
+
+  async isOwner(postId: number, userId: number): Promise<Post | undefined> {
+    console.log(postId, userId)
+    const post = await postService.get(postId)
+    const user = await userService.get(userId)
+    console.log('USER', user.role)
+    if (post.owner.Id === user.Id) {
+      console.log(post.owner.Id)
+      post.postStatus.Id = 1
+      //    post.postStatus.description='Inactivo'
+      console.log('post status id', post.postStatus)
+      return await getRepository(Post).save(post)
+    }
+  }
   async dogFoundStatusPost(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
     const post = await postService.get(postId)
