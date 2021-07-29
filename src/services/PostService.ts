@@ -272,7 +272,7 @@ class PostService {
     console.log(postId, userId)
     const post = await postService.get(postId)
    
-    if (post.owner.Id == userId && post.postStatus.Id ===4) {
+    if (post.owner.Id == userId && post.postStatus.Id == 4) {
      
       post.postStatus.Id = 1
       return await getRepository(Post).save(post)
