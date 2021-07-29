@@ -83,7 +83,7 @@ class UserService {
         Id: id
       }
     })
-    result.post = result.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
+    //result.post = result.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3|| x.postStatus.Id == 4)
     return result
   }
 
