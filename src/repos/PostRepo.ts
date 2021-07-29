@@ -10,7 +10,7 @@ import { Post } from '../models/Post'
 @EntityRepository(Post)
 export class PostRepo extends Repository<Post> {
   static filterPostByPetAlertQuery = 'SELECT p.Id as alertOrPostId,p.locationId, pet.* FROM Post p INNER JOIN pet  ON p.petId= pet.Id'
-  static async countLostBreeds(filter: StatsFilter): Promise<Count[]> {
+  static async countPostLostBreeds(filter: StatsFilter): Promise<Count[]> {
     let where = ''
     if (filter) {
       where = ' WHERE p.creationDate BETWEEN "' + filter.dateFrom + '"' + ' AND "' + filter.dateTo + '"'

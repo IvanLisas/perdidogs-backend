@@ -2,6 +2,7 @@ import { Alert } from '../../models/Alert'
 
 import { Post } from '../../models/Post'
 import { User } from '../../models/User'
+import { AlertRepo } from '../../repos/AlertRepo'
 import { PostRepo } from '../../repos/PostRepo'
 import { ActiveOverInactivePercent } from '../models/ActiveOverInactivePercent'
 import { Stat } from '../models/Stat'
@@ -29,8 +30,16 @@ class StatsService {
     return new ActiveOverInactivePercent({ total: totalAlerts, activePercent: activeAlertsPercent, inactivePercent: inactiveAlertsPercent, activeCunt: activeAlerts.length, inactiveCount: inactiveAlerts.length })
   }
 
-  async calculateLostBreeds(filter:StatsFilter): Promise<Stat[]> {
-    const counts = await PostRepo.countLostBreeds(filter)
+  async calculatePostLostBreeds(filter:StatsFilter): Promise<Stat[]> {
+    const counts = await PostRepo.countPostLostBreeds(filter)
+    //calculo la cantidad de mascotas que hay sumando los de cada raza
+    const totals = counts.map((x) => Number.parseInt(x.count.toString())).reduce((acum: number, item: number) => acum + item)
+    //calculo el porcentaje de cada raza y lo meto en una lista de tipo Stat para retornarlo
+    return counts.map((x) => new Stat({Id: x.Id, description: x.description, percent: this.calculatePercent(totals, x.count), count: x.count }))
+  }
+
+  async calculateAlertLostBreeds(filter:StatsFilter): Promise<Stat[]> {
+    const counts = await AlertRepo.countAlertLostBreeds(filter)
     //calculo la cantidad de mascotas que hay sumando los de cada raza
     const totals = counts.map((x) => Number.parseInt(x.count.toString())).reduce((acum: number, item: number) => acum + item)
     //calculo el porcentaje de cada raza y lo meto en una lista de tipo Stat para retornarlo

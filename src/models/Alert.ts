@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToOne, JoinColumn, ManyToMany, JoinTable, Column, getManager } from 'typeorm'
+import { StatsFilter } from '../admin-module/models/StatsFilter'
 import { AlertStatus } from './AlertStatus'
 import { Location } from './Location'
 import { Pet } from './Pet'

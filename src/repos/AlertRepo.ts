@@ -1,11 +1,34 @@
 import { EntityRepository, getManager, Repository } from 'typeorm'
+import { Count } from '../admin-module/models/Count'
 import { QueryResult } from '../admin-module/models/QueryResult'
+import { StatsFilter } from '../admin-module/models/StatsFilter'
 import { Alert } from '../models/Alert'
 import { Pet } from '../models/Pet'
 
 @EntityRepository(Alert)
 export class AlertRepo extends Repository<Alert> {
   static filterAlertsByPetInPostQuery = 'SELECT a.Id as alertOrPostId,a.locationId, pet.* FROM Alert a INNER JOIN pet ON a.petId= pet.Id'
+
+  static async countAlertLostBreeds(filter: StatsFilter) : Promise<Count[]>{
+      let where = ''
+      if (filter) {
+        where = ' WHERE p.creationDate BETWEEN "' + filter.dateFrom + '"' + ' AND "' + filter.dateTo + '"'
+      }
+      const entityManager = getManager()
+      const query =
+        `SELECT COUNT(b.Id) as count, b.Id, b.description FROM alert a
+      INNER JOIN pet 
+      on a.petId= pet.id
+      INNER JOIN breed b
+      on pet.breedId = b.id` +
+        where +
+        ` group by b.Id`
+      const counts = await entityManager.query(query)
+      return counts
+    }
+    
+
+
 
   static async filterAlertsByPetInPost(pet: Pet): Promise<QueryResult[]> {
     console.log('LLEGA AL ALERT REPO', pet)
