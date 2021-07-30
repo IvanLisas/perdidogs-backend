@@ -4,11 +4,14 @@ import { Post } from '../../models/Post'
 import { User } from '../../models/User'
 import { AlertRepo } from '../../repos/AlertRepo'
 import { PostRepo } from '../../repos/PostRepo'
+import userService from '../../services/UserService'
 import { ActiveOverInactivePercent } from '../models/ActiveOverInactivePercent'
 import { Stat } from '../models/Stat'
 import { StatsFilter } from '../models/StatsFilter'
+import { UserDTO } from '../models/UserDTO'
 
 class StatsService {
+
   calculoDePorcentajeDeUsuariosActivosSobreInactivos(usersActive: User[], usersInactive: User[]): ActiveOverInactivePercent {
     const usuariosTotales = usersActive.length + usersInactive.length
     const porcentajeDeUsuariosActivos = this.calculatePercent(usuariosTotales, usersActive.length)
@@ -62,6 +65,11 @@ class StatsService {
 
   calculatePercent(total: number, part: number): number {
     return (part * 100) / total
+  }
+
+  async statFalopa(): Promise<UserDTO[]> {
+    const users= await userService.getAll()
+    return users.map(x=> new UserDTO({userId: x.Id, firstName: x.firstName?x.firstName:"", userStatus: x.userStatus.description, creationDate:x.creationDate, avatar: x.avatar }))
   }
 }
 

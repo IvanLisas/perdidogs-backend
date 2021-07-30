@@ -8,6 +8,7 @@ import { Filter } from '../models/Filter'
 import dropDownService from './DropDownService'
 
 class UserService {
+
   relations = [
     'userStatus',
     'post',
@@ -38,6 +39,10 @@ class UserService {
     } catch (error) {
       throw new Error('El email o la contraseña no son validos')
     }
+  }
+
+  async getAll():Promise<User[]> {
+    return await getRepository(User).find({relations:this.relations})
   }
 
   async loginAdmin(anEmail: string, aPassword: string): Promise<User> {
