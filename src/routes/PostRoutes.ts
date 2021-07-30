@@ -59,6 +59,7 @@ postRoutes.get('/:postId', async (req, res) => {
     const postId = parseInt(req.params.postId)
     return res.json(await postService.findById(postId))
   } catch (error) {
+    console.log(error.message)
     res.status(404).send(error.message)
   }
 })
@@ -87,13 +88,12 @@ postRoutes.put('/dogNotFoundStatus/:postId/:userId', async (req, res) => {
   try {
     const postid = parseInt(req.params.postId)
     const userid = parseInt(req.params.userId)
-   
+
     return res.json(await postService.changeStatusIfOwner(postid, userid))
   } catch (error) {
     res.status(404).send(error.message)
   }
 })
- 
 
 postRoutes.delete('/:postId', async (req, res) => {
   try {

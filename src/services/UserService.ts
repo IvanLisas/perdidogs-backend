@@ -52,7 +52,7 @@ class UserService {
         where: {
           email: anEmail,
           userStatus: 1,
-          role:1
+          role: 1
         }
       })) as User
       if (await bcrypt.compare(aPassword, user.password)) return user
@@ -125,7 +125,7 @@ class UserService {
     if (token == user.tempToken) {
       user.password = await bcrypt.hash(newPassWord, salt)
       return await getRepository(User).save(user)
-    } else throw new Error('las passwords no coinciden')
+    } else throw new Error('El token no es valido')
   }
 
   async getByUsername(username: string): Promise<User[]> {
