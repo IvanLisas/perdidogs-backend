@@ -66,8 +66,8 @@ export class PostRepo extends Repository<Post> {
       ' inner join alert a ' +
       ' on a.Id= n.alertId ' +
       ' AND n.hasBeenRejected= false' +
-      ' AND p.ownerId!= ' +
-      userId +
+      ' AND p.ownerId!= ' + userId +
+      ' AND p.postStatusId= 1 '+
       ' AND a.ownerId= ' +
       userId +
       ' ORDER BY n.creationDate desc '
