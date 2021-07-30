@@ -4,9 +4,9 @@ export class EmailService {
 
   nodeMailer = require('nodemailer')
 
-  emailPerdidogs: string = process.env.EMAIL_USER || 'workgloy@gmail.com'
+  emailPerdidogs: string = process.env.EMAIL_USER || 'no.reply.perdidogs@gmail.com'
 
-  pass: string = process.env.EMAIL_PASS || 'g4ston.Fr1'
+  pass: string = process.env.EMAIL_PASS || 'perdidogs1234'
 
   transporter: any
 

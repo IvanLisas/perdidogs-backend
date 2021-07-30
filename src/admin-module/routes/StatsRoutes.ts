@@ -78,4 +78,12 @@ statsRoutes.put('/porcentajeDeAlertasActivasSobreInactivas', async (req, res) =>
   }
 })
 
+statsRoutes.put('/statFalopa', async (req, res) => {
+  try {
+    return res.json(statsService.statFalopa())
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 export default statsRoutes
