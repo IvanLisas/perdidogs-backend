@@ -55,7 +55,7 @@ class PostService {
   }
 
   async create(idUser: number, post: Post): Promise<Post> {
-    const foundUser = await userService.get(idUser)
+    const foundUser = await userService.getUserById(idUser)
     post.owner = foundUser
     post.postStatus = await dropDownService.getPostStatusById(3)
     const result = await getRepository(Post).save(post)
@@ -257,7 +257,7 @@ class PostService {
     console.log(postId, userId)
     const post = await postService.get(postId)
     //console.log("POST" , post)
-    const user = await userService.get(userId)
+    const user = await userService.getUserById(userId)
     console.log('USER', user.role)
     if (user.role.Id === 1) {
       post.postStatus.Id = 1
@@ -282,7 +282,7 @@ class PostService {
     console.log(postId, userId)
     const post = await postService.get(postId)
     //console.log("POST" , post)
-    const user = await userService.get(userId)
+    const user = await userService.getUserById(userId)
       post.postStatus.Id = 4
       return await getRepository(Post).save(post)
  
@@ -291,7 +291,7 @@ class PostService {
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.get(postId)
-    const user = await userService.get(userId)
+    const user = await userService.getUserById(userId)
     if (user.role.Id === 1) {
       post.postStatus.Id = 2
       console.log('post status id', post.postStatus)

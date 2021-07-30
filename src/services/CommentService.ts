@@ -23,8 +23,8 @@ export class CommentService {
   }
 
   async create(message: MessageDTO): Promise<Chat | undefined> {
-    const user1 = await userService.get(message.sender)
-    const user2 = await userService.get(message.adressee)
+    const user1 = await userService.getUserById(message.sender)
+    const user2 = await userService.getUserById(message.adressee)
     if (message.chat == 0) {
       const mesagge = new Message({ sender: user1, adressee: user2, body: message.messageBody })
       await getRepository(Message).save(mesagge)

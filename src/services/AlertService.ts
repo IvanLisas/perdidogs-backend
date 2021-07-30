@@ -57,7 +57,7 @@ class AlertService {
   }
 
   async match(id: number, alert: Alert): Promise<Alert[] | undefined> {
-    const user = userService.get(id)
+    const user = userService.getUserById(id)
     if (user)
       return await getRepository(Alert).find({
         relations: ['owner', 'pet', 'location'],

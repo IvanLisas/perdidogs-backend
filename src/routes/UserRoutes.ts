@@ -37,7 +37,7 @@ userRoutes.put('/forgot-password', async (req, res) => {
 userRoutes.get('/:userid', async (req, res) => {
   const id = parseInt(req.params.userid)
   try {
-    res.json(await userService.get(id))
+    res.json(await userService.getUserById(id))
   } catch (error) {
     res.send(error.message)
   }
@@ -76,7 +76,7 @@ userRoutes.put('/changePasswordWithToken', async (req, res) => {
 userRoutes.delete('/:userid', async (req, res) => {
   try {
     const id = parseInt(req.params.userid)
-    const user = await userService.get(id)
+    const user = await userService.getUserById(id)
     return res.json(userService.delete(user))
   } catch (error) {
     res.send(error.message)
