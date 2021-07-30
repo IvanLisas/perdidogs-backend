@@ -33,7 +33,7 @@ class UserService {
           userStatus: 1
         }
       })) as User
-      user.post = user.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3)
+      user.post = user.post.filter((x) => x.postStatus.Id != 2 )
       if (await bcrypt.compare(aPassword, user.password)) return user
       else throw new Error('Contraseña incorrecta')
     } catch (error) {
@@ -88,7 +88,7 @@ class UserService {
         Id: id
       }
     })
-    result.post = result.post.filter((x) => x.postStatus.Id == 1 || x.postStatus.Id == 3|| x.postStatus.Id == 4)
+    result.post = result.post.filter((x) => x.postStatus.Id !=2)
     return result
   }
 
