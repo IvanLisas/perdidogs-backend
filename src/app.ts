@@ -32,7 +32,7 @@ import adminRoutes from './admin-module/routes/AdminRoutes'
 //ALTER USER 'root'@'localhost' idENTIFIED WITH mysql_native_password BY '1234'
 
 const app = express() //Creo la conexion con express
-app.set('port', process.env.PORT || 3001) // Defino el puerto
+app.set('port', process.env.PORT || 13000) // Defino el puerto
 app.use(express.json())
 console.log('Creando tablas...')
 createConnection({

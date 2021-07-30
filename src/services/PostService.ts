@@ -98,8 +98,7 @@ class PostService {
     return await getRepository(Post).findOneOrFail({
       relations: this.relations,
       where: {
-        Id: idPost,
-        postStatus: 1
+        Id: idPost
       }
     })
   }
@@ -215,7 +214,7 @@ class PostService {
     }
   }
 
-   getFilteredPostByAdminFilters(posts: Post[], filter: PostFilter): Post[] {
+  getFilteredPostByAdminFilters(posts: Post[], filter: PostFilter): Post[] {
     /*    console.log('PET 1 ', posts?.[0]) */
     if (filter !== undefined) {
       if (filter.breed !== undefined && filter.breed !== null && posts.length > 0) posts = posts.filter((x) => x.pet.breed.Id == filter.breed)
@@ -267,13 +266,11 @@ class PostService {
     }
   }
 
-
   async changeStatusIfOwner(postId: number, userId: number): Promise<Post | undefined> {
     console.log(postId, userId)
     const post = await postService.get(postId)
-   
+
     if (post.owner.Id == userId && post.postStatus.Id == 4) {
-     
       post.postStatus.Id = 1
       return await getRepository(Post).save(post)
     }
@@ -283,11 +280,9 @@ class PostService {
     const post = await postService.get(postId)
     //console.log("POST" , post)
     const user = await userService.get(userId)
-      post.postStatus.Id = 4
-      return await getRepository(Post).save(post)
- 
+    post.postStatus.Id = 4
+    return await getRepository(Post).save(post)
   }
-
 
   async rejectAPost(postId: number, userId: number): Promise<Post | undefined> {
     const post = await postService.get(postId)
