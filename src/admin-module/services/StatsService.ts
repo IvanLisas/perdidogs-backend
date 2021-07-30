@@ -69,7 +69,8 @@ class StatsService {
 
   async statFalopa(): Promise<UserDTO[]> {
     const users= await userService.getAll()
-    return users.map(x=> new UserDTO({userId: x.Id, firstName: x.firstName?x.firstName:"", userStatus: x.userStatus.description, creationDate:x.creationDate, avatar: x.avatar }))
+    const result= users.map(x=>{return new UserDTO({userId: x.Id, firstName: x.firstName?x.firstName:"", userStatus: x.userStatus.description, creationDate:x.creationDate, avatar: x.avatar })})
+    return result
   }
 }
 
